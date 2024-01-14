@@ -22,4 +22,13 @@ export const GlobalStyle = createGlobalStyle`
     body {
 
     }
+    button {
+        /* background: none; */
+        color: inherit;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+        outline: inherit;
+    }
 `;
