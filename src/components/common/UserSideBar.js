@@ -45,7 +45,7 @@ const UserSideBar = () => {
 export default UserSideBar;
 
 const Wrap = styled.div`
-    background-color: pink;
+    /* background-color: pink; */
     height: 38.375rem;
 
     flex: 1;
@@ -55,9 +55,16 @@ const Wrap = styled.div`
     display: flex;
     flex-direction: column;
     gap: 3.05931rem;
+
+    /* width: 100%; */
+    /* max-width: 500px; */
+    /* min-width: 20rem; */
+    /* width: 20rem; */
+
+
 `;
 const NavWrap = styled.div`
-    background-color: bisque;
+    /* background-color: bisque; */
 
     display: flex;
     flex-direction: column;

@@ -78,6 +78,7 @@ export default PeriodSelector;
 
 const Form = styled.form`
     background-color: var(--white);
+    
     padding: 2.625rem 3.3125rem;
     border: 1px solid var(--semi-light-grey, #CFCFCF);
 
@@ -86,7 +87,8 @@ const Form = styled.form`
     align-items: center;
     /* gap: 1.5625rem; */
     justify-content: space-evenly;
-    
+    /* flex-wrap: nowrap; */
+
 
 `;
 const Period = styled.div`

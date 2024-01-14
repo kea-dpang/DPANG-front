@@ -21,7 +21,7 @@ const DirectAskPage = () => {
 export default DirectAskPage;
 
 const Wrap = styled.div`
-    /* background-color: blueviolet; */
+    background-color: blueviolet;
 
 `;
 const Title = styled.div`
