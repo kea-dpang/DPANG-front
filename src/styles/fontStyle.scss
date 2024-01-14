@@ -23,3 +23,23 @@
     font-size: 1.125rem;
     font-weight: 700;
 }
+.cm-LBold30 {
+    @include fontStyle;
+    font-size: 1.875rem;
+    font-weight: 700;
+}
+.cm-SRegular18 {
+    @include fontStyle;
+    font-size: 1.125rem;
+    font-weight: 400;
+}
+.cm-SRegular16 {
+    @include fontStyle;
+    font-size: 1rem;
+    font-weight: 400;
+}
+.cm-SBold16 {
+    @include fontStyle;
+    font-size: 1rem;
+    font-weight: 700;
+}

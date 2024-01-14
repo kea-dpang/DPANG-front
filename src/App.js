@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MyPage from "./pages/user/myPage/Index";
-import OrderPage from "./pages/user/myPage/order/Index";
 import UserInfoPage from "./pages/user/myPage/userInfo/Index";
+import DirectAskPage from "./pages/user/myPage/directAsk/Index";
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/user/mypage/temp" element={<MyPage />}>
-              <Route path="order" element={<OrderPage />}/>
+              <Route path="directask" element={<DirectAskPage />}/>
               <Route path="userinfo" element={<UserInfoPage />}/>
           </Route>
         </Routes>

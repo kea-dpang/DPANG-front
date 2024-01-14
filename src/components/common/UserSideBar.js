@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import '../../styles/fontStyle.scss';
+// import '../../styles/fontStyle.scss';
 import {ReactComponent as ArrowStroke} from'../../assets/images/arrowStroke.svg';
 import { Link } from 'react-router-dom';
 
@@ -10,15 +10,15 @@ const UserSideBar = () => {
             <h1 className="cm-MBold24 col-Navy">마이 페이지</h1>
 
             <NavWrap>
-                <Nav to="order">
+                <Nav to="">
                     <p className='cm-SBold18 col-DarkGrey'>주문·배송 조회</p>
                     <StyledArrowStroke/>
                 </Nav>
-                <Nav to="order">
+                <Nav to="directAsk">
                     <p className='cm-SBold18 col-DarkGrey'>1:1 문의</p>
                     <StyledArrowStroke/>
                 </Nav>
-                <Nav to="order">
+                <Nav to="">
                     <p className='cm-SBold18 col-DarkGrey'>FAQ</p>
                     <StyledArrowStroke/>
                 </Nav>
@@ -29,11 +29,11 @@ const UserSideBar = () => {
                     <p className='cm-SBold18 col-DarkGrey'>회원정보</p>
                     <StyledArrowStroke/>
                 </Nav>
-                <Nav to="userinfo">
+                <Nav to="">
                     <p className='cm-SBold18 col-DarkGrey'>리뷰관리</p>
                     <StyledArrowStroke/>
                 </Nav>
-                <Nav to="userinfo">
+                <Nav to="">
                     <p className='cm-SBold18 col-DarkGrey'>마일리지 충전 내역</p>
                     <StyledArrowStroke/>
                 </Nav>
@@ -47,6 +47,7 @@ export default UserSideBar;
 const Wrap = styled.div`
     background-color: pink;
     height: 38.375rem;
+
     flex: 1;
 
     padding: 3.375rem 3.25rem;

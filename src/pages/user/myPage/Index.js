@@ -25,7 +25,7 @@ const MyPage = () => {
 export default MyPage;
 
 const Wrap = styled.div`
-    background-color: red;
+    background-color: dimgray;
 
     width: 100vw;
     max-width: 100%;
@@ -53,11 +53,11 @@ const Section = styled.div`
     background-color: yellow;
 
     display: flex;
+    justify-content: center;
 `;
 
 const SubSection = styled.div`
     background-color: beige;
 
-    height: 38.375rem;
     flex: 4;
 `;
