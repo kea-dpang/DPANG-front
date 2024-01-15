@@ -31,4 +31,10 @@ export const GlobalStyle = createGlobalStyle`
         cursor: pointer;
         outline: inherit;
     }
+    a {
+        text-decoration: none;
+    }
+    a:visited {
+        text-decoration: none;
+    }
 `;
