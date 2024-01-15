@@ -26,4 +26,19 @@ export const GlobalStyle = createGlobalStyle`
     ::-webkit-scrollbar {
         display: none;
     }
+    button {
+        /* background: none; */
+        color: inherit;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+        outline: inherit;
+    }
+    a {
+        text-decoration: none;
+    }
+    a:visited {
+        text-decoration: none;
+    }
 `;
