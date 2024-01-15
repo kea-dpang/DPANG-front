@@ -2,12 +2,12 @@ import styled from "styled-components";
 import Header from "../../../../components/common/HeaderBar/Index";
 import EnrollReviewBox from "./EnrollReviewBox"
 
-
 const Container = styled.div`
   width: 100vw;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  
 `;
 
 const HeaderBox = styled.div`

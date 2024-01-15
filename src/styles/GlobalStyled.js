@@ -20,7 +20,11 @@ export const GlobalStyle = createGlobalStyle`
 
     }    
     body {
-
+        -ms-overflow-style: none;
+    }
+     
+    ::-webkit-scrollbar {
+        display: none;
     }
     button {
         /* background: none; */

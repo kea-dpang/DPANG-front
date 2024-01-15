@@ -9,6 +9,11 @@ import DirectAskPage from "./pages/user/myPage/directAsk/Index";
 function App() {
   return (
     <div className="App">
+<<<<<<< HEAD
+      {/* <ReviewList /> */}
+      <EnrollReview />
+
+=======
       <BrowserRouter>
         <Routes>
           {/* 관리자 이벤트 페이지 */}
@@ -24,6 +29,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+>>>>>>> 816efa8b639c631798bf16de295da3a15499bd2d
     </div>
   );
 }
