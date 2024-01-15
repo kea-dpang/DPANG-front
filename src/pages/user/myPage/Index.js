@@ -52,7 +52,7 @@ const Nav = styled.div`
 
 const Wrap3 = styled.div`
     /* padding: 0rem 12rem; */
-    padding: 0 calc(15vw - 200px);
+    /* padding: 0 calc(15vw - 200px); */
 `;
 const Section = styled.div`
     background-color: yellow;
@@ -65,5 +65,6 @@ const Section = styled.div`
 const SubSection = styled.div`
     background-color: beige;
     
-    flex: 4;
+    /* flex: 4; */
+    width: 72rem;
 `;
