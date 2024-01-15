@@ -32,10 +32,9 @@ export const GlobalStyle = createGlobalStyle`
         outline: inherit;
     }
     a {
-    text-decoration: none;
-        color: inherit;
+        text-decoration: none;
     }
     a:visited {
-        color: inherit;
+        text-decoration: none;
     }
 `;
