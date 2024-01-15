@@ -8,20 +8,21 @@ import media from '../../../styles/responsive';
 const MyPage = () => {
     return (
         <div>
-            <Wrap>
+            {/* <Wrap> */}
                 <Wrap2>
                     <Header/>
                     <Nav/>
-
+                    <Wrap3>
                     <Section>
                         <UserSideBar/>
                         <SubSection>
                             <Outlet />
                         </SubSection>
                     </Section>
+                    </Wrap3>
                     <Header/>
                 </Wrap2>
-            </Wrap>
+            {/* </Wrap> */}
         </div>
     );
 };
@@ -29,8 +30,8 @@ const MyPage = () => {
 export default MyPage;
 
 const Wrap = styled.div`
-    padding: 0rem 12rem;
-    padding: 0 calc(15vw - 200px);
+    /* padding: 0rem 12rem; */
+    /* padding: 0 calc(15vw - 200px); */
 `;
 const Wrap2 = styled.div`
     background-color: dimgray;
@@ -41,6 +42,7 @@ const Wrap2 = styled.div`
 
     min-width: 1550px;
 `;
+
 /* temp */
 const Header = styled.div`
     background-color: var(--light-grey);
@@ -56,16 +58,20 @@ const Nav = styled.div`
     height: 19.5625rem;
 `;
 
+const Wrap3 = styled.div`
+    /* padding: 0rem 12rem; */
+    padding: 0 calc(15vw - 200px);
+`;
 const Section = styled.div`
     background-color: yellow;
 
     display: flex;
     justify-content: center;
+
 `;
 
 const SubSection = styled.div`
     background-color: beige;
-    padding-right: 3.25rem;
     
     flex: 4;
 `;

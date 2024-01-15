@@ -50,7 +50,7 @@ const Wrap = styled.div`
 
     flex: 1;
 
-    padding: 3.375rem 3.25rem;
+    padding: 3.375rem 3.25rem 3.375rem 0;
 
     display: flex;
     flex-direction: column;

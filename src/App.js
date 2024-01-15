@@ -6,6 +6,7 @@ import EventEditPage from "./pages/admin/eventPage/edit/Index"
 import MyPage from "./pages/user/myPage/Index";
 import UserInfoPage from "./pages/user/myPage/userInfo/Index";
 import DirectAskPage from "./pages/user/myPage/directAsk/Index";
+import Mileage from './pages/user/Review/Index';
 function App() {
   return (
     <div className="App">
@@ -18,6 +19,7 @@ function App() {
               <Route path="edit" element={<EventEditPage />}/>
           </Route>
           {/* <MyPage /> */}
+          <Route path="/user/mypage/mileage" element={<Mileage/>} />
           <Route path="/user/mypage/temp" element={<MyPage />}>
               <Route path="directask" element={<DirectAskPage />}/>
               <Route path="userinfo" element={<UserInfoPage />}/>
