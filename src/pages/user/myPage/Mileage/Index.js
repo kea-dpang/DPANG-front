@@ -1,19 +1,18 @@
 import styled from "styled-components";
-import Header from "../../../../components/common/HeaderBar/Index";
-import EnrollReviewBox from "./EnrollReviewBox"
+import MileageBox from "./MileageBox";
+
 
 const Container = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  
 `;
 
 const ContentBox = styled.div`
   display: flex;
   justify-content: center;
   min-height: calc(100vh - 30rem);
-
+  background-color: snow;
 `;
 
 const ReviewContainer = styled.div`
@@ -25,7 +24,7 @@ function Index() {
   return (
     <Container>
       <ContentBox>
-        <ReviewContainer><EnrollReviewBox /></ReviewContainer>
+        <ReviewContainer><MileageBox /></ReviewContainer>
       </ContentBox>
     </Container>
   );

@@ -8,6 +8,8 @@ import UserInfoPage from "./pages/user/myPage/userInfo/Index";
 import DirectAskPage from "./pages/user/myPage/directAsk/Index";
 import Review from './pages/user/Review/Index'
 import EnrollReview from './pages/user/Review/Enroll/Index'
+import Mileage from "./pages/user/myPage/Mileage/Index";
+import MileageReq from "./pages/user/myPage/Mileage/Req/Index";
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
               <Route path="userinfo" element={<UserInfoPage />}/>
               <Route path="review" element={<Review />} />
               <Route path="review/enroll" element={<EnrollReview />} />
+              <Route path="mileage" element={<Mileage />} />
+              <Route path="mileage/req" element={<MileageReq />} />
           </Route>
 
         </Routes>

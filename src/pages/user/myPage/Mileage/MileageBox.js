@@ -1,6 +1,6 @@
 import styled from "styled-components";
+import PeriodSelector from "../../../../components/common/PeriodSelector"
 import Table from "./Table";
-import PeriodSelector from "../../../components/common/PeriodSelector";
 
 const Container = styled.div`
   width: 72rem;
@@ -37,11 +37,11 @@ align-items: end;
 
 `
 
-function ReviewBox() {
+function MileageBox() {
   return (
     <Container>
-      <Header className="cm-MBold24">리뷰관리</Header>
-      <DetailHeader className="cm-SRegular16">최근 리뷰 관리</DetailHeader>
+      <Header className="cm-MBold24">마일리지 충전 내역</Header>
+      <DetailHeader className="cm-SRegular16">최근 마일리지 충전 신청 내역</DetailHeader>
       <CalenderBox><PeriodSelector /></CalenderBox>
       <TableBox>
         <Table />
@@ -49,4 +49,4 @@ function ReviewBox() {
     </Container>
   );
 }
-export default ReviewBox;
+export default MileageBox;
