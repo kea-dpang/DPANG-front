@@ -7,6 +7,8 @@ import CategoryList from "./CategoryList";
 const Container = styled.div`
   height: 3rem;
   width: 100vw;
+  max-width: 100%;
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
   z-index: 10;

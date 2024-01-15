@@ -4,6 +4,7 @@ import UserSideBar from '../../../components/common/UserSideBar';
 // import SubSection from './userInfo/SubSection';
 import { Outlet } from 'react-router-dom';
 import media from '../../../styles/responsive';
+import Header from '../../../components/common/HeaderBar/Index'
 
 const MyPage = () => {
     return (
@@ -14,7 +15,7 @@ const MyPage = () => {
                     <Nav/>
                     <Wrap3>
                     <Section>
-                        <UserSideBar/>
+                        <UserSideBar />
                         <SubSection>
                             <Outlet />
                         </SubSection>
@@ -43,18 +44,9 @@ const Wrap2 = styled.div`
     min-width: 1550px;
 `;
 
-/* temp */
-const Header = styled.div`
-    background-color: var(--light-grey);
-
-    /* width: 96.25rem; */
-    height: 2.875rem;
-    padding: 0.8125rem 0rem;
-`;
 const Nav = styled.div`
     background-color: var(--dark-grey);
     
-    margin: 5.6rem 0 0 0;
     height: 19.5625rem;
 `;
 
