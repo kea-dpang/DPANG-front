@@ -48,7 +48,8 @@ const Wrap = styled.div`
     /* background-color: pink; */
     height: 38.375rem;
 
-    flex: 1;
+    /* flex: 1; */
+    width: 14rem;
 
     padding: 3.375rem 3.25rem 3.375rem 0;
 

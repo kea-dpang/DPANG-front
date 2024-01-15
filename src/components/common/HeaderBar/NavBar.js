@@ -7,7 +7,7 @@ import ImageShortCut from "./ImageShortCut";
 import SearchBar from "./SearchBar";
 
 const Nav = styled.div`
-  width: 90rem;
+  width: 89rem;
   height: 3rem;
   background-color: white;
   display: flex;
