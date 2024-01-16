@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import AdminSideBar from "../../../components/common/AdminSideBar";
+import AdminHeader from "../../../components/common/AdminHeader";
 import { Outlet } from "react-router-dom";
 const Index = () => {
     return(
@@ -19,11 +20,6 @@ const Wrap = styled.div`
 const Section = styled.div`
     display: flex;
     flex-direction: column;
-`
-const AdminHeader = styled.div`
-    width: 100.9375rem;
-    height: 2.8125rem;
-    background-color: red;
 `
 
 export default Index;

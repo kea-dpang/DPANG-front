@@ -21,7 +21,6 @@ function App() {
               <Route path="edit" element={<EventEditPage />}/>
           </Route>
           {/* <MyPage /> */}
-          <Route path="/user/mypage/mileage" element={<Mileage/>} />
           <Route path="/user/mypage/temp" element={<MyPage />}>
               <Route path="directask" element={<DirectAskPage />}/>
               <Route path="userinfo" element={<UserInfoPage />}/>
