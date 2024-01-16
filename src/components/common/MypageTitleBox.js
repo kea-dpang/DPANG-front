@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import { ReactComponent as ArrowStroke } from '../../assets/images/arrowStroke.svg';
+import { ReactComponent as ArrowStrokeVector } from '../../assets/images/arrowStrokeVector.svg';
 import { Link } from 'react-router-dom';
 import membermileImg from '../../assets/images/membermile.png';
 import chargemileImg from '../../assets/images/chargemile.png';
-import ProfileImg from '../../assets/images/profileImg.svg';
+import ProfileImg from '../../assets/images/profileImg.png';
 
 const MypageTitleBox = () => {
 
@@ -23,7 +23,7 @@ const MypageTitleBox = () => {
                 <Mile>1,000,000마일</Mile>
                 </MileText>
                 <Mileimg src={membermileImg} />
-                <StyledArrowStroke/>
+                <StyledArrowStrokeVector/>
             </Membermilebox>
             <Chargemilebox to="">
                 <MileText>
@@ -31,7 +31,7 @@ const MypageTitleBox = () => {
                 <Mile>1,000,000마일</Mile>
                 </MileText>
                 <Mileimg src={chargemileImg} />
-                <StyledArrowStroke/>
+                <StyledArrowStrokeVector/>
             </Chargemilebox>
             </Mileboxcontainer>
             <Chargebox to="">
@@ -41,7 +41,7 @@ const MypageTitleBox = () => {
             </MileContainer>
             <Askbox to="directask">
                 <Ask>1:1 문의하기</Ask>
-                <StyledArrowStroke/>
+                <StyledArrowStrokeVector/>
             </Askbox>
             </MypageWrap>
         </Mainbox>
@@ -230,7 +230,7 @@ const Ask = styled.p`
 
 `;
 
-const StyledArrowStroke = styled(ArrowStroke)`
+const StyledArrowStrokeVector = styled(ArrowStrokeVector)`
 
     width: 0.4125rem;
     height: 0.6875rem;

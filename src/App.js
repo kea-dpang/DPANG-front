@@ -1,9 +1,10 @@
+import WishList from "./pages/user/WishList";
 
 function App() {
   return (
-    <div className="App">
 
-    </div>
+    <WishList/>
+
   );
 }
 
