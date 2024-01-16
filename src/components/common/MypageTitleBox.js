@@ -1,227 +1,97 @@
-import React from 'react'
-import styled from 'styled-components'
-import { ReactComponent as ArrowStroke } from '../../assets/images/arrowStroke.svg';
+import React from 'react';
+import styled from 'styled-components';
+// import '../../styles/fontStyle.scss';
+import {ReactComponent as ArrowStroke} from'../../assets/images/arrowStroke.svg';
 import { Link } from 'react-router-dom';
-import membermileImg from '../../assets/images/membermile.png';
-import chargemileImg from '../../assets/images/chargemile.png';
-import ProfileImg from '../../assets/images/profileImg.svg';
 
-const MypageTitleBox = () => {
+const UserSideBar = () => {
+    return (
+        <Wrap>
+            <h1 className="cm-MBold24 col-Navy">마이 페이지</h1>
 
-    return(
-        <Mainbox>
-            <MypageWrap>
-            <Profilebox to="userInfo">
-                <ProfileIcon src={ProfileImg} />
-                <Nickname>김디팡님</Nickname>
-            </Profilebox>
-            <MileContainer>
-            <Mileboxcontainer>
-            <Membermilebox to="">
-                <MileText>
-                <Miletitle>사원 마일리지</Miletitle>
-                <Mile>1,000,000마일</Mile>
-                </MileText>
-                <Mileimg src={membermileImg} />
-                <StyledArrowStroke/>
-            </Membermilebox>
-            <Chargemilebox to="">
-                <MileText>
-                <Miletitle>충전 마일리지</Miletitle>
-                <Mile>1,000,000마일</Mile>
-                </MileText>
-                <Mileimg src={chargemileImg} />
-                <StyledArrowStroke/>
-            </Chargemilebox>
-            </Mileboxcontainer>
-            <Chargebox to="">
-                <Charge>마일리지 충전하기</Charge>
-                <StyledArrowStroke/>
-            </Chargebox>
-            </MileContainer>
-            <Askbox to="directask">
-                <Ask>1:1 문의하기</Ask>
-                <StyledArrowStroke/>
-            </Askbox>
-            </MypageWrap>
-        </Mainbox>
+            <NavWrap>
+                <Nav to="">
+                    <p className='cm-SBold18 col-DarkGrey'>주문·배송 조회</p>
+                    <StyledArrowStroke/>
+                </Nav>
+                <Nav to="directAsk">
+                    <p className='cm-SBold18 col-DarkGrey'>1:1 문의</p>
+                    <StyledArrowStroke/>
+                </Nav>
+                <Nav to="">
+                    <p className='cm-SBold18 col-DarkGrey'>FAQ</p>
+                    <StyledArrowStroke/>
+                </Nav>
+            </NavWrap>
+
+            <NavWrap>
+                <Nav to="userinfo">
+                    <p className='cm-SBold18 col-DarkGrey'>회원정보</p>
+                    <StyledArrowStroke/>
+                </Nav>
+                <Nav to="">
+                    <p className='cm-SBold18 col-DarkGrey'>리뷰관리</p>
+                    <StyledArrowStroke/>
+                </Nav>
+                <Nav to="">
+                    <p className='cm-SBold18 col-DarkGrey'>마일리지 충전 내역</p>
+                    <StyledArrowStroke/>
+                </Nav>
+            </NavWrap>
+        </Wrap>
     );
-}
+};
 
-export default MypageTitleBox;
+export default UserSideBar;
 
+const Wrap = styled.div`
+    /* background-color: pink; */
+    height: 38.375rem;
 
-const Mainbox = styled.div` 
-    width: 120rem;
-    height: 19.5625rem;
-    flex-shrink: 0;
-    background: var(--light-grey, #F4F4F4);
-`;
+    /* flex: 1; */
+    width: 14rem;
 
-const MypageWrap = styled.div`
+    padding: 3.375rem 3.25rem 3.375rem 0;
 
-display: inline-flex;
-height: 10.4375rem;
-justify-content: center;
-align-items: flex-start;
-gap: 1.3125rem;
-flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3.05931rem;
 
-`;
+    /* width: 100%; */
+    /* max-width: 500px; */
+    /* min-width: 20rem; */
+    /* width: 20rem; */
 
-const Profilebox = styled.div`
-
-display: flex;
-padding: 3.25rem 5.625rem;
-align-items: flex-start;
-align-content: flex-start;
-gap: 0.625rem var(--hi, 0.625rem);
-flex-wrap: wrap;
-background: var(--white, #FFF);
-`;
-
-const ProfileIcon = styled.img`
-
-width: 3.9375rem;
-height: 3.9375rem;
-flex-shrink: 0;
-
-fill: var(--white, #FFF);
-stroke-width: 3px;
-stroke: var(--navy, #043277);
 
 `;
+const NavWrap = styled.div`
+    /* background-color: bisque; */
 
-const Nickname = styled.p`
-
-font-size: 18px;
-font-weight: bold;
+    display: flex;
+    flex-direction: column;
 `;
+const Nav = styled(Link)`
 
-const MileContainer = styled.div`
-display: flex;
-width: 39.2875rem;
-height: 10.4375rem;
-flex-direction: column;
-justify-content: center;
-align-items: flex-start;
-gap: 0.75rem;
-`;
+    padding: 1.19rem;
+    display: flex;
+    justify-content: space-between;
 
-const Mileboxcontainer = styled.div`
+    background: none;
+    border: 1px solid var(--semi-light-grey, #CFCFCF);
 
-  display: flex;
-  height: 6.1875rem;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 1.2125rem;
-  flex-shrink: 0;
-
-  `;
-
-const Membermilebox = styled.div`
-
-width: 15.3rem;
-height: 3.06rem;
-display: flex;
-padding: 1.5625rem 1.875rem;
-align-items: center;
-gap: 0.1875rem;
-background: var(--white, #FFF);
+    &:hover {
+        background: var(--light-grey, #F4F4F4);
+        p {
+            color: var(--navy);
+        }
+    }
 
 `;
-
-const MileText = styled.div`
-
-display: flex;
-flex-direction: column;
-`;
-
-
-const Miletitle = styled.p`
-width: 8.25rem;
-height: 1.75rem;
-color: var(--navy, #043277);
-font-family: Pretendard;
-font-size: 1.5rem;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
-`;
-
-const Mile = styled.p`
-
-width: 7.3125rem;
-height: 1rem;
-color: var(--black, #000);
-font-family: Pretendard;
-font-size: 1.0625rem;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
-
-`;
-
-const Mileimg = styled.img`
-
-width: 3.0625rem;
-height: 3.0625rem;
-`;
-
-const Chargemilebox = styled.div`
-width: 15.3rem;
-height: 3.06rem;
-display: flex;
-padding: 1.5625rem 1.875rem;
-align-items: center;
-gap: 0.1875rem;
-background: var(--white, #FFF);
-`;
-
-const Chargebox = styled.div`
-width: 35.5rem;
-height: 1rem;
-display: flex;
-padding: 1.25rem 1.875rem;
-align-items: center;
-gap: 7.25rem;
-background: var(--white, #FFF);
-`;
-
-const Charge = styled.p`
-
-width: 7.625rem;
-height: 1rem;
-color: var(--navy, #043277);
-font-family: Pretendard;
-font-size: 1.0625rem;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
-
-`;
-
-const Askbox = styled.div`
-
-display: flex;
-padding: 4.375rem 1.875rem;
-align-items: center;
-gap: 9.5rem;
-background: var(--white, #FFF);
-`;
-
-const Ask = styled.p`
-
-font-size: 24px;
-font-weight: bold;
-font-color: #043277;
-
-`;
-
 const StyledArrowStroke = styled(ArrowStroke)`
+    transform: rotate(-90deg);
+    color: var(--dark-grey);
 
-width: 0.4125rem;
-height: 0.6875rem;
-fill: var(--navy, #043277);
-
+    ${Nav}:hover & {
+        color: var(--navy); // 화살표 색상을 변경하는 부분
+    }
 `;
