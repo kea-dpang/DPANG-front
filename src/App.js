@@ -6,9 +6,9 @@ import EventEditPage from "./pages/admin/eventPage/edit/Index"
 import MyPage from "./pages/user/myPage/Index";
 import UserInfoPage from "./pages/user/myPage/userInfo/Index";
 import DirectAskPage from "./pages/user/myPage/directAsk/Index";
-import Review from './pages/user/Review/Index'
-import EnrollReview from './pages/user/Review/Enroll/Index'
-
+import Review from './pages/user/Review/Index';
+import EnrollReview from './pages/user/Review/Enroll/Index';
+import EditPassword from './pages//user/myPage/userInfo/EditPassword';
 function App() {
   return (
     <div className="App">
@@ -24,6 +24,7 @@ function App() {
           <Route path="/user/mypage/temp" element={<MyPage />}>
               <Route path="directask" element={<DirectAskPage />}/>
               <Route path="userinfo" element={<UserInfoPage />}/>
+              <Route path="userinfo/editpassword" element={<EditPassword />}/>
               <Route path="review" element={<Review />} />
               <Route path="review/enroll" element={<EnrollReview />} />
           </Route>
