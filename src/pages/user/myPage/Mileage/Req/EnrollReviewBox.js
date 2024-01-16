@@ -3,7 +3,7 @@ import EnrollTable from "./EnrollTable";
 
 const Container = styled.div`
   width: 72rem;
-  min-height: calc(100vh - 30rem);
+
 `;
 
 const Header = styled.div`
@@ -18,18 +18,20 @@ const Header = styled.div`
 `;
 
 const TableBox = styled.div`
-  height: 43rem;
+  height: 37rem;
   background-color: white;
 `;
 
 function ReviewBox() {
   return (
     <Container>
-      <Header>리뷰등록</Header>
+      <Header className="cm-MBold24">마일리지 충전 신청</Header>
 
       <TableBox>
         <EnrollTable />
+
       </TableBox>
+      ※ 입금 확인에는 시간이 소요될 수 있습니다. 2영업일 이내로 충전이 완료되지 않으면 문의주세요
     </Container>
   );
 }

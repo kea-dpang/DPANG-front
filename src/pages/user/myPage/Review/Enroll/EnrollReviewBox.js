@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Table from "./Table";
+import EnrollTable from "./EnrollTable";
 
 const Container = styled.div`
   width: 72rem;
@@ -16,11 +16,7 @@ const Header = styled.div`
   color: #043277;
   border-bottom: 1px #043277 solid;
 `;
-const CalenderBox = styled.div`
-  height: 17rem;
-  width: 72rem;
-  background-color: white;
-`;
+
 const TableBox = styled.div`
   height: 43rem;
   background-color: white;
@@ -29,10 +25,10 @@ const TableBox = styled.div`
 function ReviewBox() {
   return (
     <Container>
-      <Header>리뷰관리</Header>
-      <CalenderBox></CalenderBox>
+            <Header className="cm-MBold24">리뷰 등록</Header>
+
       <TableBox>
-        <Table />
+        <EnrollTable />
       </TableBox>
     </Container>
   );

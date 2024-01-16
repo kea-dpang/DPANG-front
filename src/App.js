@@ -6,8 +6,14 @@ import EventEditPage from "./pages/admin/eventPage/edit/Index"
 import MyPage from "./pages/user/myPage/Index";
 import UserInfoPage from "./pages/user/myPage/userInfo/Index";
 import DirectAskPage from "./pages/user/myPage/directAsk/Index";
-import Review from './pages/user/Review/Index'
-import EnrollReview from './pages/user/Review/Enroll/Index'
+import Review from './pages/user/myPage/Review/Index'
+import EnrollReview from './pages/user/myPage/Review/Enroll/Index'
+import Mileage from "./pages/user/myPage/Mileage/Index";
+import MileageReq from "./pages/user/myPage/Mileage/Req/Index";
+import UserRefund from './pages/user/myPage/Refund/Index';
+import UserOrder from './pages/user/myPage/Order/Index';
+import WishList from "./pages/user/WishList";
+
 
 function App() {
   return (
@@ -24,8 +30,13 @@ function App() {
           <Route path="/user/mypage/temp" element={<MyPage />}>
               <Route path="directask" element={<DirectAskPage />}/>
               <Route path="userinfo" element={<UserInfoPage />}/>
+              <Route path="userinfo/editpassword" element={<EditPassword />}/>
               <Route path="review" element={<Review />} />
               <Route path="review/enroll" element={<EnrollReview />} />
+              <Route path="mileage" element={<Mileage />} />
+              <Route path="mileage/req" element={<MileageReq />} />
+              <Route path="refund" element={<UserRefund />} />
+              <Route path="order" element={<UserOrder />} />
           </Route>
 
         </Routes>

@@ -35,8 +35,6 @@ const Wrap = styled.div`
     /* padding: 0 calc(15vw - 200px); */
 `;
 const Wrap2 = styled.div`
-    background-color: dimgray;
-
     width: 100vw;
     max-width: 100%;
     box-sizing: border-box; // 100vw를 주고, padding을 주니까 가로스크롤이 생기므로
@@ -52,18 +50,16 @@ const Nav = styled.div`
 
 const Wrap3 = styled.div`
     /* padding: 0rem 12rem; */
-    padding: 0 calc(15vw - 200px);
+    /* padding: 0 calc(15vw - 200px); */
 `;
 const Section = styled.div`
-    background-color: yellow;
-
     display: flex;
     justify-content: center;
 
 `;
 
 const SubSection = styled.div`
-    background-color: beige;
-    
-    flex: 4;
+    border: 1px solid black;
+    /* flex: 4; */
+    width: 72rem;
 `;

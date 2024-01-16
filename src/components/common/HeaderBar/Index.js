@@ -12,7 +12,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   z-index: 10;
-
+  padding: 0 12rem;
 `;
 
 function Index() {
