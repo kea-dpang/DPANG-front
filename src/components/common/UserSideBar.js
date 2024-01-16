@@ -45,6 +45,8 @@ const UserSideBar = () => {
 export default UserSideBar;
 
 const Wrap = styled.div`
+    border: 1px solid black;
+
     /* background-color: pink; */
     height: 38.375rem;
 

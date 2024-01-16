@@ -10,8 +10,8 @@ import Review from './pages/user/myPage/Review/Index'
 import EnrollReview from './pages/user/myPage/Review/Enroll/Index'
 import Mileage from "./pages/user/myPage/Mileage/Index";
 import MileageReq from "./pages/user/myPage/Mileage/Req/Index";
-import UserRefund from './pages/user/myPage/Refund/Index'
-import UserOrder from './pages/user/myPage/Order/Index'
+import UserRefund from './pages/user/myPage/Refund/Index';
+import UserOrder from './pages/user/myPage/Order/Index';
 
 function App() {
   return (
@@ -28,6 +28,7 @@ function App() {
           <Route path="/user/mypage/temp" element={<MyPage />}>
               <Route path="directask" element={<DirectAskPage />}/>
               <Route path="userinfo" element={<UserInfoPage />}/>
+              <Route path="userinfo/editpassword" element={<EditPassword />}/>
               <Route path="review" element={<Review />} />
               <Route path="review/enroll" element={<EnrollReview />} />
               <Route path="mileage" element={<Mileage />} />
