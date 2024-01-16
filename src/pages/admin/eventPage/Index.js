@@ -16,6 +16,7 @@ const Index = () => {
 
 const Wrap = styled.div`
     display: flex;
+    justify-content: center;
 `
 const Section = styled.div`
     display: flex;
