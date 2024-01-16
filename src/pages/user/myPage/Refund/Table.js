@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import TableRow from "./TableRow";
-import TempData from '../../../assets/datas/UserReviewList'
+import TempData from '../../../../assets/datas/RefundData'
 
 const Head = styled.div`
   height: 3rem;
@@ -17,7 +17,7 @@ const TableBox = styled.div`
 `;
 const Col = styled.div`
 
-width: ${(props)=>props.width};
+width: ${(props) => props.width};
 color: white;
 display: flex;
 align-items: center;
@@ -29,14 +29,18 @@ justify-content: center;
 function Table() {
   return (
     <TableBox>
-      <Head>
-        <Col width="10rem">작성 일자</Col>
+      <Head className="cm-SBold18">
+      <Col width="9rem">날짜/주문번호</Col>
+        <Col width="8rem">유형</Col>
+        <Col width="6rem">사유</Col>
+        <Col width="9rem">상태</Col>
         <Col width="22rem">상품명</Col>
-        <Col width="25rem">내용</Col>
-        <Col width="15rem">평점</Col>
+        <Col width="9rem">상품 금액 / 수량</Col>
+        <Col width="9rem">환불 예정 금액</Col>
+
       </Head>
 
-      <TableRow data = {TempData}/>
+      <TableRow data={TempData} />
 
     </TableBox>
   );

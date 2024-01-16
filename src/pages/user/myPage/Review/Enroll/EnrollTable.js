@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { GlobalStyle } from '../../../../styles/GlobalStyled'
+import { GlobalStyle } from '../../../../../styles/GlobalStyled'
 
 const Table = styled.div`
   width: 72rem;

@@ -18,7 +18,7 @@ const Header = styled.div`
   border-bottom: 1px #043277 solid;
 `;
 const CalenderBox = styled.div`
-  height: 17rem;
+  height: 11rem;
   width: 72rem;
   background-color: white;
 

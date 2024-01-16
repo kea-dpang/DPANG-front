@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Table from "./Table";
-import PeriodSelector from "../../../components/common/PeriodSelector";
+import PeriodSelector from "../../../../components/common/PeriodSelector";
 
 const Container = styled.div`
   width: 72rem;

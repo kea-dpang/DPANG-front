@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Header from "../../../../components/common/HeaderBar/Index";
+import Header from "../../../../../components/common/HeaderBar/Index";
 import EnrollReviewBox from "./EnrollReviewBox"
 
 const Container = styled.div`
