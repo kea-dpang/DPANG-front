@@ -36,7 +36,7 @@ const MypageTitleBox = () => {
             </Mileboxcontainer>
             <Chargebox to="">
                 <Charge>마일리지 충전하기</Charge>
-                <StyledArrowStroke/>
+                <StyledArrowStrokeVector/>
             </Chargebox>
             </MileContainer>
             <Askbox to="directask">
