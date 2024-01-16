@@ -25,7 +25,7 @@ function Index() {
   return (
     <>
       <Container>
-        <NavBar handlzClick={handleClick} />
+        <NavBar handleClick={handleClick} />
       </Container>
       {click && <CategoryList />}
     </>

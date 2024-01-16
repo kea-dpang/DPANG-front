@@ -29,11 +29,11 @@ const UserSideBar = () => {
                     <p className='cm-SBold18 col-DarkGrey'>회원정보</p>
                     <StyledArrowStroke/>
                 </Nav>
-                <Nav to="">
+                <Nav to="review">
                     <p className='cm-SBold18 col-DarkGrey'>리뷰관리</p>
                     <StyledArrowStroke/>
                 </Nav>
-                <Nav to="">
+                <Nav to="mileage">
                     <p className='cm-SBold18 col-DarkGrey'>마일리지 충전 내역</p>
                     <StyledArrowStroke/>
                 </Nav>

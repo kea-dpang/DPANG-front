@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Header from "../../../../components/common/HeaderBar/Index";
+import Header from "../../../../../components/common/HeaderBar/Index";
 import EnrollReviewBox from "./EnrollReviewBox"
 
 const Container = styled.div`
@@ -13,7 +13,7 @@ const ContentBox = styled.div`
   display: flex;
   justify-content: center;
   min-height: calc(100vh - 30rem);
-  background-color: snow;
+
 `;
 
 const ReviewContainer = styled.div`

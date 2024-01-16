@@ -1,11 +1,9 @@
 import styled from "styled-components";
-import { GlobalStyle } from '../../../../styles/GlobalStyled'
+import { GlobalStyle } from '../../../../../styles/GlobalStyled'
 
 const Table = styled.div`
   width: 72rem;
   height: 26rem;
-  border-top: 1px black solid;
-  border-bottom: 1px black solid;
   margin-top: 2rem;
   z-index: 5;
 `;
@@ -56,6 +54,7 @@ padding: 10px;
 function EnrollTable() {
   return (
     <Table>
+            <Border />
       <GlobalStyle />
       <Box height="7rem">
         <ColBox height="7rem">평점</ColBox>
@@ -68,6 +67,7 @@ function EnrollTable() {
           <TextArea />
         </InputBox>
       </Box>
+      <Border />
     </Table>
   );
 }

@@ -1,4 +1,6 @@
 import heart from "../../../assets/images/heart.png";
+import cart from "../../../assets/images/cart.svg"
+import ship from '../../../assets/images/ship.svg'
 import styled from "styled-components";
 
 const ImageButton = styled.img`
@@ -18,9 +20,9 @@ const ImageButtonBox = styled.div`
 function ImageShortCut() {
   return (
     <ImageButtonBox>
+      <ImageButton src={ship} />
       <ImageButton src={heart} />
-      <ImageButton src={heart} />
-      <ImageButton src={heart} />
+      <ImageButton src={cart} />
     </ImageButtonBox>
   );
 }
