@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Row = styled.div`
@@ -56,7 +57,8 @@ flex-direction: column;
 `
 const Button = styled.button`
 
-padding: 0.5rem;
+width: 4.5rem;
+height: 2rem;
 margin: 0.5rem;
 border-radius: 3px;
 ${(props)=>setButton(props.status)};
@@ -68,6 +70,27 @@ const setButton = (s) =>{
   switch(s) {
     case "결제완료":
       return {backgroundColor: 'var(--navy)', disabled: "false"};
+    default:
+      return {display: 'none'}
+
+  }
+
+}
+
+
+const Button1 = styled.button`
+
+width: 4.5rem;
+height: 2rem;
+margin: 0.5rem;
+border-radius: 3px;
+${(props)=>setButton1(props.status)};
+color: white;
+
+`
+const setButton1 = (s) =>{
+
+  switch(s) {
     case "배송완료":
       return {backgroundColor: 'var(--navy)', disabled: "false"};
     default:
@@ -79,7 +102,8 @@ const setButton = (s) =>{
 
 const Button2 = styled.button`
 
-padding: 0.5rem;
+width: 4.5rem;
+height: 2rem;
 margin: 0.5rem;
 border-radius: 3px;
 ${(props)=>setButton2(props.status)};
@@ -102,6 +126,8 @@ const setButton2 = (s) =>{
 
 
 function TableRow(props) {
+
+  const navi = useNavigate();
   return props.data.map((a) => {
     return (
       <Row className="cm-SRegular16">
@@ -130,8 +156,9 @@ function TableRow(props) {
         <Col width="11rem">{a.status}</Col>
         <Col width="15rem">
           <ButtonBox>
-            <Button status={a.status}>취소/반품</Button>
-            <Button2 status={a.status}>리뷰작성</Button2>
+            <Button status={a.status}>취소</Button>
+            <Button1 status={a.status} onClick={()=>{navi('/user/mypage/temp/refund/enroll')}}>반품</Button1>
+            <Button2 status={a.status} onClick={()=>{navi('/user/mypage/temp/review/enroll')}}>리뷰작성</Button2>
           </ButtonBox>
         </Col>
       </Row>

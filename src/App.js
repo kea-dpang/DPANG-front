@@ -13,6 +13,9 @@ import MileageReq from "./pages/user/myPage/Mileage/Req/Index";
 import UserRefund from './pages/user/myPage/Refund/Index';
 import UserOrder from './pages/user/myPage/Order/Index';
 import WishList from "./pages/user/WishList";
+import EditPassword from "./pages/user/myPage/userInfo/EditPassword"
+import Detail from './pages/user/myPage/Refund/Detail/Index'
+import ReqRefund from './pages/user/myPage/Refund/Enroll/Index'
 
 
 function App() {
@@ -37,6 +40,8 @@ function App() {
               <Route path="mileage/req" element={<MileageReq />} />
               <Route path="refund" element={<UserRefund />} />
               <Route path="order" element={<UserOrder />} />
+              <Route path="refund/detail" element={<Detail />} />
+              <Route path="refund/enroll" element={<ReqRefund/>} />
           </Route>
 
         </Routes>
