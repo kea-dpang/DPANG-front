@@ -11,28 +11,6 @@
     color: var(--dark-grey); 
 }
 
-.col-Black {
-    color: var(--black);
-}
-
-.col LightGrey {
-    color: var(--light-grey);
-}
-
-.col SemiLightGrey {
-    color: var(--semi-light-grey);
-}
-
-.col Orange {
-    color: var(--orange);
-}
-
-.col White {
-    color: var(--white);
-}
-
-
-
 .cm-MBold24 {
     @include fontStyle;
     font-size: 1.75rem;
@@ -61,17 +39,5 @@
 .cm-SBold16 {
     @include fontStyle;
     font-size: 1rem;
-    font-weight: 700;
-}
-
-.cm-SBold14 {
-    @include fontStyle;
-    font-size: 0.875rem;
-    font-weight: 400;
-}
-
-.cm-SRegular14 {
-    @include fontStyle;
-    font-size: 0.875rem;
     font-weight: 700;
 }
