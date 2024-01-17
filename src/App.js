@@ -40,7 +40,7 @@ function App() {
               <Route path="review/enroll" element={<EnrollReview />} />
               <Route path="mileage" element={<Mileage />} />
               <Route path="mileage/req" element={<MileageReq />} />
-              <Route path="refund"xelement={<UserRefund />} />
+              <Route path="refund"element={<UserRefund />} />
               <Route path="order" element={<UserOrder />} />
               <Route path="refund/detail" element={<Detail />} />
               <Route path="refund/enroll" element={<ReqRefund/>} />
