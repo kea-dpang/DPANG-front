@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Table from "./Table";
+import RequestTable from "./RequestTable";
 
 const Container = styled.div`
   width: 72rem;
@@ -18,7 +19,6 @@ const Header = styled.div`
 `;
 
 const TableBox = styled.div`
-  height: 43rem;
   background-color: white;
 `;
 const DetailHeader = styled.div`
@@ -31,11 +31,6 @@ align-items: end;
 
 `
 
-const NavBox = styled.div`
-
-display: flex;
-
-`
 
 
 function ReviewBox() {
@@ -44,12 +39,12 @@ function ReviewBox() {
     <Container>
       <Header className="cm-MBold24">제품 반품 신청</Header>
       <DetailHeader className="cm-SRegular16">주문 상세 내역</DetailHeader>
-      <NavBox className="cm-SBold18">
 
-      </NavBox>
       <TableBox>
         <Table />
       </TableBox>
+
+      <RequestTable />
     </Container>
   );
 }

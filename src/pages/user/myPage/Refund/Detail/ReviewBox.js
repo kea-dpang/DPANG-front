@@ -1,11 +1,9 @@
 import styled from "styled-components";
 import Table from "./Table";
-import { useState } from "react";
-import { useNavigate } from 'react-router-dom'
 
 const Container = styled.div`
   width: 72rem;
-  min-height: calc(100vh - 30rem);
+ 
 `;
 
 const Header = styled.div`
@@ -19,9 +17,8 @@ const Header = styled.div`
   border-bottom: 1px #043277 solid;
 `;
 
-
 const TableBox = styled.div`
-  height: 43rem;
+
   background-color: white;
 `;
 const DetailHeader = styled.div`
@@ -35,22 +32,13 @@ align-items: end;
 `
 
 
-const NavBox = styled.div`
 
-display: flex;
-
-`
-
-function ReviewBox() {
-
-  const navi = useNavigate();
+function ReviewBox(props) {
 
   return (
     <Container>
-      <Header className="cm-MBold24">취소/환불 내역 확인</Header>
-      <DetailHeader className="cm-SRegular16">상세 내역</DetailHeader>
-      <NavBox className="cm-SBold18">
-      </NavBox>
+      <Header className="cm-MBold24">{props.state} 상세 내역</Header>
+      <DetailHeader className="cm-SRegular16">주문 상세 내역</DetailHeader>
       <TableBox>
         <Table />
       </TableBox>

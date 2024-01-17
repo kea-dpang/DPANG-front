@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Row = styled.div`
@@ -5,7 +6,6 @@ const Row = styled.div`
   border-bottom: 1px black solid;
   display: flex;
   font-size: 14px;
-  
 `;
 
 const Col = styled.div`
@@ -16,76 +16,68 @@ const Col = styled.div`
 `;
 
 const ItemImg = styled.img`
-width: 5rem;
-height: 5rem;
-
-`
+  width: 5rem;
+  height: 5rem;
+`;
 const ItemName = styled.div`
-
-width: 11rem;
-
-`
+  width: 11rem;
+`;
 const Column = styled.div`
-
-width: 10rem;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-
-`
-
+  width: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
 const ItemColBox = styled.div`
-
-display: flex;
-flex-direction: column;
-
-`
+  display: flex;
+  flex-direction: column;
+`;
 
 const ItemCol = styled.div`
-
-height: 6rem;
-display: flex;
-
-`
-
+  height: 6rem;
+  display: flex;
+`;
 
 function TableRow(props) {
-  return props.data.map((a) => {
-    return (
-      <Row className="cm-SRegular16">
-        <Col width="9rem">
-          <Column>
-            <p>{a.date}</p>
-            <p>{a.ordernum}</p>
-          </Column>
-        </Col>
-        <Col width="8rem">{a.type}</Col>
-        <Col width="6rem">{a.type}</Col>
-        <Col width="9rem">{a.state}</Col>
+
+  const data = props.data[1];
 
 
-        <ItemColBox>
-          {a.item.map((b) => {
+  return (
+    <Row className="cm-SRegular16">
+      <Col width="9rem">
+        <Column>
+          <p>{data.date}</p>
+          <p>{data.ordernum}</p>
+        </Column>
+      </Col>
+      <Col width="8rem">{data.type}</Col>
+      <Col width="6rem">{data.category}</Col>
+      <Col width="9rem">{data.state}</Col>
 
-            return (
-              <ItemCol>
-                <Col width="22rem">
-                  <ItemImg src={b.img} />
-                  <ItemName>{b.name}</ItemName>
-                </Col>
-                <Col width="9rem">{b.money} / {b.amt}</Col>
-                <Col width="9rem">{b.refund}</Col>
 
-              </ItemCol>
-            )
+      <ItemColBox>
+        {data.item.map((b) => {
 
-          })}
-        </ItemColBox>
+          return (
+            <ItemCol>
+              <Col width="22rem">
+                <ItemImg src={b.img} />
+                <ItemName>{b.name}</ItemName>
+              </Col>
+              <Col width="9rem">{b.money} / {b.amt}</Col>
+              <Col width="9rem">{b.refund}</Col>
 
-      </Row>
-    );
-  });
+            </ItemCol>
+          )
+
+        })}
+      </ItemColBox>
+
+    </Row>
+  );
+
 }
 
 export default TableRow;

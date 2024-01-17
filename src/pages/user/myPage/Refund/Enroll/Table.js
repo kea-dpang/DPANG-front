@@ -11,7 +11,6 @@ const Head = styled.div`
   justify-content: center;
 `;
 const TableBox = styled.div`
-  height: 43rem;
   width: 72rem;
   
 `;

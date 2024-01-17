@@ -11,7 +11,6 @@ const Head = styled.div`
   justify-content: center;
 `;
 const TableBox = styled.div`
-  height: 43rem;
   width: 72rem;
   
 `;
@@ -27,6 +26,9 @@ justify-content: center;
 
 
 function Table() {
+
+  
+
   return (
     <TableBox>
       <Head className="cm-SBold18">
@@ -39,6 +41,7 @@ function Table() {
         <Col width="9rem">환불 예정 금액</Col>
 
       </Head>
+
 
       <TableRow data={TempData} />
 
