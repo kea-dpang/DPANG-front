@@ -14,6 +14,7 @@ import UserRefund from './pages/user/myPage/Refund/Index';
 import UserOrder from './pages/user/myPage/Order/Index';
 import EditPassword from './pages/user/myPage/userInfo/EditPassword';
 import Leave from "./pages/user/myPage/userInfo/Leave";
+import WishList from "./pages/user/WishList";
 
 function App() {
   return (
