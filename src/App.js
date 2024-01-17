@@ -13,6 +13,7 @@ import MileageReq from "./pages/user/myPage/Mileage/Req/Index";
 import UserRefund from './pages/user/myPage/Refund/Index';
 import UserOrder from './pages/user/myPage/Order/Index';
 import WishList from "./pages/user/WishList";
+import EditPassword from "./pages/user/myPage/userInfo/EditPassword";
 
 
 function App() {

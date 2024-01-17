@@ -12,6 +12,9 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+// import EventListComp from "./EventList";
+import EnhancedTable from "./EventList";
+import DataTable from "./EventListNormal";
 
 const Index = () => {
     //  상태 저장 : 예정, 진행, 종료
@@ -71,8 +74,18 @@ const Index = () => {
                             <StyledButton variant="contained" size="large"> 추가하기 </StyledButton>
                         </Box>
                     </Section1>
-                    
+                    {/* 삭제, 정렬 */}
+                    <Section2>
+                        {/* 삭제 버튼 */}
+                        <Box sx={{ '& button': { m: 1 } }}>
+                            <StyledButton2 variant="contained" size="small"> 삭제 </StyledButton2>
+                        </Box>
+                    </Section2>
                 </FilterSection>
+                {/* 이벤트 목록 */}
+                <ListSection>
+                    <DataTable/>
+                </ListSection>
             </Wrap>
         </>
     );
@@ -108,6 +121,12 @@ const Section1 = styled.div`
     align-itmes: center;
     gap: 27rem;
 `
+const Section2 = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 65.5rem;
+`
 const SearchWrap = styled.div`
     display: flex;
     gap: 0.875rem;
@@ -117,6 +136,23 @@ const StyledButton = styled(MuiButton)`
   && {
     height: 3rem;
     background-color: var(--navy);
-    color: white;
+    color: var(--white);
   }
+`
+const StyledButton2 = styled(MuiButton)`
+    && {
+        height: 2rem;
+        background-color: var(--white);
+        color: var(--black);
+    }
+`
+const ListSection = styled.div`
+    display: flex;
+    width: 88.9375rem;
+    padding: 1.0625rem 7.5rem;
+    box-sizing: border-box; // padding까지 합쳐서 width 설정하기
+    //height: 6rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 `
