@@ -27,7 +27,7 @@ const Index = () => {
     return (
         <>  
             <Wrap>
-                <PindexName className='cm-LBold30 col-Black'> 이벤트 관리</PindexName>
+                <PageName className='cm-LBold30 col-Black'> 이벤트 관리</PageName>
                 {/* 검색창, 추가하기 버튼, 삭제 버튼, 조회기간 필터링 박스 */}
                 <FilterSection>
                     {/* 검색창, 이벤트 분류 필터링, 검색 버튼 && 추가하기 버튼*/}
@@ -97,7 +97,7 @@ const Wrap = styled.div`
     justify-content: center;
     flex-direction: column;
 `
-const PindexName = styled.div`
+const PageName = styled.div`
     display: flex;
     width: 88.9375rem;
     box-sizing: border-box; // padding까지 합쳐서 width 설정하기
