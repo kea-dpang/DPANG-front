@@ -24,18 +24,18 @@ const PeriodSelector = () => {
     // 기간 버튼->날짜 변경 로직
     const handlePeriodBtn = (option) => {
         setPeriodBtn(option);
-        setStartDate(getFutureDate(0));
+        setEndDate(getFutureDate(0));
 
         if (option === '오늘') {
-            setEndDate(getFutureDate(0));
+            setStartDate(getFutureDate(0));
         } else if (option === '7일') {
-            setEndDate(getFutureDate(7));
+            setStartDate(getFutureDate(-7));
         } else if (option === '1개월') {
-            setEndDate(getFutureDate(30));
+            setStartDate(getFutureDate(-30));
         } else if (option === '3개월') {
-            setEndDate(getFutureDate(90));
+            setStartDate(getFutureDate(-90));
         } else if (option === '1년') {
-            setEndDate(getFutureDate(365));
+            setStartDate(getFutureDate(-365));
         }
     }
 

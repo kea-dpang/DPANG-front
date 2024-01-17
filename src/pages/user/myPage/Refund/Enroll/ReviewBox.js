@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Table from "./Table";
-import PeriodSelector from "../../../../components/common/PeriodSelector";
+import RequestTable from "./RequestTable";
 
 const Container = styled.div`
   width: 72rem;
@@ -17,14 +17,8 @@ const Header = styled.div`
   color: #043277;
   border-bottom: 1px #043277 solid;
 `;
-const CalenderBox = styled.div`
-  height: 17rem;
-  width: 72rem;
-  background-color: white;
 
-`;
 const TableBox = styled.div`
-  height: 43rem;
   background-color: white;
 `;
 const DetailHeader = styled.div`
@@ -37,16 +31,20 @@ align-items: end;
 
 `
 
+
+
 function ReviewBox() {
+
   return (
     <Container>
-      <Header className="cm-MBold24">리뷰관리</Header>
-      <DetailHeader className="cm-SRegular16">최근 리뷰 관리</DetailHeader>
-      {/* 기간 조회 필터 */}
-      <CalenderBox><PeriodSelector /></CalenderBox>
+      <Header className="cm-MBold24">제품 반품 신청</Header>
+      <DetailHeader className="cm-SRegular16">주문 상세 내역</DetailHeader>
+
       <TableBox>
         <Table />
       </TableBox>
+
+      <RequestTable />
     </Container>
   );
 }

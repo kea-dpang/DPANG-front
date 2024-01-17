@@ -12,9 +12,11 @@ import Mileage from "./pages/user/myPage/Mileage/Index";
 import MileageReq from "./pages/user/myPage/Mileage/Req/Index";
 import UserRefund from './pages/user/myPage/Refund/Index';
 import UserOrder from './pages/user/myPage/Order/Index';
+import EditPassword from './pages/user/myPage/userInfo/EditPassword';
+import Leave from "./pages/user/myPage/userInfo/Leave";
 import WishList from "./pages/user/WishList";
-import EditPassword from "./pages/user/myPage/userInfo/EditPassword";
-
+import Detail from './pages/user/myPage/Refund/Detail/Index'
+import ReqRefund from './pages/user/myPage/Refund/Enroll/Index'
 
 function App() {
   return (
@@ -32,12 +34,16 @@ function App() {
               <Route path="directask" element={<DirectAskPage />}/>
               <Route path="userinfo" element={<UserInfoPage />}/>
               <Route path="userinfo/editpassword" element={<EditPassword />}/>
+              <Route path="userinfo/leave" element={<Leave />}/>
+
               <Route path="review" element={<Review />} />
               <Route path="review/enroll" element={<EnrollReview />} />
               <Route path="mileage" element={<Mileage />} />
               <Route path="mileage/req" element={<MileageReq />} />
-              <Route path="refund" element={<UserRefund />} />
+              <Route path="refund"xelement={<UserRefund />} />
               <Route path="order" element={<UserOrder />} />
+              <Route path="refund/detail" element={<Detail />} />
+              <Route path="refund/enroll" element={<ReqRefund/>} />
           </Route>
 
         </Routes>

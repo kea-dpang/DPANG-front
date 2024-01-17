@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Row = styled.div`
@@ -39,6 +40,7 @@ const ItemColBox = styled.div`
 display: flex;
 flex-direction: column;
 
+
 `
 
 const ItemCol = styled.div`
@@ -56,22 +58,45 @@ flex-direction: column;
 `
 const Button = styled.button`
 
-padding: 0.5rem;
+width: 4.5rem;
+height: 2rem;
 margin: 0.5rem;
 border-radius: 3px;
-${(props)=>setButton(props.status)};
+${(props) => setButton(props.status)};
 color: white;
 
 `
-const setButton = (s) =>{
+const setButton = (s) => {
 
-  switch(s) {
+
+  switch (s) {
     case "결제완료":
-      return {backgroundColor: 'var(--navy)', disabled: "false"};
-    case "배송완료":
-      return {backgroundColor: 'var(--navy)', disabled: "false"};
+      return { backgroundColor: 'var(--navy)', disabled: "false" };
     default:
-      return {display: 'none'}
+      return { display: 'none' }
+
+  }
+
+}
+
+
+const Button1 = styled.button`
+
+width: 4.5rem;
+height: 2rem;
+margin: 0.5rem;
+border-radius: 3px;
+${(props) => setButton1(props.status)};
+color: white;
+
+`
+const setButton1 = (s) => {
+
+  switch (s) {
+    case "배송완료":
+      return { backgroundColor: 'var(--navy)', disabled: "false" };
+    default:
+      return { display: 'none' }
 
   }
 
@@ -79,29 +104,31 @@ const setButton = (s) =>{
 
 const Button2 = styled.button`
 
-padding: 0.5rem;
+width: 4.5rem;
+height: 2rem;
 margin: 0.5rem;
 border-radius: 3px;
-${(props)=>setButton2(props.status)};
+${(props) => setButton2(props.status)};
 color: var(--navy);
 border: 1px var(--navy) solid;
 
 `
-const setButton2 = (s) =>{
+const setButton2 = (s) => {
 
-  switch(s) {
+  switch (s) {
     case "배송완료":
-      return {backgroundColor: 'var(--white)', disabled: "false"};
+      return { backgroundColor: 'var(--white)', disabled: "false" };
     default:
-      return {display: 'none'}
+      return { display: 'none' }
 
   }
 
 }
 
-
-
 function TableRow(props) {
+
+
+  const navi = useNavigate();
   return props.data.map((a) => {
     return (
       <Row className="cm-SRegular16">
@@ -122,18 +149,21 @@ function TableRow(props) {
                 </Col>
                 <Col width="11rem">{b.money} / {b.amt}</Col>
 
+                <Col width="15rem">
+                  <ButtonBox>
+                    <Button status={a.status}>취소</Button>
+                    <Button1 status={a.status} onClick={() => { navi('/user/mypage/temp/refund/enroll') }}>반품</Button1>
+                    <Button2 status={a.status} onClick={() => { navi('/user/mypage/temp/review/enroll') }}>리뷰작성</Button2>
+                  </ButtonBox>
+                </Col>
+
               </ItemCol>
             )
 
           })}
         </ItemColBox>
         <Col width="11rem">{a.status}</Col>
-        <Col width="15rem">
-          <ButtonBox>
-            <Button status={a.status}>취소/반품</Button>
-            <Button2 status={a.status}>리뷰작성</Button2>
-          </ButtonBox>
-        </Col>
+
       </Row>
     );
   });

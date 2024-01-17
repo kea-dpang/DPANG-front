@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import Table from "./Table";
-import PeriodSelector from "../../../../components/common/PeriodSelector";
 
 const Container = styled.div`
   width: 72rem;
-  min-height: calc(100vh - 30rem);
+ 
 `;
 
 const Header = styled.div`
@@ -17,14 +16,9 @@ const Header = styled.div`
   color: #043277;
   border-bottom: 1px #043277 solid;
 `;
-const CalenderBox = styled.div`
-  height: 17rem;
-  width: 72rem;
-  background-color: white;
 
-`;
 const TableBox = styled.div`
-  height: 43rem;
+
   background-color: white;
 `;
 const DetailHeader = styled.div`
@@ -37,13 +31,14 @@ align-items: end;
 
 `
 
-function ReviewBox() {
+
+
+function ReviewBox(props) {
+
   return (
     <Container>
-      <Header className="cm-MBold24">리뷰관리</Header>
-      <DetailHeader className="cm-SRegular16">최근 리뷰 관리</DetailHeader>
-      {/* 기간 조회 필터 */}
-      <CalenderBox><PeriodSelector /></CalenderBox>
+      <Header className="cm-MBold24">{props.state} 상세 내역</Header>
+      <DetailHeader className="cm-SRegular16">주문 상세 내역</DetailHeader>
       <TableBox>
         <Table />
       </TableBox>

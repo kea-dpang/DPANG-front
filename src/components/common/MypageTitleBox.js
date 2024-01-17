@@ -1,12 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 import { ReactComponent as ArrowStrokeVector } from '../../assets/images/arrowStrokeVector.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import membermileImg from '../../assets/images/membermile.png';
 import chargemileImg from '../../assets/images/chargemile.png';
 import ProfileImg from '../../assets/images/profileImg.png';
 
 const MypageTitleBox = () => {
+
+    const navi = useNavigate();
 
     return(
         <Mainbox>
@@ -34,9 +36,9 @@ const MypageTitleBox = () => {
                 <StyledArrowStrokeVector/>
             </Chargemilebox>
             </Mileboxcontainer>
-            <Chargebox to="">
+            <Chargebox onClick={()=>{navi('/user/mypage/temp/mileage/req')}}>
                 <Charge>마일리지 충전하기</Charge>
-                <StyledArrowStroke/>
+                <StyledArrowStrokeVector/>
             </Chargebox>
             </MileContainer>
             <Askbox to="directask">
@@ -52,7 +54,7 @@ export default MypageTitleBox;
 
 
 const Mainbox = styled.div` 
-    width: 120rem;
+    /* width: 120rem; */
     height: 19.5625rem;
     flex-shrink: 0;
     background: var(--light-grey, #F4F4F4);
