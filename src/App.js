@@ -15,7 +15,6 @@ import UserOrder from './pages/user/myPage/Order/Index';
 import EditPassword from './pages/user/myPage/userInfo/EditPassword';
 import Leave from "./pages/user/myPage/userInfo/Leave";
 import WishList from "./pages/user/WishList";
-import EditPassword from "./pages/user/myPage/userInfo/EditPassword"
 import Detail from './pages/user/myPage/Refund/Detail/Index'
 import ReqRefund from './pages/user/myPage/Refund/Enroll/Index'
 

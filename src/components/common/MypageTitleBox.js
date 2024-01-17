@@ -54,7 +54,7 @@ export default MypageTitleBox;
 
 
 const Mainbox = styled.div` 
-    width: 120rem;
+    /* width: 120rem; */
     height: 19.5625rem;
     flex-shrink: 0;
     background: var(--light-grey, #F4F4F4);
