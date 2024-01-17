@@ -15,7 +15,6 @@ import UserOrder from './pages/user/myPage/Order/Index';
 import WishList from "./pages/user/WishList";
 import EditPassword from "./pages/user/myPage/userInfo/EditPassword";
 
-
 function App() {
   return (
     <div className="App">
