@@ -193,6 +193,7 @@ const LogoBar = styled.div`
 const MenuWrap = styled.div`
     display: flex;
     width: 19.0625rem;
+    height: 100vh;
     padding-top: 3.75rem;
     flex-direction: column;
     align-items: flex-start;
