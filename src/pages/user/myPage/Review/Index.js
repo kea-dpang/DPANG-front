@@ -23,6 +23,7 @@ function Index() {
   return (
     <Container>
       <ContentBox>
+        {/* 정보를 표시해줄 component를 호출 */}
         <ReviewContainer><ReviewBox /></ReviewContainer>
       </ContentBox>
     </Container>

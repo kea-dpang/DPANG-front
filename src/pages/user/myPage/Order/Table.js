@@ -33,8 +33,8 @@ function Table() {
       <Col width="13rem">날짜/주문번호</Col>
         <Col width="22rem">상품명</Col>
         <Col width="11rem">상품 금액 / 수량</Col>
-        <Col width="11rem">상태</Col>
-        <Col width="15rem">관리</Col>
+        <Col width="15rem">상태</Col>
+        <Col width="11rem">관리</Col>
       </Head>
 
       <TableRow data={TempData} />

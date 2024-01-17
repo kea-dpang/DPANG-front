@@ -1,5 +1,49 @@
 import styled from "styled-components";
-import { GlobalStyle } from '../../../../../styles/GlobalStyled'
+import Rating from '@mui/material/Rating';
+import Stack from '@mui/material/Stack';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom"
+
+function EnrollTable() {
+
+  const [value, setValue] = useState(5);
+  const [text, setText] = useState("");
+  const navi = useNavigate();
+  const newReview = {star: "", text:""};
+
+  return (
+    <>
+
+      <Table>
+        <Border />
+
+        <Box height="7rem">
+          <ColBox height="7rem">평점</ColBox>
+          <Content>
+            <Rating name="star" value={value} onChange={(e, val) => {
+              setValue(val);
+            }}
+            />
+          </Content>
+        </Box>
+
+        <Border />
+        <Box height="19rem">
+          <ColBox height="19rem">리뷰 작성</ColBox>
+          <InputBox>
+            <TextArea className = "cm-SRegular16" onChange={(e)=>{setText(e.target.value);}}/>
+          </InputBox>
+        </Box>
+        <Border />
+      </Table>
+
+      <ButtonBox>
+        <Button className="cm-SBold16" onClick={()=>{newReview.star = value; newReview.text = text; navi('/user/mypage/temp/order'); }}>리뷰 등록</Button>
+      </ButtonBox>
+    </>
+  );
+}
+
 
 const Table = styled.div`
   width: 72rem;
@@ -51,24 +95,34 @@ padding: 10px;
 
 `
 
-function EnrollTable() {
-  return (
-    <Table>
-            <Border />
-      <GlobalStyle />
-      <Box height="7rem">
-        <ColBox height="7rem">평점</ColBox>
-      </Box>
+const Content = styled.div`
 
-      <Border />
-      <Box height="19rem">
-        <ColBox height="19rem">리뷰 작성</ColBox>
-        <InputBox>
-          <TextArea />
-        </InputBox>
-      </Box>
-      <Border />
-    </Table>
-  );
-}
+width: 62rem;
+height: 6rem;
+display: flex;
+align-items: center;
+margin-left: 2rem;
+
+`
+const Button = styled.button`
+
+width: 11rem;
+height: 3rem;
+background-color: var(--navy);
+color: white;
+border-radius: 3px;
+
+`
+
+const ButtonBox = styled.div`
+
+width: 72rem;
+display: flex;
+height: 10rem;
+justify-content: end;
+align-items: end;
+
+
+`
+
 export default EnrollTable;
