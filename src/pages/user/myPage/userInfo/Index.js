@@ -26,7 +26,8 @@ const UserInfoPage = () => {
                 ))}
             </Info>
             <Leave className='.cm-SRegular18'>
-                <button>회원 탈퇴 {">"}</button>
+                {/* <button>회원 탈퇴 {">"}</button> */}
+                <Link to='leave'>회원 탈퇴 {">"}</Link>
             </Leave>
             <Link to='editpassword' className='Btn_M_Navy'>비밀전호 재설정</Link>
         </Wrap>
@@ -59,11 +60,12 @@ const InfoItem = styled.div`
     padding: 1.19rem 2.75rem;
 `;
 const Leave = styled.div`
-   color: var(--dark-grey, #BCBCBC);
 
    display: flex;
    justify-content: flex-end;
-   button {
+    
+   a:link, a:visited {
+    color: var(--dark-grey, #BCBCBC);
     background: none;
    }
 
