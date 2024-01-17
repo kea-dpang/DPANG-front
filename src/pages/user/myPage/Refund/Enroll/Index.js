@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import ReviewBox from './ReviewBox'
+import ReviewBox from "./ReviewBox";
+
 
 const Container = styled.div`
   min-height: 100vh;
@@ -11,7 +12,6 @@ const ContentBox = styled.div`
   display: flex;
   justify-content: center;
   min-height: calc(100vh - 30rem);
-  background-color: snow;
 `;
 
 const ReviewContainer = styled.div`
@@ -23,7 +23,6 @@ function Index() {
   return (
     <Container>
       <ContentBox>
-        {/* 정보를 표시해줄 component를 호출 */}
         <ReviewContainer><ReviewBox /></ReviewContainer>
       </ContentBox>
     </Container>

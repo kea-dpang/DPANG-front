@@ -77,9 +77,9 @@ const navi = useNavigate();
 
   return (
     <Container>
-      <Header className="cm-MBold24">리뷰관리</Header>
+      <Header className="cm-MBold24">주문관리</Header>
       <OrderOverviewBox className="cm-SRegular16"><OrderBox amt={amt}/></OrderOverviewBox>
-      <DetailHeader className="cm-SRegular16">최근 리뷰 관리</DetailHeader>
+      <DetailHeader className="cm-SRegular16">최근 주문 관리</DetailHeader>
       <CalenderBox><PeriodSelector /></CalenderBox>
       <NavBox className="cm-SBold18">
       <NaviBar colour="var(--navy)">주문/배송 조회</NaviBar>
