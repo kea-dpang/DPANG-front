@@ -1,10 +1,24 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import TempData from '../../../../assets/datas/EventData'
 
 export default function DataTable() {
+  const navigate = useNavigate();
+
     const columns = [
-        { field: 'id', headerName: '번호', width: 130, headerAlign: 'center'},
+        { field: 'id', headerName: '번호', width: 45, headerAlign: 'center'},
+        { field: 'kind', headerName: '구분', width: 65, headerAlign: 'center', renderCell: (params) => {
+          let color;
+          if (params.value === '상품') {
+              color = 'var(--navy)';
+          } else { // 브랜드
+              color = 'var(--orange)';
+          }
+          return <div style={{color: color}}>{params.value}</div>
+      }},
         { field: 'submitDate', headerName: '이벤트 등록일', width: 200, headerAlign: 'center' },
         { field: 'eventName', headerName: '이벤트 이름', width: 200, headerAlign: 'center' },
         { field: 'eventStatus', headerName: '이벤트 상태', width: 150, sortable: false, headerAlign: 'center', renderCell: (params) => {
@@ -21,30 +35,15 @@ export default function DataTable() {
         { field: 'eventStart', headerName: '이벤트 시작일', width: 200, headerAlign: 'center'},
         { field: 'eventEnd', headerName: '이벤트 종료일', width: 200, headerAlign: 'center'},
         ];
-    // const [rows, setRows] = useState([]);
+    const [rows, setRows] = useState([...TempData]);
     const [selectedRows, setSelectedRows] = useState([]);
-    const [rows, setRows] = useState([
-            { id: 1, submitDate: '2024-01-01 00:00:00', eventName: '겨울 아우터 반값 이벤트', eventStatus: '진행', eventStart: '2024-01-04 18:00:00', eventEnd: '2024-01-10 00:00:00' },
-            { id: 2, submitDate: '2024-01-01 00:00:00', eventName: '겨울 아우터 반값 이벤트', eventStatus: '대기', eventStart: '2024-01-04 18:00:01', eventEnd: '2024-01-10 00:00:00' },
-            { id: 3, submitDate: '2024-01-01 00:00:00', eventName: '겨울 아우터 반값 이벤트', eventStatus: '종료', eventStart: '2024-01-04 18:00:02', eventEnd: '2024-01-10 00:00:00' },
-            { id: 4, submitDate: '2024-01-01 00:00:00', eventName: '겨울 아우터 반값 이벤트', eventStatus: '종료', eventStart: '2024-01-04 18:00:03', eventEnd: '2024-01-10 00:00:00' },  
-        ]);
-
+    
     // 선택된 이벤트 삭제하기
     const handleDelete = () => {
         setRows(rows.filter((row) => !selectedRows.includes(row.id)));
     };
-
-    // 정렬은 id기준이기 때문에 id값은 고유해야 한다.
-    // TODO: 각 데이터들 가운데정렬
-    // const rows = [
-    //     { id: 1, submitDate: '2024-01-01 00:00:00', eventName: '겨울 아우터 반값 이벤트', eventStatus: '진행', eventStart: '2024-01-04 18:00:00', eventEnd: '2024-01-10 00:00:00' },
-    //     { id: 2, submitDate: '2024-01-01 00:00:00', eventName: '겨울 아우터 반값 이벤트', eventStatus: '대기', eventStart: '2024-01-04 18:00:01', eventEnd: '2024-01-10 00:00:00' },
-    //     { id: 3, submitDate: '2024-01-01 00:00:00', eventName: '겨울 아우터 반값 이벤트', eventStatus: '종료', eventStart: '2024-01-04 18:00:02', eventEnd: '2024-01-10 00:00:00' },
-    //     { id: 4, submitDate: '2024-01-01 00:00:00', eventName: '겨울 아우터 반값 이벤트', eventStatus: '종료', eventStart: '2024-01-04 18:00:03', eventEnd: '2024-01-10 00:00:00' },  
-    // ]
   return (
-    <div style={{ width: '70rem'}}>
+    <Wrap>
     {/* <button onClick={handleDelete}>선택된 row 삭제</button> */}
       <DataGrid
         rows={rows}
@@ -52,6 +51,17 @@ export default function DataTable() {
         onSelectionModelChange={(newSelection) => {
             setSelectedRows(newSelection.selectionModel);
         }}
+        onCellClick={(params, event) => {
+          if(params.field !== "__check__") {
+            let path;
+            if (params.row.kind === '상품') {
+              path = "/admin/event/editproduct/" + params.id; // 'admin/event/editproduct/eventid' 로 이동
+            } else {  // 브랜드
+              path = "/admin/event/editbrand/" + params.id; // 'admin/event/editbrand/eventid' 로 이동
+            }
+            navigate(path);
+          }
+      }}
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 10 },
@@ -59,7 +69,12 @@ export default function DataTable() {
         }}
         pageSizeOptions={[5, 10, 15]}
         checkboxSelection
-      />
-    </div>
+    />
+    </Wrap>
   );
 }
+
+const Wrap = styled.div`
+  width: 70rem;
+  cursor: pointer;
+`

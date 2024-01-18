@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Button as MuiButton } from '@mui/material';
 import * as React from 'react';
 import { useState } from "react";
 import '../../../../styles/fonts.css';
@@ -15,8 +14,6 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-
-
 
 const Index = () => {
     const [eventname, setEventName] = useState('');

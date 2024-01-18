@@ -85,8 +85,7 @@ const AdminSideBar = () => {
                         openSubMenu === '이벤트관리' 
                         && <OpenMenuWrap>
                             <Nav to="list"> - 이벤트 관리 </Nav>
-                            <Nav to="enroll"> - 이벤트 등록 </Nav>
-                            <Nav to="edit"> - 이벤트 수정 </Nav>
+                            <Nav to="enrollproduct"> - 이벤트 등록 </Nav>
                         </OpenMenuWrap>
                     }
                 {/* 재고관리 */}
