@@ -47,7 +47,8 @@ const ItemCol = styled.div`
 
 height: 6rem;
 display: flex;
-${(props)=>setBorder(props.i)}
+${(props)=>setBorder(props.i)};
+border-left: 1px solid black;
 
 `
 

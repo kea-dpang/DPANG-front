@@ -46,7 +46,8 @@ const ItemCol = styled.div`
 
 height: 6rem;
 display: flex;
-${(props)=>setBorder(props.i)}
+${(props)=>setBorder(props.i)};
+border-left: 1px solid black;
 
 `
 
@@ -147,6 +148,7 @@ function TableRow(props) {
             <p>{a.ordernum}</p>
           </Column>
         </Col>
+        <Col width="11rem">{a.status}</Col>
         <ItemColBox>
           {a.item.map((b, i) => {
 
@@ -171,7 +173,6 @@ function TableRow(props) {
 
           })}
         </ItemColBox>
-        <Col width="11rem">{a.status}</Col>
 
       </Row>
     );
