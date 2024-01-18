@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Header from "../../../../../components/common/HeaderBar/Index";
 import EnrollReviewBox from "./EnrollReviewBox"
 
 const Container = styled.div`
@@ -21,11 +20,24 @@ const ReviewContainer = styled.div`
   min-height: calc(100vh - 30rem);
 `;
 
+
+
 function Index() {
+
+  const UserInfo = {
+
+    memberId: '12345678',
+    name: '디팡이',
+    email: 'dpang1@naver.com',
+    date: '2024.01.01'
+  
+  
+  }
+
   return (
     <Container>
       <ContentBox>
-        <ReviewContainer><EnrollReviewBox /></ReviewContainer>
+        <ReviewContainer><EnrollReviewBox userData = {UserInfo}/></ReviewContainer>
       </ContentBox>
     </Container>
   );

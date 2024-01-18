@@ -1,10 +1,17 @@
 import styled from "styled-components";
 import { GlobalStyle } from "../../../../../styles/GlobalStyled";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+const Container = styled.div`
+
+width: 72rem;
+height: 50rem;
+
+`
 
 const Table = styled.div`
   width: 72rem;
-  height: 35rem;
   margin-top: 2rem;
   z-index: 5;
 `;
@@ -32,6 +39,8 @@ const InputBox = styled.div`
   width: ${(props) => props.width};
   display: flex;
   align-items: center;
+  padding-left: 2rem;
+  box-sizing: border-box;
 
 `;
 
@@ -44,7 +53,7 @@ const TextArea = styled.textarea`
 `;
 const Text = styled.p`
 
-color: ${(props)=>props.colour};
+color: ${(props) => props.colour};
 
 
 `
@@ -56,60 +65,98 @@ flex-direction: column;
 
 `
 
-function EnrollTable() {
+const Button = styled.button`
+
+width: 11rem;
+height: 3rem;
+background-color: var(--navy);
+color: white;
+border-radius: 3px;
+
+`
+
+const ButtonBox = styled.div`
+
+width: 72rem;
+display: flex;
+height: 10rem;
+justify-content: end;
+align-items: end;
+
+`
+
+const P = styled.div`
+
+color: var(--orange);
+
+`
+
+function EnrollTable(props) {
 
   const [money, setMoney] = useState(0);
+  const user = props.userData;
+  const [name, setName] = useState(user.name);
+  const navi = useNavigate()
 
   return (
-    <Table className="cm-SBold16">
-      <Border />
-      <GlobalStyle />
-      <Box height="6rem">
-        <ColBox height="6rem">이메일</ColBox>
-        <InputBox width="26rem" className="cm-SRegular16"></InputBox>
 
-        <ColBox height="6rem">이름</ColBox>
+    <Container>
+      <Table className="cm-SBold16">
+        <Border />
+        <GlobalStyle />
+        <Box height="6rem">
+          <ColBox height="6rem">이메일</ColBox>
+          <InputBox width="26rem" className="cm-SRegular16">{user.email}</InputBox>
 
-        <InputBox width="26rem"></InputBox>
-      </Box>
+          <ColBox height="6rem">이름</ColBox>
 
-      <Border />
-      <GlobalStyle />
-      <Box height="6rem">
-        <ColBox height="6rem">충전 희망 마일리지</ColBox>
-        <InputBox width="62rem" className="cm-SRegular16">
-          <TextArea className="cm-SRegular16" onChange={(e)=>{setMoney(e.target.value)}}/>
-          <Text colour="var(--dark-grey)">마일</Text>
-        </InputBox>
-      </Box>
-      <Border />
+          <InputBox width="26rem" className="cm-SRegular16">{user.name}</InputBox>
+        </Box>
 
-      <GlobalStyle />
-      <Box height="7rem">
-        <ColBox height="7rem">입금자명</ColBox>
-        <InputBox width="62rem" className="cm-SRegular16">
-          <TextBox>
-          <TextArea className="cm-SRegular16"/> 
-          <Text colour="red">※ 입금자명이 정확해야 충전이 완료될 수 있습니다!입금자명을 정확하게 입력해주세요</Text>
-          </TextBox>
-        </InputBox>
-      </Box>
-      <Border />
+        <Border />
+        <GlobalStyle />
+        <Box height="6rem">
+          <ColBox height="6rem">충전 희망 마일리지</ColBox>
+          <InputBox width="62rem" className="cm-SRegular16">
+            <TextArea className="cm-SRegular16" onChange={(e) => { setMoney(e.target.value) }} />
+            <Text colour="var(--dark-grey)">마일</Text>
+          </InputBox>
+        </Box>
+        <Border />
 
-      <GlobalStyle />
-      <Box height="6rem">
-        <ColBox height="6rem">입금금액</ColBox>
-        <InputBox width="62rem" className="cm-SRegular16">{money} 원</InputBox>
-      </Box>
-      <Border />
+        <GlobalStyle />
+        <Box height="7rem">
+          <ColBox height="7rem">입금자명</ColBox>
+          <InputBox width="62rem" className="cm-SRegular16">
+            <TextBox>
+              <TextArea className="cm-SRegular16" placeholder={user.name} onChange={(e) => { setName(e.target.value); }} />
+              <Text colour="red">※ 입금자명이 정확해야 충전이 완료될 수 있습니다!입금자명을 정확하게 입력해주세요</Text>
+            </TextBox>
+          </InputBox>
+        </Box>
+        <Border />
 
-      <GlobalStyle />
-      <Box height="6rem">
-        <ColBox height="6rem">입금계좌</ColBox>
-        <InputBox width="62rem" className="cm-SRegular16">카카오뱅크 3333-23-1239024</InputBox>
-      </Box>
-      <Border />
-    </Table>
+        <GlobalStyle />
+        <Box height="6rem">
+          <ColBox height="6rem">입금금액</ColBox>
+          <InputBox width="62rem" className="cm-SRegular16">{money} 원</InputBox>
+        </Box>
+        <Border />
+
+        <GlobalStyle />
+        <Box height="6rem">
+          <ColBox height="6rem">입금계좌</ColBox>
+          <InputBox width="62rem" className="cm-SRegular16">카카오뱅크 3333-23-1239024</InputBox>
+        </Box>
+        <Border />
+      </Table>
+
+      <P>※ 입금 확인에는 시간이 소요될 수 있습니다. 2 영업일 이내로 충전이 완료되지 않으면 문의주세요</P>
+      <ButtonBox>
+        <Button className="cm-SBold16" onClick={() => { navi('/user/mypage/temp/order'); }}>충전 하기</Button>
+      </ButtonBox>
+
+    </Container>
   );
 }
 export default EnrollTable;

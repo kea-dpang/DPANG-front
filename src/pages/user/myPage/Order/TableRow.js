@@ -40,13 +40,13 @@ const ItemColBox = styled.div`
 display: flex;
 flex-direction: column;
 
-
 `
 
 const ItemCol = styled.div`
 
 height: 6rem;
 display: flex;
+${(props)=>setBorder(props.i)}
 
 `
 
@@ -125,13 +125,22 @@ const setButton2 = (s) => {
 
 }
 
+const setBorder = (i) =>{
+
+if(i!=0)
+return {borderTop: "1px solid black"}
+else
+return {border: 0}
+
+}
+
 function TableRow(props) {
 
 
   const navi = useNavigate();
-  return props.data.map((a) => {
+  return props.data.map((a, k) => {
     return (
-      <Row className="cm-SRegular16">
+      <Row className="cm-SRegular16" key={k}>
         <Col width="13rem">
           <Column>
             <p>{a.date}</p>
@@ -139,10 +148,10 @@ function TableRow(props) {
           </Column>
         </Col>
         <ItemColBox>
-          {a.item.map((b) => {
+          {a.item.map((b, i) => {
 
             return (
-              <ItemCol>
+              <ItemCol key={i} i={i}>
                 <Col width="22rem">
                   <ItemImg src={b.img} />
                   <ItemName>{b.name}</ItemName>

@@ -21,17 +21,15 @@ const TableBox = styled.div`
   background-color: white;
 `;
 
-function ReviewBox() {
+function ReviewBox(props) {
   return (
     <Container className="cm-SBold16">
       <Header className="cm-MBold24">마일리지 충전 신청</Header>
 
       <TableBox>
-        <EnrollTable />
+        <EnrollTable userData = {props.userData} />
 
       </TableBox>
-
-      ※ 입금 확인에는 시간이 소요될 수 있습니다. 2영업일 이내로 충전이 완료되지 않으면 문의주세요
     </Container>
   );
 }
