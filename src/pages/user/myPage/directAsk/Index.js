@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import '../../../../styles/fontStyle.scss';
 import PeriodSelector from '../../../../components/common/PeriodSelector';
+import AskList from './AskList';
 
 const DirectAskPage = () => {
     return (
@@ -14,6 +15,10 @@ const DirectAskPage = () => {
                 <p className='cm-SRegular18'>나의 문의 내역</p>
                 <PeriodSelector/>
             </Period>
+
+            <Main>
+                <AskList />
+            </Main>
         </Wrap>
     );
 };
@@ -21,8 +26,6 @@ const DirectAskPage = () => {
 export default DirectAskPage;
 
 const Wrap = styled.div`
-    background-color: blueviolet;
-
 `;
 const Title = styled.div`
     /* padding-top: 3.375rem; */
@@ -34,9 +37,11 @@ const Title = styled.div`
     border-bottom: 1px solid var(--black);
 `;
 const Period = styled.div`
-    background-color: darkkhaki;
 
     p {
         margin-top: 3rem;
     }
+`;
+const Main = styled.div`
+    padding-top: 5rem;
 `;

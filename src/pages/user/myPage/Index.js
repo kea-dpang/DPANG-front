@@ -5,7 +5,8 @@ import UserSideBar from '../../../components/common/UserSideBar';
 import { Outlet } from 'react-router-dom';
 import media from '../../../styles/responsive';
 import Header from '../../../components/common/HeaderBar/Index'
-import MypageTitleBox from '../../../components/common/MypageTitleBox';
+import MyPageTitleBox from '../../../components/common/MypageTitleBox'
+import Footer from '../../../components/common/Footer/Index'
 
 const MyPage = () => {
     return (
@@ -22,7 +23,7 @@ const MyPage = () => {
                         </SubSection>
                     </Section>
                     </Wrap3>
-                    <Header/>
+                    <Footer />
                 </Wrap2>
             {/* </Wrap> */}
         </div>

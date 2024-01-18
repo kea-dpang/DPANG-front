@@ -77,9 +77,9 @@ const [amt, setAmt] = useState([0, 1, 2, 0, 3])
 
   return (
     <Container>
-      <Header className="cm-MBold24">리뷰관리</Header>
+      <Header className="cm-MBold24">취소/환불 관리</Header>
       <OrderOverviewBox className="cm-SRegular16"><OrderBox amt={amt}/></OrderOverviewBox>
-      <DetailHeader className="cm-SRegular16">최근 리뷰 관리</DetailHeader>
+      <DetailHeader className="cm-SRegular16">최근 취소 관리</DetailHeader>
       <CalenderBox><PeriodSelector /></CalenderBox>
       <NavBox className="cm-SBold18">
       <NaviBar colour="var(--dark-grey)" onClick={()=>{navi("/user/mypage/temp/order")}}>주문/배송 조회</NaviBar>

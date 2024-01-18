@@ -10,7 +10,7 @@ const UserSideBar = () => {
             <h1 className="cm-MBold24 col-Navy">마이 페이지</h1>
 
             <NavWrap>
-                <Nav to="">
+                <Nav to="order">
                     <p className='cm-SBold18 col-DarkGrey'>주문·배송 조회</p>
                     <StyledArrowStroke/>
                 </Nav>

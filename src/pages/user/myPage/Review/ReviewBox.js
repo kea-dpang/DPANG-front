@@ -42,6 +42,7 @@ function ReviewBox() {
     <Container>
       <Header className="cm-MBold24">리뷰관리</Header>
       <DetailHeader className="cm-SRegular16">최근 리뷰 관리</DetailHeader>
+      {/* 기간 조회 필터 */}
       <CalenderBox><PeriodSelector /></CalenderBox>
       <TableBox>
         <Table />

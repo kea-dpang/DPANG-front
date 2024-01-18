@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Rating from '@mui/material/Rating';
 
 const Row = styled.div`
   width: 72rem;
@@ -26,19 +27,27 @@ const ItemName = styled.div`
 width: 11rem;
 
 `
+function trimContent(str){
+
+  if(str.length > 30)
+  return str.slice(0, 30) + '.......'
+
+
+}
 
 
 function TableRow(props) {
   return props.data.map((a) => {
     return (
-      <Row>
+      
+      <Row className="cm-SRegular16">
         <Col width="10rem">{a.date}</Col>
         <Col width="22rem">
             <ItemImg src={a.img}/>
             <ItemName>{a.name}</ItemName>
         </Col>
-        <Col width="25rem">{a.content}</Col>
-        <Col width="15rem">{a.star}</Col>
+        <Col width="25rem">{trimContent(a.content)}</Col>
+        <Col width="15rem"><Rating name="read-only" value={a.star} readOnly /></Col>
       </Row>
     );
   });

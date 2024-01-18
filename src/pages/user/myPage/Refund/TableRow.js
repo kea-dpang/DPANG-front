@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Row = styled.div`
@@ -46,14 +47,26 @@ const ItemCol = styled.div`
 
 height: 6rem;
 display: flex;
+${(props)=>setBorder(props.i)}
 
 `
 
+const setBorder = (i) =>{
+
+  if(i!=0)
+  return {borderTop: "1px solid black"}
+  else
+  return {border: 0}
+  
+  }
+
 
 function TableRow(props) {
+
+  const navi = useNavigate()
   return props.data.map((a) => {
     return (
-      <Row className="cm-SRegular16">
+      <Row className="cm-SRegular16" onClick={()=>{navi("/user/mypage/temp/refund/detail")}}>
         <Col width="9rem">
           <Column>
             <p>{a.date}</p>
@@ -61,15 +74,15 @@ function TableRow(props) {
           </Column>
         </Col>
         <Col width="8rem">{a.type}</Col>
-        <Col width="6rem">{a.type}</Col>
+        <Col width="6rem">{a.category}</Col>
         <Col width="9rem">{a.state}</Col>
 
 
         <ItemColBox>
-          {a.item.map((b) => {
+          {a.item.map((b, i) => {
 
             return (
-              <ItemCol>
+              <ItemCol i={i} key = {i}>
                 <Col width="22rem">
                   <ItemImg src={b.img} />
                   <ItemName>{b.name}</ItemName>
