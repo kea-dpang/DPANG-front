@@ -14,6 +14,7 @@ import UserRefund from './pages/user/myPage/Refund/Index';
 import UserOrder from './pages/user/myPage/Order/Index';
 import WishList from "./pages/user/WishList";
 import EditPassword from "./pages/user/myPage/userInfo/EditPassword";
+import OrderPage from "./pages/admin/orderPage/Index";
 
 function App() {
   return (
@@ -26,6 +27,9 @@ function App() {
               <Route path="enroll" element={<EventEnrollPage />}/>
               <Route path="edit" element={<EventEditPage />}/>
           </Route>
+          {/*관리자 주문관리 페이지 */}
+          <Route path="/admin/order" element={<OrderPage />}/>
+
           {/* <MyPage /> */}
           <Route path="/user/mypage/temp" element={<MyPage />}>
               <Route path="directask" element={<DirectAskPage />}/>
