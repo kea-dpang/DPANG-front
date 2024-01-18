@@ -19,6 +19,9 @@ import Leave from "./pages/user/myPage/userInfo/Leave";
 import WishList from "./pages/user/WishList";
 import Detail from './pages/user/myPage/Refund/Detail/Index'
 import ReqRefund from './pages/user/myPage/Refund/Enroll/Index'
+import AdminRefund from './pages/admin/Refund/Index'
+import AdminRefundList from './pages/admin/Refund/List/Index'
+import AdminRefundDetail from './pages/admin/Refund/Detail/Index'
 
 function App() {
   return (
@@ -33,21 +36,26 @@ function App() {
               <Route path="editproduct/:eventId" element={<EventProductEditPage />}/>
               <Route path="editbrand/:eventId" element={<EventBrandEditPage />}/>
           </Route>
+
+          <Route path="/admin/refund" element={<AdminRefund />}>
+            <Route path="list" element={<AdminRefundList />} />
+            <Route path="detail" element={<AdminRefundDetail />}/>
+          </Route>
+
           {/* <MyPage /> */}
           <Route path="/user/mypage/temp" element={<MyPage />}>
-              <Route path="directask" element={<DirectAskPage />}/>
-              <Route path="userinfo" element={<UserInfoPage />}/>
-              <Route path="userinfo/editpassword" element={<EditPassword />}/>
-              <Route path="userinfo/leave" element={<Leave />}/>
-
-              <Route path="review" element={<Review />} />
-              <Route path="review/enroll" element={<EnrollReview />} />
-              <Route path="mileage" element={<Mileage />} />
-              <Route path="mileage/req" element={<MileageReq />} />
-              <Route path="refund" element={<UserRefund />} />
-              <Route path="order" element={<UserOrder />} />
-              <Route path="refund/detail" element={<Detail />} />
-              <Route path="refund/enroll" element={<ReqRefund/>} />
+            <Route path="directask" element={<DirectAskPage />} />
+            <Route path="userinfo" element={<UserInfoPage />} />
+            <Route path="userinfo/editpassword" element={<EditPassword />} />
+            <Route path="userinfo/leave" element={<Leave />} />
+            <Route path="review" element={<Review />} />
+            <Route path="review/enroll" element={<EnrollReview />} />
+            <Route path="mileage" element={<Mileage />} />
+            <Route path="mileage/req" element={<MileageReq />} />
+            <Route path="refund" element={<UserRefund />} />
+            <Route path="order" element={<UserOrder />} />
+            <Route path="refund/detail" element={<Detail />} />
+            <Route path="refund/enroll" element={<ReqRefund />} />
           </Route>
 
         </Routes>

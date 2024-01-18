@@ -47,8 +47,18 @@ const ItemCol = styled.div`
 
 height: 6rem;
 display: flex;
+${(props)=>setBorder(props.i)}
 
 `
+
+const setBorder = (i) =>{
+
+  if(i!=0)
+  return {borderTop: "1px solid black"}
+  else
+  return {border: 0}
+  
+  }
 
 
 function TableRow(props) {
@@ -69,10 +79,10 @@ function TableRow(props) {
 
 
         <ItemColBox>
-          {a.item.map((b) => {
+          {a.item.map((b, i) => {
 
             return (
-              <ItemCol>
+              <ItemCol i={i} key = {i}>
                 <Col width="22rem">
                   <ItemImg src={b.img} />
                   <ItemName>{b.name}</ItemName>

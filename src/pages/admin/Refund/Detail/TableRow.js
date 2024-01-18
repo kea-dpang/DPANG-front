@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Row = styled.div`
-  width: 72rem;
+  width: 73.9375rem;
   border-bottom: 1px black solid;
   display: flex;
   font-size: 14px;
@@ -32,6 +32,8 @@ const Column = styled.div`
 const ItemColBox = styled.div`
   display: flex;
   flex-direction: column;
+  background-color: red;
+  width: 40%;
 `;
 
 const ItemCol = styled.div`
@@ -57,15 +59,15 @@ function TableRow(props) {
 
   return (
     <Row className="cm-SRegular16">
-      <Col width="9rem">
+      <Col width="10%">
         <Column>
           <p>{data.date}</p>
           <p>{data.ordernum}</p>
         </Column>
       </Col>
-      <Col width="8rem">{data.type}</Col>
-      <Col width="6rem">{data.category}</Col>
-      <Col width="9rem">{data.state}</Col>
+      <Col width="15%">{data.type}</Col>
+      <Col width="15%">{data.category}</Col>
+      <Col width="20%">{data.state}</Col>
 
 
       <ItemColBox>
@@ -73,12 +75,12 @@ function TableRow(props) {
 
           return (
             <ItemCol key={i} i={i}>
-              <Col width="22rem">
+              <Col width="30%">
                 <ItemImg src={b.img} />
                 <ItemName>{b.name}</ItemName>
               </Col>
-              <Col width="9rem">{b.money} / {b.amt}</Col>
-              <Col width="9rem">{b.refund}</Col>
+              <Col width="30%">{b.money} / {b.amt}</Col>
+              <Col width="30%">{b.refund}</Col>
 
             </ItemCol>
           )
