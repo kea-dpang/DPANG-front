@@ -17,6 +17,7 @@ import UserOrder from './pages/user/myPage/Order/Index';
 import EditPassword from './pages/user/myPage/userInfo/EditPassword';
 import Leave from "./pages/user/myPage/userInfo/Leave";
 import WishList from "./pages/user/WishList";
+import OrderPage from "./pages/admin/orderPage/Index";
 import Detail from './pages/user/myPage/Refund/Detail/Index'
 import ReqRefund from './pages/user/myPage/Refund/Enroll/Index'
 import AdminRefund from './pages/admin/Refund/Index'
@@ -41,6 +42,8 @@ function App() {
             <Route path="list" element={<AdminRefundList />} />
             <Route path="detail" element={<AdminRefundDetail />}/>
           </Route>
+          {/*관리자 주문관리 페이지 */}
+          <Route path="/admin/order" element={<OrderPage />}/>
 
           {/* <MyPage /> */}
           <Route path="/user/mypage/temp" element={<MyPage />}>
@@ -57,6 +60,8 @@ function App() {
             <Route path="refund/detail" element={<Detail />} />
             <Route path="refund/enroll" element={<ReqRefund />} />
           </Route>
+          {/* wishlist */}
+          <Route path="/user/wishlist" element={<WishList/>}/>
 
         </Routes>
       </BrowserRouter>

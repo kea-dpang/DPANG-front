@@ -14,7 +14,7 @@ const MyPage = () => {
             {/* <Wrap> */}
                 <Wrap2>
                     <Header/>
-                    <MyPageTitleBox />
+                    <MypageTitleBox/>
                     <Wrap3>
                     <Section>
                         <UserSideBar />
