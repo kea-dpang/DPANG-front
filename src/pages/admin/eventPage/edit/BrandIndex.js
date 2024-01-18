@@ -3,29 +3,29 @@ import * as React from 'react';
 import { useState } from "react";
 import '../../../../styles/fonts.css';
 import ProductEventPage from '../enroll/ProductEventPage';
-import { useNavigate } from 'react-router-dom'
+import BrandEventPage from '../enroll/BrandEventPage';
 
-// 상품 이벤트 등록 index 페이지
+// 브랜드 이벤트 수정 index 페이지
 const Index = () => {
-    const navi = useNavigate();
+    // 상품이벤트 or 브랜드 이벤트 버튼 클릭상태 저장 (기본 : 상품 이벤트)
+    const [activeNav, setActiveNav] = useState('상품 이벤트');
 
-    const handleNavClick = () => {
-        navi("/admin/event/enrollbrand")
+    const handleNavClick = (navName) => {
+        setActiveNav(navName);
     };
-
     return (
         <>  
             <Wrap>
                 <PageName className='cm-LBold30 col-Black'> 이벤트 관리</PageName>
-                <PageSubName className='cm-MBold24 col-Navy'> 이벤트 등록</PageSubName>
+                <PageSubName className='cm-MBold24 col-Navy'> 브랜드 이벤트 수정</PageSubName>
                 {/* 상품 이벤트 & 브랜드 이벤트 선택 버튼 */}
-                <ProductBrandTab className='cm-SRegular16'> 
-                    <Nav colour="var(--navy)" > 상품 이벤트</Nav>
-                    <Nav colour="var(--semi-light-grey)" onClick={() => handleNavClick()}> 브랜드 이벤트</Nav>
+                <ProductBrandTab> 
+                    <Nav className='cm-SRegular16' $isActive={activeNav === '상품 이벤트'} onClick={() => handleNavClick('상품 이벤트')}> 상품 이벤트</Nav>
+                    <Nav className='cm-SRegular16' $isActive={activeNav === '브랜드 이벤트'} onClick={() => handleNavClick('브랜드 이벤트')}> 브랜드 이벤트</Nav>
                 </ProductBrandTab>
                 {/* 이벤트 내용 입력하는 공간 */}
                 <InputSection>
-                    <ProductEventPage />
+                    {activeNav === '상품 이벤트' ? <ProductEventPage /> : <BrandEventPage />}
                 </InputSection>
             </Wrap>
         </>
@@ -69,7 +69,7 @@ const Nav = styled.div`
     border-radius: 0.9375rem 0.9375rem 0rem 0rem;
 
     // 상품 이벤트 or 브랜드 이벤트 선택
-    background-color: ${(props)=>props.colour};
+    background-color: ${props => props.$isActive ? 'var(--navy)' : 'var(--semi-light-grey)'};
     color: var(--white);
     cursor: pointer;
 `

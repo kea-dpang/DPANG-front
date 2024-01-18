@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import * as React from 'react';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import '../../../../styles/fonts.css';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -14,8 +14,11 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import TempData from '../../../../assets/datas/EventData'
+import TempDetailData from '../../../../assets/datas/ProductEventDetailData'
 
-const Index = () => {
+const Index = ({ eventId }) => {
+    const [eventData, setEventData] = useState(null);
     const [eventname, setEventName] = useState('');
     const [code, setCode] = useState([]);
     const [productList, setProductList] = useState([]);
@@ -24,6 +27,15 @@ const Index = () => {
     const [eventstart, setEventStart] = useState('');
     const [eventend, setEventEnd] = useState('');
     const [showAlert, setShowAlert] = useState(false); // 등록 성공 alert 보여주기
+
+    useEffect(() => {
+        const matchedData = TempDetailData.find(data => data.eventId === Number(eventId));
+        setEventData(matchedData);
+      }, [eventId]);
+
+    useEffect (() => {
+        console.log(eventData);
+    }, [eventData]);
 
     // 이벤트 이름 변경 감지
     const handleNameChange = (e) => {

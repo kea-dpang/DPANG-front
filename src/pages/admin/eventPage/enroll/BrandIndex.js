@@ -2,15 +2,15 @@ import styled from "styled-components";
 import * as React from 'react';
 import { useState } from "react";
 import '../../../../styles/fonts.css';
-import ProductEventPage from '../enroll/ProductEventPage';
 import { useNavigate } from 'react-router-dom'
+import BrandEventPage from '../enroll/BrandEventPage';
 
 // 상품 이벤트 등록 index 페이지
 const Index = () => {
     const navi = useNavigate();
 
     const handleNavClick = () => {
-        navi("/admin/event/enrollbrand")
+        navi("/admin/event/enrollproduct")
     };
 
     return (
@@ -20,12 +20,12 @@ const Index = () => {
                 <PageSubName className='cm-MBold24 col-Navy'> 이벤트 등록</PageSubName>
                 {/* 상품 이벤트 & 브랜드 이벤트 선택 버튼 */}
                 <ProductBrandTab className='cm-SRegular16'> 
-                    <Nav colour="var(--navy)" > 상품 이벤트</Nav>
-                    <Nav colour="var(--semi-light-grey)" onClick={() => handleNavClick()}> 브랜드 이벤트</Nav>
+                    <Nav colour="var(--semi-light-grey)" onClick={() => handleNavClick()} > 상품 이벤트</Nav>
+                    <Nav colour="var(--navy)" > 브랜드 이벤트</Nav>
                 </ProductBrandTab>
                 {/* 이벤트 내용 입력하는 공간 */}
                 <InputSection>
-                    <ProductEventPage />
+                    <BrandEventPage />
                 </InputSection>
             </Wrap>
         </>
