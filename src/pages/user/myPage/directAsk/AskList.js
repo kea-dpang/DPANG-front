@@ -1,33 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { DirectAskList } from '../../../../assets/datas/DirectAskData';
 
 const AskList = () => {
     const tableTitles = ['문의날짜', '카테고리', '제목', '문의상태'];
     const colWidths = ['15%', '15%', '50%', '20%']; // 각 컬럼의 너비를 정의하는 배열
 
-    const [askLists, setAskLists] = useState([{
-        data: '',
-        category: '',
-        title: '',
-        askState: ''
-    }]);
+    const [askLists, setAskLists] = useState([]);
 
     // 더미 데이터 넣기
     useEffect(() => {
-        setAskLists([
-            {
-                data: '2024-01-17',
-                category: '배송 문의',
-                title: '배송이 언제 도착하나요?',
-                askState: '답변 대기'
-            },
-            {
-                data: '2024-01-16',
-                category: '환불 문의',
-                title: '제가 1~2일 걸린다고 해서 시켰는데 일주일이 넘었네요...주문 제대로 들어간 건가요?',
-                askState: '답변 완료'
-            },
-        ]);
+        setAskLists(DirectAskList); // DirectAskList의 데이터를 askLists 상태에 넣습니다.
     }, []);
 
     return (
@@ -40,7 +24,7 @@ const AskList = () => {
 
             <Main>
                 {askLists.map((item, index) =>(
-                    <Row key={index}>
+                    <Row key={index} to={`${item.askId}`}>
                         <Item width={colWidths[0]}>{item.data}</Item>
                         <Item width={colWidths[1]}>{item.category}</Item>
                         <Item width={colWidths[2]}>{item.title}</Item>
@@ -76,13 +60,15 @@ const Main = styled.div`
     display: flex;
     flex-direction: column;
 `;
-const Row = styled.div`
+const Row = styled(Link)`
     border-bottom: 1px solid var(--black);
     width: 100%;
     height: 3.7535rem;
     display: flex;
     text-align: center;
     align-items: center;
+
+    color: inherit; /* 상속 받은 색상 사용 */
 `;
 
 const Item = styled.div`

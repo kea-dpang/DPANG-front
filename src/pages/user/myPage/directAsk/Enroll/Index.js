@@ -1,19 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Category from './Category';
+import AskTitle from './AskTitle';
+import AskContent from './AskContent';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
 const AskEnrollPage = () => {
-    const [AskTitle, setAskTitle] = useState('');
-    const [Content, setContent] = useState('');
-
-    const handleTitleChange = (e) => {
-        setAskTitle(e.target.value);
-    };
-    const handleContentChange = (e) => {
-        setContent(e.target.value);
-    };
 
     return (
         <Wrap>
@@ -27,55 +20,12 @@ const AskEnrollPage = () => {
 
             <Item>
                 <p>제목</p>
-                <Box
-                    sx={{
-                        '& > :not(style)': { m: 1, width: '61rem' },
-                    }}
-                    noValidate
-                    autoComplete="off"
-                >
-                    <TextField 
-                        id="Title" 
-                        onChange={handleTitleChange}
-                        variant="outlined" 
-                        placeholder="제목을 입력해주세요"
-                        InputLabelProps={{shrink: true}} 
-                        sx={{
-                            '& .MuiOutlinedInput-root': { 
-                                '&.Mui-focused fieldset': { 
-                                    borderColor: 'var(--navy)', // 포커스 시 borderColor를 원하는 색상으로 변경
-                                },
-                            },
-                        }}
-                    />
-                </Box>
+                <AskTitle/>
             </Item>
 
             <Item>
                 <p>내용</p>
-
-                <FakePlaceholder show={!Content}>
-                    <p style={{ fontWeight:'700' }}> 1:1 문의 작성 전 확인해주세요!<br /></p>
-                    <p style={{ fontWeight:'700', color: 'var(--orange, #FA622F)'}}>‼️ 전화번호, 이메일, 주소, 계좌번호 등의 상세 개인정보가 문의 내용에 저장되지 않도록 주의해 주시기 바랍니다.<br /><br /></p>
-
-                    <p style={{ fontWeight:'700' }}>주문취소<br /></p>
-                    [주문완료] 상태일 경우에만 주문 취소 가능합니다. (배송준비중 이후 취소불가)<br />
-                    [마이페이지 - 주문내역 상세페이지]에서 직접  취소하실 수 있습니다.<br /><br />
-
-                    <p style={{ fontWeight:'700' }}>배송<br /></p>
-                    배송일 및 배송시간 지정은 불가능합니다. (예약배송 포함)<br />
-                    주문 이후 주소지, 결제수단 변경 등 정보수정 불가능합니다.<br /><br />
-
-                    <p style={{ fontWeight:'700' }}>교환/반품<br /></p>
-                    단순 변심으로 인한 반품은 고객에게 반품비 청구됩니다.<br />
-                </FakePlaceholder>
-                <textarea 
-                    cols="50" 
-                    rows="10" 
-                    onChange={handleContentChange}
-                    value={Content}
-                ></textarea>
-
+                <AskContent/>
             </Item>
 
             <Submit>
