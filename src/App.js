@@ -17,6 +17,7 @@ import Leave from "./pages/user/myPage/userInfo/Leave";
 import WishList from "./pages/user/WishList";
 import Detail from './pages/user/myPage/Refund/Detail/Index'
 import ReqRefund from './pages/user/myPage/Refund/Enroll/Index'
+import AskEnrollPage from "./pages/user/myPage/directAsk/Enroll/Index";
 
 function App() {
   return (
@@ -31,7 +32,10 @@ function App() {
           </Route>
           {/* <MyPage /> */}
           <Route path="/user/mypage/temp" element={<MyPage />}>
+            
               <Route path="directask" element={<DirectAskPage />}/>
+              <Route path="directask/enroll" element={<AskEnrollPage />}/>
+
               <Route path="userinfo" element={<UserInfoPage />}/>
               <Route path="userinfo/editpassword" element={<EditPassword />}/>
               <Route path="userinfo/leave" element={<Leave />}/>
