@@ -23,6 +23,7 @@ import ReqRefund from './pages/user/myPage/Refund/Enroll/Index'
 import AdminRefund from './pages/admin/Refund/Index'
 import AdminRefundList from './pages/admin/Refund/List/Index'
 import AdminRefundDetail from './pages/admin/Refund/Detail/Index'
+import OrderDetail from './pages/user/myPage/Order/Detail/Index'
 
 function App() {
   return (
@@ -57,6 +58,7 @@ function App() {
             <Route path="mileage/req" element={<MileageReq />} />
             <Route path="refund" element={<UserRefund />} />
             <Route path="order" element={<UserOrder />} />
+            <Route path="order/detail" element={<OrderDetail />}/>
             <Route path="refund/detail" element={<Detail />} />
             <Route path="refund/enroll" element={<ReqRefund />} />
           </Route>

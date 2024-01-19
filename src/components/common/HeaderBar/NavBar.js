@@ -31,7 +31,7 @@ const Empty = styled.div`
 
 function NavBar(props) {
   return (
-    <Nav>
+    <Nav className="cm-SRegular16 ">
       <Logo src={logo} />
       <Empty width="3rem" />
       <ShortCut />
