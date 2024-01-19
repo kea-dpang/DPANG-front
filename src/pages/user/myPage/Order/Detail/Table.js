@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import TempData from '../../../../assets/datas/UserMileageData'
 import TableRow from "./TableRow";
-
+import TempData from '../../../../../assets/datas/UserOrderData'
 
 const Head = styled.div`
   height: 3rem;
@@ -12,13 +11,12 @@ const Head = styled.div`
   justify-content: center;
 `;
 const TableBox = styled.div`
-  height: 43rem;
   width: 72rem;
   
 `;
 const Col = styled.div`
 
-width: ${(props)=>props.width};
+width: ${(props) => props.width};
 color: white;
 display: flex;
 align-items: center;
@@ -28,16 +26,21 @@ justify-content: center;
 
 
 function Table() {
+
+  
+
   return (
     <TableBox>
-      <Head>
-        <Col width="18rem" className="cm-SBold18">요청 일자</Col>
-        <Col width="18rem" className="cm-SBold18">입금자명</Col>
-        <Col width="18rem" className="cm-SBold18">충전희망 금액</Col>
-        <Col width="18rem" className="cm-SBold18">내역</Col>
+      <Head className="cm-SBold18">
+      <Col width="13rem">날짜/주문번호</Col>
+        <Col width="11rem">상태</Col>
+        <Col width="22rem">상품명</Col>
+        <Col width="11rem">상품 금액 / 수량</Col>
+        <Col width="15rem">관리</Col>
       </Head>
 
-      <TableRow data = {TempData}/>
+
+      <TableRow data={TempData} />
 
     </TableBox>
   );
