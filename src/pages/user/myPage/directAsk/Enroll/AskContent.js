@@ -38,6 +38,7 @@ const AskTitle = ({ detail, pageCheck }) => {
             <textarea 
                 cols="50" 
                 rows="10"
+                className='cm-SRegular16'
                 disabled={detail ? detail.askState === '답변 완료' : false} 
                 onChange={handleContentChange}
                 value={Content}
@@ -50,6 +51,10 @@ export default AskTitle;
 
 const Wrap = styled.div`
     display: flex;
+
+    textarea {
+        height: 32.75rem;
+    }
 `;
 const FakePlaceholder = styled.div`
     position: absolute;
@@ -65,4 +70,5 @@ const FakePlaceholder = styled.div`
     /* margin: 1rem; */
 
     line-height: 1.25rem;
+
 `;

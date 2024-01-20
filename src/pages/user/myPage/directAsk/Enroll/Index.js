@@ -51,9 +51,32 @@ const AskEnrollPage = () => {
                 <AskContent detail={detail} pageCheck={isEnrollPage}/>
             </Item>
 
-            <Submit>
-                <button type='submit' className='Btn_M_Navy'>문의접수</button>
-            </Submit>
+            {/* 답변 */}
+            {detail && detail.askState==="답변 완료" &&  
+                <Item> 
+                    <p>답변</p>
+                    <textarea 
+                        cols="50" 
+                        rows="10"
+                        className='cm-SRegular16'
+                        disabled={true} 
+                        value={detail.answer}
+                    ></textarea>
+                </Item>
+            }
+            {/* 버튼 */}
+            {isEnrollPage ? (
+                <Submit>
+                    <button type='submit' className='Btn_M_Navy'>문의접수</button>
+                </Submit>
+                ) : ( 
+                    detail && detail.askState==="답변 대기" &&  
+                        <Submit>
+                            <button type='submit' className='Btn_M_Navy'>수정 완료</button>
+                        </Submit> 
+                )
+            }
+
         </Wrap>
     );
 };
@@ -79,9 +102,10 @@ const Item = styled.div`
     gap: 6.44rem;
     
     position: relative;
-    textarea {
+    & textarea {
         width: 61rem;
-        height: 32.75rem;
+        min-height: 3rem;
+
         border-radius: 0.3125rem;
         border: 1px solid var(--dark-grey, #BCBCBC);
         background: var(--white, #FFF);
