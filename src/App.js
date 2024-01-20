@@ -24,6 +24,8 @@ import AdminRefund from './pages/admin/Refund/Index'
 import AdminRefundList from './pages/admin/Refund/List/Index'
 import AdminRefundDetail from './pages/admin/Refund/Detail/Index'
 import OrderDetail from './pages/user/myPage/Order/Detail/Index'
+import AdminMileage from './pages/admin/Mileage/Index'
+import AdminMileageView from './pages/admin/Mileage/List/Index'
 
 function App() {
   return (
@@ -42,6 +44,11 @@ function App() {
           <Route path="/admin/refund" element={<AdminRefund />}>
             <Route path="list" element={<AdminRefundList />} />
             <Route path="detail" element={<AdminRefundDetail />}/>
+          </Route>
+
+          
+          <Route path="/admin/mileage" element={<AdminMileage />}>
+            <Route path="list" element={< AdminMileageView />} />
           </Route>
           {/*관리자 주문관리 페이지 */}
           <Route path="/admin/order" element={<OrderPage />}/>

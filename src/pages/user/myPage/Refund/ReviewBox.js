@@ -4,6 +4,7 @@ import PeriodSelector from "../../../../components/common/PeriodSelector";
 import OrderBox from '../../../../components/common/OrderBox/Index'
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom'
+import MyPageBodyHeader from "../../../../components/utils/MyPageBodyHeader";
 
 const Container = styled.div`
   width: 72rem;
@@ -77,7 +78,7 @@ const [amt, setAmt] = useState([0, 1, 2, 0, 3])
 
   return (
     <Container>
-      <Header className="cm-MBold24">취소/환불 관리</Header>
+      <MyPageBodyHeader header="취소·환불 관리"/>
       <OrderOverviewBox className="cm-SRegular16"><OrderBox amt={amt}/></OrderOverviewBox>
       <DetailHeader className="cm-SRegular16">최근 취소 관리</DetailHeader>
       <CalenderBox><PeriodSelector /></CalenderBox>

@@ -1,24 +1,16 @@
-import styled from "styled-components";
-import * as React from 'react';
-import { useState } from "react";
-import '../../../../styles/fonts.css';
-import Table from './Table';
-import data from '../../../../assets/datas/AdminRefundData'
-import DetailBox from "./DetailBox";
-
+import styled from 'styled-components'
 
 const Index = () => {
 
     return (
         <>  
             <Wrap>
-                <PageName className='cm-LBold30 col-Black'> 환불 관리</PageName>
-                <PageSubName className='cm-MBold24 col-Navy'> 환불 내역 상세조회</PageSubName>
+                <PageName className='cm-LBold30 col-Black'>회원관리</PageName>
+                <PageSubName className='cm-MBold24 col-Navy'>마일리지 관리</PageSubName>
 
 
                 <InputSection>
-                    <Table data={data}/>
-                    <DetailBox data={data}/>
+                    
                 </InputSection>
             </Wrap>
         </>
@@ -48,7 +40,6 @@ const PageSubName = styled.div`
     align-items: center;
     font-size: 1.5rem;
 `
-
 
 const InputSection = styled.div`
     display: flex;

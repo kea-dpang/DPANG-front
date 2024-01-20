@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Table from "./Table";
 import RequestTable from "./RequestTable";
+import MyPageBodyHeader from "../../../../../components/utils/MyPageBodyHeader";
 
 const Container = styled.div`
   width: 72rem;
@@ -22,22 +23,17 @@ const TableBox = styled.div`
   background-color: white;
 `;
 const DetailHeader = styled.div`
-
-width: 72rem;
-height: 5rem;
-background-color: white;
-display: flex;
-align-items: end;
-
-`
-
-
+  width: 72rem;
+  height: 5rem;
+  background-color: white;
+  display: flex;
+  align-items: end;
+`;
 
 function ReviewBox() {
-
   return (
     <Container>
-      <Header className="cm-MBold24">제품 반품 신청</Header>
+      <MyPageBodyHeader header="환불 신청" />
       <DetailHeader className="cm-SRegular16">주문 상세 내역</DetailHeader>
 
       <TableBox>
