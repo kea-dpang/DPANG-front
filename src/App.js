@@ -36,7 +36,7 @@ function App() {
 
               <Route path="directask" element={<DirectAskPage />}/>
               <Route path="directask/enroll" element={<AskEnrollPage />}/>
-              <Route path="directask/:askId" element={<DetailPage />}/>
+              <Route path="directask/:askId" element={<AskEnrollPage />}/>
 
               <Route path="userinfo" element={<UserInfoPage />}/>
               <Route path="userinfo/editpassword" element={<EditPassword />}/>

@@ -25,7 +25,7 @@ const AskList = () => {
             <Main>
                 {askLists.map((item, index) =>(
                     <Row key={index} to={`${item.askId}`}>
-                        <Item width={colWidths[0]}>{item.data}</Item>
+                        <Item width={colWidths[0]}>{item.date}</Item>
                         <Item width={colWidths[1]}>{item.category}</Item>
                         <Item width={colWidths[2]}>{item.title}</Item>
                         <Item width={colWidths[3]}>{item.askState}</Item>

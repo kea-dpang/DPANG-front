@@ -1,12 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Category from './Category';
 import AskTitle from './AskTitle';
 import AskContent from './AskContent';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+import { useLocation, useParams } from 'react-router-dom';
+import { DirectAskList } from '../../../../../assets/datas/DirectAskData';
 
 const AskEnrollPage = () => {
+    let params = useParams().askId;
+    const location = useLocation();
+    
+    const [detail, setDetail] = useState();
+    const [isEnrollPage, setIsEnrollPage] = useState(false); // 'directask/enroll' 페이지인지 여부를 저장하는 상태
+
+    useEffect(() => {
+        console.log(detail)
+        
+        const matchedData = DirectAskList.find(item => item.askId === params); // DirectAskList에서 askId가 일치하는 데이터 찾기
+        if (matchedData) {
+            setDetail(matchedData); // 찾은 데이터를 detail 상태에 설정
+        }
+
+        // 클린업 함수
+        return () => {
+            setDetail(undefined);
+        };
+    }, [params]); 
+
+    useEffect(() => {
+        setIsEnrollPage(location.pathname === '/user/mypage/temp/directask/enroll'); // 현재 위치가 'directask/enroll'인지 확인
+    }, [location]); 
 
     return (
         <Wrap>
@@ -15,17 +38,17 @@ const AskEnrollPage = () => {
             </Title>
             <Item>
                 <p>유형</p>
-                <Category/>
+                <Category detail={detail} pageCheck={isEnrollPage}/>
             </Item>
 
             <Item>
                 <p>제목</p>
-                <AskTitle/>
+                <AskTitle detail={detail} pageCheck={isEnrollPage}/>
             </Item>
 
             <Item>
                 <p>내용</p>
-                <AskContent/>
+                <AskContent detail={detail} pageCheck={isEnrollPage}/>
             </Item>
 
             <Submit>
@@ -72,21 +95,6 @@ const Item = styled.div`
     
         }
     }
-`;
-const FakePlaceholder = styled.div`
-    position: absolute;
-    top: 5rem;
-    left: 13rem;
-    right: 0;
-    /* margin: 1rem; */
-
-    pointer-events: none; // 텍스트 영역을 클릭했을 때 가짜 placeholder에 의해 방해받지 않도록 설정
-    opacity: ${props => (props.show ? 1 : 0)}; // show prop에 따라 보여지거나 숨겨짐
-    /* transition: opacity 0.25s; */
-    color: var(--dark-grey, #BCBCBC);
-    /* margin: 1rem; */
-
-    line-height: 1.25rem;
 `;
 
 const Submit = styled.div`

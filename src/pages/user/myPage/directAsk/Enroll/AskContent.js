@@ -1,9 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 
-const AskTitle = () => {
+const AskTitle = ({ detail, pageCheck }) => {
     const [Content, setContent] = useState('');
+
+    useEffect(() => {
+        if(pageCheck) {
+            setContent('');
+        } else if(detail) {
+            setContent(detail.content);
+        }
+
+    }, [detail, pageCheck])
 
     const handleContentChange = (e) => {
         setContent(e.target.value);
@@ -11,7 +20,7 @@ const AskTitle = () => {
 
     return (
         <Wrap>
-            <FakePlaceholder show={!Content}>
+            <FakePlaceholder $show={!Content}>
                 <p style={{ fontWeight:'700' }}> 1:1 문의 작성 전 확인해주세요!<br /></p>
                 <p style={{ fontWeight:'700', color: 'var(--orange, #FA622F)'}}>‼️ 전화번호, 이메일, 주소, 계좌번호 등의 상세 개인정보가 문의 내용에 저장되지 않도록 주의해 주시기 바랍니다.<br /><br /></p>
 
@@ -28,7 +37,8 @@ const AskTitle = () => {
             </FakePlaceholder>
             <textarea 
                 cols="50" 
-                rows="10" 
+                rows="10"
+                disabled={detail ? detail.askState === '답변 완료' : false} 
                 onChange={handleContentChange}
                 value={Content}
             ></textarea>
@@ -49,7 +59,7 @@ const FakePlaceholder = styled.div`
     /* margin: 1rem; */
 
     pointer-events: none; // 텍스트 영역을 클릭했을 때 가짜 placeholder에 의해 방해받지 않도록 설정
-    opacity: ${props => (props.show ? 1 : 0)}; // show prop에 따라 보여지거나 숨겨짐
+    opacity: ${props => (props.$show ? 1 : 0)}; // show prop에 따라 보여지거나 숨겨짐
     /* transition: opacity 0.25s; */
     color: var(--dark-grey, #BCBCBC);
     /* margin: 1rem; */
