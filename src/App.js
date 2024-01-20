@@ -19,6 +19,7 @@ import Detail from './pages/user/myPage/Refund/Detail/Index'
 import ReqRefund from './pages/user/myPage/Refund/Enroll/Index'
 import AskEnrollPage from "./pages/user/myPage/directAsk/Enroll/Index";
 import DetailPage from "./pages/user/myPage/directAsk/Detail";
+import FaqPage from "./pages/user/myPage/Faq/Index";
 
 function App() {
   return (
@@ -33,11 +34,16 @@ function App() {
           </Route>
           {/* <MyPage /> */}
           <Route path="/user/mypage/temp" element={<MyPage />}>
-
+              {/* 1:1문의 */}
               <Route path="directask" element={<DirectAskPage />}/>
               <Route path="directask/enroll" element={<AskEnrollPage />}/>
               <Route path="directask/:askId" element={<AskEnrollPage />}/>
+              <Route path="directask/:askId" element={<AskEnrollPage />}/>
 
+              {/* FAQ */}
+              <Route path="faq" element={<FaqPage />}/>
+
+              {/* 회원정보 */}
               <Route path="userinfo" element={<UserInfoPage />}/>
               <Route path="userinfo/editpassword" element={<EditPassword />}/>
               <Route path="userinfo/leave" element={<Leave />}/>
