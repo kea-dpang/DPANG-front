@@ -11,7 +11,6 @@ const ContentBox = styled.div`
   display: flex;
   justify-content: center;
   min-height: calc(100vh - 30rem);
-  background-color: snow;
 `;
 
 const ReviewContainer = styled.div`

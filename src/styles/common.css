@@ -26,3 +26,29 @@
     display: inline-block;
     width: fit-content;
 }
+.Btn_S_Navy { 
+    padding: 1rem 1.8125rem;
+    background-color: var(--navy);
+    border-radius: 3px;
+    
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
+
+    /* 텍스트의 길이에 맞게 너비를 조정 */
+    display: inline-block;
+    width: fit-content;
+}
+.Btn_S_White { 
+    padding: 1rem 1.8125rem;
+    background-color: var(--white);
+    border-radius: 3px;
+
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--black);
+
+    /* 텍스트의 길이에 맞게 너비를 조정 */
+    display: inline-block;
+    width: fit-content;
+}

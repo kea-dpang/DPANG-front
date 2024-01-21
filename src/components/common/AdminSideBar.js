@@ -85,8 +85,7 @@ const AdminSideBar = () => {
                         openSubMenu === '이벤트관리' 
                         && <OpenMenuWrap>
                             <Nav to="list"> - 이벤트 관리 </Nav>
-                            <Nav to="enroll"> - 이벤트 등록 </Nav>
-                            <Nav to="edit"> - 이벤트 수정 </Nav>
+                            <Nav to="enrollproduct"> - 이벤트 등록 </Nav>
                         </OpenMenuWrap>
                     }
                 {/* 재고관리 */}
@@ -193,6 +192,7 @@ const LogoBar = styled.div`
 const MenuWrap = styled.div`
     display: flex;
     width: 19.0625rem;
+    height: 100vh;
     padding-top: 3.75rem;
     flex-direction: column;
     align-items: flex-start;

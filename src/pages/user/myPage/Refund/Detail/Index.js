@@ -22,7 +22,7 @@ const ReviewContainer = styled.div`
 
 function Index() {
 
-  const state = '취소';
+  const state = '환불';
 
   return (
     <Container>
