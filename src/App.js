@@ -20,6 +20,12 @@ import WishList from "./pages/user/WishList";
 import OrderPage from "./pages/admin/orderPage/Index";
 import Detail from './pages/user/myPage/Refund/Detail/Index'
 import ReqRefund from './pages/user/myPage/Refund/Enroll/Index'
+import AskEnrollPage from "./pages/user/myPage/directAsk/Enroll/Index";
+import DetailPage from "./pages/user/myPage/directAsk/Detail";
+import FaqPage from "./pages/user/myPage/Faq/Index";
+import LoginPage from "./pages/user/Login/Index";
+import SignPage from "./pages/user/Sign/Index";
+import FindPasswordPage from "./pages/user/Login/FindPassword";
 import AdminRefund from './pages/admin/Refund/Index'
 import AdminRefundList from './pages/admin/Refund/List/Index'
 import AdminRefundDetail from './pages/admin/Refund/Detail/Index'
@@ -46,12 +52,32 @@ function App() {
           {/*관리자 주문관리 페이지 */}
           <Route path="/admin/order" element={<OrderPage />}/>
 
+          {/* 사용자 */}
+          {/* 회원가입 */}
+          <Route path="/user/sign" element={<SignPage />}/>
+
+          {/* 로그인 */}
+          {/* <Route path="/user/login" element={<LoginPage/>}/> */}
+          <Route path="/user/login" element={<LoginPage userType="user"/>}/>
+          <Route path="/admin/login" element={<LoginPage userType="admin"/>}/>
+          <Route path="/user/findpassword" element={<FindPasswordPage />}/>
+            
           {/* <MyPage /> */}
           <Route path="/user/mypage/temp" element={<MyPage />}>
-            <Route path="directask" element={<DirectAskPage />} />
+              {/* 1:1문의 */}
+              <Route path="directask" element={<DirectAskPage />}/>
+              <Route path="directask/enroll" element={<AskEnrollPage />}/>
+              <Route path="directask/:askId" element={<AskEnrollPage />}/>
+              <Route path="directask/:askId" element={<AskEnrollPage />}/>
+
+              {/* FAQ */}
+              <Route path="faq" element={<FaqPage />}/>
+
+              {/* 회원정보 */}
             <Route path="userinfo" element={<UserInfoPage />} />
             <Route path="userinfo/editpassword" element={<EditPassword />} />
             <Route path="userinfo/leave" element={<Leave />} />
+              
             <Route path="review" element={<Review />} />
             <Route path="review/enroll" element={<EnrollReview />} />
             <Route path="mileage" element={<Mileage />} />
