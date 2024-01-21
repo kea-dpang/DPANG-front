@@ -21,6 +21,7 @@ import AskEnrollPage from "./pages/user/myPage/directAsk/Enroll/Index";
 import DetailPage from "./pages/user/myPage/directAsk/Detail";
 import FaqPage from "./pages/user/myPage/Faq/Index";
 import LoginPage from "./pages/user/Login/Index";
+import SignPage from "./pages/user/Sign/Index";
 
 function App() {
   return (
@@ -35,6 +36,9 @@ function App() {
           </Route>
 
           {/* 사용자 */}
+          {/* 회원가입 */}
+          <Route path="/user/sign" element={<SignPage />}/>
+          
           {/* 로그인 */}
           {/* <Route path="/user/login" element={<LoginPage/>}/> */}
           <Route path="/user/login" element={<LoginPage userType="user"/>}/>
