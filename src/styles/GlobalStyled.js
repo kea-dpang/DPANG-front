@@ -43,4 +43,8 @@ export const GlobalStyle = createGlobalStyle`
     a:visited {
         text-decoration: none;
     }
+    
+    textarea {
+        resize: none;
+    }
 `;

@@ -41,7 +41,7 @@ const MypageTitleBox = () => {
                 <StyledArrowStrokeVector/>
             </Chargebox>
             </MileContainer>
-            <Askbox to="directask">
+            <Askbox onClick={()=>{navi('directask/enroll')}}>
                 <Ask>1:1 문의하기</Ask>
                 <StyledArrowStrokeVector/>
             </Askbox>

@@ -30,6 +30,7 @@ function Index() {
       <Container>
         <NavBar handleClick={handleClick} />
       </Container>
+      {/* click여부에 따라 보였다가 안보였다가 */}
       {click && <CategoryList />}
     </>
   );

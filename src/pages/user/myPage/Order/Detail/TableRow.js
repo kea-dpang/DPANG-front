@@ -137,20 +137,22 @@ return {border: 0}
 
 function TableRow(props) {
 
-
   const navi = useNavigate();
-  return props.data.map((a, k) => {
+
+  const data = props.data[0];
+
+  
     return (
-      <Row className="cm-SRegular16" key={k}>
+      <Row className="cm-SRegular16">
         <Col width="13rem">
           <Column>
-            <p>{a.date}</p>
-            <p>{a.ordernum}</p>
+            <p>{data.date}</p>
+            <p>{data.ordernum}</p>
           </Column>
         </Col>
-        <Col width="11rem">{a.status}</Col>
+        <Col width="11rem">{data.status}</Col>
         <ItemColBox>
-          {a.item.map((b, i) => {
+          {data.item.map((b, i) => {
 
             return (
               <ItemCol key={i} i={i} onClick={(e) => { e.stopPropagation(); navi('/user/mypage/temp/order/detail') }}>
@@ -162,10 +164,10 @@ function TableRow(props) {
 
                 <Col width="15rem">
                   <ButtonBox>
-                    <Button status={a.status}>취소</Button>
+                    <Button status={data.status}>취소</Button>
                     {/* 버튼을 클릭하더라도 상위 요소에 대하 이벤트 버블링 발생하지 않도록 함 */}
-                    <Button1 status={a.status} onClick={(e) => { e.stopPropagation(); navi('/user/mypage/temp/refund/enroll') }}>반품</Button1>
-                    <Button2 status={a.status} onClick={(e) => { e.stopPropagation(); navi('/user/mypage/temp/review/enroll') }}>리뷰작성</Button2>
+                    <Button1 status={data.status} onClick={(e) => { e.stopPropagation(); navi('/user/mypage/temp/refund/enroll') }}>반품</Button1>
+                    <Button2 status={data.status} onClick={(e) => { e.stopPropagation(); navi('/user/mypage/temp/review/enroll') }}>리뷰작성</Button2>
                   </ButtonBox>
                 </Col>
 
@@ -177,7 +179,7 @@ function TableRow(props) {
 
       </Row>
     );
-  });
+
 }
 
 export default TableRow;
