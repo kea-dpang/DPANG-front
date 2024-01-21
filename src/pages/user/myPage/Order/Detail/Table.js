@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import TableRow from "./TableRow";
-import TempData from '../../../../../assets/datas/UserOrderData'
+
 
 const Head = styled.div`
   height: 3rem;
@@ -25,7 +25,7 @@ justify-content: center;
 `
 
 
-function Table() {
+function Table(props) {
 
   
 
@@ -40,7 +40,7 @@ function Table() {
       </Head>
 
 
-      <TableRow data={TempData} />
+      <TableRow data={props.data} />
 
     </TableBox>
   );

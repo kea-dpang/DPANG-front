@@ -40,7 +40,7 @@ function ReviewBox(props) {
       <MyPageBodyHeader header="주문 상세 내역" />
       <DetailHeader className="cm-SRegular16">주문 상세 내역</DetailHeader>
       <TableBox>
-        <Table />
+        <Table data={props.data}/>
       </TableBox>
     </Container>
   );

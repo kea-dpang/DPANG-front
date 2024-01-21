@@ -65,8 +65,8 @@ function App() {
             <Route path="mileage/req" element={<MileageReq />} />
             <Route path="refund" element={<UserRefund />} />
             <Route path="order" element={<UserOrder />} />
-            <Route path="order/detail" element={<OrderDetail />}/>
-            <Route path="refund/detail" element={<Detail />} />
+            <Route path="order/detail/:id" element={<OrderDetail />}/>
+            <Route path="refund/detail/:id" element={<Detail />} />
             <Route path="refund/enroll" element={<ReqRefund />} />
           </Route>
           {/* wishlist */}

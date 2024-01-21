@@ -191,7 +191,7 @@ function TableRow({data}) {
           {a.item.map((b, i) => {
 
             return (
-              <ItemCol key={i} i={i} onClick={(e) => { e.stopPropagation(); navi('/user/mypage/temp/order/detail') }}>
+              <ItemCol key={i} i={i} onClick={(e) => { e.stopPropagation(); navi(`/user/mypage/temp/order/detail/${a.id}`) }}>
                 <Col width="22rem">
                   <ItemImg src={b.img} />
                   <ItemName>{b.name}</ItemName>
