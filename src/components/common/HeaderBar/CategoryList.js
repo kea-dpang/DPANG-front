@@ -9,6 +9,7 @@ const Container = styled.div`
   justify-content: center;
   position: absolute;
   z-index: 2;
+  cursor: pointer;
 `;
 
 const CategoryContainer = styled.div`

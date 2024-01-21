@@ -13,6 +13,8 @@ const Nav = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  cursor: pointer;
 `;
 const Logo = styled.img`
   height: 3rem;

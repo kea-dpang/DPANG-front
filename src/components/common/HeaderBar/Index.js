@@ -13,6 +13,9 @@ const Container = styled.div`
   justify-content: center;
   z-index: 10;
   padding: 0 12rem;
+  position: sticky;
+  top: 0;
+  background-color: var(--white);
 `;
 
 function Index() {

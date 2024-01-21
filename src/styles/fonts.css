@@ -8,8 +8,27 @@
 .col-Black {
     color: var(--black);
 }
+.col-SemiLightGrey {
+    color: var(--semi-light-grey);
+}
+.col-Orange {
+    color: var(--orange);
+}
 
-
+.cm-XLBold36 {
+    font-family: Pretendard;
+    font-style: normal;
+    line-height: normal;
+    font-size: 2.25rem;
+    font-weight: 700;
+}
+.cm-LBold30 {
+    font-family: Pretendard;
+    font-style: normal;
+    line-height: normal;
+    font-size: 1.875rem;
+    font-weight: 700;
+}
 .cm-MBold24 {
     font-family: Pretendard;
     font-style: normal;
@@ -22,13 +41,6 @@
     font-style: normal;
     line-height: normal;
     font-size: 1.125rem;
-    font-weight: 700;
-}
-.cm-LBold30 {
-    font-family: Pretendard;
-    font-style: normal;
-    line-height: normal;
-    font-size: 1.875rem;
     font-weight: 700;
 }
 .cm-SRegular18 {
@@ -51,6 +63,13 @@
     line-height: normal;
     font-size: 1rem;
     font-weight: 700;
+}
+.cm-XsRegular14 {
+    font-family: Pretendard;
+    font-size: 0.8125rem;
+    font-style: normal;
+    line-height: normal;
+    font-weight: 400;
 }
 .cm-XsRegular12 {
     font-family: Pretendard;
