@@ -18,32 +18,36 @@ export default function DataTable() {
   };
 
   const renderDropBox = (params) => {
-
-    if(params.row.type ==="취소"){
-      return(
-      <NumBox onClick={(e)=>{e.stopPropagation()}} >
-      <Form value={params.row.state} onChange={(e) => { /* handle change */ }}>
-      <option value="단순 변심">-----</option>
-        <option value="단순 변심">취소요청</option>
-        <option value="사이즈 안맞음">취소완료</option>
-      </Form>
-    </NumBox>
-
-      )
-
+    if (params.row.type === "취소") {
+      return (
+        <NumBox
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          <Form>
+            <option value="단순 변심">-----</option>
+            <option value="단순 변심">취소요청</option>
+            <option value="사이즈 안맞음">취소완료</option>
+          </Form>
+        </NumBox>
+      );
+    } else {
+      return (
+        <NumBox
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          <Form>
+            <option value="단순 변심">-----</option>
+            <option value="10">반품요청</option>
+            <option value="11">회수중</option>
+            <option value="13">반품완료</option>
+          </Form>
+        </NumBox>
+      );
     }
-    else{
-
-      return(
-    <NumBox onClick={(e)=>{e.stopPropagation()}}>
-      <Form value={params.row.state} onChange={(e) => { /* handle change */ }}>
-      <option value="단순 변심">-----</option>
-        <option value="10">반품요청</option>
-        <option value="11">회수중</option>
-        <option value="13">반품완료</option>
-      </Form>
-    </NumBox>
-    )}
   };
 
   const columns = [
@@ -158,5 +162,4 @@ const NumBox = styled.div`
 const Form = styled.select`
   width: 7rem;
   height: 2rem;
-
 `;
