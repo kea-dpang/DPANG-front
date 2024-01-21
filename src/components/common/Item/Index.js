@@ -11,6 +11,7 @@ const Item = (props) => {
     const handleLike = () => {
         setLiked(!liked);
         console.log('islike: ',liked);
+        console.log('id: ',props.item.id);
     };
 
   return (

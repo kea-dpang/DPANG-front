@@ -24,6 +24,9 @@ import AdminRefund from './pages/admin/Refund/Index'
 import AdminRefundList from './pages/admin/Refund/List/Index'
 import AdminRefundDetail from './pages/admin/Refund/Detail/Index'
 import MainPage from './pages/user/mainPage/Index'
+import ProductListPage from "./pages/user/productListPage/Index";
+import BestProductPage from "./pages/user/productListPage/BestProdudctPage";
+import EventProductPage from "./pages/user/productListPage/EventProductPage";
 
 function App() {
   return (
@@ -65,8 +68,12 @@ function App() {
           <Route path="/user/wishlist" element={<WishList/>}/>
 
           {/* 메인 페이지 */}
-          <Route path="/user/mainpage" element={<MainPage/>}>
-            
+          <Route path="/user/mainpage" element={<MainPage/>}/>
+
+          {/* 상품 여러개 나오는 페이지 */}
+          <Route path="/user/productlists" element={<ProductListPage/>}>
+              <Route path="best" element={<BestProductPage/>}/>
+              <Route path="event" element={<EventProductPage/>}/>
           </Route>
 
         </Routes>
