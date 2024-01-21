@@ -16,6 +16,11 @@
     font-size: 2.25rem;
     font-weight: 700;
 }
+.cm-LBold30 {
+    @include fontStyle;
+    font-size: 1.875rem;
+    font-weight: 700;
+}
 .cm-MBold24 {
     @include fontStyle;
     font-size: 1.75rem;

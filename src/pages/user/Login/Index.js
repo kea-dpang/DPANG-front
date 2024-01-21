@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import styled from 'styled-components';
 import { display } from '@mui/system';
+import { Link } from 'react-router-dom';
 
 const LoginPage = ({ userType }) => {
     const handleSubmit = () => {
@@ -15,7 +16,7 @@ const LoginPage = ({ userType }) => {
         <Wrap>
             <LogoImg src={Logo} alt="Logo" />
             <BoxContainer>
-                {userType==="user" ? <h1 className='cm-MBold24'>사용자 로그인</h1> : <h1 className='cm-MBold24'>관리자 로그인</h1>}
+                {userType==="user" ? <h1 className='cm-MBold24'>로그인</h1> : <h1 className='cm-MBold24'>관리자 로그인</h1>}
                 
                 <Box
                     component="form"
@@ -30,9 +31,15 @@ const LoginPage = ({ userType }) => {
                 >
                     <TextField id="current-pass" label="ID" variant="outlined" />
                     <TextField id="new-pass-check" label="PASSWORD" variant="outlined" />
+
+                    {userType==="user" &&
+                        <FindPassword className='.cm-SRegular18'>
+                            <Link to='/user/findpassword'>비밀번호 찾기{">"}</Link>
+                        </FindPassword>
+                    }
                 </Box>
-                
-                <Submit>
+
+                <Submit>                
                     <StyledButton type='submit' className='Btn_M_Navy'>로그인</StyledButton>
                     <StyledButton type='submit' className='Btn_M_White'>회원가입</StyledButton>
                 </Submit>
@@ -73,7 +80,9 @@ const BoxContainer = styled.div`
     flex-direction: column;
     align-content: center;
     justify-content: center;
-    gap: 4.44rem;
+    /* gap: 4.44rem; */
+    gap: 2rem;
+
 `;
 const Submit = styled.div`
     display: flex;
@@ -82,4 +91,17 @@ const Submit = styled.div`
 `;
 const StyledButton = styled.button`
     width: 100%;
+`;
+
+const FindPassword = styled.div`
+
+   display: flex;
+   justify-content: flex-end;
+    
+   a:link, a:visited {
+    color: var(--dark-grey, #BCBCBC);
+    background: none;
+   }
+
+   /* padding: 1.25rem 0 3rem 0; */
 `;
