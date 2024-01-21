@@ -3,18 +3,71 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import TempData from "../../../../assets/datas/EventData";
+import TempData from "../../../../assets/datas/AdminRefundData";
 
 export default function DataTable() {
   const navigate = useNavigate();
 
+  const renderOrderNum = (params) => {
+    return (
+      <NumBox>
+        <p>{params.row.date} </p>
+        <p style={{ color: "var(--navy)" }}>{params.row.ordernum}</p>
+      </NumBox>
+    );
+  };
+
+  const renderDropBox = (params) => {
+
+    if(params.row.type ==="취소"){
+      return(
+      <NumBox onClick={(e)=>{e.stopPropagation()}} >
+      <Form value={params.row.state} onChange={(e) => { /* handle change */ }}>
+      <option value="단순 변심">-----</option>
+        <option value="단순 변심">취소요청</option>
+        <option value="사이즈 안맞음">취소완료</option>
+      </Form>
+    </NumBox>
+
+      )
+
+    }
+    else{
+
+      return(
+    <NumBox onClick={(e)=>{e.stopPropagation()}}>
+      <Form value={params.row.state} onChange={(e) => { /* handle change */ }}>
+      <option value="단순 변심">-----</option>
+        <option value="10">반품요청</option>
+        <option value="11">회수중</option>
+        <option value="13">반품완료</option>
+      </Form>
+    </NumBox>
+    )}
+  };
+
   const columns = [
-    { field: "id", headerName: "번호", width: 45, headerAlign: "center" },
     {
-      field: "kind",
+      field: "id",
+      headerName: "번호",
+      width: 45,
+      headerAlign: "center",
+      renderCell: (params) => {
+        return <NumBox>{params.value}</NumBox>;
+      },
+    },
+    {
+      field: "eventName",
+      headerName: "결제일 | 주문번호",
+      width: 200,
+      headerAlign: "center",
+      renderCell: renderOrderNum,
+    },
+    {
+      field: "type",
       headerName: "유형",
       width: 65,
-      headerAlign: "center",
+      headerAlign: "left",
       renderCell: (params) => {
         let color;
         if (params.value === "취소") {
@@ -27,47 +80,39 @@ export default function DataTable() {
       },
     },
     {
-      field: "eventStart",
-      headerName: "사유",
+      field: "category",
+      headerName: "상세 사유",
       width: 200,
       headerAlign: "center",
+      renderCell: (params) => {
+        return <NumBox>{params.row.category}</NumBox>;
+      },
     },
     {
-      field: "submitDate",
-      headerName: "상품명",
+      field: "user",
+      headerName: "유저",
       width: 200,
       headerAlign: "center",
+      renderCell: (params) => {
+        return <NumBox>{params.row.user}</NumBox>;
+      },
     },
     {
-      field: "eventName",
-      headerName: "상품 금액/수량",
-      width: 200,
-      headerAlign: "center",
-    },
-    {
-      field: "eventStatus",
-      headerName: "예상 환불액",
+      field: "state",
+      headerName: "상태",
       width: 150,
       sortable: false,
       headerAlign: "center",
       renderCell: (params) => {
-        let color;
-        if (params.value === "진행") {
-          color = "var(--navy)";
-        } else if (params.value === "대기") {
-          color = "var(--yellow)";
-        } else {
-          // 종료
-          color = "var(--orange)";
-        }
-        return <div style={{ color: color }}>{params.value}</div>;
+        return <NumBox>{params.value}</NumBox>;
       },
     },
     {
-      field: "eventEnd",
+      field: "center",
       headerName: "상태관리",
       width: 200,
       headerAlign: "center",
+      renderCell: renderDropBox,
     },
   ];
   const [rows, setRows] = useState([...TempData]);
@@ -75,7 +120,6 @@ export default function DataTable() {
 
   return (
     <Wrap>
-      {/* <button onClick={handleDelete}>선택된 row 삭제</button> */}
       <DataGrid
         rows={rows}
         columns={columns}
@@ -83,16 +127,9 @@ export default function DataTable() {
           setSelectedRows(newSelection.selectionModel);
         }}
         onCellClick={(params, event) => {
-          if (params.field !== "__check__") {
-            let path;
-            if (params.row.kind === "상품") {
-              path = "/admin/event/editproduct/" + params.id; // 'admin/event/editproduct/eventid' 로 이동
-            } else {
-              // 브랜드
-              path = "/admin/event/editbrand/" + params.id; // 'admin/event/editbrand/eventid' 로 이동
-            }
-            navigate(path);
-          }
+          let path;
+          path = "/admin/refund/detail/" + params.id; // detail확인을 위해 클릭한 id값을 함께 넘겨준다
+          navigate(path);
         }}
         initialState={{
           pagination: {
@@ -100,7 +137,7 @@ export default function DataTable() {
           },
         }}
         pageSizeOptions={[5, 10, 15]}
-        checkboxSelection
+        checkboxSelection={false}
       />
     </Wrap>
   );
@@ -109,4 +146,17 @@ export default function DataTable() {
 const Wrap = styled.div`
   width: 70rem;
   cursor: pointer;
+`;
+const NumBox = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+`;
+
+const Form = styled.select`
+  width: 7rem;
+  height: 2rem;
+
 `;

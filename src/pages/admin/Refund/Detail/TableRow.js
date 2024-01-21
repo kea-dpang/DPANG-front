@@ -47,7 +47,10 @@ const setBorder = (i) => {
 };
 
 function TableRow(props) {
-  const data = props.data[1];
+
+  console.log(props.id)
+
+  const data = props.data[props.id];
 
   return (
     <Row className="cm-SRegular16">

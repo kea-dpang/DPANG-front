@@ -43,7 +43,7 @@ function App() {
 
           <Route path="/admin/refund" element={<AdminRefund />}>
             <Route path="list" element={<AdminRefundList />} />
-            <Route path="detail" element={<AdminRefundDetail />}/>
+            <Route path="detail/:id" element={<AdminRefundDetail />}/>
           </Route>
 
           
