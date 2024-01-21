@@ -29,6 +29,10 @@ import FindPasswordPage from "./pages/user/Login/FindPassword";
 import AdminRefund from './pages/admin/Refund/Index'
 import AdminRefundList from './pages/admin/Refund/List/Index'
 import AdminRefundDetail from './pages/admin/Refund/Detail/Index'
+import MainPage from './pages/user/mainPage/Index'
+import ProductListPage from "./pages/user/productListPage/Index";
+import BestProductPage from "./pages/user/productListPage/BestProdudctPage";
+import EventProductPage from "./pages/user/productListPage/EventProductPage";
 import OrderDetail from './pages/user/myPage/Order/Detail/Index'
 
 function App() {
@@ -90,6 +94,15 @@ function App() {
           </Route>
           {/* wishlist */}
           <Route path="/user/wishlist" element={<WishList/>}/>
+
+          {/* 메인 페이지 */}
+          <Route path="/user/mainpage" element={<MainPage/>}/>
+
+          {/* 상품 여러개 나오는 페이지 */}
+          <Route path="/user/productlists" element={<ProductListPage/>}>
+              <Route path="best" element={<BestProductPage/>}/>
+              <Route path="event" element={<EventProductPage/>}/>
+          </Route>
 
         </Routes>
       </BrowserRouter>

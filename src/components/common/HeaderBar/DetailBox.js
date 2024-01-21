@@ -18,6 +18,10 @@ const SubCategoty = styled.p`
 font-size: 14px;
 margin-bottom: 12px;
 
+&:hover { 
+  color: var(--orange);
+ }
+
 `
 
 function DetailBox(props){
