@@ -20,6 +20,7 @@ import ReqRefund from './pages/user/myPage/Refund/Enroll/Index'
 import AskEnrollPage from "./pages/user/myPage/directAsk/Enroll/Index";
 import DetailPage from "./pages/user/myPage/directAsk/Detail";
 import FaqPage from "./pages/user/myPage/Faq/Index";
+import LoginPage from "./pages/user/Login/Index";
 
 function App() {
   return (
@@ -32,6 +33,13 @@ function App() {
               <Route path="enroll" element={<EventEnrollPage />}/>
               <Route path="edit" element={<EventEditPage />}/>
           </Route>
+
+          {/* 사용자 */}
+          {/* 로그인 */}
+          {/* <Route path="/user/login" element={<LoginPage/>}/> */}
+          <Route path="/user/login" element={<LoginPage userType="user"/>}/>
+          <Route path="/admin/login" element={<LoginPage userType="admin"/>}/>
+
           {/* <MyPage /> */}
           <Route path="/user/mypage/temp" element={<MyPage />}>
               {/* 1:1문의 */}

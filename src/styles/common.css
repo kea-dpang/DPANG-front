@@ -15,6 +15,7 @@
 .Btn_M_White { 
     padding: 1.3rem;
     background-color: var(--white);
+    border: 1px solid var(--navy);
     border-radius: 3px;
 
     font-size: 1.125rem;
