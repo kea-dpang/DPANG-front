@@ -14,6 +14,9 @@
 .col-Orange {
     color: var(--orange);
 }
+.col-White {
+    color: var(--white);
+}
 
 .cm-XLBold36 {
     font-family: Pretendard;
