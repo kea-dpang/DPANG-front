@@ -34,6 +34,9 @@ import ProductListPage from "./pages/user/productListPage/Index";
 import BestProductPage from "./pages/user/productListPage/BestProdudctPage";
 import EventProductPage from "./pages/user/productListPage/EventProductPage";
 import OrderDetail from './pages/user/myPage/Order/Detail/Index'
+import UserPage from "./pages/admin/userPage/Index";
+import UserListPage from "./pages/admin/userPage/list/Index";
+import EditPage from "./pages/admin/userPage/edit/Index";
 
 function App() {
   return (
@@ -55,6 +58,13 @@ function App() {
           </Route>
           {/*관리자 주문관리 페이지 */}
           <Route path="/admin/order" element={<OrderPage />}/>
+
+          {/* 회원관리 */}
+          <Route path="/admin/user" element={<UserPage />}>
+            <Route path="list" element={<UserListPage />}/>
+            <Route path="list/:memberId" element={<EditPage />}/>
+          </Route>
+
 
           {/* 사용자 */}
           {/* 회원가입 */}
