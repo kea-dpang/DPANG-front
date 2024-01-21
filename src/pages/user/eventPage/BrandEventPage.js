@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import EventDataList from '../../../assets/datas/ProductEventDetailData';
 import EventList from "./EventList";
 
-// 사용자 - 상품 이벤트 리스트 확인 페이지
-const ProductEventList = () => {
+// 사용자 - 브랜드 이벤트 리스트 확인 페이지
+const BrandEventPage = () => {
     const navi = useNavigate();
 
     const handleNavClick = () => {
-        navi("/user/event/brand");
+        navi("/user/event/product")
     };
     
     return (
@@ -17,13 +17,13 @@ const ProductEventList = () => {
             <Wrap>
                 {/* 상품 이벤트 & 브랜드 이벤트 선택 버튼 */}
                 <ProductBrandTab className='cm-SRegular18 col-White'> 
-                    <Nav color="var(--navy)" > 상품 이벤트</Nav>
-                    <Nav color="var(--semi-light-grey)" onClick={() => handleNavClick()}> 브랜드 이벤트</Nav>
+                    <Nav color="var(--semi-light-grey)" onClick={() => handleNavClick()}> 상품 이벤트</Nav>
+                    <Nav color="var(--navy)"> 브랜드 이벤트</Nav>
                 </ProductBrandTab>
 
                 {/* 이벤트 리스트 나열하는 부분 */}
                 <ListSection>
-                    {EventDataList.filter(item => item.kind === '상품').map((filteredItem, index) => 
+                    {EventDataList.filter(item => item.kind === '브랜드').map((filteredItem, index) => 
                         <EventList key={index} data={filteredItem}/>
                     )}
                 </ListSection>
@@ -32,7 +32,7 @@ const ProductEventList = () => {
     );
 };
 
-export default ProductEventList;
+export default BrandEventPage;
 
 const Wrap = styled.div`
     display: flex;

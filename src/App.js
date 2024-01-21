@@ -35,7 +35,8 @@ import BestProductPage from "./pages/user/productListPage/BestProdudctPage";
 import EventProductPage from "./pages/user/productListPage/EventProductPage";
 import OrderDetail from './pages/user/myPage/Order/Detail/Index';
 import UserEventPage from './pages/user/eventPage/Index';
-import UserProductListPage from './pages/user/eventPage/ProductEventPage';
+import UserProductEventListPage from './pages/user/eventPage/ProductEventPage';
+import UserBrandEventListPage from "./pages/user/eventPage/BrandEventPage";
 
 function App() {
   return (
@@ -107,8 +108,8 @@ function App() {
           </Route>
           {/* 사용자 이벤트 확인 페이지 */}
           <Route path="/user/event" element={<UserEventPage/>}>
-              <Route path="product" element={<UserProductListPage/>}/>
-              <Route path="brand"/>
+              <Route path="product" element={<UserProductEventListPage/>}/>
+              <Route path="brand" element={<UserBrandEventListPage/>}/>
           </Route> 
         </Routes>
       </BrowserRouter>
