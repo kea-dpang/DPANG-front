@@ -37,6 +37,7 @@ import OrderDetail from './pages/user/myPage/Order/Detail/Index';
 import UserEventPage from './pages/user/eventPage/Index';
 import UserProductEventListPage from './pages/user/eventPage/ProductEventPage';
 import UserBrandEventListPage from "./pages/user/eventPage/BrandEventPage";
+import SearchPage from "./pages/user/searchPage/Index";
 
 function App() {
   return (
@@ -111,6 +112,8 @@ function App() {
               <Route path="product" element={<UserProductEventListPage/>}/>
               <Route path="brand" element={<UserBrandEventListPage/>}/>
           </Route> 
+          {/* 검색 결과 페이지 */}
+          <Route path="/user/search" element={<SearchPage/>}/>
         </Routes>
       </BrowserRouter>
     </div>
