@@ -17,7 +17,6 @@ const EnrollPage = () => {
             <Title className='cm-SBold18 col-Navy'> FAQ관리</Title>
             <Main>
                 <Option>
-                    {/* 카테고리 선택 */}
                     <FormControl sx={{ width: '11.68rem', 
                         // height: '2.43rem' 
                         }} >
@@ -82,9 +81,9 @@ const EnrollPage = () => {
                     ></textarea>
                 </Item>
             </Main>
-            <div style={{paddingTop: '2rem'}}>
+            <Button>
                 <button className="Btn_S_Navy">등록</button>
-            </div>
+            </Button>
         </Wrap>
     );
 };
@@ -96,7 +95,7 @@ const Wrap = styled.div`
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: end;
+    /* align-items: end; */
 `;
 const Title = styled.div`
     display: flex;
@@ -122,4 +121,10 @@ const Item = styled.div`
     textarea::placeholder {
     white-space: pre-line;
 }
+`;
+const Button = styled.div`
+    padding-top: 2rem;
+    display: flex;
+    /* align-content: flex-end; */
+    justify-content: flex-end;
 `;
