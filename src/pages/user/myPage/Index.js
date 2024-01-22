@@ -5,7 +5,7 @@ import UserSideBar from '../../../components/common/UserSideBar';
 import { Outlet } from 'react-router-dom';
 import media from '../../../styles/responsive';
 import Header from '../../../components/common/HeaderBar/Index'
-import MyPageTitleBox from '../../../components/common/MypageTitleBox'
+import MypageTitleBox from '../../../components/common/MypageTitleBox'
 import Footer from '../../../components/common/Footer/Index'
 
 const MyPage = () => {
