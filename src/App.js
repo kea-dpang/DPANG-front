@@ -34,6 +34,8 @@ import ProductListPage from "./pages/user/productListPage/Index";
 import BestProductPage from "./pages/user/productListPage/BestProdudctPage";
 import EventProductPage from "./pages/user/productListPage/EventProductPage";
 import OrderDetail from './pages/user/myPage/Order/Detail/Index'
+import AdminMileage from './pages/admin/Mileage/Index'
+import AdminMileageView from './pages/admin/Mileage/List/Index'
 
 function App() {
   return (
@@ -51,7 +53,12 @@ function App() {
 
           <Route path="/admin/refund" element={<AdminRefund />}>
             <Route path="list" element={<AdminRefundList />} />
-            <Route path="detail" element={<AdminRefundDetail />}/>
+            <Route path="detail/:id" element={<AdminRefundDetail />}/>
+          </Route>
+
+          
+          <Route path="/admin/mileage" element={<AdminMileage />}>
+            <Route path="list" element={< AdminMileageView />} />
           </Route>
           {/*관리자 주문관리 페이지 */}
           <Route path="/admin/order" element={<OrderPage />}/>
@@ -88,8 +95,8 @@ function App() {
             <Route path="mileage/req" element={<MileageReq />} />
             <Route path="refund" element={<UserRefund />} />
             <Route path="order" element={<UserOrder />} />
-            <Route path="order/detail" element={<OrderDetail />}/>
-            <Route path="refund/detail" element={<Detail />} />
+            <Route path="order/detail/:id" element={<OrderDetail />}/>
+            <Route path="refund/detail/:id" element={<Detail />} />
             <Route path="refund/enroll" element={<ReqRefund />} />
           </Route>
           {/* wishlist */}

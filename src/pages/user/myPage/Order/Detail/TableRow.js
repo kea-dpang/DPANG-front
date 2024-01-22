@@ -139,7 +139,7 @@ function TableRow(props) {
 
   const navi = useNavigate();
 
-  const data = props.data[0];
+  const data = props.data;
 
   
     return (

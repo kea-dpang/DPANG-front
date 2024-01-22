@@ -1,5 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
+import { useState } from "react";
+
+
+const PaginationContainer = styled.div`
+
+width: 72rem;
+height: 5rem;
+display: flex;
+justify-content: center;
+align-items: center;
+
+
+`
 
 const Row = styled.div`
   width: 72rem;
@@ -135,11 +150,34 @@ return {border: 0}
 
 }
 
-function TableRow(props) {
+function TableRow({data}) {
 
+    //pagination에서 현재 페이지
+    const [currentPage, setCurrentPage] = useState(1);
+
+    //page가 변경된 경우
+    const handlePageChange = (e, newPage) =>{
+  
+      //현재 페이지를 새로운 페이지로 변경
+      setCurrentPage(newPage);
+  
+    }
+  
+    //한페이지당 보여줄 아이템의 개수
+    const itemPerPage = 2;
+    //시작 index는 현재 페이지의 첫번째 원소부터
+    const start = (currentPage - 1) * itemPerPage;
+    //끝 index는 start부터 보여주어야할 아이템의 개수 만큼
+    const end = start + itemPerPage;
+    //전체 데이터에서 시작 ~ 끝만 가져옴
+    const currentData = data.slice(start, end);
 
   const navi = useNavigate();
-  return props.data.map((a, k) => {
+
+  return(
+    <>
+
+  {currentData.map((a, k) => {
     return (
       <Row className="cm-SRegular16" key={k}>
         <Col width="13rem">
@@ -153,7 +191,7 @@ function TableRow(props) {
           {a.item.map((b, i) => {
 
             return (
-              <ItemCol key={i} i={i} onClick={(e) => { e.stopPropagation(); navi('/user/mypage/temp/order/detail') }}>
+              <ItemCol key={i} i={i} onClick={(e) => { e.stopPropagation(); navi(`/user/mypage/temp/order/detail/${a.id}`) }}>
                 <Col width="22rem">
                   <ItemImg src={b.img} />
                   <ItemName>{b.name}</ItemName>
@@ -177,7 +215,23 @@ function TableRow(props) {
 
       </Row>
     );
-  });
+  })};
+
+<PaginationContainer>
+  <Stack spacing={10}>
+    {/* MUI 페이지 네이션 라이브러리 이용 */}
+    <Pagination 
+    //페이지당 아이템 개수에 따른 전체 페이지수 계산
+    count={Math.ceil(data.length / itemPerPage)}
+    //페이지는 현재 페이지
+    page={currentPage}
+    onChange={handlePageChange}
+    color="primary" />
+  </Stack>
+  </PaginationContainer>
+
+  </>
+  )
 }
 
 export default TableRow;
