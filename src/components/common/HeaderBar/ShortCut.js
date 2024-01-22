@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 const ShortCutBox = styled.div`
 
 width: 14rem;
@@ -9,12 +9,18 @@ jusfity-content: center;
 align-items: center;
 
 `
-const Link = styled.div`
+const StyledLink = styled(Link)`
+    width: 3.3rem;
+    text-align: center;
+    font-size: 14px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease-in-out;
 
-width: 3.3rem;
-text-align: center;
-font-size: 14px;
-
+    &:hover{
+        color: var(--navy);
+        transform: scale(1.1);
+    }
 `
 
 function ShortCut(){
@@ -22,10 +28,10 @@ function ShortCut(){
     return(
 
         <ShortCutBox>
-            <Link>홈</Link>
-            <Link>신상품</Link>
-            <Link>베스트</Link>
-            <Link>이벤트</Link>
+            <StyledLink to='/user/mainpage'>홈</StyledLink>
+            <StyledLink>신상품</StyledLink>
+            <StyledLink to='/user/productlists/best'>베스트</StyledLink>
+            <StyledLink to='/user/event/product'> 이벤트</StyledLink>
         </ShortCutBox>
 
     )

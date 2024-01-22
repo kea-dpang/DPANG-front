@@ -10,7 +10,7 @@ const BestProductPage = () => {
                 <Title className='cm-XLBold36'> 지금 가장 핫한 상품 🔥 </Title>
                 <ItemWrap>
                     {itemList.map((item) => (
-                        <Item item={item} />
+                        <Item key={item.id} value={item} />
                     ))}
                 </ItemWrap>
             </Wrap>
