@@ -15,6 +15,7 @@ import AdminUserEditPage from "../pages/admin/userPage/edit/Index";
 import AdminFaqListPage from '../pages/admin/faqPage/list/Index';
 import BrandListPage from '../pages/admin/Item/Store/List/Index';
 import BrandEditPage from '../pages/admin/Item/Store/Edit/Index';
+import AdminErollPage from '../pages/admin/faqPage/enroll/Index';
 
 const AdminRoutes = () => {
     return (
@@ -40,6 +41,10 @@ const AdminRoutes = () => {
                 <Route path="refund/:id" element={<AdminRefundDetail />} />
                 {/* 고객센터 */}
                 <Route path="faq" element={<AdminFaqListPage/>}/>
+                <Route path="faq/:faqId" element={<AdminErollPage/>}/>
+
+                {/* <Route path="faq" element={<AdminFaqListPage/>}/> */}
+
                 {/* </Route> */}
             </Route>
         </Routes>

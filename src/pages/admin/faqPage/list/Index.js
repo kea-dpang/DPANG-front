@@ -7,9 +7,11 @@ import AdminTable from '../../userPage/list/AdminTable';
 import { faqManageData } from '../../../../assets/datas/AdminFaqData';
 import Button from '@mui/material/Button';
 import { withStyles } from '@mui/styles';
+import { useNavigate } from 'react-router-dom';
 
 
 const handleButtonClick = (buttonType, dataIndex) => {
+
     const row = faqManageData[dataIndex];
     console.log(row);
 
@@ -27,29 +29,31 @@ const columns = [
     { name: "category", label: "카테고리", options: { sort: true }},
     { name: "title", label: "제목", options: { sort: true }},
     { name: "writer", label: "작성자", options: { sort: true }},
-    { 
-        name: "action",
-        label: "관리",
-        options: {
-            sort: false,
-            customBodyRenderLite: (dataIndex) => {
-                return (
-                    <>
-                    <StyledButton variant="outlined" color="primary" onClick={() => handleButtonClick('button1', dataIndex)}>
-                        수정하기
-                    </StyledButton>
-                    <StyledButton2 variant="outlined" color="secondary" onClick={() => handleButtonClick('button2', dataIndex)} style={{ marginLeft: '10px', }}>
-                        삭제하기
-                    </StyledButton2>
-                    </>
-                );
-            }
-        }
-    }
+    // { 
+    //     name: "action",
+    //     label: "관리",
+    //     options: {
+    //         sort: false,
+    //         customBodyRenderLite: (dataIndex) => {
+    //             return (
+    //                 <>
+    //                 <StyledButton variant="outlined" color="primary" onClick={() => handleButtonClick('button1', dataIndex)}>
+    //                     수정하기
+    //                 </StyledButton>
+    //                 {/* <StyledButton2 variant="outlined" color="secondary" onClick={() => handleButtonClick('button2', dataIndex)} style={{ marginLeft: '10px', }}>
+    //                     삭제하기
+    //                 </StyledButton2> */}
+    //                 </>
+    //             );
+    //         }
+    //     }
+    // }
 ]
 
 const FaqListPage = () => {
     const [category, setCategory] = useState('');
+    const navigate = useNavigate();
+
     /* 정렬 함수 */
     const handleCategory = (e) => {
         setCategory(e.target.value);
@@ -60,7 +64,7 @@ const FaqListPage = () => {
     const handleRowClick = (row) => {
         // setSelectedRow(row); // 클릭된 행의 정보를 상태로 업데이트
         console.log("dddd", row);
-        // navigate(`${row[0]}`);
+        navigate(`${row[0]}`);
 
       };
       
