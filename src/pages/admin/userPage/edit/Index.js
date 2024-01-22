@@ -9,6 +9,7 @@ const EditPage = () => {
     let params = useParams().memberId;
     const userData = userListData.find(data => parseInt(params));
     console.log(userData)
+    console.log("hi~~~~v ");
     return (
         <Wrap>
             <Head>

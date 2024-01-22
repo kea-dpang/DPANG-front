@@ -132,7 +132,7 @@ export default function DataTable() {
         }}
         onCellClick={(params, event) => {
           let path;
-          path = "/admin/refund/detail/" + params.id; // detail확인을 위해 클릭한 id값을 함께 넘겨준다
+          path = "/admin/refund/" + params.id; // detail확인을 위해 클릭한 id값을 함께 넘겨준다
           navigate(path);
         }}
         initialState={{
