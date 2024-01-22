@@ -20,10 +20,12 @@ function EnrollTable() {
         <Box height="7rem">
           <ColBox height="7rem">평점</ColBox>
           <Content>
+            <RatingBox>
             <Rating name="star" value={value} onChange={(e, val) => {
               setValue(val);
             }}
             />
+            </RatingBox>
           </Content>
         </Box>
 
@@ -61,6 +63,7 @@ const Box = styled.div`
   height: ${(props) => props.height};
   width: 72rem;
   display: flex;
+
   
 `;
 
@@ -101,7 +104,7 @@ width: 62rem;
 height: 6rem;
 display: flex;
 align-items: center;
-margin-left: 2rem;
+justify-content: center;
 
 `
 const Button = styled.button`
@@ -122,6 +125,15 @@ height: 10rem;
 justify-content: end;
 align-items: end;
 
+
+`
+
+const RatingBox = styled.div`
+
+width: 59rem;
+height: 6rem;
+display: flex;
+align-items: center;
 
 `
 

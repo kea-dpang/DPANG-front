@@ -4,9 +4,14 @@ import { useState } from "react";
 import '../../../../styles/fonts.css';
 import Table from './Table';
 import data from '../../../../assets/datas/AdminRefundData'
+import DetailBox from "./DetailBox";
+import { useParams } from "react-router-dom";
 
 
 const Index = () => {
+
+    const {id} = useParams();
+    console.log(id)
 
     return (
         <>  
@@ -16,7 +21,8 @@ const Index = () => {
 
 
                 <InputSection>
-                    <Table data={data}/>
+                    <Table data={data} id={id}/> 
+                    <DetailBox data={data} id={id}/>
                 </InputSection>
             </Wrap>
         </>

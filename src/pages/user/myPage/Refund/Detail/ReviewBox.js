@@ -37,10 +37,10 @@ function ReviewBox(props) {
 
   return (
     <Container>
-      <Header className="cm-MBold24">{props.state} 상세 내역</Header>
+      <Header className="cm-MBold24">{props.data.type} 상세 내역</Header>
       <DetailHeader className="cm-SRegular16">주문 상세 내역</DetailHeader>
       <TableBox>
-        <Table />
+        <Table data={props.data} />
       </TableBox>
     </Container>
   );

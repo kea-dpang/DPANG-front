@@ -2,6 +2,8 @@ import styled from "styled-components";
 import ReviewBox from "./ReviewBox";
 import Cancel from './Cancel/Index'
 import Refund from './Refund/Index'
+import { useParams } from "react-router-dom";
+import TempData from '../../../../../assets/datas/RefundData'
 
 const Container = styled.div`
   min-height: 100vh;
@@ -22,17 +24,20 @@ const ReviewContainer = styled.div`
 
 function Index() {
 
-  const state = '환불';
+  const {id} = useParams();
+  const refundData = [...TempData];
+  const data = refundData[id];
+
 
   return (
     <Container>
       {/* 주문 상세 정보를 보여줄 table의 component를 호출 */}
       <ContentBox>
-        <ReviewContainer><ReviewBox state={state}/></ReviewContainer>
+        <ReviewContainer><ReviewBox data={data}/></ReviewContainer>
       </ContentBox>
 
       {/* 환불에 대한 상세 페이지라면 환불에 대한 정보창을, 취소에 대한 상세 페이지라면 취소에 대한 상세 정보를 표시 */}
-      {state==="환불" ? <Refund /> : <Cancel />}
+      {data.type==="환불" ? <Refund data={data}/> : <Cancel data={data}/>}
 
     </Container>
   );

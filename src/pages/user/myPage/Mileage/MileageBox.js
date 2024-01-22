@@ -3,22 +3,14 @@ import PeriodSelector from "../../../../components/common/PeriodSelector";
 import TableRow from "./TableRow";
 import TableHeader from "../../../../components/utils/TableHeader";
 import TempData from "../../../../assets/datas/UserMileageData";
+import MyPageBodyHeader from "../../../../components/utils/MyPageBodyHeader";
+
 
 const Container = styled.div`
   width: 72rem;
   min-height: calc(100vh - 30rem);
 `;
 
-const Header = styled.div`
-  width: 72rem;
-  height: 7rem;
-  background-color: white;
-  display: flex;
-  align-items: center;
-  font-size: 30px;
-  color: #043277;
-  border-bottom: 1px #043277 solid;
-`;
 const CalenderBox = styled.div`
   height: 11rem;
   width: 72rem;
@@ -37,7 +29,6 @@ const DetailHeader = styled.div`
 `;
 
 function MileageBox() {
-
   //테이블의 header에 들어갈 값과 row의 너비
   const header = [
     { text: "요청일자", width: "18rem" },
@@ -48,7 +39,7 @@ function MileageBox() {
 
   return (
     <Container>
-      <Header className="cm-MBold24">마일리지 충전 내역</Header>
+      <MyPageBodyHeader header="마일리지 충전 내역" />
       <DetailHeader className="cm-SRegular16">
         최근 마일리지 충전 신청 내역
       </DetailHeader>
@@ -60,6 +51,8 @@ function MileageBox() {
         <TableHeader head={header} />
         <TableRow data={TempData} />
       </TableBox>
+
+
     </Container>
   );
 }
