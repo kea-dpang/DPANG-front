@@ -24,6 +24,7 @@ import EventProductPage from "../pages/user/productListPage/EventProductPage";
 import OrderDetail from '../pages/user/myPage/Order/Detail/Index';
 import SearchPage from "../pages/user/searchPage/Index";
 import ProductDetail from "../pages/user/productDetail/Index";
+import UserCancel from '../pages/user/myPage/Cancel/Index'
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
@@ -74,6 +75,7 @@ const UserRoutes = () => {
                 <Route path="refund" element={<UserRefund />} />
                 <Route path="refund/detail/:id" element={<Detail />} />
                 <Route path="refund/enroll" element={<ReqRefund />} />
+                <Route path="cancel" element={<UserCancel />} />
                 {/* 주문 */}
                 <Route path="order" element={<UserOrder />} />
                 <Route path="order/detail/:id" element={<OrderDetail />} />

@@ -84,7 +84,8 @@ const navi = useNavigate();
       <CalenderBox><PeriodSelector /></CalenderBox>
       <NavBox className="cm-SBold18">
       <NaviBar colour="var(--navy)">주문/배송 조회</NaviBar>
-      <NaviBar colour="var(--dark-grey)" onClick={()=>{navi("/user/mypage/temp/refund")}}>취소/반품 조회</NaviBar>
+      <NaviBar colour="var(--dark-grey)" onClick={()=>{navi("/user/mypage/temp/refund")}}>반품 조회</NaviBar>
+      <NaviBar colour="var(--dark-grey)"  onClick={()=>{navi("/user/mypage/temp/cancel")}}>취소 조회</NaviBar>
       </NavBox>
       <TableBox>
         <Table />

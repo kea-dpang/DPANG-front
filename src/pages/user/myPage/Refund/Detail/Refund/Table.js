@@ -36,6 +36,9 @@ const ColHeader = styled.div`
 const Col = styled.div`
   height: 100%;
   width: ${(props) => props.width};
+  display: flex;
+  align-items: center;
+
 `;
 const DetailHeader = styled.div`
   width: 72rem;
@@ -54,19 +57,19 @@ function Table(props) {
         <TableBox className="cm-SRegular16">
           <Row height="6rem">
             <ColHeader>회수자명</ColHeader>
-            <Col width="26rem"></Col>
+            <Col width="26rem">{props.data.username}</Col>
             <ColHeader>배송자 연락처</ColHeader>
-            <Col width="26rem"></Col>
+            <Col width="26rem">{props.data.userphone}</Col>
           </Row>
           <Border />
           <Row height="6rem">
             <ColHeader>회수처 주소</ColHeader>
-            <Col width="62rem"></Col>
+            <Col width="62rem">{props.data.useradd}</Col>
           </Row>
           <Border />
           <Row height="6rem">
             <ColHeader>회수 메시지</ColHeader>
-            <Col width="62rem"></Col>
+            <Col width="62rem">{props.data.usermessage}</Col>
           </Row>
           <Border />
         </TableBox>
@@ -78,16 +81,16 @@ function Table(props) {
         <TableBox className="cm-SRegular16">
           <Row height="6rem">
             <ColHeader>상품 합계 금액</ColHeader>
-            <Col width="26rem"></Col>
+            <Col width="26rem">{props.data.itemMoney}</Col>
             <ColHeader>환불 예정 금액</ColHeader>
-            <Col width="26rem"></Col>
+            <Col width="26rem">{props.data.refund}</Col>
           </Row>
 
           <Border />
 
           <Row height="6rem">
             <ColHeader>환불 상태</ColHeader>
-            <Col width="62rem"></Col>
+            <Col width="62rem">{props.data.state}</Col>
           </Row>
           <Border />
         </TableBox>
@@ -98,8 +101,8 @@ function Table(props) {
         <Border />
         <TableBox className="cm-SRegular16">
           <Row height="6rem">
-            <ColHeader>상품 합계 금액</ColHeader>
-            <Col width="62rem"></Col>
+            <ColHeader>취소 사유</ColHeader>
+            <Col width="62rem">{props.data.category}</Col>
 
           </Row>
 
@@ -107,7 +110,7 @@ function Table(props) {
 
           <Row height="15rem">
             <ColHeader>비고</ColHeader>
-            <Col width="62rem"></Col>
+            <Col width="62rem">{props.data.refundmessage}</Col>
           </Row>
           <Border />
         </TableBox>
