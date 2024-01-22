@@ -200,7 +200,7 @@ function TableRow({data}) {
 
                 <Col width="15rem">
                   <ButtonBox>
-                    <Button status={a.status}>취소</Button>
+                    <Button status={a.status} onClick={(e) => { e.stopPropagation(); }}>취소</Button>
                     {/* 버튼을 클릭하더라도 상위 요소에 대하 이벤트 버블링 발생하지 않도록 함 */}
                     <Button1 status={a.status} onClick={(e) => { e.stopPropagation(); navi('/user/mypage/temp/refund/enroll') }}>반품</Button1>
                     <Button2 status={a.status} onClick={(e) => { e.stopPropagation(); navi('/user/mypage/temp/review/enroll') }}>리뷰작성</Button2>
