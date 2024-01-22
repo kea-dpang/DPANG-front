@@ -13,7 +13,6 @@ import WishList from "../pages/user/WishList";
 import Detail from '../pages/user/myPage/Refund/Detail/Index'
 import ReqRefund from '../pages/user/myPage/Refund/Enroll/Index'
 import AskEnrollPage from "../pages/user/myPage/directAsk/Enroll/Index";
-import DetailPage from "../pages/user/myPage/directAsk/Detail";
 import FaqPage from "../pages/user/myPage/Faq/Index";
 import LoginPage from "../pages/user/Login/Index";
 import SignPage from "../pages/user/Sign/Index";
@@ -22,7 +21,9 @@ import MainPage from '../pages/user/mainPage/Index'
 import ProductListPage from "../pages/user/productListPage/Index";
 import BestProductPage from "../pages/user/productListPage/BestProdudctPage";
 import EventProductPage from "../pages/user/productListPage/EventProductPage";
-import OrderDetail from '../pages/user/myPage/Order/Detail/Index'
+import OrderDetail from '../pages/user/myPage/Order/Detail/Index';
+import SearchPage from "../pages/user/searchPage/Index";
+import ProductDetail from "../pages/user/productDetail/Index";
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
@@ -30,9 +31,24 @@ import { Route, Routes } from 'react-router-dom';
 const UserRoutes = () => {
     return (
         <Routes>
+            {/* 로그인, 회원가입, 비밀번호 찾기 */}
             <Route path="sign" element={<SignPage />} />
             <Route path="login" element={<LoginPage userType="user" />} />
             <Route path="findpassword" element={<FindPasswordPage />} />
+            {/* 메인페이지 */}
+            <Route path="mainpage" element={<MainPage />} />
+            {/* 베스트, 이벤트 */}
+            <Route path="collections/*" element={<ProductListPage />}>
+                <Route path="best" element={<BestProductPage />} />
+                <Route path="event" element={<EventProductPage />} />
+            </Route>
+            {/* 상품 상세 페이지 */}
+            <Route path="products/:id" element={<ProductDetail/>}/>
+            {/* 검색 페이지 */}
+            <Route path="search" element={<SearchPage/>}/>
+            {/* 위시리스트 */}
+            <Route path="wishlist" element={<WishList />} />
+            {/* 마이페이지 */}
             <Route path="mypage/temp/*" element={<MyPage />}>
                 <Route path="directask" element={<DirectAskPage />} />
                 <Route path="directask/enroll" element={<AskEnrollPage />} />
@@ -48,24 +64,19 @@ const UserRoutes = () => {
                 <Route path="userinfo" element={<UserInfoPage />} />
                 <Route path="userinfo/editpassword" element={<EditPassword />} />
                 <Route path="userinfo/leave" element={<Leave />} />
-
+                {/* 리뷰관리 */}
                 <Route path="review" element={<Review />} />
                 <Route path="review/enroll" element={<EnrollReview />} />
+                {/* 마일리지 */}
                 <Route path="mileage" element={<Mileage />} />
                 <Route path="mileage/req" element={<MileageReq />} />
+                {/* 환불 */}
                 <Route path="refund" element={<UserRefund />} />
-                <Route path="order" element={<UserOrder />} />
-                <Route path="order/detail/:id" element={<OrderDetail />} />
                 <Route path="refund/detail/:id" element={<Detail />} />
                 <Route path="refund/enroll" element={<ReqRefund />} />
-            </Route>
-
-    
-            <Route path="wishlist" element={<WishList />} />
-            <Route path="mainpage" element={<MainPage />} />
-            <Route path="productlists/*" element={<ProductListPage />}>
-                <Route path="best" element={<BestProductPage />} />
-                <Route path="event" element={<EventProductPage />} />
+                {/* 주문 */}
+                <Route path="order" element={<UserOrder />} />
+                <Route path="order/detail/:id" element={<OrderDetail />} />
             </Route>
         </Routes>
     );

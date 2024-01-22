@@ -6,12 +6,12 @@ import { ReactComponent as LikeImg } from "../../../assets/images/heart.svg";
 
 // 상품 미리보기 (카드)
 const Item = (props) => {
-    const saleprice = props.item.price - (props.item.price * props.item.discount / 100);
+    const saleprice = props.value.price - (props.value.price * props.value.discount / 100);
     const [liked, setLiked] = useState(false);
     const handleLike = () => {
         setLiked(!liked);
         console.log('islike: ',liked);
-        console.log('id: ',props.item.id);
+        console.log('id: ',props.value.id);
     };
 
   return (
@@ -19,7 +19,7 @@ const Item = (props) => {
         <Wrap>
             {/* 상품 사진 * 위시리스트 버튼 */}
             <ItemImgWrap>
-                <ItemImg to={`/user/products/${props.item.id}`} $imgurl={props.item.imgUrl} />
+                <ItemImg to={`/user/products/${props.value.id}`} $imgurl={props.value.imgUrl} />
                 <LikeButton $isLiked={liked} onClick={handleLike}/>
             </ItemImgWrap>
             {/* 장바구니 버튼 */}
@@ -27,16 +27,16 @@ const Item = (props) => {
                 <CartImg style={{width: "20px", height: "20px"}}/> 담기
             </CartBtnWrap>
             {/* 상품 상세 - 상품 이름 & 원가, 할인율, 할인가격 */}
-            <ProductInfoWrap to={`/user/products/${props.item.id}`} $imgurl={props.item.imgUrl}>
+            <ProductInfoWrap to={`/user/products/${props.value.id}`} $imgurl={props.value.imgUrl}>
                 {/* 상품 이름 */}
-                <div className='cm-SRegular16'>{props.item.name}</div>
+                <div className='cm-SRegular16'>{props.value.name}</div>
                 {/* 가격 */}
                 <PriceWrap>
                     {/* 원래가격 */}
-                    <div className='cm-XsRegular14 col-SemiLightGrey' style={{textDecoration: "line-through"}}> {props.item.price}원 </div>
+                    <div className='cm-XsRegular14 col-SemiLightGrey' style={{textDecoration: "line-through"}}> {props.value.price}원 </div>
                     {/* 할인율 & 현재 판매가격 */}
                     <SaleWrap className='cm-SBold16'>
-                        <div className='col-Orange'> {props.item.discount}% </div>
+                        <div className='col-Orange'> {props.value.discount}% </div>
                         <div> {saleprice.toLocaleString()}원</div>
                     </SaleWrap>
                 </PriceWrap>

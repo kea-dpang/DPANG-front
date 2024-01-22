@@ -30,8 +30,8 @@ function ShortCut(){
         <ShortCutBox>
             <StyledLink to='/user/mainpage'>홈</StyledLink>
             <StyledLink>신상품</StyledLink>
-            <StyledLink to='/user/productlists/best'>베스트</StyledLink>
-            <StyledLink to='/user/event/product'> 이벤트</StyledLink>
+            <StyledLink to='/user/collections/best'>베스트</StyledLink>
+            <StyledLink to='/user/collections/event'> 이벤트</StyledLink>
         </ShortCutBox>
 
     )
