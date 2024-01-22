@@ -6,6 +6,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdminTable from '../../userPage/list/AdminTable';
 import { faqManageData } from '../../../../assets/datas/AdminFaqData';
 import Button from '@mui/material/Button';
+import { withStyles } from '@mui/styles';
 
 
 const handleButtonClick = (buttonType, dataIndex) => {
@@ -34,21 +35,12 @@ const columns = [
             customBodyRenderLite: (dataIndex) => {
                 return (
                     <>
-                    <Button variant="outlined" color="primary" onClick={() => handleButtonClick('button1', dataIndex)}
-                        // sx={{
-                        //     color: 'var(--navy)',
-                        //     borderColor: 'var(--navy)',
-                        //     '&:hover': {
-                        //         backgroundColor: 'var(--navy)',
-                        //         color: 'white',
-                        //     }
-                        // }}
-                    >
-                        버튼1
-                    </Button>
-                    <Button variant="outlined" color="secondary" onClick={() => handleButtonClick('button2', dataIndex)} className='Btn-M-Navy' style={{ marginLeft: '10px' }}>
-                        버튼2
-                    </Button>
+                    <StyledButton variant="outlined" color="primary" onClick={() => handleButtonClick('button1', dataIndex)}>
+                        수정하기
+                    </StyledButton>
+                    <StyledButton2 variant="outlined" color="secondary" onClick={() => handleButtonClick('button2', dataIndex)} style={{ marginLeft: '10px', }}>
+                        삭제하기
+                    </StyledButton2>
                     </>
                 );
             }
@@ -120,6 +112,8 @@ const FaqListPage = () => {
             <Title className='cm-SBold18 col-Navy'> FAQ관리</Title>
 
             <AdminTable data={faqManageData} columns={columns} onRowClick={handleRowClick}/>
+            <button className='Btn_M_Navy'>선택 삭제</button>
+
         </Wrap>
     );
 };
@@ -127,18 +121,39 @@ const FaqListPage = () => {
 export default FaqListPage;
 
 const Wrap = styled.div`
-    border: 1px solid black;
 
     padding: 0 7.5rem 0 7.5rem;
     box-sizing: border-box;
 `;
 const Title = styled.div`
-    border: 1px solid black;
     display: flex;
     padding: 2.125rem 0rem 0.9375rem 0;
 `;
 const Option = styled.div`
-    border: 1px solid black;
     display: flex;
     justify-content: space-between;
 `;
+const StyledButton = withStyles({ // Material UI의 Button 컴포넌트를 스타일링
+    root: {
+        backgroundColor: 'var(--navy)',
+        color: 'var(--white)',
+        border: 'none',
+        '&:hover': {
+            backgroundColor: 'var(--navy)',
+            border: 'none',
+
+        },
+    },
+})(Button);
+const StyledButton2 = withStyles({ // Material UI의 Button 컴포넌트를 스타일링
+    root: {
+        backgroundColor: 'var(--white)',
+        border: '1px solid var(--navy)',
+        color: 'var(--black)',
+        '&:hover': {
+            backgroundColor: 'var(--white)',
+            border: '1px solid var(--navy)',
+
+        },
+    },
+})(Button);
