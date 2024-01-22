@@ -8,10 +8,12 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
+
           {/* ... other routes ... */}
           
           <Route path="/user/*" element={<UserRoute />} />
           <Route path="/admin/*" element={<AdminRoute />} />
+
         </Routes>
       </BrowserRouter>
     </div>
