@@ -37,7 +37,8 @@ import OrderDetail from './pages/user/myPage/Order/Detail/Index'
 import UserPage from "./pages/admin/userPage/Index";
 import UserListPage from "./pages/admin/userPage/list/Index";
 import EditPage from "./pages/admin/userPage/edit/Index";
-
+import FaqManagePage from "./pages/admin/faqPage/Index";
+import FaqListPage from "./pages/admin/faqPage/list/Index";
 function App() {
   return (
     <div className="App">
@@ -63,6 +64,10 @@ function App() {
           <Route path="/admin/user" element={<UserPage />}>
             <Route path="list" element={<UserListPage />}/>
             <Route path="list/:memberId" element={<EditPage />}/>
+          </Route>
+          {/* faq관리 */}
+          <Route path="/admin/faq" element={<FaqManagePage />}>
+            <Route path="list" element={<FaqListPage />}/>
           </Route>
 
 

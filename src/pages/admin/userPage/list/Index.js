@@ -28,9 +28,9 @@ import { useNavigate } from "react-router-dom";
 // ]
 const columns = [
     { name: "id", label: "번호", options: { sort: true }},
-    { name: "memberId", label: "제목", options: { sort: true }},
-    { name: "email", label: "작성자", options: { sort: true }},
-    { name: "name", label: "작성자", options: { sort: true }},
+    { name: "memberId", label: "사원번호", options: { sort: true }},
+    { name: "email", label: "이메일", options: { sort: true }},
+    { name: "name", label: "이름", options: { sort: true }},
     { name: "joinDate", label: "입사일", options: { sort: true }},
 
 ]
@@ -167,16 +167,12 @@ const FilterSection = styled.div`
     gap: 1.625rem;
 `
 const Section1 = styled.div`
-    border: 1px solid black;
-
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 27rem;
 `
 const Section2 = styled.div`
-    border: 1px solid black;
-
     width: 100%;
     display: flex;
     /* gap: 65.5rem; */
