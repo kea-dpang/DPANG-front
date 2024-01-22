@@ -37,7 +37,7 @@ export default function DataTable() {
         onCellClick={(params, store) => {
             if(params.field !== "__check__") {
               let path; {
-                path = "/admin/item/editstore/" + params.id;
+                path = "/admin/brand/" + params.id;
             }
               navigate(path);
             }

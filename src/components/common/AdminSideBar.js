@@ -66,7 +66,7 @@ const AdminSideBar = () => {
                     {
                         openSubMenu === '상품관리' 
                         && <OpenMenuWrap>
-                            <Nav> - 판매처 관리 </Nav>
+                            <Nav to="brand"> - 판매처 관리 </Nav>
                             <Nav> - 상품 관리 </Nav>
                             <Nav> - 판매 모니터링 </Nav>
                         </OpenMenuWrap>

@@ -13,6 +13,8 @@ import AdminPage from '../pages/admin/Index'
 import AdminUserListPage from "../pages/admin/userPage/list/Index";
 import AdminUserEditPage from "../pages/admin/userPage/edit/Index";
 import AdminFaqListPage from '../pages/admin/faqPage/list/Index';
+import BrandListPage from '../pages/admin/Item/Store/List/Index';
+import BrandEditPage from '../pages/admin/Item/Store/Edit/Index';
 
 const AdminRoutes = () => {
     return (
@@ -22,6 +24,9 @@ const AdminRoutes = () => {
                 <Route path="user" element={<AdminUserListPage />}/>
                 <Route path="user/:memberId" element={<AdminUserEditPage />}/>
                 <Route path="mileage" element={<AdminMileageView />}/>
+                {/* 상품 관리 */}
+                <Route path="brand" element={<BrandListPage/>}/>
+                <Route path="brand/:id" element={<BrandEditPage/>}/>
                 {/* 이벤트 관리 */}
                 <Route path="event" element={<EventListPage />}/>
                 <Route path="event/enrollproduct" element={<EventProductEnrollPage />} />
