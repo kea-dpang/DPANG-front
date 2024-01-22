@@ -23,6 +23,10 @@ import ReqRefund from './pages/user/myPage/Refund/Enroll/Index'
 import AdminRefund from './pages/admin/Refund/Index'
 import AdminRefundList from './pages/admin/Refund/List/Index'
 import AdminRefundDetail from './pages/admin/Refund/Detail/Index'
+import ItemPage from './pages/admin/Item/Index'
+import AdminStoreList from './pages/admin/Item/Store/List/Index'
+import StoreEditPage from './pages/admin/Item/Store/Edit/Index'
+import StoreEnrollPage from './pages/admin/Item/Store/Enroll/Index'
 
 function App() {
   return (
@@ -44,6 +48,12 @@ function App() {
           </Route>
           {/*관리자 주문관리 페이지 */}
           <Route path="/admin/order" element={<OrderPage />}/>
+          {/*관리자 상품관리 페이지 */}
+          <Route path="/admin/item" element={<ItemPage />}>
+              <Route path="storelist" element={<AdminStoreList />}/>
+              <Route path="editstore/:id" element={<StoreEditPage />}/>
+              <Route path="enrollstore" element={<StoreEnrollPage />}/>
+          </Route>
 
           {/* <MyPage /> */}
           <Route path="/user/mypage/temp" element={<MyPage />}>
