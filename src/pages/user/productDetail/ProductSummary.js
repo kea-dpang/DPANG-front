@@ -1,31 +1,94 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import ItemData from '../../../assets/datas/ItemData';
-import Price from '../searchPage/filterComp/Price';
+import ItemDetailData from '../../../assets/datas/ItemDetailData';
+import Rating from '@mui/material/Rating';
+import { Link } from 'react-router-dom';
+import NumberBadge from './Numbers';
+import Button from '@mui/material/Button';
+import { ReactComponent as CartImg } from "../../../assets/images/cart.svg";
+import { ReactComponent as LikeImg } from "../../../assets/images/heart.svg";
 
 const ProductSummary = (props) => {
-    // const [item, setItem] = useState(null);
-    // const itemId = props.id;
-
+    // 세일가격
+    const saleprice = ItemDetailData[0].price - (ItemDetailData[0].price * ItemDetailData[0].discount / 100);
+    // 선택 개수
+    const [count, setCount] = useState(1);
+    // 총 가격
+    const [totalPrice, setTotalPrice] = useState(saleprice * count);
+    useEffect(() => {
+        setTotalPrice(saleprice * count);
+      }, [count]);
+    
+    const [liked, setLiked] = useState(false);
+    const handleLike = () => {
+        setLiked(!liked);
+    };
     return(
         <>
             <Wrap>
-                {/* 카테고리 */}
-                <div className='cm-SRegular16 col-Black'>{ItemData[0].category} {'>'} {ItemData[0].sub_category} </div>
-                {/* 상품 사진 & 이름, 가격, 수량 */}
-                <SummaryWrap>
+                {/* 상품 사진 & 카테고리 */}
+                <ImgWrwap className='cm-SRegular16 col-Black'>
+                    {/* 카테고리 */}
+                    <CategoryWrap>
+                        <Nav to=''> {ItemDetailData[0].category} </Nav>
+                        <div> {'>'}</div>
+                        <Nav to='' > {ItemDetailData[0].sub_category} </Nav>
+                    </CategoryWrap>
                     {/* 상품 사진 */}
-                    <ProductImg $imgUrl={ItemData[0].imgUrl}/>
-                    {/* 상품 이름 / 가격 / 판매자 / 상품선택 / 좋아요 / 장바구니 */}
-                    <ContextWrap>
-                        {/* 상품 이름 */}
-                        <div className='cm-XLBold36 col-Black'> {ItemData[0].name}</div>
-                        {/* 상품 가격 */}
-                        <PriceWrap>
-                            
-                        </PriceWrap>
-                    </ContextWrap>
-                </SummaryWrap>
+                    <ProductImg $imgUrl={ItemDetailData[0].imgUrl}/>
+                </ImgWrwap>
+
+                {/* 상품 이름 / 가격 / 판매자 / 상품선택 / 좋아요 / 장바구니 */}
+                <ContextWrap>
+                    {/* 상품 이름 */}
+                    <div className='cm-XLBold36 col-Black'> {ItemDetailData[0].name}</div>
+
+                    {/* 상품 별점 및 리뷰 수 */}
+                    <ReviewWrap>
+                        <Rating name="read-only" value={ItemDetailData[0].star} readOnly />
+                        <div className='cm-SBold16 col-Black'> ( {ItemDetailData[0].review} )</div>
+                    </ReviewWrap>
+
+                    {/* 상품 가격 */}
+                    <PriceWrap>
+                        <DiscountWrap className='cm-SBold18'>
+                            <div className='col-Orange'> {ItemDetailData[0].discount}%</div>
+                            <div className='col-Black'> {saleprice.toLocaleString()} </div>
+                        </DiscountWrap>
+                        <div className='cm-SBold16 col-SemiLightGrey' style={{textDecoration: "line-through"}}> {ItemDetailData[0].price}</div>
+                    </PriceWrap>
+
+                    {/* 판매자 */}
+                    <BrandWrap className='cm-SRegular16'>
+                        <div> 판매자 </div>
+                        <div> {ItemDetailData[0].brand} </div>
+                    </BrandWrap>
+
+                    {/* 상품선택 */}
+                    <SelectWrap>
+                        <div style={{display: 'flex', flexDirection:'row'}}>
+                            <div className='cm-SRegular16' style={{width:'4rem'}}> 상품선택 </div>
+                            <AmountBox>
+                                <div className='cm-SBold16 col-Navy'> {ItemDetailData[0].name} </div>
+                                <SelectPriceWrap>
+                                    {/* 수량 선택 */}
+                                    <NumberBadge count={count} setCount={setCount}/>
+                                    {/* 최종 값 */}
+                                    <div className='cm-SRegular16 col-Black'> {totalPrice.toLocaleString()}원 </div>
+                                </SelectPriceWrap>
+                            </AmountBox>
+                        </div>
+                        <div>
+                            {/* 장바구니 & 위시리스트 */}
+                            <ButtonWrap className='cm-SBold16'>
+                                <LikeButton $isLiked={liked} onClick={handleLike}/>
+                                <Button style={{ backgroundColor: 'navy', color: 'white', padding:'10px 20px'}}> 
+                                    <CartImg fill='var(--white)'/> &nbsp; 장바구니에 추가 
+                                </Button>
+                            </ButtonWrap>
+                        </div>
+                    </SelectWrap>
+                </ContextWrap>
             </Wrap>
         </>
     );
@@ -36,14 +99,25 @@ export default ProductSummary;
 const Wrap = styled.div`
     display: flex;
     padding: 1.625rem 15.9375rem;
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
+    justify-content: center;
 `
-const SummaryWrap = styled.div`
+const CategoryWrap = styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 0.8rem;
+`
+const ImgWrwap = styled.div`
     padding-top: 1rem;
     display: flex;
+    flex-direction: column;
     align-items: flex-start;
     gap: 0.9375rem;
+`
+const Nav = styled(Link)`
+    text-decoration: none;
+    color: inherit;
 `
 const ProductImg = styled.div`
     width: 30.97175rem;
@@ -52,7 +126,66 @@ const ProductImg = styled.div`
 `
 const ContextWrap = styled.div`
     padding-left: 3rem;
+    padding-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+`
+const ReviewWrap = styled.button`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: none;
+    gap: 0.2rem;
 `
 const PriceWrap = styled.div`
-
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+`
+const DiscountWrap = styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+`
+const BrandWrap = styled.div`
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.4375rem;
+`
+const SelectWrap = styled.div`
+    padding-top: 2rem;
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    gap: 0.8rem;
+`
+const AmountBox = styled.div`
+    display: flex;
+    padding: 1.375rem 1.9375rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.625rem;
+    border: 1px solid var(--semi-light-grey);
+`
+const SelectPriceWrap = styled.div`
+    width: 30rem;
+    display: flex;
+    align-items: center;
+    gap: 17.0625rem;
+`
+const ButtonWrap = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 2rem;
+`
+const LikeButton = styled(LikeImg)`
+    cursor: pointer;
+    fill: ${props => props.$isLiked ? 'var(--orange)' : 'none'}; // liked가 true면 색 채우기, false면 빈 값
 `
