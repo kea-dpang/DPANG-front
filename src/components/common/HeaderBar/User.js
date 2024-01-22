@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import UserImage from "../../../assets/images/user.png";
+import UserImage from "../../../assets/images/adminuser.svg";
 import { useState } from "react";
 
 const UserBox = styled.div`
@@ -15,7 +15,7 @@ const Image = styled.img`
   width: 1.3rem;
   height: 1.3rem;
   border-radius: 50%;
-  border: 1px black solid;
+  
 `;
 
 const UserName = styled.div`

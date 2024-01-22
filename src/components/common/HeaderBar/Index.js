@@ -13,6 +13,9 @@ const Container = styled.div`
   justify-content: center;
   z-index: 10;
   padding: 0 12rem;
+  position: sticky;
+  top: 0;
+  background-color: var(--white);
 `;
 
 function Index() {
@@ -27,6 +30,7 @@ function Index() {
       <Container>
         <NavBar handleClick={handleClick} />
       </Container>
+      {/* click여부에 따라 보였다가 안보였다가 */}
       {click && <CategoryList />}
     </>
   );

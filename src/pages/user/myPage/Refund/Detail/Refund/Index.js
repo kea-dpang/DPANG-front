@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import Table from './Table'
 
-function Index() {
+function Index(props) {
   return (
-    <Table />
+    <Table data={props.data}/>
   );
 }
 export default Index;

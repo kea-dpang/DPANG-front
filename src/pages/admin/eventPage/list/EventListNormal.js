@@ -9,8 +9,8 @@ export default function DataTable() {
   const navigate = useNavigate();
 
     const columns = [
-        { field: 'id', headerName: '번호', width: 45, headerAlign: 'center'},
-        { field: 'kind', headerName: '구분', width: 65, headerAlign: 'center', renderCell: (params) => {
+        { field: 'id', headerName: '번호', width: 45},
+        { field: 'kind', headerName: '구분', width: 65, renderCell: (params) => {
           let color;
           if (params.value === '상품') {
               color = 'var(--navy)';
@@ -19,9 +19,9 @@ export default function DataTable() {
           }
           return <div style={{color: color}}>{params.value}</div>
       }},
-        { field: 'submitDate', headerName: '이벤트 등록일', width: 200, headerAlign: 'center' },
-        { field: 'eventName', headerName: '이벤트 이름', width: 200, headerAlign: 'center' },
-        { field: 'eventStatus', headerName: '이벤트 상태', width: 150, sortable: false, headerAlign: 'center', renderCell: (params) => {
+        { field: 'submitDate', headerName: '이벤트 등록일', width: 200},
+        { field: 'eventName', headerName: '이벤트 이름', width: 200},
+        { field: 'eventStatus', headerName: '이벤트 상태', width: 150, sortable: false, renderCell: (params) => {
             let color;
             if (params.value === '진행') {
                 color = 'var(--navy)';
@@ -32,8 +32,8 @@ export default function DataTable() {
             }
             return <div style={{color: color}}>{params.value}</div>
         }},
-        { field: 'eventStart', headerName: '이벤트 시작일', width: 200, headerAlign: 'center'},
-        { field: 'eventEnd', headerName: '이벤트 종료일', width: 200, headerAlign: 'center'},
+        { field: 'eventStart', headerName: '이벤트 시작일', width: 200},
+        { field: 'eventEnd', headerName: '이벤트 종료일', width: 200},
         ];
     const [rows, setRows] = useState([...TempData]);
     const [selectedRows, setSelectedRows] = useState([]);

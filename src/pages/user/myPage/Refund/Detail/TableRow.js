@@ -52,7 +52,7 @@ const setBorder = (i) =>{
 
 function TableRow(props) {
 
-  const data = props.data[1];
+  const data = props.data;
 
 
   return (

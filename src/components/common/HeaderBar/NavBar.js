@@ -13,6 +13,8 @@ const Nav = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  cursor: pointer;
 `;
 const Logo = styled.img`
   height: 3rem;
@@ -31,7 +33,7 @@ const Empty = styled.div`
 
 function NavBar(props) {
   return (
-    <Nav>
+    <Nav className="cm-SRegular16 ">
       <Logo src={logo} />
       <Empty width="3rem" />
       <ShortCut />

@@ -18,7 +18,7 @@ const UserSideBar = () => {
                     <p className='cm-SBold18 col-DarkGrey'>1:1 문의</p>
                     <StyledArrowStroke/>
                 </Nav>
-                <Nav to="">
+                <Nav to="faq">
                     <p className='cm-SBold18 col-DarkGrey'>FAQ</p>
                     <StyledArrowStroke/>
                 </Nav>

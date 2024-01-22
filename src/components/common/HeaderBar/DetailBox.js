@@ -18,6 +18,10 @@ const SubCategoty = styled.p`
 font-size: 14px;
 margin-bottom: 12px;
 
+&:hover { 
+  color: var(--orange);
+ }
+
 `
 
 function DetailBox(props){
@@ -25,12 +29,12 @@ function DetailBox(props){
     return(
 
         <DetailedBox>
-           <Title>{props.content.title} &gt; </Title>
+           <Title className="cm-SBold18">{props.content.title} &gt; </Title>
 
            {props.content.content.map((a) => {
 
             return(
-            <SubCategoty>{a}</SubCategoty>
+            <SubCategoty className="cm-SRegular16 ">{a}</SubCategoty>
 
             )
 

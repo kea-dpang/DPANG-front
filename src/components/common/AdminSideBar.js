@@ -49,7 +49,7 @@ const AdminSideBar = () => {
                     {
                         openSubMenu === '회원관리' 
                         && <OpenMenuWrap>
-                            <Nav> - 회원목록 확인 </Nav>
+                            <Nav to="list"> - 회원목록 확인 </Nav>
                             <Nav> - 마일리지 관리 </Nav>
                         </OpenMenuWrap>
                     }
