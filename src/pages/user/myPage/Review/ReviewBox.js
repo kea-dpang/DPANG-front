@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Table from "./Table";
 import PeriodSelector from "../../../../components/common/PeriodSelector";
+import MyPageBodyHeader from "../../../../components/utils/MyPageBodyHeader";
 
 const Container = styled.div`
   width: 72rem;
@@ -40,7 +41,7 @@ align-items: end;
 function ReviewBox() {
   return (
     <Container>
-      <Header className="cm-MBold24">리뷰관리</Header>
+      <MyPageBodyHeader header="리뷰 관리"/>
       <DetailHeader className="cm-SRegular16">최근 리뷰 관리</DetailHeader>
       {/* 기간 조회 필터 */}
       <CalenderBox><PeriodSelector /></CalenderBox>

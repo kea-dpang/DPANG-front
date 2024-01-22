@@ -32,65 +32,56 @@ const Column = styled.div`
 const ItemColBox = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: red;
-  width: 40%;
+
 `;
 
 const ItemCol = styled.div`
   height: 6rem;
   display: flex;
-${(props)=>setBorder(props.i)}
-
+  ${(props) => setBorder(props.i)}
 `;
 
-const setBorder = (i) =>{
-
-  if(i!=0)
-  return {borderTop: "1px solid black"}
-  else
-  return {border: 0}
-  
-  }
+const setBorder = (i) => {
+  if (i != 0) return { borderTop: "1px solid black" };
+  else return { border: 0 };
+};
 
 function TableRow(props) {
 
-  const data = props.data[1];
+  console.log(props.id)
 
+  const data = props.data[props.id];
 
   return (
     <Row className="cm-SRegular16">
-      <Col width="10%">
+      <Col width="10.9375rem">
         <Column>
           <p>{data.date}</p>
           <p>{data.ordernum}</p>
         </Column>
       </Col>
-      <Col width="15%">{data.type}</Col>
-      <Col width="15%">{data.category}</Col>
-      <Col width="20%">{data.state}</Col>
-
+      <Col width="9rem">{data.type}</Col>
+      <Col width="8rem">{data.category}</Col>
+      <Col width="10rem">{data.state}</Col>
 
       <ItemColBox>
         {data.item.map((b, i) => {
-
           return (
             <ItemCol key={i} i={i}>
-              <Col width="30%">
+              <Col width="16rem">
                 <ItemImg src={b.img} />
                 <ItemName>{b.name}</ItemName>
               </Col>
-              <Col width="30%">{b.money} / {b.amt}</Col>
-              <Col width="30%">{b.refund}</Col>
-
+              <Col width="10rem">
+                {b.money} / {b.amt}
+              </Col>
+              <Col width="10rem">{b.refund}</Col>
             </ItemCol>
-          )
-
+          );
         })}
       </ItemColBox>
-
     </Row>
   );
-
 }
 
 export default TableRow;

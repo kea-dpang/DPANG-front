@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import Table from "./Table";
+import MyPageBodyHeader from "../../../../../components/utils/MyPageBodyHeader";
 
 const Container = styled.div`
   width: 72rem;
- 
 `;
 
 const Header = styled.div`
@@ -37,10 +37,10 @@ function ReviewBox(props) {
 
   return (
     <Container>
-      <Header className="cm-MBold24">주문 상세 내역</Header>
+      <MyPageBodyHeader header="주문 상세 내역" />
       <DetailHeader className="cm-SRegular16">주문 상세 내역</DetailHeader>
       <TableBox>
-        <Table />
+        <Table data={props.data}/>
       </TableBox>
     </Container>
   );

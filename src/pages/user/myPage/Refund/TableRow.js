@@ -1,5 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
+import { useState } from "react";
+
+
+const PaginationContainer = styled.div`
+
+width: 72rem;
+height: 5rem;
+display: flex;
+justify-content: center;
+align-items: center;
+
+
+`
 
 const Row = styled.div`
   width: 72rem;
@@ -64,10 +79,18 @@ const setBorder = (i) =>{
 
 function TableRow(props) {
 
-  const navi = useNavigate()
-  return props.data.map((a) => {
+  const navi = useNavigate();
+  const data = props.data;
+
+  const [currentIndex, setCurrentIndex] = useState(1);
+  const itemsPerPage = 2;
+  const start = 
+
+  <>
+  {props.data.map((a) => {
     return (
-      <Row className="cm-SRegular16" onClick={()=>{navi("/user/mypage/temp/refund/detail")}}>
+      
+      <Row className="cm-SRegular16" onClick={()=>{navi(`/user/mypage/temp/refund/detail/${a.id}`)}}>
         <Col width="9rem">
           <Column>
             <p>{a.date}</p>
@@ -77,8 +100,6 @@ function TableRow(props) {
         <Col width="8rem">{a.type}</Col>
         <Col width="6rem">{a.category}</Col>
         <Col width="9rem">{a.state}</Col>
-
-
         <ItemColBox>
           {a.item.map((b, i) => {
 
@@ -99,7 +120,13 @@ function TableRow(props) {
 
       </Row>
     );
-  });
+  })};
+
+
+
+
+
+  </>
 }
 
 export default TableRow;

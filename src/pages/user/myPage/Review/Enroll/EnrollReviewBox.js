@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import EnrollTable from "./EnrollTable";
+import MyPageBodyHeader from "../../../../../components/utils/MyPageBodyHeader";
 
 const Container = styled.div`
   width: 72rem;
@@ -25,7 +26,7 @@ const TableBox = styled.div`
 function ReviewBox() {
   return (
     <Container>
-            <Header className="cm-MBold24">리뷰 등록</Header>
+            <MyPageBodyHeader header="리뷰 등록"/>
 
       <TableBox>
         <EnrollTable />
