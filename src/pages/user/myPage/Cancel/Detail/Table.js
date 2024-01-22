@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import TableRow from "./TableRow";
-import TempData from '../../../../assets/datas/UserCancelData'
+
 
 const Head = styled.div`
   height: 3rem;
@@ -11,7 +11,6 @@ const Head = styled.div`
   justify-content: center;
 `;
 const TableBox = styled.div`
-  height: 43rem;
   width: 72rem;
   
 `;
@@ -26,7 +25,10 @@ justify-content: center;
 `
 
 
-function Table() {
+function Table(props) {
+
+  
+
   return (
     <TableBox>
       <Head className="cm-SBold18">
@@ -39,7 +41,8 @@ function Table() {
 
       </Head>
 
-      <TableRow data={TempData} />
+
+      <TableRow data={props.data} />
 
     </TableBox>
   );

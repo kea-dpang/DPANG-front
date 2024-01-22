@@ -38,6 +38,7 @@ const Col = styled.div`
   width: ${(props) => props.width};
   display: flex;
   align-items: center;
+
 `;
 const DetailHeader = styled.div`
   width: 72rem;
@@ -50,29 +51,7 @@ const DetailHeader = styled.div`
 function Table(props) {
   return (
     <Wrap>
-      <DetailHeader className="cm-SRegular18">회수처 정보</DetailHeader>
-      <Container>
-        <Border />
-        <TableBox className="cm-SRegular16">
-          <Row height="6rem">
-            <ColHeader>회수자명</ColHeader>
-            <Col width="26rem">{props.data.username}</Col>
-            <ColHeader>배송자 연락처</ColHeader>
-            <Col width="26rem">{props.data.userphone}</Col>
-          </Row>
-          <Border />
-          <Row height="6rem">
-            <ColHeader>회수처 주소</ColHeader>
-            <Col width="62rem">{props.data.useradd}</Col>
-          </Row>
-          <Border />
-          <Row height="6rem">
-            <ColHeader>회수 메시지</ColHeader>
-            <Col width="62rem">{props.data.usermessage}</Col>
-          </Row>
-          <Border />
-        </TableBox>
-      </Container>
+
 
       <DetailHeader className="cm-SRegular18">결제 상세 내역</DetailHeader>
       <Container>
@@ -95,27 +74,7 @@ function Table(props) {
         </TableBox>
       </Container>
 
-      <DetailHeader className="cm-SRegular18">취소 상세 내역</DetailHeader>
-      <Container>
-        <Border />
-        <TableBox className="cm-SRegular16">
-          <Row height="6rem">
-            <ColHeader>취소 사유</ColHeader>
-            <Col width="62rem">{props.data.category}</Col>
 
-          </Row>
-
-          <Border />
-
-          <Row height="15rem">
-            <ColHeader>비고</ColHeader>
-            <Col width="62rem">{props.data.refundmessage}</Col>
-          </Row>
-          <Border />
-        </TableBox>
-      
-      </Container>
-      <Border />
       
       <DetailHeader />
     </Wrap>
