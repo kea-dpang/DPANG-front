@@ -10,7 +10,7 @@ const EventProductPage = () => {
                 <Title className='cm-XLBold36'> 록시땅 원데이 찬스 </Title>
                 <ItemWrap>
                     {itemList.map((item) => (
-                        <Item item={item} />
+                        <Item key={item.id} value={item} />
                     ))}
                 </ItemWrap>
             </Wrap>
