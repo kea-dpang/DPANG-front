@@ -38,6 +38,7 @@ import UserEventPage from './pages/user/eventPage/Index';
 import UserProductEventListPage from './pages/user/eventPage/ProductEventPage';
 import UserBrandEventListPage from "./pages/user/eventPage/BrandEventPage";
 import SearchPage from "./pages/user/searchPage/Index";
+import ProductDetail from "./pages/user/productDetail/Index";
 
 function App() {
   return (
@@ -114,6 +115,8 @@ function App() {
           </Route> 
           {/* 검색 결과 페이지 */}
           <Route path="/user/search" element={<SearchPage/>}/>
+          {/* 상품 상세 페이지 */}
+          <Route path="/user/products/:productId" element={<ProductDetail/>}/>
         </Routes>
       </BrowserRouter>
     </div>
