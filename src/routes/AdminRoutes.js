@@ -16,6 +16,7 @@ import AdminFaqListPage from '../pages/admin/faqPage/list/Index';
 import BrandListPage from '../pages/admin/Item/Store/List/Index';
 import BrandEditPage from '../pages/admin/Item/Store/Edit/Index';
 import AdminErollPage from '../pages/admin/faqPage/enroll/Index';
+import AdminEditPage from '../pages/admin/faqPage/edit/Index';
 
 const AdminRoutes = () => {
     return (
@@ -41,7 +42,8 @@ const AdminRoutes = () => {
                 <Route path="refund/:id" element={<AdminRefundDetail />} />
                 {/* 고객센터 */}
                 <Route path="faq" element={<AdminFaqListPage/>}/>
-                <Route path="faq/:faqId" element={<AdminErollPage/>}/>
+                <Route path="faq/:faqId" element={<AdminEditPage/>}/>
+                <Route path="faq/enroll" element={<AdminErollPage/>}/>
 
                 {/* <Route path="faq" element={<AdminFaqListPage/>}/> */}
 
