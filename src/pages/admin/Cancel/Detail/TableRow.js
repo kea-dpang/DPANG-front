@@ -63,16 +63,23 @@ function TableRow(props) {
       <Col width="9rem">{data.type}</Col>
       <Col width="8rem">{data.category}</Col>
       <Col width="10rem">{data.state}</Col>
-      <Col width="16rem">
-        <ItemImg src={data.itemImg} />
-        <ItemName>{data.itemName}</ItemName>
-      </Col>
-      <Col width="10rem">
-        {data.itemMoney} / {data.amt}
-      </Col>
-      <Col width="10rem">{data.refund}</Col>
 
-
+      <ItemColBox>
+        {data.item.map((b, i) => {
+          return (
+            <ItemCol key={i} i={i}>
+              <Col width="16rem">
+                <ItemImg src={b.img} />
+                <ItemName>{b.name}</ItemName>
+              </Col>
+              <Col width="10rem">
+                {b.money} / {b.amt}
+              </Col>
+              <Col width="10rem">{b.refund}</Col>
+            </ItemCol>
+          );
+        })}
+      </ItemColBox>
     </Row>
   );
 }

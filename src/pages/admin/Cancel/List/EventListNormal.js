@@ -10,7 +10,7 @@ export default function DataTable() {
 
   const renderOrderNum = (params) => {
     return (
-      <NumBox className = "cm-SRegular16">
+      <NumBox>
         <p>{params.row.date} </p>
         <p style={{ color: "var(--navy)" }}>{params.row.ordernum}</p>
       </NumBox>
@@ -18,104 +18,97 @@ export default function DataTable() {
   };
 
   const renderDropBox = (params) => {
-    return (
-      <NumBox className = "cm-SRegular16"
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-      >
-        <Form>
-          <option value="단순 변심">-----</option>
-          <option value="10">반품요청</option>
-          <option value="11">회수중</option>
-          <option value="13">반품완료</option>
-        </Form>
-      </NumBox>
-    );
-
+    if (params.row.type === "취소") {
+      return (
+        <NumBox
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          <Form>
+            <option value="단순 변심">-----</option>
+            <option value="단순 변심">취소요청</option>
+            <option value="사이즈 안맞음">취소완료</option>
+          </Form>
+        </NumBox>
+      );
+    } else {
+      return (
+        <NumBox
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          <Form>
+            <option value="단순 변심">-----</option>
+            <option value="10">반품요청</option>
+            <option value="11">회수중</option>
+            <option value="13">반품완료</option>
+          </Form>
+        </NumBox>
+      );
+    }
   };
-
-  const renderItemInfo = (params) => {
-
-    return (
-
-
-      <NumBox className = "cm-SRegular16">
-        <ItemBox>
-          <ImgBox><ItemImg src={params.row.itemImg} /></ImgBox>
-          
-          <NameBox>{params.row.itemName}</NameBox>
-        </ItemBox>
-      </NumBox>
-
-
-    )
-
-
-
-  }
 
   const columns = [
     {
       field: "id",
       headerName: "번호",
-      width: 40,
+      width: 45,
       headerAlign: "center",
       renderCell: (params) => {
-        return <NumBox className = "cm-SRegular16">{params.value}</NumBox>;
+        return <NumBox>{params.value}</NumBox>;
       },
     },
     {
       field: "eventName",
       headerName: "결제일 | 주문번호",
-      width: 160,
+      width: 200,
       headerAlign: "center",
       renderCell: renderOrderNum,
     },
     {
       field: "type",
       headerName: "유형",
-      width: 60,
+      width: 65,
       headerAlign: "left",
       renderCell: (params) => {
-
-        return <div style={{ color: "var(--navy)" }} className = "cm-SRegular16">{params.value}</div>;
+        let color;
+        if (params.value === "취소") {
+          color = "var(--navy)";
+        } else {
+          // 환불
+          color = "var(--orange)";
+        }
+        return <div style={{ color: color }}>{params.value}</div>;
       },
     },
     {
       field: "category",
       headerName: "상세 사유",
-      width: 100,
+      width: 200,
       headerAlign: "center",
       renderCell: (params) => {
-        return <NumBox className = "cm-SRegular16">{params.row.category}</NumBox>;
+        return <NumBox>{params.row.category}</NumBox>;
       },
     },
     {
       field: "user",
       headerName: "유저",
-      width: 100,
+      width: 200,
       headerAlign: "center",
       renderCell: (params) => {
-        return <NumBox className = "cm-SRegular16">{params.row.user}</NumBox>;
+        return <NumBox>{params.row.user}</NumBox>;
       },
-    },
-    {
-      field: "item",
-      headerName: "상품정보",
-      width: 340,
-      headerAlign: "center",
-      renderCell: renderItemInfo,
-
     },
     {
       field: "state",
       headerName: "상태",
-      width: 120,
+      width: 150,
       sortable: false,
       headerAlign: "center",
       renderCell: (params) => {
-        return <NumBox className = "cm-SRegular16">{params.value}</NumBox>;
+        return <NumBox>{params.value}</NumBox>;
       },
     },
     {
@@ -149,7 +142,6 @@ export default function DataTable() {
         }}
         pageSizeOptions={[5, 10, 15]}
         checkboxSelection={false}
-        rowHeight={120}
       />
     </Wrap>
   );
@@ -165,49 +157,9 @@ const NumBox = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100%;
 `;
 
 const Form = styled.select`
   width: 7rem;
   height: 2rem;
 `;
-
-const ItemImg = styled.img`
-
-width: 5rem;
-height: 5rem;
-
-
-`
-const ItemBox = styled.div`
-
-width: 100%;
-height: 100%;
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: center;
-
-`
-
-const ImgBox = styled.div`
-
-height: 100%;
-width: 6rem;
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: center;
-
-`
-const NameBox = styled.div`
-
-height: 100%;
-width: calc(340px - 6rem);
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: start;
-
-`

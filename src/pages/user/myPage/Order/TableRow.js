@@ -55,6 +55,7 @@ const ItemColBox = styled.div`
 display: flex;
 flex-direction: column;
 
+
 `
 
 const ItemCol = styled.div`
@@ -157,7 +158,7 @@ function TableRow({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
 
   //page가 변경된 경우
-  const handlePageChange = (e, newPage) => {
+  const handlePageChange = (_, newPage) => {
 
     //현재 페이지를 새로운 페이지로 변경
     setCurrentPage(newPage);
