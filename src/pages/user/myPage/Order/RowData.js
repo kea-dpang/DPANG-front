@@ -40,7 +40,7 @@ function RowData(props) {
     return (
 
         <Row className="cm-SRegular16" height={rowHeight}>
-            <Col width="2rem" height={rowHeight} onClick={(e)=>{handleClick(e);}}><Arrow src={ArrowImg} rotate={rotate}/></Col>
+            <Col width="2rem" height={rowHeight} onClick={(e)=>{handleClick(e);}}>{data.item.length > 1 &&<Arrow src={ArrowImg} rotate={rotate}/>}</Col>
             <Col width="11rem" height={rowHeight}>
                 <Column>
                     <p>{data.date}</p>
@@ -203,6 +203,7 @@ const Arrow = styled.img`
 width: 1rem;
 height: 1rem;
 transform: rotate(${(props)=>props.rotate}deg);
+transition: transform 0.3s ease;
 
 `
 const setButton2 = (s) => {
