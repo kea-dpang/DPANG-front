@@ -82,12 +82,12 @@ export default function DataTable() {
       },
     },
     {
-      field: "user",
-      headerName: "유저",
+      field: "name",
+      headerName: "이름",
       width: 100,
       headerAlign: "center",
       renderCell: (params) => {
-        return <NumBox className = "cm-SRegular16">{params.row.user}</NumBox>;
+        return <NumBox className = "cm-SRegular16">{params.row.name}</NumBox>;
       },
     },
     {

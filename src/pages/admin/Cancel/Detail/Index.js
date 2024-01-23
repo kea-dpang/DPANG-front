@@ -3,15 +3,22 @@ import * as React from 'react';
 import { useState } from "react";
 import '../../../../styles/fonts.css';
 import Table from './Table';
-import data from '../../../../assets/datas/AdminRefundData'
+import data from '../../../../assets/datas/AdminCancelData'
 import { useParams } from "react-router-dom";
 import RefundDetail from "./RefundDetail";
-
+import DetailTableTitle from '../../../../components/utils/DetailTable/DetailTableTitle'
 
 const Index = () => {
 
     const {id} = useParams();
-    console.log(id)
+    const [click, setClick] = useState(false);
+    const handleClick = () => {
+
+        setClick(!click);
+
+    }
+
+    
 
     return (
         <>  
@@ -22,7 +29,10 @@ const Index = () => {
 
                 <InputSection>
                     <Table data={data} id={id}/> 
-                    <RefundDetail data={data} id={id}/>
+
+                    <DetailTableTitle text="취소 상세 정보" width="73.9375rem" handleclick={handleClick} />
+
+                    {click&& <RefundDetail data={data} id={id}/>}
                 </InputSection>
             </Wrap>
         </>

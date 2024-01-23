@@ -39,9 +39,6 @@ return(
 
 }
 
-const Container = styled.div`
-  width: 73.9375rem;
-`;
 
 const Table = styled.div`
   width: 73.9375rem;
@@ -72,9 +69,6 @@ const Content = styled.div`
   display: flex;
   align-items: center;
 
-`;
-const Blank = styled.div`
-  height: 10rem;
 `;
 const BlankDiv = styled.div`
 
