@@ -15,6 +15,10 @@ import AdminUserEditPage from "../pages/admin/userPage/edit/Index";
 import AdminFaqListPage from '../pages/admin/faqPage/list/Index';
 import BrandListPage from '../pages/admin/Item/Store/List/Index';
 import BrandEditPage from '../pages/admin/Item/Store/Edit/Index';
+import AdminErollPage from '../pages/admin/faqPage/enroll/Index';
+import AdminEditPage from '../pages/admin/faqPage/edit/Index';
+import AdminDirectAskPage from '../pages/admin/directAskPage/list/Index';
+import AdminAskEnrollPage from '../pages/admin/directAskPage/enroll/Index';
 
 const AdminRoutes = () => {
     return (
@@ -39,7 +43,15 @@ const AdminRoutes = () => {
                 <Route path="refund" element={<AdminRefundList />}/>
                 <Route path="refund/:id" element={<AdminRefundDetail />} />
                 {/* 고객센터 */}
+                {/* faq */}
                 <Route path="faq" element={<AdminFaqListPage/>}/>
+                <Route path="faq/:faqId" element={<AdminEditPage/>}/>
+                <Route path="faq/enroll" element={<AdminErollPage/>}/>
+                {/* 1:1문의 */}
+                <Route path="directask" element={<AdminDirectAskPage/>}/>
+                <Route path="directask/:askId" element={<AdminAskEnrollPage/>}/>
+                
+                
                 {/* </Route> */}
             </Route>
         </Routes>

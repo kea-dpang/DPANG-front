@@ -4,15 +4,14 @@ import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import AdminTable from '../../userPage/list/AdminTable';
-import { faqManageData } from '../../../../assets/datas/AdminFaqData';
 import Button from '@mui/material/Button';
 import { withStyles } from '@mui/styles';
 import { useNavigate } from 'react-router-dom';
-
+import { askManageData } from '../../../../assets/datas/AdminAskData';
 
 const handleButtonClick = (buttonType, dataIndex) => {
 
-    const row = faqManageData[dataIndex];
+    const row = askManageData[dataIndex];
     console.log(row);
 
     if (buttonType === 'button1') {
@@ -28,29 +27,29 @@ const columns = [
     { name: "id", label: "번호", options: { sort: true }},
     { name: "category", label: "카테고리", options: { sort: true }},
     { name: "title", label: "제목", options: { sort: true }},
-    { name: "writer", label: "작성자", options: { sort: true }},
-    // { 
-    //     name: "action",
-    //     label: "관리",
-    //     options: {
-    //         sort: false,
-    //         customBodyRenderLite: (dataIndex) => {
-    //             return (
-    //                 <>
-    //                 <StyledButton variant="outlined" color="primary" onClick={() => handleButtonClick('button1', dataIndex)}>
-    //                     수정하기
-    //                 </StyledButton>
-    //                 {/* <StyledButton2 variant="outlined" color="secondary" onClick={() => handleButtonClick('button2', dataIndex)} style={{ marginLeft: '10px', }}>
-    //                     삭제하기
-    //                 </StyledButton2> */}
-    //                 </>
-    //             );
-    //         }
-    //     }
-    // }
+    // { name: "state", label: "상태", options: { sort: true }},
+    { 
+        name: "state", 
+        label: "상태", 
+        options: { 
+            sort: true,
+            customBodyRenderLite: (dataIndex) => {
+                const item = askManageData[dataIndex];
+                return (
+                    <div style={{ 
+                        color: item.state === '답변대기' ? 'var(--orange)' : 'var(--black)', 
+                    }}>
+                      {item.state}
+                    </div>
+                  );
+            }
+        }
+    },
 ]
 
-const FaqListPage = () => {
+
+
+const DirectAskPage = () => {
     const [category, setCategory] = useState('');
     const navigate = useNavigate();
 
@@ -72,7 +71,7 @@ const FaqListPage = () => {
 
     return (
         <Wrap>
-            <Title className='cm-LBold30 col-Black'> 고객센터</Title>
+            <Title className='cm-LBold30 col-Black'>고객센터</Title>
 
             <Option>
                 {/* 정렬 */}
@@ -113,16 +112,16 @@ const FaqListPage = () => {
                 <button className='Btn_M_Navy'>추가하기</button>
             </Option>
 
-            <Title className='cm-SBold18 col-Navy'> FAQ관리</Title>
+            <Title className='cm-SBold18 col-Navy'>1:1 문의 관리</Title>
 
-            <AdminTable data={faqManageData} columns={columns} onRowClick={handleRowClick}/>
+            <AdminTable data={askManageData} columns={columns} onRowClick={handleRowClick} />
             <button className='Btn_M_Navy'>선택 삭제</button>
 
         </Wrap>
     );
 };
 
-export default FaqListPage;
+export default DirectAskPage;
 
 const Wrap = styled.div`
 

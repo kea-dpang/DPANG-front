@@ -152,7 +152,7 @@ const AdminSideBar = () => {
                         openSubMenu === '고객센터' 
                         && <OpenMenuWrap>
                             <Nav to="faq"> - FAQ 관리 </Nav>
-                            <Nav> - 1:1 문의관리 </Nav>
+                            <Nav to="directask"> - 1:1 문의관리 </Nav>
                         </OpenMenuWrap>
                     }
                 {/* 관리자관리 */}
