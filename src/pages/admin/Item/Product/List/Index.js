@@ -8,9 +8,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import Category from "../../../../../components/common/Item/Category";
 import AdminTable from "../../../userPage/list/AdminTable";
 import data from "../../../../../assets/datas/ItemDetailData";
-import Box from '@mui/material/Box';
-import { Button as MuiButton } from '@mui/material';
-
 
 const Index = () => {
     // 테이블 column
@@ -43,6 +40,9 @@ const Index = () => {
         console.log("dddd", row);
         navigate(`${row[0]}`);
     };
+    const handleAddBtn = () => {
+      navigate("/admin/product/enroll");
+    }
 
   return (
     <>
@@ -71,7 +71,7 @@ const Index = () => {
             </SearchWrap>
             {/* 추가하기 버튼 */}
             <Button>
-                <button className="Btn_S_Navy">추가하기</button>
+                <button className="Btn_S_Navy" onClick={() => handleAddBtn()}>추가하기</button>
             </Button>
         </FilterSection>
         {/* 이벤트 목록 */}

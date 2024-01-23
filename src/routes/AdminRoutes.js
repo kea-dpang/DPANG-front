@@ -22,6 +22,7 @@ import AdminEditPage from '../pages/admin/faqPage/edit/Index';
 import AdminDirectAskPage from '../pages/admin/directAskPage/list/Index';
 import AdminAskEnrollPage from '../pages/admin/directAskPage/enroll/Index';
 import AdminProduct from '../pages/admin/Item/Product/List/Index';
+import ProductEnrollPage from '../pages/admin/Item/Product/Enroll/Index';
 
 
 const AdminRoutes = () => {
@@ -34,6 +35,7 @@ const AdminRoutes = () => {
                 <Route path="mileage" element={<AdminMileageView />}/>
                 {/* 상품 관리 */}
                 <Route path="product" element={<AdminProduct/>}/>
+                <Route path="product/enroll" element={<ProductEnrollPage/>}/>
                 <Route path="brand" element={<BrandListPage/>}/>
                 <Route path="brand/:id" element={<BrandEditPage/>}/>
                 {/* 이벤트 관리 */}
