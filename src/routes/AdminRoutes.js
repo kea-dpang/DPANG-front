@@ -12,6 +12,12 @@ import AdminRefundDetail from '../pages/admin/Refund/Detail/Index'
 import AdminMileage from '../pages/admin/Mileage/Index'
 import AdminMileageView from '../pages/admin/Mileage/List/Index'
 import EventPage from '../pages/admin/eventPage/Index'
+import ItemPage from "../pages/admin/Item/Index";
+import StoreListPage from "../pages/admin/Item/Store/List/Index";
+import StoreEnrollPage from "../pages/admin/Item/Store/Enroll/Index";
+import StoreEditPage from "../pages/admin/Item/Store/Edit/Index";
+
+
 
 const AdminRoutes = () => {
     return (
@@ -34,6 +40,12 @@ const AdminRoutes = () => {
             </Route>
 
             <Route path="order" element={<OrderPage />} />
+
+            <Route path="item" element={<ItemPage />}>
+                <Route path="storelist" element={<StoreListPage />} />
+                <Route path="enrollstore" element={<StoreEnrollPage />} />
+                <Route path="editstore/:id" element={<StoreEditPage />} />
+            </Route>
 
         </Routes>
     );

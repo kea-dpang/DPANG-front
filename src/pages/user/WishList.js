@@ -3,13 +3,14 @@ import styled from 'styled-components'
 import checkicon from '../../assets/images/uncheckicon.svg'
 import itemimg from '../../assets/images/tempitemimg.png'
 import carticon from '../../assets/images/carticon.png'
+import Header from '../../components/common/HeaderBar/Index'
 
 const WishList =()=> {
 
     return(
 
-        <MainContainer>
-
+        <Wrap>
+            <Header/>
             <WishTitleBox>❤️ 내가 찜한 상품</WishTitleBox>
             
             <WishListContainer>
@@ -190,7 +191,7 @@ const WishList =()=> {
             </ListContainer>
             </WishListContainer>
 
-        </MainContainer>
+        </Wrap>
 
     )
 
@@ -199,12 +200,12 @@ export default WishList;
 
 
 
-const MainContainer=styled.div`
-
-    width: 120rem;
-    height: 80.75rem;
-    background: #FFF;
-
+const Wrap = styled.div`
+    width: 100vw;
+    align-items: center;
+    min-width: 1550px;
+    display: flex;
+    flex-direction: column;
 `;
 
 const WishTitleBox=styled.div`
@@ -216,11 +217,12 @@ const WishTitleBox=styled.div`
     align-items: center;
     gap: var(--hi, 0.625rem);
     color: var(--navy, #043277);
-    font-family: Pretendard;
-    font-size: 2.625rem;
+    font-family: "Pretendard Variable";
+    font-size: 1.875rem;
     font-style: normal;
     font-weight: 700;
-    line-height: normal;
+    line-height: 1.25rem; /* 66.667% */
+    letter-spacing: 0.1875rem;
 
 
 `;

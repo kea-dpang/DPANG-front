@@ -23,6 +23,7 @@ import ProductListPage from "../pages/user/productListPage/Index";
 import BestProductPage from "../pages/user/productListPage/BestProdudctPage";
 import EventProductPage from "../pages/user/productListPage/EventProductPage";
 import OrderDetail from '../pages/user/myPage/Order/Detail/Index'
+import Cart from '../pages/user/cartPage/Index'
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
@@ -63,6 +64,7 @@ const UserRoutes = () => {
     
             <Route path="wishlist" element={<WishList />} />
             <Route path="mainpage" element={<MainPage />} />
+            <Route path="cart" element={<Cart />} />
             <Route path="productlists/*" element={<ProductListPage />}>
                 <Route path="best" element={<BestProductPage />} />
                 <Route path="event" element={<EventProductPage />} />
