@@ -41,14 +41,14 @@ const Index = ({ id }) => {
     const handleNameChange = (e) => {
         setStoreData(prevData => ({
             ...prevData, 
-            title: e.target.value
+            storename: e.target.value
           }));
     };
     // 판매처 연락처 변경 감지
     const handleNumberChange = (e) => {
         setStoreData(prevData => ({
             ...prevData, 
-            title: e.target.value
+            storenumber: e.target.value
           }));
     };
 
@@ -56,7 +56,7 @@ const Index = ({ id }) => {
     const handleEmployeeChange = (e) => {
         setStoreData(prevData => ({
             ...prevData, 
-            title: e.target.value
+            storeemployee: e.target.value
           }));
     };
 
@@ -64,7 +64,7 @@ const Index = ({ id }) => {
     const handleDirectorChange = (e) => {
         setStoreData(prevData => ({
             ...prevData, 
-            title: e.target.value
+            storedirector: e.target.value
           }));
     };
 
@@ -121,7 +121,7 @@ const Index = ({ id }) => {
                                        },
                                    }}
                                    placeholder="판매처를 입력해주세요"
-                                   defaultValue={storeData.title}
+                                   value={storeData.storename}
                                />
                            </Box>
                        </Content>
@@ -153,7 +153,7 @@ const Index = ({ id }) => {
                                        },
                                    }}
                                    placeholder="판매처 연락처를 입력해주세요"
-                                   defaultValue={storeData.title}
+                                   value={storeData.storenumber}
                                />
                            </Box>
                        </Content>
@@ -185,7 +185,7 @@ const Index = ({ id }) => {
                                        },
                                    }}
                                    placeholder="판매처 담당 직원"
-                                   defaultValue={storeData.title}
+                                   value={storeData.storeemployee}
                                />
                            </Box>
                        </Content>
@@ -213,7 +213,7 @@ const Index = ({ id }) => {
                                        },
                                    }}
                                    placeholder="담당자"
-                                   defaultValue={storeData.title}
+                                   value={storeData.storedirector}
                                />
                            </Box>
                        </Content>

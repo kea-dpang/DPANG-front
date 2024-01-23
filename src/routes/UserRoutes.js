@@ -21,6 +21,7 @@ import MainPage from '../pages/user/mainPage/Index'
 import ProductListPage from "../pages/user/productListPage/Index";
 import BestProductPage from "../pages/user/productListPage/BestProdudctPage";
 import EventProductPage from "../pages/user/productListPage/EventProductPage";
+import Cart from '../pages/user/cartPage/Index'
 import OrderDetail from '../pages/user/myPage/Order/Detail/Index';
 import SearchPage from "../pages/user/searchPage/Index";
 import ProductDetail from "../pages/user/productDetail/Index";
