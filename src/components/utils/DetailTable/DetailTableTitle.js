@@ -24,7 +24,7 @@ transition: transform 0.3s ease;
 
 function DetailTableTitle(props) {
 
-  const [rotate, setRotate] = useState(0)
+  const [rotate, setRotate] = useState(180)
 
 
     return( <DetailHeader className="cm-SRegular18" width={props.width}>
