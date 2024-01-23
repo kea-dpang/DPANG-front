@@ -84,7 +84,8 @@ const [amt, setAmt] = useState([0, 1, 2, 0, 3])
       <CalenderBox><PeriodSelector /></CalenderBox>
       <NavBox className="cm-SBold18">
       <NaviBar colour="var(--dark-grey)" onClick={()=>{navi("/user/mypage/temp/order")}}>주문/배송 조회</NaviBar>
-      <NaviBar colour="var(--navy)">취소/반품 조회</NaviBar>
+      <NaviBar colour="var(--navy)" >반품 조회</NaviBar>
+      <NaviBar colour="var(--dark-grey)" onClick={()=>{navi("/user/mypage/temp/cancel")}}>취소 조회</NaviBar>
       </NavBox>
       <TableBox>
         <Table />

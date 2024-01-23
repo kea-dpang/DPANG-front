@@ -23,7 +23,7 @@ const SearchResult = (props) => {
                 </Section>
                 <ListSection>
                     {ItemData.map((item) => (
-                        <Item item={item} />
+                        <Item key={item.id} value={item} />
                     ))}
                 </ListSection>
             </Right>

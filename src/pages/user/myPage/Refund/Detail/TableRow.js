@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Row = styled.div`
+height: 7rem;
   width: 72rem;
   border-bottom: 1px black solid;
   display: flex;
@@ -29,26 +30,7 @@ const Column = styled.div`
   align-items: center;
   justify-content: center;
 `;
-const ItemColBox = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
 
-const ItemCol = styled.div`
-  height: 6rem;
-  display: flex;
-${(props)=>setBorder(props.i)}
-
-`;
-
-const setBorder = (i) =>{
-
-  if(i!=0)
-  return {borderTop: "1px solid black"}
-  else
-  return {border: 0}
-  
-  }
 
 function TableRow(props) {
 
@@ -66,25 +48,12 @@ function TableRow(props) {
       <Col width="8rem">{data.type}</Col>
       <Col width="6rem">{data.category}</Col>
       <Col width="9rem">{data.state}</Col>
-
-
-      <ItemColBox>
-        {data.item.map((b, i) => {
-
-          return (
-            <ItemCol key={i} i={i}>
-              <Col width="22rem">
-                <ItemImg src={b.img} />
-                <ItemName>{b.name}</ItemName>
-              </Col>
-              <Col width="9rem">{b.money} / {b.amt}</Col>
-              <Col width="9rem">{b.refund}</Col>
-
-            </ItemCol>
-          )
-
-        })}
-      </ItemColBox>
+      <Col width="22rem">
+        <ItemImg src={data.itemImg} />
+        <ItemName>{data.itemName}</ItemName>
+      </Col>
+      <Col width="9rem">{data.itemMoney} / {data.amt}</Col>
+      <Col width="9rem">{data.refund}</Col>
 
     </Row>
   );

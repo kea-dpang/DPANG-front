@@ -29,7 +29,7 @@ const AdminSideBar = () => {
         <>
             <Wrap>
             {/* 디팡 로고 & 메뉴바 로고*/}
-                <LogoBar>
+                <LogoBar to="user">
                     <img src={logo} alt="logo" style={{ transform: 'rotate(-6.386deg)' }}/>
                     <Menu style={{color: 'var(--white)'}}/>
                 </LogoBar>
@@ -49,8 +49,8 @@ const AdminSideBar = () => {
                     {
                         openSubMenu === '회원관리' 
                         && <OpenMenuWrap>
-                            <Nav to="list"> - 회원목록 확인 </Nav>
-                            <Nav> - 마일리지 관리 </Nav>
+                            <Nav to="user"> - 회원목록 확인 </Nav>
+                            <Nav to="mileage"> - 마일리지 관리 </Nav>
                         </OpenMenuWrap>
                     }
                 {/* 상품관리 */}
@@ -66,7 +66,7 @@ const AdminSideBar = () => {
                     {
                         openSubMenu === '상품관리' 
                         && <OpenMenuWrap>
-                            <Nav> - 판매처 관리 </Nav>
+                            <Nav to="brand"> - 판매처 관리 </Nav>
                             <Nav> - 상품 관리 </Nav>
                             <Nav> - 판매 모니터링 </Nav>
                         </OpenMenuWrap>
@@ -84,8 +84,8 @@ const AdminSideBar = () => {
                     {
                         openSubMenu === '이벤트관리' 
                         && <OpenMenuWrap>
-                            <Nav to="list"> - 이벤트 관리 </Nav>
-                            <Nav to="enrollproduct"> - 이벤트 등록 </Nav>
+                            <Nav to="event"> - 이벤트 관리 </Nav>
+                            <Nav to="event/enrollproduct"> - 이벤트 등록 </Nav>
                         </OpenMenuWrap>
                     }
                 {/* 재고관리 */}
@@ -119,7 +119,7 @@ const AdminSideBar = () => {
                     {
                         openSubMenu === '주문관리' 
                         && <OpenMenuWrap>
-                            <Nav> - 주문내역 확인 </Nav>
+                            <Nav to="order"> - 주문내역 확인 </Nav>
                         </OpenMenuWrap>
                     }
                 {/* 환불관리 */}
@@ -135,8 +135,7 @@ const AdminSideBar = () => {
                     {
                         openSubMenu === '환불관리' 
                         && <OpenMenuWrap>
-                            <Nav> - 환불정책 설정 </Nav>
-                            <Nav> - 반품/환불 반영 </Nav>
+                            <Nav to="refund"> - 환불 관리 </Nav>
                         </OpenMenuWrap>
                     }
                 {/* 고객센터 */}
@@ -152,8 +151,8 @@ const AdminSideBar = () => {
                     {
                         openSubMenu === '고객센터' 
                         && <OpenMenuWrap>
-                            <Nav> - FAQ 관리 </Nav>
-                            <Nav> - 1:1 문의관리 </Nav>
+                            <Nav to="faq"> - FAQ 관리 </Nav>
+                            <Nav to="directask"> - 1:1 문의관리 </Nav>
                         </OpenMenuWrap>
                     }
                 {/* 관리자관리 */}
@@ -183,7 +182,13 @@ const Wrap = styled.div`
     width: 19.0625rem;
     background: var(--navy);
 `
-const LogoBar = styled.div`
+// const LogoBar = styled.div`
+//     display: inline-flex;
+//     padding: 2.1875rem 2.21875rem;
+//     align-items: center;
+//     gap: 4.75rem;
+// `
+const LogoBar = styled(Link)`
     display: inline-flex;
     padding: 2.1875rem 2.21875rem;
     align-items: center;

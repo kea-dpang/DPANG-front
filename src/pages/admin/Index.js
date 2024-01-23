@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import AdminSideBar from "../../../components/common/AdminSideBar";
-import AdminHeader from "../../../components/common/AdminHeader";
+import AdminSideBar from "../../components/common/AdminSideBar";
+import AdminHeader from "../../components/common/AdminHeader";
 import { Outlet } from "react-router-dom";
-const UserPage = () => {
+const Index = () => {
     return(
         <Wrap>
             <AdminSideBar/>
@@ -23,4 +23,4 @@ const Section = styled.div`
     flex-direction: column;
 `
 
-export default UserPage;
+export default Index;
