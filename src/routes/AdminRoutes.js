@@ -13,6 +13,8 @@ import AdminPage from '../pages/admin/Index'
 import AdminUserListPage from "../pages/admin/userPage/list/Index";
 import AdminUserEditPage from "../pages/admin/userPage/edit/Index";
 import AdminFaqListPage from '../pages/admin/faqPage/list/Index';
+import AdminCancelList from '../pages/admin/Cancel/List/Index';
+import AdminCancelDetail from '../pages/admin/Cancel/Detail/Index';
 import BrandListPage from '../pages/admin/Item/Store/List/Index';
 import BrandEditPage from '../pages/admin/Item/Store/Edit/Index';
 
@@ -38,6 +40,8 @@ const AdminRoutes = () => {
                 {/* 환불관리 */}
                 <Route path="refund" element={<AdminRefundList />}/>
                 <Route path="refund/:id" element={<AdminRefundDetail />} />
+                <Route path="cancel" element={<AdminCancelList />} />
+                <Route path="cancel/:id" element={<AdminCancelDetail/>} />
                 {/* 고객센터 */}
                 <Route path="faq" element={<AdminFaqListPage/>}/>
                 {/* </Route> */}

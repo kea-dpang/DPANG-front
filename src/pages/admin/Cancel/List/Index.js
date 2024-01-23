@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Button as MuiButton } from "@mui/material";
 import * as React from "react";
 import "../../../../styles/fonts.css";
 import Paper from "@mui/material/Paper";
@@ -10,8 +9,6 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import DataTable from "./EventListNormal";
 
 const Index = () => {
@@ -25,7 +22,7 @@ const Index = () => {
   return (
     <>
       <Wrap>
-        <PageName className="cm-LBold30 col-Black"> 환불 리스트 관리</PageName>
+        <PageName className="cm-LBold30 col-Black"> 취소 리스트 관리</PageName>
         {/* 검색창, 추가하기 버튼, 삭제 버튼, 조회기간 필터링 박스 */}
         <FilterSection>
           {/* 검색창, 이벤트 분류 필터링, 검색 버튼 && 추가하기 버튼*/}
@@ -44,10 +41,8 @@ const Index = () => {
                   sx={{ height: "3rem" }}
                 >
                   <MenuItem value=""> 없음 </MenuItem>
-                  <MenuItem value={10}>반품 요청</MenuItem>
-                  <MenuItem value={20}>결제 완료</MenuItem>
-                  <MenuItem value={30}>회수중</MenuItem>
-                  <MenuItem value={40}>반품 완료</MenuItem>
+                  <MenuItem value={10}>취소 요청</MenuItem>
+                  <MenuItem value={20}>취소 승인</MenuItem>
                 </Select>
               </FormControl>
               {/* 검색창 */}

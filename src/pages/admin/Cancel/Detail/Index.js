@@ -4,8 +4,8 @@ import { useState } from "react";
 import '../../../../styles/fonts.css';
 import Table from './Table';
 import data from '../../../../assets/datas/AdminRefundData'
-import DetailBox from "./DetailBox";
 import { useParams } from "react-router-dom";
+import RefundDetail from "./RefundDetail";
 
 
 const Index = () => {
@@ -16,13 +16,13 @@ const Index = () => {
     return (
         <>  
             <Wrap>
-                <PageName className='cm-LBold30 col-Black'> 환불 관리</PageName>
-                <PageSubName className='cm-MBold24 col-Navy'> 환불 내역 상세조회</PageSubName>
+                <PageName className='cm-LBold30 col-Black'> 취소 관리</PageName>
+                <PageSubName className='cm-MBold24 col-Navy'> 취소 내역 상세조회</PageSubName>
 
 
                 <InputSection>
                     <Table data={data} id={id}/> 
-                    <DetailBox data={data} id={id}/>
+                    <RefundDetail data={data} id={id}/>
                 </InputSection>
             </Wrap>
         </>

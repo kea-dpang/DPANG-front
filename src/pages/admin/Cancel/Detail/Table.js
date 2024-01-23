@@ -18,7 +18,6 @@ const Index = (props) => {
           <Col width="10rem">예상 환불액</Col>
         </Table>
         <TableRow data={props.data} id={props.id}/>
-        {console.log(props.id)}
       </TableBox>
     </Wrap>
   );
