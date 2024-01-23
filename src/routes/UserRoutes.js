@@ -45,7 +45,7 @@ const UserRoutes = () => {
                 <Route path="event" element={<EventProductPage />} />
             </Route>
             {/* 상품 상세 페이지 */}
-            <Route path="products/:id" element={<ProductDetail/>}/>
+            <Route path="products/:itemId" element={<ProductDetail/>}/>
             {/* 검색 페이지 */}
             <Route path="search" element={<SearchPage/>}/>
             {/* 위시리스트 */}
