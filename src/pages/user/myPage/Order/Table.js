@@ -26,7 +26,8 @@ function Table() {
   return (
     <TableBox>
       <Head className="cm-SBold18">
-        <Col width="13rem">날짜/주문번호</Col>
+      <Col width="2rem"></Col>
+        <Col width="11rem">날짜/주문번호</Col>
         <Col width="11rem">상태</Col>
         <Col width="22rem">상품명</Col>
         <Col width="11rem">상품 금액 / 수량</Col>
