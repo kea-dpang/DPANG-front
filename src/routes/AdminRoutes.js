@@ -9,13 +9,10 @@ import OrderPage from "../pages/admin/orderPage/OrderBox";
 import AdminRefundList from '../pages/admin/Refund/List/Index'
 import AdminRefundDetail from '../pages/admin/Refund/Detail/Index'
 import AdminMileageView from '../pages/admin/Mileage/List/Index'
-
-import EventPage from '../pages/admin/eventPage/Index'
 import ItemPage from "../pages/admin/Item/Index";
 import StoreListPage from "../pages/admin/Item/Store/List/Index";
 import StoreEnrollPage from "../pages/admin/Item/Store/Enroll/Index";
 import StoreEditPage from "../pages/admin/Item/Store/Edit/Index";
-
 import AdminPage from '../pages/admin/Index'
 import AdminUserListPage from "../pages/admin/userPage/list/Index";
 import AdminUserEditPage from "../pages/admin/userPage/edit/Index";
@@ -68,9 +65,7 @@ const AdminRoutes = () => {
             </Route>
 
 
-            <Route path="mileage" element={<AdminMileage />}>
-                <Route path="list" element={<AdminMileageView />} />
-            </Route>
+            <Route path="mileage" element={<AdminMileageView />} />
 
             <Route path="order" element={<OrderPage />} />
 
