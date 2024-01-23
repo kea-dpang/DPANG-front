@@ -10,16 +10,6 @@ const Container = styled.div`
   min-height: calc(100vh - 30rem);
 `;
 
-const Header = styled.div`
-  width: 72rem;
-  height: 7rem;
-  background-color: white;
-  display: flex;
-  align-items: center;
-  font-size: 30px;
-  color: #043277;
-  border-bottom: 1px #043277 solid;
-`;
 const CalenderBox = styled.div`
   height: 17rem;
   width: 72rem;
