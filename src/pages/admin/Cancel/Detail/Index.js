@@ -16,8 +16,8 @@ const Index = () => {
     return (
         <>  
             <Wrap>
-                <PageName className='cm-LBold30 col-Black'> 환불 관리</PageName>
-                <PageSubName className='cm-MBold24 col-Navy'> 환불 내역 상세조회</PageSubName>
+                <PageName className='cm-LBold30 col-Black'> 취소 관리</PageName>
+                <PageSubName className='cm-MBold24 col-Navy'> 취소 내역 상세조회</PageSubName>
 
 
                 <InputSection>

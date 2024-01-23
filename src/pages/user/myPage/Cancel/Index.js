@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import CancelBox from './CancelBox'
+import ReviewBox from './ReviewBox'
 
 const Container = styled.div`
   min-height: 100vh;
@@ -22,7 +22,7 @@ function Index() {
   return (
     <Container>
       <ContentBox>
-        <ReviewContainer><CancelBox /></ReviewContainer>
+        <ReviewContainer><ReviewBox /></ReviewContainer>
       </ContentBox>
     </Container>
   );

@@ -13,24 +13,21 @@ display: flex;
 justify-content: center;
 align-items: center;
 
-
 `
-
 const Row = styled.div`
+height: 7rem;
   width: 72rem;
   border-bottom: 1px black solid;
   display: flex;
   font-size: 14px;
   
 `;
-
 const Col = styled.div`
   width: ${(props) => props.width};
   display: flex;
   align-items: center;
   justify-content: center;
 `;
-
 const ItemImg = styled.img`
 width: 5rem;
 height: 5rem;
@@ -51,82 +48,70 @@ justify-content: center;
 
 `
 
-const ItemColBox = styled.div`
 
-display: flex;
-flex-direction: column;
-
-`
-
-const ItemCol = styled.div`
-
-height: 6rem;
-display: flex;
-${(props)=>setBorder(props.i)};
-border-left: 1px solid black;
-
-`
-
-const setBorder = (i) =>{
-
-  if(i!=0)
-  return {borderTop: "1px solid black"}
-  else
-  return {border: 0}
-  
-  }
-
-
-function TableRow(props) {
+function TableRow({ data }) {
 
   const navi = useNavigate();
-  const data = props.data;
+  //pagination에서 현재 페이지
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const [currentIndex, setCurrentIndex] = useState(1);
-  const itemsPerPage = 2;
-  const start = 
+  //page가 변경된 경우
+  const handlePageChange = (_, newPage) => {
 
-  <>
-  {props.data.map((a) => {
-    return (
-      
-      <Row className="cm-SRegular16" onClick={()=>{navi(`/user/mypage/temp/refund/detail/${a.id}`)}}>
-        <Col width="9rem">
-          <Column>
-            <p>{a.date}</p>
-            <p>{a.ordernum}</p>
-          </Column>
-        </Col>
-        <Col width="8rem">{a.type}</Col>
-        <Col width="6rem">{a.category}</Col>
-        <Col width="9rem">{a.state}</Col>
-        <ItemColBox>
-          {a.item.map((b, i) => {
+    //현재 페이지를 새로운 페이지로 변경
+    setCurrentPage(newPage);
 
-            return (
-              <ItemCol i={i} key = {i}>
-                <Col width="22rem">
-                  <ItemImg src={b.img} />
-                  <ItemName>{b.name}</ItemName>
-                </Col>
-                <Col width="9rem">{b.money} / {b.amt}</Col>
-                <Col width="9rem">{b.refund}</Col>
+  }
 
-              </ItemCol>
-            )
+  //한페이지당 보여줄 아이템의 개수
+  const itemPerPage = 5;
+  //시작 index는 현재 페이지의 첫번째 원소부터
+  const start = (currentPage - 1) * itemPerPage;
+  //끝 index는 start부터 보여주어야할 아이템의 개수 만큼
+  const end = start + itemPerPage;
+  //전체 데이터에서 시작 ~ 끝만 가져옴
+  const currentData = data.slice(start, end);
 
-          })}
-        </ItemColBox>
+  return (
 
-      </Row>
-    );
-  })};
+    <>
+      {currentData.map((a, k) => {
+        return (
 
+          <Row key={k} className="cm-SRegular16" onClick={() => { navi(`/user/mypage/temp/cancel/detail/${a.id}`) }}>
+            <Col width="10rem">
+              <Column>
+                <p>{a.date}</p>
+                <p>{a.ordernum}</p>
+              </Column>
+            </Col>
+            <Col width="9rem">{a.type}</Col>
+            <Col width="10rem">{a.state}</Col>
+            <Col width="23rem">
+              <ItemImg src={a.itemImg} />
+              <ItemName>{a.itemName}</ItemName>
+            </Col>
+            <Col width="10rem">{a.itemMoney} / {a.amt}</Col>
+            <Col width="10rem">{a.refund}</Col>
 
+          </Row>
+        );
+      })}
 
-
-
-  </>
+      <PaginationContainer>
+        <Stack spacing={10}>
+          {/* MUI 페이지 네이션 라이브러리 이용 */}
+          <Pagination
+            //페이지당 아이템 개수에 따른 전체 페이지수 계산
+            count={Math.ceil(data.length / itemPerPage)}
+            //페이지는 현재 페이지
+            page={currentPage}
+            onChange={handlePageChange}
+            color="primary" />
+        </Stack>
+      </PaginationContainer>
+    </>
+  )
 }
 
 export default TableRow;

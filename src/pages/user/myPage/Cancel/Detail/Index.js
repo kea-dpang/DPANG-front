@@ -2,7 +2,7 @@ import styled from "styled-components";
 import ReviewBox from "./ReviewBox";
 import Refund from './Refund/Index'
 import { useParams } from "react-router-dom";
-import TempData from '../../../../../assets/datas/RefundData'
+import TempData from '../../../../../assets/datas/UserCancelData'
 
 const Container = styled.div`
   min-height: 100vh;

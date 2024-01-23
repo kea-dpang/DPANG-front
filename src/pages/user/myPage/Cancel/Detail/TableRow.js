@@ -2,7 +2,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Row = styled.div`
-  width: 73.9375rem;
+height: 7rem;
+  width: 72rem;
   border-bottom: 1px black solid;
   display: flex;
   font-size: 14px;
@@ -20,7 +21,7 @@ const ItemImg = styled.img`
   height: 5rem;
 `;
 const ItemName = styled.div`
-  width: 19rem;
+  width: 11rem;
 `;
 const Column = styled.div`
   width: 10rem;
@@ -31,35 +32,31 @@ const Column = styled.div`
 `;
 
 
-
 function TableRow(props) {
 
-  console.log(props.id)
+  const data = props.data;
 
-  const data = props.data[props.id];
 
   return (
     <Row className="cm-SRegular16">
-      <Col width="10.9375rem">
+      <Col width="10rem">
         <Column>
           <p>{data.date}</p>
           <p>{data.ordernum}</p>
         </Column>
       </Col>
-      <Col width="9rem">{data.type} / {data.category}</Col>
+      <Col width="9rem">{data.type}</Col>
       <Col width="10rem">{data.state}</Col>
-      <Col width="24rem">
+      <Col width="23rem">
         <ItemImg src={data.itemImg} />
         <ItemName>{data.itemName}</ItemName>
       </Col>
-      <Col width="10rem">
-        {data.itemMoney} / {data.amt}
-      </Col>
+      <Col width="10rem">{data.itemMoney} / {data.amt}</Col>
       <Col width="10rem">{data.refund}</Col>
-
 
     </Row>
   );
+
 }
 
 export default TableRow;

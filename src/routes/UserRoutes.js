@@ -10,7 +10,7 @@ import UserOrder from '../pages/user/myPage/Order/Index';
 import EditPassword from '../pages/user/myPage/userInfo/EditPassword';
 import Leave from "../pages/user/myPage/userInfo/Leave";
 import WishList from "../pages/user/WishList";
-import Detail from '../pages/user/myPage/Refund/Detail/Index'
+import UserRefundDetail from '../pages/user/myPage/Refund/Detail/Index'
 import ReqRefund from '../pages/user/myPage/Refund/Enroll/Index'
 import AskEnrollPage from "../pages/user/myPage/directAsk/Enroll/Index";
 import FaqPage from "../pages/user/myPage/Faq/Index";
@@ -25,6 +25,7 @@ import OrderDetail from '../pages/user/myPage/Order/Detail/Index';
 import SearchPage from "../pages/user/searchPage/Index";
 import ProductDetail from "../pages/user/productDetail/Index";
 import UserCancel from '../pages/user/myPage/Cancel/Index'
+import UserCancelDetail from '../pages/user/myPage/Cancel/Detail/Index'
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
@@ -73,9 +74,10 @@ const UserRoutes = () => {
                 <Route path="mileage/req" element={<MileageReq />} />
                 {/* 환불 */}
                 <Route path="refund" element={<UserRefund />} />
-                <Route path="refund/detail/:id" element={<Detail />} />
+                <Route path="refund/detail/:id" element={<UserRefundDetail />} />
                 <Route path="refund/enroll" element={<ReqRefund />} />
                 <Route path="cancel" element={<UserCancel />} />
+                <Route path="cancel/detail/:id" element={<UserCancelDetail />} />
                 {/* 주문 */}
                 <Route path="order" element={<UserOrder />} />
                 <Route path="order/detail/:id" element={<OrderDetail />} />
