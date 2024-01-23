@@ -10,7 +10,7 @@ import { ReactComponent as LikeImg } from "../../../assets/images/heart.svg";
 
 const ProductSummary = (props) => {
     // 세일가격
-    const saleprice = ItemDetailData[0].price - (ItemDetailData[0].price * ItemDetailData[0].discount / 100);
+    const saleprice = props.item.price - (props.item.price * props.item.discount / 100);
     // 선택 개수
     const [count, setCount] = useState(1);
     // 총 가격
@@ -30,46 +30,47 @@ const ProductSummary = (props) => {
                 <ImgWrwap className='cm-SRegular16 col-Black'>
                     {/* 카테고리 */}
                     <CategoryWrap>
-                        <Nav to=''> {ItemDetailData[0].category} </Nav>
+                        <Nav to=''> {props.item.category} </Nav>
                         <div> {'>'}</div>
-                        <Nav to='' > {ItemDetailData[0].sub_category} </Nav>
+                        <Nav to='' > {props.item.sub_category} </Nav>
                     </CategoryWrap>
                     {/* 상품 사진 */}
-                    <ProductImg $imgUrl={ItemDetailData[0].imgUrl}/>
+                    <ProductImg $imgUrl={props.item.imgUrl}/>
                 </ImgWrwap>
 
                 {/* 상품 이름 / 가격 / 판매자 / 상품선택 / 좋아요 / 장바구니 */}
                 <ContextWrap>
                     {/* 상품 이름 */}
-                    <div className='cm-XLBold36 col-Black'> {ItemDetailData[0].name}</div>
+                    <div className='cm-XLBold36 col-Black'> {props.item.name}</div>
 
                     {/* 상품 별점 및 리뷰 수 */}
                     <ReviewWrap>
-                        <Rating name="read-only" value={ItemDetailData[0].star} readOnly />
-                        <div className='cm-SBold16 col-Black'> ( {ItemDetailData[0].review} )</div>
+                        <Rating name="read-only" value={props.item.star} readOnly />
+                        <div className='cm-SBold16 col-Black'> ( {props.item.review} )</div>
                     </ReviewWrap>
 
                     {/* 상품 가격 */}
                     <PriceWrap>
                         <DiscountWrap className='cm-SBold18'>
-                            <div className='col-Orange'> {ItemDetailData[0].discount}%</div>
+                            <div className='col-Orange'> {props.item.discount}%</div>
                             <div className='col-Black'> {saleprice.toLocaleString()} </div>
                         </DiscountWrap>
-                        <div className='cm-SBold16 col-SemiLightGrey' style={{textDecoration: "line-through"}}> {ItemDetailData[0].price}</div>
+                        <div className='cm-SBold16 col-SemiLightGrey' style={{textDecoration: "line-through"}}> {props.item.price}</div>
                     </PriceWrap>
 
                     {/* 판매자 */}
                     <BrandWrap className='cm-SRegular16'>
                         <div> 판매자 </div>
-                        <div> {ItemDetailData[0].brand} </div>
+                        <div> {props.item.brand} </div>
                     </BrandWrap>
 
                     {/* 상품선택 */}
                     <SelectWrap>
+                        {/* 수량선택 박스 */}
                         <div style={{display: 'flex', flexDirection:'row'}}>
                             <div className='cm-SRegular16' style={{width:'4rem'}}> 상품선택 </div>
                             <AmountBox>
-                                <div className='cm-SBold16 col-Navy'> {ItemDetailData[0].name} </div>
+                                <div className='cm-SBold16 col-Navy'> {props.item.name} </div>
                                 <SelectPriceWrap>
                                     {/* 수량 선택 */}
                                     <NumberBadge count={count} setCount={setCount}/>
@@ -78,10 +79,11 @@ const ProductSummary = (props) => {
                                 </SelectPriceWrap>
                             </AmountBox>
                         </div>
+
+                        {/* 장바구니 & 위시리스트 */}
                         <div>
-                            {/* 장바구니 & 위시리스트 */}
                             <ButtonWrap className='cm-SBold16'>
-                                <LikeButton $isLiked={liked} onClick={handleLike}/>
+                                <LikeButton $isLiked={liked} onClick={handleLike} width="30" height="30"/>
                                 <Button style={{ backgroundColor: 'navy', color: 'white', padding:'10px 20px'}}> 
                                     <CartImg fill='var(--white)'/> &nbsp; 장바구니에 추가 
                                 </Button>

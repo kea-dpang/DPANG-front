@@ -15,7 +15,7 @@ export default function NumberBadge({ count, setCount }) {
           <Remove />
         </IconButton>
         {/* 수량 */}
-        <Typography fontWeight="md" textColor="text.secondary">
+        <Typography fontWeight="md">
           {count}
         </Typography>
         {/* 수량 늘리기 버튼 */}
