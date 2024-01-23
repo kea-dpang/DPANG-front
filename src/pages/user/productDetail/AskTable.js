@@ -43,11 +43,12 @@ const Table = styled.div`
     padding: 0rem 8rem 4rem 8rem;
 `;
 const TableHeader = styled.div`
-    background-color: var(--navy);
-    color: var(--white);
-    height: 3.1875rem;
+    background-color: var(--white);
+    color: var(--black);
+    border-top: 2px solid var(--black);
+    border-bottom: 1px solid var(--black); 
+    height: 4rem;
     width: 100%;
-
     display: flex;
     text-align: center;
     align-items: center;
@@ -61,17 +62,15 @@ const Main = styled.div`
     flex-direction: column;
 `;
 const Row = styled(Link)`
-    border-bottom: 1px solid var(--black);
+    border-bottom: 1px solid var(--semi-light-grey);
     width: 100%;
     height: 3.7535rem;
     display: flex;
     text-align: center;
     align-items: center;
-
-    color: inherit; /* 상속 받은 색상 사용 */
+    color: inherit;
 `;
 
 const Item = styled.div`
     width: ${(props) => props.width};
-
 `;
