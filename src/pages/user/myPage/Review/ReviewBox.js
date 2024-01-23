@@ -1,7 +1,9 @@
 import styled from "styled-components";
-import Table from "./Table";
+import Table from "./TableRow";
 import PeriodSelector from "../../../../components/common/PeriodSelector";
 import MyPageBodyHeader from "../../../../components/utils/MyPageBodyHeader";
+import TableHeader from '../../../../components/utils/TableHeader'
+import TempData from '../../../../assets/datas/UserReviewList'
 
 const Container = styled.div`
   width: 72rem;
@@ -39,6 +41,8 @@ align-items: end;
 `
 
 function ReviewBox() {
+
+  const head = [{width: "10rem", text: '작성일자'}, {width: "22rem", text: '상품명'}, {width: "25rem", text: '내용'}, {width: "15rem", text: '평점'},]
   return (
     <Container>
       <MyPageBodyHeader header="리뷰 관리"/>
@@ -46,7 +50,8 @@ function ReviewBox() {
       {/* 기간 조회 필터 */}
       <CalenderBox><PeriodSelector /></CalenderBox>
       <TableBox>
-        <Table />
+        <TableHeader head={head}/>
+        <Table data={TempData}/>
       </TableBox>
     </Container>
   );
