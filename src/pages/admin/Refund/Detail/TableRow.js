@@ -20,7 +20,7 @@ const ItemImg = styled.img`
   height: 5rem;
 `;
 const ItemName = styled.div`
-  width: 11rem;
+  width: 19rem;
 `;
 const Column = styled.div`
   width: 10rem;
@@ -29,22 +29,8 @@ const Column = styled.div`
   align-items: center;
   justify-content: center;
 `;
-const ItemColBox = styled.div`
-  display: flex;
-  flex-direction: column;
 
-`;
 
-const ItemCol = styled.div`
-  height: 6rem;
-  display: flex;
-  ${(props) => setBorder(props.i)}
-`;
-
-const setBorder = (i) => {
-  if (i != 0) return { borderTop: "1px solid black" };
-  else return { border: 0 };
-};
 
 function TableRow(props) {
 
@@ -60,10 +46,9 @@ function TableRow(props) {
           <p>{data.ordernum}</p>
         </Column>
       </Col>
-      <Col width="9rem">{data.type}</Col>
-      <Col width="8rem">{data.category}</Col>
+      <Col width="9rem">{data.type} / {data.category}</Col>
       <Col width="10rem">{data.state}</Col>
-      <Col width="16rem">
+      <Col width="24rem">
         <ItemImg src={data.itemImg} />
         <ItemName>{data.itemName}</ItemName>
       </Col>

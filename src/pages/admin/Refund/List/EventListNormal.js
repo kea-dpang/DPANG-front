@@ -10,7 +10,7 @@ export default function DataTable() {
 
   const renderOrderNum = (params) => {
     return (
-      <NumBox className = "cm-SRegular16">
+      <NumBox className="cm-SRegular16">
         <p>{params.row.date} </p>
         <p style={{ color: "var(--navy)" }}>{params.row.ordernum}</p>
       </NumBox>
@@ -19,7 +19,7 @@ export default function DataTable() {
 
   const renderDropBox = (params) => {
     return (
-      <NumBox className = "cm-SRegular16"
+      <NumBox className="cm-SRegular16"
         onClick={(e) => {
           e.stopPropagation();
         }}
@@ -40,10 +40,10 @@ export default function DataTable() {
     return (
 
 
-      <NumBox className = "cm-SRegular16">
+      <NumBox className="cm-SRegular16">
         <ItemBox>
           <ImgBox><ItemImg src={params.row.itemImg} /></ImgBox>
-          
+
           <NameBox>{params.row.itemName}</NameBox>
         </ItemBox>
       </NumBox>
@@ -62,7 +62,7 @@ export default function DataTable() {
       width: 40,
       headerAlign: "center",
       renderCell: (params) => {
-        return <NumBox className = "cm-SRegular16">{params.value}</NumBox>;
+        return <NumBox className="cm-SRegular16">{params.value}</NumBox>;
       },
     },
     {
@@ -79,7 +79,7 @@ export default function DataTable() {
       headerAlign: "left",
       renderCell: (params) => {
 
-        return <div style={{ color: "var(--navy)" }} className = "cm-SRegular16">{params.value}</div>;
+        return <div style={{ color: "var(--navy)" }} className="cm-SRegular16">{params.value}</div>;
       },
     },
     {
@@ -88,16 +88,16 @@ export default function DataTable() {
       width: 100,
       headerAlign: "center",
       renderCell: (params) => {
-        return <NumBox className = "cm-SRegular16">{params.row.category}</NumBox>;
+        return <NumBox className="cm-SRegular16">{params.row.category}</NumBox>;
       },
     },
     {
       field: "user",
-      headerName: "유저",
+      headerName: "이름",
       width: 100,
       headerAlign: "center",
       renderCell: (params) => {
-        return <NumBox className = "cm-SRegular16">{params.row.user}</NumBox>;
+        return <NumBox className="cm-SRegular16">{params.row.name}</NumBox>;
       },
     },
     {
@@ -115,13 +115,13 @@ export default function DataTable() {
       sortable: false,
       headerAlign: "center",
       renderCell: (params) => {
-        return <NumBox className = "cm-SRegular16">{params.value}</NumBox>;
+        return <NumBox className="cm-SRegular16">{params.value}</NumBox>;
       },
     },
     {
       field: "center",
       headerName: "상태관리",
-      width: 200,
+      width: 150,
       headerAlign: "center",
       renderCell: renderDropBox,
     },
@@ -137,7 +137,7 @@ export default function DataTable() {
         onSelectionModelChange={(newSelection) => {
           setSelectedRows(newSelection.selectionModel);
         }}
-        onCellClick={(params, event) => {
+        onCellClick={(params, _) => {
           let path;
           path = "/admin/refund/" + params.id; // detail확인을 위해 클릭한 id값을 함께 넘겨준다
           navigate(path);
@@ -166,6 +166,9 @@ const NumBox = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
+  overflow-wrap: break-word;
+  word-break: break-all; 
+white-space: pre-wrap;
 `;
 
 const Form = styled.select`
