@@ -7,8 +7,12 @@ import { display } from '@mui/system';
 import { TermsData } from '../../../assets/datas/UserTermsData';
 import {ReactComponent as CheckBtn} from '../../../assets/images/checkBtn.svg'
 // import { Checkbox } from '@mui/material';
+import { useForm } from "react-hook-form";
 
 const SignPage = () => {
+    //////////////////////////////////////////////////
+    const {register, handleSubmit, formState: { isSubmitting, isSubmitted, errors }, getValues} = useForm();
+    //////////////////////////////////////////////////
     const [form, setForm] = useState({
         employeeId: '',
         email: '',
@@ -60,19 +64,17 @@ const SignPage = () => {
         };
     }
     
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        console.log(form);
-    };
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
+    //     console.log(form);
+    // };
     
     return (
         <Wrap>
             <LogoImg src={Logo} alt="Logo" />
-            <BoxContainer as="form" onSubmit={handleSubmit}>
+            <BoxForm onSubmit={handleSubmit((data) => alert(JSON.stringify(data)))}>
                 <h1 className='cm-XLBold36'>회원가입</h1>
                 <Box
-                    // component="form"
-                    // onSubmit={handleSubmit}
                     sx={{
                         '& > :not(style)': { m: 1, width: '33.3125rem'},
                         display: 'flex',
@@ -84,17 +86,66 @@ const SignPage = () => {
                     autoComplete="off"
                 >
                     <p>사원번호</p>
-                    <TextField id="employeeId" variant="outlined" name="employeeId" onChange={handleInputChange} />
+                    <TextField id="employeeId" variant="outlined" name="employeeId" onChange={handleInputChange} 
+                        error={!!errors.employeeId} // 에러가 있으면 true
+                        helperText={errors.employeeId && errors.employeeId.message} // 에러 메시지 표시
+                        {...register("employeeId", {
+                            required: "사원번호는 필수 입력입니다.",
+                        })}
+                    />
                     <p>아이디(회사 이메일)</p>
-                    <TextField id="email" variant="outlined" name="email" onChange={handleInputChange} />
+                    <TextField id="email" variant="outlined" name="email" onChange={handleInputChange} 
+                        error={!!errors.email}
+                        helperText={errors.email && errors.email.message}
+                        {...register("email", {
+                            required: "이메일은 필수 입력입니다.",
+                            pattern: {
+                                value: /\S+@\S+\.\S+/,
+                                message: "이메일 형식에 맞지 않습니다.",
+                            },
+                        })}
+                    />
                     <p>비밀번호</p>
-                    <TextField id="password" variant="outlined" name="password" onChange={handleInputChange} />
+                    <TextField id="password" variant="outlined" name="password" type='password' onChange={handleInputChange}
+                        error={!!errors.password} 
+                        helperText={errors.password && errors.password.message} 
+                        {...register("password", {
+                            required: "비밀번호는 필수 입력입니다.",
+                            pattern: {
+                                value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,15}$/,
+                                message: "비밀번호는 8~15자 이내이며, 최소 하나의 대문자, 소문자, 숫자, 특수 문자가 포함되어야 합니다.",
+                            }
+                        })}
+                    />
                     <p>비밀번호 확인</p>
-                    <TextField id="passwordCheck" variant="outlined" name="passwordCheck" onChange={handleInputChange} />
+                    <TextField id="passwordCheck" variant="outlined" name="passwordCheck" type='password' onChange={handleInputChange}
+                        error={!!errors.passwordCheck} 
+                        helperText={errors.passwordCheck && errors.passwordCheck.message}  
+                        {...register("passwordCheck", {
+                            required: "비밀번호 확인은 필수 입력입니다.",
+                            validate: value => value === getValues('password') || "비밀번호가 일치하지 않습니다.",
+                        })}
+                    />
                     <p>이름</p>
-                    <TextField id="name" variant="outlined" name="name" onChange={handleInputChange} />
+                    <TextField id="name" variant="outlined" name="name" type='password' onChange={handleInputChange}
+                        error={!!errors.name} 
+                        helperText={errors.name && errors.name.message} 
+                        {...register("name", {
+                            required: "이름은 필수 입력입니다.",
+                        })}
+                    />
                     <p>입사일</p>
-                    <TextField id="joinDate" variant="outlined" name="joinDate" onChange={handleInputChange} />
+                    <TextField id="joinDate" variant="outlined" name="joinDate" onChange={handleInputChange} placeholder='YYYYMMDD 형식으로 입력해주세요.' 
+                        error={!!errors.joinDate} 
+                        helperText={errors.joinDate && errors.joinDate.message} 
+                        {...register("joinDate", {
+                            required: "입사일은 필수 입력입니다.",
+                            pattern: {
+                                value: /^\d{6}$/,
+                                message: "6자리 숫자로 작성되어야 합니다."
+                            }
+                        })}
+                    />
                 </Box>
 
                 <Terms>
@@ -131,9 +182,9 @@ const SignPage = () => {
                 </Terms>
 
                 <Submit>
-                    <StyledButton type='submit' className='Btn_M_Navy'>가입하기</StyledButton>
+                    <StyledButton type='submit' className='Btn_M_Navy' disabled={isSubmitting}>가입하기</StyledButton>
                 </Submit>
-            </BoxContainer>
+            </BoxForm>
         </Wrap>
     );
 };
@@ -158,7 +209,7 @@ const LogoImg = styled.img`
     width: 16.4375rem;
     height: 5.5625rem;  
 `;
-const BoxContainer = styled.div`
+const BoxForm = styled.form`
     width: 76.4375rem;
     /* height: 108.9375rem; */
     padding: 3rem;
