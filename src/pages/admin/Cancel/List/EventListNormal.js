@@ -10,7 +10,7 @@ export default function DataTable() {
 
   const renderOrderNum = (params) => {
     return (
-      <NumBox className = "cm-SRegular16">
+      <NumBox className="cm-SRegular16">
         <p>{params.row.date} </p>
         <p style={{ color: "var(--navy)" }}>{params.row.ordernum}</p>
       </NumBox>
@@ -19,40 +19,30 @@ export default function DataTable() {
 
   const renderDropBox = (params) => {
     return (
-      <NumBox className = "cm-SRegular16"
+      <NumBox
+        className="cm-SRegular16"
         onClick={(e) => {
           e.stopPropagation();
         }}
       >
-        <Form>
-          <option value="단순 변심">-----</option>
-          <option value="10">취소요청</option>
-          <option value="13">취소완료</option>
-        </Form>
+        {params.row.status === "취소요청" ? <Button>승인</Button> : null}
       </NumBox>
     );
-
   };
 
   const renderItemInfo = (params) => {
-
     return (
-
-
-      <NumBox className = "cm-SRegular16">
+      <NumBox className="cm-SRegular16">
         <ItemBox>
-          <ImgBox><ItemImg src={params.row.itemImg} /></ImgBox>
-          
+          <ImgBox>
+            <ItemImg src={params.row.itemImg} />
+          </ImgBox>
+
           <NameBox>{params.row.itemName}</NameBox>
         </ItemBox>
       </NumBox>
-
-
-    )
-
-
-
-  }
+    );
+  };
 
   const columns = [
     {
@@ -61,33 +51,23 @@ export default function DataTable() {
       width: 40,
       headerAlign: "center",
       renderCell: (params) => {
-        return <NumBox className = "cm-SRegular16">{params.value}</NumBox>;
+        return <NumBox className="cm-SRegular16">{params.value}</NumBox>;
       },
     },
     {
       field: "eventName",
       headerName: "결제일 | 주문번호",
-      width: 160,
+      width: 180,
       headerAlign: "center",
       renderCell: renderOrderNum,
     },
     {
-      field: "type",
-      headerName: "유형",
-      width: 60,
-      headerAlign: "left",
-      renderCell: (params) => {
-
-        return <div style={{ color: "var(--navy)" }} className = "cm-SRegular16">{params.value}</div>;
-      },
-    },
-    {
       field: "name",
       headerName: "이름",
-      width: 100,
+      width: 120,
       headerAlign: "center",
       renderCell: (params) => {
-        return <NumBox className = "cm-SRegular16">{params.row.name}</NumBox>;
+        return <NumBox className="cm-SRegular16">{params.row.name}</NumBox>;
       },
     },
     {
@@ -96,16 +76,15 @@ export default function DataTable() {
       width: 400,
       headerAlign: "center",
       renderCell: renderItemInfo,
-
     },
     {
       field: "status",
       headerName: "상태",
-      width: 120,
+      width: 140,
       sortable: false,
       headerAlign: "center",
       renderCell: (params) => {
-        return <NumBox className = "cm-SRegular16">{params.value}</NumBox>;
+        return <NumBox className="cm-SRegular16">{params.value}</NumBox>;
       },
     },
     {
@@ -158,46 +137,40 @@ const NumBox = styled.div`
   height: 100%;
 `;
 
-const Form = styled.select`
-  width: 7rem;
-  height: 2rem;
+const ItemImg = styled.img`
+  width: 5rem;
+  height: 5rem;
+`;
+const ItemBox = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 `;
 
-const ItemImg = styled.img`
-
-width: 5rem;
-height: 5rem;
-
-
-`
-const ItemBox = styled.div`
-
-width: 100%;
-height: 100%;
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: center;
-
-`
-
 const ImgBox = styled.div`
-
-height: 100%;
-width: 6rem;
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: center;
-
-`
+  height: 100%;
+  width: 6rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
 const NameBox = styled.div`
-
-height: 100%;
-width: calc(400px - 6rem);
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: start;
-
-`
+  height: 100%;
+  width: calc(400px - 6rem);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+`;
+const Button = styled.button`
+  height: 2rem;
+  width: 4rem;
+  background-color: var(--navy);
+  border-radius: 3px;
+  color: white;
+  font-size: 14px;
+`;

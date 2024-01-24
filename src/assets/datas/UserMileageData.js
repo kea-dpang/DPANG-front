@@ -109,7 +109,7 @@ const List = [
     date: "2023.10.05",
     name: "김디팡",
     money: "100,000",
-    status: "반려",
+    status: "반려 ",
   },
 ];
 

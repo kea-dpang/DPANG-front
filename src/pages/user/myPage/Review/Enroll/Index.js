@@ -1,19 +1,20 @@
 import styled from "styled-components";
 import Header from "../../../../../components/common/HeaderBar/Index";
-import EnrollReviewBox from "./EnrollReviewBox"
+import EnrollReviewBox from "./EnrollReviewBox";
+import DetailTable from "./DetailTable";
+import { useParams } from "react-router-dom";
 
 const Container = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  
 `;
 
 const ContentBox = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   min-height: calc(100vh - 30rem);
-
 `;
 
 const ReviewContainer = styled.div`
@@ -22,10 +23,15 @@ const ReviewContainer = styled.div`
 `;
 
 function Index() {
+  const { id } = useParams();
+
   return (
     <Container>
       <ContentBox>
-        <ReviewContainer><EnrollReviewBox /></ReviewContainer>
+        <DetailTable itemID={id} />
+        <ReviewContainer>
+          <EnrollReviewBox />
+        </ReviewContainer>
       </ContentBox>
     </Container>
   );
