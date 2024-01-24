@@ -5,9 +5,9 @@ import TextField from '@mui/material/TextField';
 import styled from 'styled-components';
 import { display } from '@mui/system';
 import { TermsData } from '../../../assets/datas/UserTermsData';
-import {ReactComponent as CheckBtn} from '../../../assets/images/checkBtn.svg'
 // import { Checkbox } from '@mui/material';
 import { useForm } from "react-hook-form";
+import Terms from './Terms';
 
 const SignPage = () => {
     //////////////////////////////////////////////////
@@ -20,54 +20,15 @@ const SignPage = () => {
         passwordCheck: '',
         name: '',
         joinDate: '',
-        terms: TermsData.reduce((acc, term) => ({ ...acc, [term.id]: false }), {})
     });
-
-    const [allChecked, setAllChecked] = useState(false);
-
-    // terms 값이 모두 true일 때 AllChecked도 true
-    useEffect(() => {
-        const allTermsAgreed = Object.values(form.terms).every(value => value); // 모든 값이 true일 때 true, 그렇지 않을 때 false
-        setAllChecked(allTermsAgreed);
-    }, [form.terms]);
     
-    const handleInputChange = (event) => {
+    const handleInputChange = (e) => {
     setForm({
         ...form,
-        [event.target.name]: event.target.value
+        [e.target.name]: e.target.value
     });
     };
     
-    const handleCheckboxChange = (e) => {
-    console.log(e.target.name)
-    console.log(e.target.checked)
-
-    if(e.target.name === 'all') {
-        console.log("전체 선택이 체크되었습니다.")
-        setAllChecked(e.target.checked);
-
-        // 한번에 체크 상태 바꾸기
-        setForm(prevForm => ({
-            ...prevForm,
-            terms: Object.keys(prevForm.terms).reduce((acc, key) => {
-                return {...acc, [key]: e.target.checked}
-            }, {})
-        }));
-    } else {
-        setForm({
-            ...form,
-            terms: {
-            ...form.terms,
-            [e.target.name]: e.target.checked
-            }
-        });
-        };
-    }
-    
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
-    //     console.log(form);
-    // };
     
     return (
         <Wrap>
@@ -147,45 +108,14 @@ const SignPage = () => {
                         })}
                     />
                 </Box>
-
-                <Terms>
-                    <label>
-                        <CheckItem>
-                            <Checkbox 
-                                type="checkbox" 
-                                name="all"
-                                checked={allChecked} 
-                                onChange={handleCheckboxChange} 
-                            />
-                            <CheckBtn style={{ fill: allChecked ? 'var(--navy)' : 'none' }} />
-                            <p className='cm-SBold18'>전체 동의합니다.</p>
-                        </CheckItem>
-                    </label>
-
-                    {TermsData.map((term) => (
-                        // <CheckBtn/>
-                        // <input type='checkbox'/> 
-                        <label key={term.id}>
-                            <CheckItem>
-                                <Checkbox 
-                                    type="checkbox" 
-                                    name={term.id}
-                                    checked={form.terms[term.id]} 
-                                    onChange={handleCheckboxChange} 
-                                />
-                                <CheckBtn style={{ fill: form.terms[term.id] ? 'var(--navy)' : 'none' }} />
-                                <p className='cm-SBold16'>{term.title}</p>
-                                <span className='cm-SBold16'>({term.essential})</span>
-                            </CheckItem>
-                        </label>
-                    ))}
-                </Terms>
+                
+                <Terms />
 
                 <Submit>
                     <StyledButton type='submit' className='Btn_M_Navy' disabled={isSubmitting}>가입하기</StyledButton>
                 </Submit>
             </BoxForm>
-        </Wrap>
+        </Wrap> 
     );
 };
 
@@ -255,44 +185,4 @@ const Submit = styled.div`
 `;
 const StyledButton = styled.button`
     width: 20.3125rem;
-`;
-const Terms = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    text-align: left;
-    gap: 2.06rem;
-    border: 1px solid black;
-    padding: 4rem 0 0 2rem;
-    box-sizing: border-box;
-`;
-
-const Checkbox = styled.input.attrs({ type: 'checkbox' })`
-    /* appearance: none; */
-    /* cursor: pointer; */
-    /* width: 0; */
-    // 체크박스를 완전히 숨기지 않고, 화면 바깥으로 이동시키는 기법
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-`;
-const CheckItem = styled.div`
-    /* display: flex; */
-    display: inline-flex;  // or inline-block
-    align-items: center;
-    gap: 1.44rem;
-    text-align: center;
-
-     cursor: pointer;
-    span {
-        /* content: ${props => props.$option === "all" ? "" : (props.option === "true" ? "(필수)" : "(선택)")}; */
-        /* content: ${props => props.option === "all" ? "" : "ㅇㅇㅇㅇㅇ"}; */
-        /* content: ${(props) => props.option === "all" ? "ㅌㅋㅌㅋㅋ" : "ㅇㅇㅇㅇㅇ"}; */
-        content: ${({ option }) => option === "all" ? "" : "ㅇㅇㅇㅇㅇ"};
-        /* content: 'ee'; */
-
-        color: var(--semi-light-grey);
-    }
 `;
