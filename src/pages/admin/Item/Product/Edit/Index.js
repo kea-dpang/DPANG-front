@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom'
 import ProductDefaultEnroll from "./ProductDefaultEnroll";
 import ProductDetailEnroll from "./ProductDetailEnroll";
 
-// 상품 이벤트 등록 index 페이지
-const ProductEnrollPage = () => {
+// 상품 index 페이지
+const ProductEditPage = () => {
     const navi = useNavigate();
     const [productInfo, setProductInfo] = useState({
         productName: '',
@@ -26,7 +26,7 @@ const ProductEnrollPage = () => {
         <>
             <Wrap>
                 <PageName className="cm-LBold30 col-Black"> 상품 관리 </PageName>
-                <PageSubName className='cm-MBold24 col-Navy'> 상품 등록</PageSubName>
+                <PageSubName className='cm-MBold24 col-Navy'> 상품 수정</PageSubName>
                 {/* 이벤트 내용 입력하는 공간 */}
                 <InputSection>
                 <ProductDefaultEnroll productInfo={productInfo} setProductInfo={setProductInfo} />
@@ -42,7 +42,7 @@ const ProductEnrollPage = () => {
     );
 };
 
-export default ProductEnrollPage;
+export default ProductEditPage;
 const Wrap = styled.div`
   display: flex;
   justify-content: center;
