@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import OrderBox from './OrderBox'
+import OrderBox from "./OrderBox";
 
 const Container = styled.div`
   min-height: 100vh;
@@ -11,7 +11,6 @@ const ContentBox = styled.div`
   display: flex;
   justify-content: center;
   min-height: calc(100vh - 30rem);
-
 `;
 
 const ReviewContainer = styled.div`
@@ -23,7 +22,9 @@ function Index() {
   return (
     <Container>
       <ContentBox>
-        <ReviewContainer><OrderBox /></ReviewContainer>
+        <ReviewContainer>
+          <OrderBox />
+        </ReviewContainer>
       </ContentBox>
     </Container>
   );
