@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import UserImage from "../../../assets/images/adminuser.svg";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const UserBox = styled.div`
   width: 5rem;
@@ -29,10 +30,11 @@ const UserName = styled.div`
 
 function User() {
 
-    const [user, setUser] = useState('김디팡')
+    const [user, setUser] = useState('김디팡');
+    const navi = useNavigate();
 
   return (
-    <UserBox>
+    <UserBox onClick={()=>{navi("/user/mypage/temp/order")}}>
       <UserImg>
         <Image src={UserImage} />
       </UserImg>
