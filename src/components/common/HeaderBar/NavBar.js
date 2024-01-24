@@ -5,6 +5,7 @@ import Category from "./Category";
 import User from "./User";
 import ImageShortCut from "./ImageShortCut";
 import SearchBar from "./SearchBar";
+import { useNavigate } from "react-router-dom";
 
 const Nav = styled.div`
   width: 89rem;
@@ -32,9 +33,12 @@ const Empty = styled.div`
 `;
 
 function NavBar(props) {
+
+  const navi = useNavigate();
+
   return (
     <Nav className="cm-SRegular16 ">
-      <Logo src={logo} />
+      <Logo src={logo} onClick={()=>navi("/user/mainpage")}/>
       <Empty width="3rem" />
       <ShortCut />
       <Empty width="2rem"> | </Empty>
