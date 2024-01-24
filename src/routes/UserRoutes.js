@@ -83,6 +83,10 @@ const UserRoutes = () => {
                 <Route path="order" element={<UserOrder />} />
                 <Route path="order/detail/:id" element={<OrderDetail />} />
             </Route>
+            {/*장바구니*/}
+            <Route path="cart" element={<Cart/>} />
+
+            
         </Routes>
     );
 };
