@@ -9,10 +9,6 @@ import OrderPage from "../pages/admin/orderPage/OrderBox";
 import AdminRefundList from '../pages/admin/Refund/List/Index'
 import AdminRefundDetail from '../pages/admin/Refund/Detail/Index'
 import AdminMileageView from '../pages/admin/Mileage/List/Index'
-import ItemPage from "../pages/admin/Item/Index";
-import StoreListPage from "../pages/admin/Item/Store/List/Index";
-import StoreEnrollPage from "../pages/admin/Item/Store/Enroll/Index";
-import StoreEditPage from "../pages/admin/Item/Store/Edit/Index";
 import AdminPage from '../pages/admin/Index'
 import AdminUserListPage from "../pages/admin/userPage/list/Index";
 import AdminUserEditPage from "../pages/admin/userPage/edit/Index";
@@ -26,6 +22,7 @@ import AdminEditPage from '../pages/admin/faqPage/edit/Index';
 import AdminDirectAskPage from '../pages/admin/directAskPage/list/Index';
 import AdminAskEnrollPage from '../pages/admin/directAskPage/enroll/Index';
 import AdminProduct from '../pages/admin/Item/Product/List/Index';
+import ProductEnrollPage from '../pages/admin/Item/Product/Enroll/Index';
 
 
 const AdminRoutes = () => {
@@ -38,6 +35,7 @@ const AdminRoutes = () => {
                 <Route path="mileage" element={<AdminMileageView />}/>
                 {/* 상품 관리 */}
                 <Route path="product" element={<AdminProduct/>}/>
+                <Route path="product/enroll" element={<ProductEnrollPage/>}/>
                 <Route path="brand" element={<BrandListPage/>}/>
                 <Route path="brand/:id" element={<BrandEditPage/>}/>
                 {/* 이벤트 관리 */}
@@ -61,22 +59,7 @@ const AdminRoutes = () => {
                 {/* 1:1문의 */}
                 <Route path="directask" element={<AdminDirectAskPage/>}/>
                 <Route path="directask/:askId" element={<AdminAskEnrollPage/>}/>
-                
-                
-                {/* </Route> */}
             </Route>
-
-
-            <Route path="mileage" element={<AdminMileageView />} />
-
-            <Route path="order" element={<OrderPage />} />
-
-            <Route path="item" element={<ItemPage />}>
-                <Route path="storelist" element={<StoreListPage />} />
-                <Route path="enrollstore" element={<StoreEnrollPage />} />
-                <Route path="editstore/:id" element={<StoreEditPage />} />
-            </Route>
-
         </Routes>
     );
 };
