@@ -5,6 +5,8 @@ import Header from "../../../components/common/HeaderBar/Index";
 import TempItemData from '../../../assets/datas/UserCartData';
 import Checkbox from '@mui/material/Checkbox';
 import '../../../styles/fonts.css';
+import OrderBox from "./OrderBox";
+
 const Index = () => {
 
     const [brandSelection, setBrandSelection] = useState({});
@@ -44,6 +46,13 @@ const Index = () => {
         <Wrap>
             <Header/>
             <Title className="cm-LBold30 col-DarkNavy">주문하기</Title>
+            <InputSection>
+            <OrderBox/>
+            </InputSection>
+        <OrderButton>
+            <p className = "cm-SBold16 col-White">{calculateTotalPrice() + 3000} 마일 결제하기</p>
+        </OrderButton>
+
         </Wrap>
         </>
     );
@@ -61,7 +70,7 @@ const Wrap = styled.div`
 const Title = styled.div`
     display: flex;
     align-items: center;
-    padding: 2.25rem 15.9375rem 2.25em 15.9375rem;
+    padding: 2.25rem 15.9375rem 2.25rem 15.9375rem;
 `;
 
 const InputSection = styled.div`
@@ -73,13 +82,12 @@ const InputSection = styled.div`
     align-items: center;
     gap: 2.3125rem;
     justify-content: center;
-    padding: 2.25rem 15.9375rem 2.25em 15.9375rem;
 `;
 
 const OrderButton = styled.button`
     display: flex;
-    width: 74.625rem;
-    height: 4.1875rem;
+    width: 84.8125rem;
+    height: 4rem;
     justify-content: center;
     align-items: center;
     gap: 0.3125rem;

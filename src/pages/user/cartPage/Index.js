@@ -63,7 +63,7 @@ const Index = () => {
             <p className = "cm-SBold18 col-Navy">주문 예상금액 {calculateTotalPrice() + 3000} 마일</p>
         </TotalPriceBox>
         <OrderButton onClick={()=>{navi('/user/order')}}>
-            <p className = "cm-Sbold18 col-White">주문하기</p>
+            <p className = "cm-SBold18 col-White">주문하기</p>
         </OrderButton>
         </SubContainer>
 
