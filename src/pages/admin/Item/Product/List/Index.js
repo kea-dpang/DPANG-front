@@ -23,7 +23,7 @@ const Index = () => {
           return (
             <img
               src={value}
-              alt="City"
+              alt="상품 이미지"
               style={{ width: "100px", height: "100px" }}
             />
           );
