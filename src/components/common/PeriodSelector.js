@@ -17,7 +17,7 @@ const PeriodSelector = () => {
     return `${year}-${month}-${date}`;
   };
 
-  const [PeriodBtn, setPeriodBtn] = useState(null);
+  const [PeriodBtn, setPeriodBtn] = useState(null); // 스타일 위해
   const [startDate, setStartDate] = useState(getFutureDate(0));
   const [endDate, setEndDate] = useState(getFutureDate(0));
 
@@ -25,19 +25,24 @@ const PeriodSelector = () => {
   const [period, setPeriod] = useRecoilState(periodAtom);
 
   // 기간 버튼->날짜 변경 로직
-  const handlePeriodBtn = (option) => {
-    setPeriodBtn(option);
+  const handlePeriodBtn = (index) => {
+    setPeriodBtn(index);
     setEndDate(getFutureDate(0));
 
-    if (option === "오늘") {
+    if (index === 0) {
+      // 오늘
       setStartDate(getFutureDate(0));
-    } else if (option === "7일") {
+    } else if (index === 1) {
+      // 7일
       setStartDate(getFutureDate(-7));
-    } else if (option === "1개월") {
+    } else if (index === 2) {
+      // 1개월
       setStartDate(getFutureDate(-30));
-    } else if (option === "3개월") {
+    } else if (index === 3) {
+      // 3개월
       setStartDate(getFutureDate(-90));
-    } else if (option === "1년") {
+    } else if (index === 4) {
+      // 1년
       setStartDate(getFutureDate(-365));
     }
   };
@@ -59,9 +64,10 @@ const PeriodSelector = () => {
         {periodOptions.map((option, index) => (
           <BtnItem
             key={index}
+            type="button"
             className="cm_SRegular16"
-            selected={PeriodBtn === option}
-            onClick={() => handlePeriodBtn(option)}
+            selected={PeriodBtn === index} // 스타일 props
+            onClick={() => handlePeriodBtn(index)}
           >
             {option}
           </BtnItem>
