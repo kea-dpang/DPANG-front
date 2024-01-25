@@ -5,7 +5,6 @@ import TableHeader from "../../../../components/utils/TableHeader";
 import TempData from "../../../../assets/datas/UserMileageData";
 import MyPageBodyHeader from "../../../../components/utils/MyPageBodyHeader";
 
-
 const Container = styled.div`
   width: 72rem;
   min-height: calc(100vh - 30rem);
@@ -51,8 +50,6 @@ function MileageBox() {
         <TableHeader head={header} />
         <TableRow data={TempData} />
       </TableBox>
-
-
     </Container>
   );
 }
