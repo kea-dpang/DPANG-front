@@ -51,6 +51,8 @@ const UserRoutes = () => {
       <Route path="search" element={<SearchPage />} />
       {/* 위시리스트 */}
       <Route path="wishlist" element={<WishList />} />
+      {/* 장바구니 */}
+      <Route path="cart" element={<Cart />} />
       {/* 주문하기 */}
       <Route path="order" element={<Order />} />
       {/* 마이페이지 */}
