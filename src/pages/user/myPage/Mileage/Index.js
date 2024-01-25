@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import MileageBox from "./MileageBox";
 
-
 const Container = styled.div`
   min-height: 100vh;
   display: flex;
@@ -23,7 +22,9 @@ function Index() {
   return (
     <Container>
       <ContentBox>
-        <ReviewContainer><MileageBox /></ReviewContainer>
+        <ReviewContainer>
+          <MileageBox />
+        </ReviewContainer>
       </ContentBox>
     </Container>
   );

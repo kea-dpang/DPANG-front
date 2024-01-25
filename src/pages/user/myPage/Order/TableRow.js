@@ -3,34 +3,25 @@ import styled from "styled-components";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { useState } from "react";
-import ArrowImg from '../../../../assets/images/UpArrowVector.svg'
 import RowData from "./RowData";
 
-
 const PaginationContainer = styled.div`
-
-width: 72rem;
-height: 5rem;
-display: flex;
-justify-content: center;
-align-items: center;
-
-`
-
+  width: 72rem;
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 function TableRow({ data }) {
-
-
   //pagination에서 현재 페이지
   const [currentPage, setCurrentPage] = useState(1);
 
   //page가 변경된 경우
   const handlePageChange = (_, newPage) => {
-
     //현재 페이지를 새로운 페이지로 변경
     setCurrentPage(newPage);
-
-  }
+  };
 
   //한페이지당 보여줄 아이템의 개수
   const itemPerPage = 5;
@@ -41,14 +32,11 @@ function TableRow({ data }) {
   //전체 데이터에서 시작 ~ 끝만 가져옴
   const currentData = data.slice(start, end);
 
-
   return (
     <>
-
+      {/* 페이지  */}
       {currentData.map((a) => {
-
-        return <RowData data={a}/>;
-
+        return <RowData data={a} />;
       })}
 
       <PaginationContainer>
@@ -60,12 +48,12 @@ function TableRow({ data }) {
             //페이지는 현재 페이지
             page={currentPage}
             onChange={handlePageChange}
-            color="primary" />
+            color="primary"
+          />
         </Stack>
       </PaginationContainer>
-
     </>
-  )
+  );
 }
 
 export default TableRow;
