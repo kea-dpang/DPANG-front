@@ -32,6 +32,8 @@ function Table(props) {
     setCancelClick(!cancelClick);
   };
 
+  // click 여부에 따라서 박스를 열었다가 닫았다가 하면서 데이터를 보여주었다 안보여주었다가 함
+
   return (
     <Wrap>
       <Blank />
