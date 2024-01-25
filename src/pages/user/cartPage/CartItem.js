@@ -3,17 +3,19 @@ import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import React, {useState} from 'react';
+import { useState } from 'react';
 import '../../../styles/fonts.css';
 import styled from 'styled-components';
 import Checkbox from '@mui/material/Checkbox';
-import TempItemData from '../../../assets/datas/UserCartData';
 
-const CartItem = ({ product, updateTotalPrice, onProductSelect, onDelete }) => {
+const CartItem = ({ item, onSelect, onDelete }) => {
   const [quantity, setQuantity] = useState(1);
-  const [selected, setSelected] = useState(true);
+  const [totalPrice, setTotalPrice] = useState({});
+  const [checked, setChecked] = useState(true);
 
-
+  const updateTotalPrice = () => {
+    setTotalPrice(item.price * quantity);
+  };
 
   const handleIncrease = () => {
     setQuantity(quantity + 1);
@@ -27,114 +29,107 @@ const CartItem = ({ product, updateTotalPrice, onProductSelect, onDelete }) => {
     }
   };
 
-
-  const handleCheckboxChange = () => {
-    if (!product.soldout) {
-      setSelected(!selected);
-      onProductSelect(product.id, !selected);
-    }
+  const handleChange = (selected) => {
+    setChecked(selected);
   };
 
-  const handleDelete = () => {
-    onDelete(product.id);
-  };  
-
-  console.log(TempItemData);
-
-
-
   return (
-    <Box
-    sx={{
-        '& > :not(style)': { m: 0, width: '66.25rem' },
-        background: 'var(--light-grey, #F4F4F4)',
-
-        display: 'flex',
-        flexDirection: 'row',
-        gap: '1.375rem',
-    }}
-    >
-              <Checkbox
-              checked={selected}
-              onChange={handleCheckboxChange}
-              />
-              <ItemImg src={product.imgUrl} alt={product.name} />
-              <ItemInfo>
-                <ItemName>
-                    <ItemBox>
-                    <p className="cm-SBold16 col-Black">{product.name}</p>
-                    </ItemBox>
-                    <DeleteButton onClick={handleDelete}>
-                        <p className="cm-SRegular16 col-Black">삭제</p>
-                    </DeleteButton>
-                </ItemName>
-                {product.soldout(true) && (
-                <p className="cm-SRegular16 col-Orange">!품절된 상품입니다</p>
-                )}
-                <ItemState>
-                    <p className="cm-SBold16 col-Black">{product.price}원</p>
-                    <ButtonGroup>
-                    <Button onClick={handleDecrease}>
-                        <RemoveIcon />
-                    </Button>
-                    <p className="cm-SRegular16 col-Black">{quantity}</p>
-                    <Button onClick={handleIncrease}>
-                        <AddIcon />
-                    </Button>
-                    </ButtonGroup>
-                    <p className="cm-SBold16 col-Black">{product.price * quantity}원</p>
-                </ItemState>
-              </ItemInfo>
-    </Box>
+    <Content>
+      
+        <Checkbox checked={checked} onChange={(e) => handleChange(e.target.checked)} />
+        <div>
+        <ItemImg src={item.imgUrl} alt={item.name} />
+        </div>
+        <ItemInfo>
+          <ItemName>
+            <ItemBox>
+              <p className="cm-SBold16 col-Black">{item.name}</p>
+            </ItemBox>
+            <DeleteButton>
+              <p className="cm-SRegular16 col-Black">삭제</p>
+            </DeleteButton>
+          </ItemName>
+          <ItemState>
+            <ButtonGroup>
+              <Button onClick={handleDecrease}>
+                <RemoveIcon fontSize='small' />
+              </Button>
+              <CountBox>
+                <p className="cm-SRegular16 col-Black">{quantity}</p>
+              </CountBox>
+              <Button onClick={handleIncrease}>
+                <AddIcon fontSize='small' />
+              </Button>
+            </ButtonGroup>
+            <p className="cm-SBold16 col-Black">{item.price * quantity}마일</p>
+          </ItemState>
+        </ItemInfo>
+    </Content>
   );
 };
 
 export default CartItem;
 
+const Content = styled.div`
+    width: 66.25rem;
+    background: var(--light-grey, #F4F4F4);
+    display: flex;
+    flex-Direction: row;
+    gap: 1.375rem;
+`;
 
 const ItemImg = styled.img`
-    width: 6.875rem;
-    height: 8.6875rem;
-    border-radius: 0.9375rem;
+  width: 6.875rem;
+  height: 8.6875rem;
+  border-radius: 0.9375rem;
 `;
 
 const ItemInfo = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1.875rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.875rem;
 `;
 
 const ItemName = styled.div`
-    display: flex;
-    align-items: flex-start;
-    gap: 35.5rem;
-    flex-direction: raw;
+  display: flex;
+  align-items: flex-start;
+  gap: 35rem;
+  flex-direction: row;
 `;
 
 const ItemBox = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
 `;
 
 const ItemState = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 42.4375rem;
-    flex-direction: raw;
+  display: flex;
+  align-items: flex-start;
+  gap: 39rem;
+  flex-direction: row;
+  justify-content: center;
 `;
+
 
 const DeleteButton = styled.button`
+  display: flex;
+  width: 4.125rem;
+  height: 2.1875rem;
+  padding: 0rem 0.125rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3125rem;
+  border-radius: 0.1875rem;
+  border: 1px solid var(--semi-light-grey, #CFCFCF);
+`;
+const CountBox = styled.div`
+    width: 2.7rem;
+    background: var(--light-grey, #F4F4F4);
+    border: 1px solid var(--semi-light-grey, #CFCFCF);
     display: flex;
-    width: 4.125rem;
-    height: 2.1875rem;
-    padding: 0rem 0.125rem;
     justify-content: center;
     align-items: center;
-    gap: 0.3125rem;
-    border-radius: 0.1875rem;
-    border: 1px solid var(--semi-light-grey, #CFCFCF);
 `;
-
