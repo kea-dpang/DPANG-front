@@ -5,61 +5,136 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Fab from '@mui/material/Fab';
 import PhotoIcon from '@mui/icons-material/Photo';
+import Category from "../../../../../components/common/Item/Category";
 
-const ProductDefaultEnroll = () => {
+const ProductDefaultEnroll = ({ productInfo, setProductInfo }) => {
     const [eventname, setEventName] = useState('');
     const [code, setCode] = useState([]);
     const [productList, setProductList] = useState([]);
     const [salepercent, setPercent] = useState('');
-    const brand = ['브랜드를 선택해주세요', 'lg생활건강', '카카오']
+    const brand = ['브랜드를 선택해주세요', 'lg생활건강', '카카오'];
+    const category = ['카테고리를 선택해주세요', '패션', '뷰티', '스포츠/레저', '디지털/가전', '인테리어', '출산/유아동', '생활'];
+    const sub_category = ['세부 카테고리를 선택해주세요', '여성의류', '남성의류', '상의', '하의', '액세서리', '가방'];
 
-    // 이벤트 이름 변경 감지
     const handleNameChange = (e) => {
-        setEventName(e.target.value);
+        setProductInfo(prev => ({ ...prev, productName: e.target.value }));
     };
-    // 등록 버튼 : 이벤트 이름, 시작일, 종료일, 내용, 상품코드, 할인율, 적용상품 정보 저장
-    const handleSubmit = () => {
 
-        alert('상품 등록 성공');
+    const handlePriceChange = (e) => {
+        setProductInfo(prev => ({ ...prev, productPrice: e.target.value }));
     };
+
+    const handleStuffChange = (e) => {
+        setProductInfo(prev => ({ ...prev, stock: e.target.value }));
+    }
     return (
         <Wrap>
             <div className="cm-SBold18 col-Navy">상품 기본 정보</div>
-            {/* <Section> */}
-                {/* 상품 정보 입력 칸 */}
-                <Table>
-                    {/* 상품명 등록 */}
-                    <Row>
-                        <p className="cm-SBold16 col-Black">상품명</p>
-                        <ContentBox>
-                            <TextField 
-                                id="eventname" 
-                                onChange={handleNameChange}
-                                variant="outlined" 
-                                InputLabelProps={{shrink: true}} 
-                                sx={{
-                                    '& .MuiOutlinedInput-root': { 
-                                        '&.Mui-focused fieldset': { 
-                                            borderColor: 'var(--navy)', // 포커스 시 borderColor를 원하는 색상으로 변경
-                                        },
+            {/* 상품 정보 입력 칸 */}
+            <Table>
+                {/* 상품명 등록 */}
+                <Row>
+                    <p className="cm-SBold16 col-Black">상품명</p>
+                    <ContentBox>
+                        <TextField
+                            id="name"
+                            onChange={handleNameChange}
+                            variant="outlined"
+                            InputLabelProps={{ shrink: true }}
+                            sx={{
+                                '& .MuiOutlinedInput-root': {
+                                    '&.Mui-focused fieldset': {
+                                        borderColor: 'var(--navy)', // 포커스 시 borderColor를 원하는 색상으로 변경
                                     },
-                                }}
-                                placeholder="상품명을 입력해주세요"
-                            />
-                        </ContentBox>
-                    </Row>
+                                },
+                            }}
+                            placeholder="상품명을 입력해주세요"
+                        />
+                    </ContentBox>
+                </Row>
+                {/* 판매가 등록 */}
+                <Row>
+                    <p className="cm-SBold16 col-Black">판매가</p>
+                    <ContentBox>
+                        <TextField
+                            id="price"
+                            onChange={handlePriceChange}
+                            variant="outlined"
+                            InputLabelProps={{ shrink: true }}
+                            sx={{
+                                '& .MuiOutlinedInput-root': {
+                                    '&.Mui-focused fieldset': {
+                                        borderColor: 'var(--navy)', // 포커스 시 borderColor를 원하는 색상으로 변경
+                                    },
+                                },
+                            }}
+                            placeholder="판매가를 입력해주세요"
+                        />
+                    </ContentBox>
+                </Row>
+                {/* 브랜드 등록 */}
+                <Row>
+                    <p className="cm-SBold16 col-Black">브랜드</p>
+                    <ContentBox>
+                        {/* <TextField
+                            id="price"
+                            onChange={handlePriceChange}
+                            variant="outlined"
+                            InputLabelProps={{ shrink: true }}
+                            sx={{
+                                '& .MuiOutlinedInput-root': {
+                                    '&.Mui-focused fieldset': {
+                                        borderColor: 'var(--navy)', // 포커스 시 borderColor를 원하는 색상으로 변경
+                                    },
+                                },
+                            }}
+                            placeholder="판매가를 입력해주세요"
+                        /> */}
+                        <Category value={brand} />
+                    </ContentBox>
+                </Row>
+                {/* 카테고리 등록 */}
+                <Row>
+                    <p className="cm-SBold16 col-Black">카테고리</p>
+                    <ContentBox>
+                        {/* <Category value={category} /> */}
+                        <div style={{ display: 'flex', justifyContent: 'flex-start', gap:'1rem' }}>
+                            <Category value={category}/>
+                            <Category value={sub_category} />
+                        </div>
+                    </ContentBox>
+                </Row>
+                {/* 입고량 등록 */}
+                <Row>
+                    <p className="cm-SBold16 col-Black">입고량</p>
+                    <ContentBox>
+                        <TextField
+                            id="stuff"
+                            onChange={handleStuffChange}
+                            variant="outlined"
+                            InputLabelProps={{ shrink: true }}
+                            sx={{
+                                '& .MuiOutlinedInput-root': {
+                                    '&.Mui-focused fieldset': {
+                                        borderColor: 'var(--navy)', // 포커스 시 borderColor를 원하는 색상으로 변경
+                                    },
+                                },
+                            }}
+                            placeholder="입고수량을 입력해주세요"
+                        />
+                    </ContentBox>
+                </Row>
 
-                    {/* 이벤트 내용(사진) */}
-                    <Row>
-                        <p className="cm-SBold16 col-Black">사진</p>
-                        <ContentBox>
-                            <Fab color="inherit" aria-label="add" sx={{ maxWidth: '40px', maxHeight: '40px' }}>
-                                <PhotoIcon color="var(--light-grey)"/>
-                            </Fab>
-                        </ContentBox>
-                    </Row>
-                </Table>
-            {/* </Section> */}
+                {/* 이벤트 내용(사진) */}
+                <Row>
+                    <p className="cm-SBold16 col-Black">사진</p>
+                    <ContentBox>
+                        <Fab color="inherit" aria-label="add" sx={{ maxWidth: '40px', maxHeight: '40px' }}>
+                            <PhotoIcon color="var(--light-grey)" />
+                        </Fab>
+                    </ContentBox>
+                </Row>
+            </Table>
         </Wrap>
     );
 };
@@ -81,18 +156,18 @@ const Section = styled.div`
     gap: -0.0625rem;
 `
 const ContentBox = ({ children }) => (
-    <div style={{width: "100%", margin: "1rem"}}>
-    <Box
-        sx={{
-            '& > :not(style)': { m: 0, width: '100%' },
-            display: 'flex',
-            flexDirection: 'column',
-        }}
-        noValidate
-        autoComplete="off"
-    >
-        {children}
-    </Box>
+    <div style={{ width: "100%", margin: "1rem" }}>
+        <Box
+            sx={{
+                '& > :not(style)': { m: 0, width: '100%' },
+                display: 'flex',
+                flexDirection: 'column',
+            }}
+            noValidate
+            autoComplete="off"
+        >
+            {children}
+        </Box>
     </div>
 
 );
