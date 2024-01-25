@@ -5,17 +5,32 @@ import AskTitle from "./AskTitle";
 import AskContent from "./AskContent";
 import { useLocation, useParams } from "react-router-dom";
 import { DirectAskList } from "../../../../../assets/datas/DirectAskData";
+import { FormProvider, useForm } from "react-hook-form";
 
 const AskEnrollPage = () => {
+  //////////////////////////////////
+  const methods = useForm();
+  const {
+    handleSubmit,
+    getValues,
+    formState: { errors },
+    control,
+    reset,
+    watch,
+  } = methods;
+
+  // 모든 필드의 값을 실시간으로 모니터링 -> 버튼 비활성화 위해
+  const watchAllFields = watch();
+  //////////////////////////////////
+
   let params = useParams().askId;
   const location = useLocation();
 
   const [detail, setDetail] = useState();
   const [isEnrollPage, setIsEnrollPage] = useState(false); // '등록 페이지'인지 여부를 저장하는 상태
 
+  /* detail 값 */
   useEffect(() => {
-    console.log(detail);
-
     const matchedData = DirectAskList.find((item) => item.askId === params); // DirectAskList에서 askId가 일치하는 데이터 찾기
     if (matchedData) {
       setDetail(matchedData); // 찾은 데이터를 detail 상태에 설정
@@ -27,61 +42,119 @@ const AskEnrollPage = () => {
     };
   }, [params]);
 
+  /* enroll 값 */
   useEffect(() => {
     setIsEnrollPage(location.pathname.includes("enroll")); // 현재 위치가 'directask/enroll'인지 확인
   }, [location]);
+
+  //////////////////////////////////
+  /* form 값 */
+  useEffect(() => {
+    if (detail) {
+      reset({
+        category: detail.category, // detail 객체의 category 속성을 초기 값으로 설정
+        askTitle: detail.title,
+        askContent: detail.content,
+      });
+    } else {
+      reset({
+        category: "", // detail이 없는 경우, 초기 값을 빈 문자열로 설정 (새 글 작성할 때 필요)
+        askTitle: "",
+        askContent: "",
+      });
+    }
+  }, [isEnrollPage, detail, reset]);
+
+  const onSubmit = (data) => {
+    console.log("카테고리 값 확인:", data.category);
+    console.log("제목 값 확인:", data.askTitle);
+    console.log("내용 값 확인:", data.askContent);
+  };
+  //////////////////////////////////
 
   return (
     <Wrap>
       <Title>
         <h1 className="cm-LBold30">1:1 문의</h1>
       </Title>
-      <Item>
-        <p>유형</p>
-        <Category detail={detail} pageCheck={isEnrollPage} />
-      </Item>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <FormProvider {...methods}>
+          <Item>
+            <p>유형</p>
+            <Category control={control} detail={detail} />
+          </Item>
 
-      <Item>
-        <p>제목</p>
-        <AskTitle detail={detail} pageCheck={isEnrollPage} />
-      </Item>
+          <Item>
+            <p>제목</p>
+            <AskTitle control={control} detail={detail} />
+          </Item>
 
-      <Item>
-        <p>내용</p>
-        <AskContent detail={detail} pageCheck={isEnrollPage} />
-      </Item>
+          <Item>
+            <p>내용</p>
+            <AskContent control={control} detail={detail} />
+          </Item>
 
-      {/* 답변 */}
-      {detail && detail.askState === "답변 완료" && (
-        <Item>
-          <p>답변</p>
-          <textarea
-            cols="50"
-            rows="10"
-            className="cm-SRegular16"
-            disabled={true}
-            value={detail.answer}
-          ></textarea>
-        </Item>
-      )}
+          {/* 답변 */}
+          {detail && detail.askState === "답변 완료" && (
+            <Item>
+              <p>답변</p>
+              <textarea
+                cols="50"
+                rows="10"
+                className="cm-SRegular16"
+                disabled={true}
+                value={detail.answer}
+              ></textarea>
+            </Item>
+          )}
 
-      {/* 버튼 */}
-      {isEnrollPage ? (
-        <Submit>
-          <button type="submit" className="Btn_M_Navy">
-            문의접수
-          </button>
-        </Submit>
-      ) : (
-        detail &&
-        detail.askState === "답변 대기" && (
-          <Submit>
-            <button type="submit" className="Btn_M_Navy">
-              수정 완료
-            </button>
-          </Submit>
-        )
-      )}
+          {/* 버튼 */}
+          {isEnrollPage ? (
+            <Submit>
+              <button
+                type="submit"
+                className="Btn_M_Navy"
+                disabled={
+                  // 버튼 비활성화
+                  !watchAllFields.category ||
+                  !watchAllFields.askTitle ||
+                  !watchAllFields.askContent
+                }
+                style={
+                  // 버튼 비활성화 스타일
+                  !watchAllFields.category ||
+                  !watchAllFields.askTitle ||
+                  !watchAllFields.askContent
+                    ? {
+                        backgroundColor: "var(--semi-light-grey)",
+                        cursor: "not-allowed",
+                      }
+                    : {}
+                }
+              >
+                문의접수
+              </button>
+            </Submit>
+          ) : (
+            detail &&
+            detail.askState === "답변 대기" && (
+              <Submit>
+                <button
+                  type="submit"
+                  className="Btn_M_Navy"
+                  disabled={
+                    !watchAllFields.category ||
+                    !watchAllFields.askTitle ||
+                    !watchAllFields.askContent
+                  }
+                >
+                  수정 완료
+                </button>
+              </Submit>
+            )
+          )}
+        </FormProvider>
+      </form>
     </Wrap>
   );
 };
@@ -103,6 +176,7 @@ const Title = styled.div`
 const Item = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 6.44rem;
 
   position: relative;
