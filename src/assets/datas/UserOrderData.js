@@ -6,6 +6,10 @@ const List = [
     date: "2023.11.13",
     ordernum: 112232,
     status: "결제완료",
+    name: "김디팡",
+    phone: "010-1111-1111",
+    address: "강원도 인제군 북면 미시령로 1261",
+    shipmessage: "문 앞에 두고 가주세요",
     item: [
       {
         id: "item1_id",
@@ -21,6 +25,10 @@ const List = [
     date: "2023.11.13",
     ordernum: 112232,
     status: "배송중",
+    name: "김디팡",
+    phone: "010-1111-1111",
+    address: "강원도 인제군 북면 미시령로 1261",
+    shipmessage: "문 앞에 두고 가주세요",
     item: [
       {
         id: "item2_id",
@@ -39,10 +47,14 @@ const List = [
     ],
   },
   {
-    id: "item2_id",
+    id: "2",
     date: "2023.11.13",
     ordernum: 112232,
     status: "배송완료",
+    name: "김디팡",
+    phone: "010-1111-1111",
+    address: "강원도 인제군 북면 미시령로 1261",
+    shipmessage: "문 앞에 두고 가주세요",
     item: [
       {
         id: "item2_id",
