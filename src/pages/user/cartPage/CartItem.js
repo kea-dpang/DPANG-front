@@ -6,11 +6,12 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import React, {useState} from 'react';
 import '../../../styles/fonts.css';
 import styled from 'styled-components';
-import { CheckBox } from '@mui/icons-material';
-import items from '../../../assets/images/shirts.jpeg';
+import Checkbox from '@mui/material/Checkbox';
+import TempItemData from '../../../assets/datas/UserCartData';
 
 const CartItem = ({ product, updateTotalPrice, onProductSelect, onDelete }) => {
   const [quantity, setQuantity] = useState(1);
+  const [selected, setSelected] = useState(true);
 
 
 
@@ -26,6 +27,22 @@ const CartItem = ({ product, updateTotalPrice, onProductSelect, onDelete }) => {
     }
   };
 
+
+  const handleCheckboxChange = () => {
+    if (!product.soldout) {
+      setSelected(!selected);
+      onProductSelect(product.id, !selected);
+    }
+  };
+
+  const handleDelete = () => {
+    onDelete(product.id);
+  };  
+
+  console.log(TempItemData);
+
+
+
   return (
     <Box
     sx={{
@@ -33,25 +50,29 @@ const CartItem = ({ product, updateTotalPrice, onProductSelect, onDelete }) => {
         background: 'var(--light-grey, #F4F4F4)',
 
         display: 'flex',
-        flexDirection: 'raw',
+        flexDirection: 'row',
         gap: '1.375rem',
     }}
     >
-              <CheckBox
-              checked={product.selected}
+              <Checkbox
+              checked={selected}
+              onChange={handleCheckboxChange}
               />
-              <ItemImg src={items} />
+              <ItemImg src={product.imgUrl} alt={product.name} />
               <ItemInfo>
                 <ItemName>
                     <ItemBox>
-                    <p className="cm-SBold16 col-Black">소프 터틀넥 집업 beige(베이지) free</p>
+                    <p className="cm-SBold16 col-Black">{product.name}</p>
                     </ItemBox>
-                    <DeleteButton>
+                    <DeleteButton onClick={handleDelete}>
                         <p className="cm-SRegular16 col-Black">삭제</p>
                     </DeleteButton>
                 </ItemName>
+                {product.soldout(true) && (
+                <p className="cm-SRegular16 col-Orange">!품절된 상품입니다</p>
+                )}
                 <ItemState>
-                    <p className="cm-SBold16 col-Black">36,000원</p>
+                    <p className="cm-SBold16 col-Black">{product.price}원</p>
                     <ButtonGroup>
                     <Button onClick={handleDecrease}>
                         <RemoveIcon />
@@ -61,7 +82,7 @@ const CartItem = ({ product, updateTotalPrice, onProductSelect, onDelete }) => {
                         <AddIcon />
                     </Button>
                     </ButtonGroup>
-                    <p className="cm-SBold16 col-Black">{36000 * quantity}원</p>
+                    <p className="cm-SBold16 col-Black">{product.price * quantity}원</p>
                 </ItemState>
               </ItemInfo>
     </Box>
@@ -116,3 +137,4 @@ const DeleteButton = styled.button`
     border-radius: 0.1875rem;
     border: 1px solid var(--semi-light-grey, #CFCFCF);
 `;
+

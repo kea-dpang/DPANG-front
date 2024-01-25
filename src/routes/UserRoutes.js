@@ -62,28 +62,33 @@ const UserRoutes = () => {
         {/* FAQ */}
         <Route path="faq" element={<FaqPage />} />
 
-        {/* 회원정보 */}
-        <Route path="userinfo" element={<UserInfoPage />} />
-        <Route path="userinfo/editpassword" element={<EditPassword />} />
-        <Route path="userinfo/leave" element={<Leave />} />
-        {/* 리뷰관리 */}
-        <Route path="review" element={<Review />} />
-        <Route path="review/enroll/:id" element={<EnrollReview />} />
-        {/* 마일리지 */}
-        <Route path="mileage" element={<Mileage />} />
-        <Route path="mileage/req" element={<MileageReq />} />
-        {/* 환불 */}
-        <Route path="refund" element={<UserRefund />} />
-        <Route path="refund/detail/:id" element={<UserRefundDetail />} />
-        <Route path="refund/enroll" element={<ReqRefund />} />
-        <Route path="cancel" element={<UserCancel />} />
-        <Route path="cancel/detail/:id" element={<UserCancelDetail />} />
-        {/* 주문 */}
-        <Route path="order" element={<UserOrder />} />
-        <Route path="order/detail/:id" element={<OrderDetail />} />
-      </Route>
-    </Routes>
-  );
+                {/* 회원정보 */}
+                <Route path="userinfo" element={<UserInfoPage />} />
+                <Route path="userinfo/editpassword" element={<EditPassword />} />
+                <Route path="userinfo/leave" element={<Leave />} />
+                {/* 리뷰관리 */}
+                <Route path="review" element={<Review />} />
+                <Route path="review/enroll" element={<EnrollReview />} />
+                {/* 마일리지 */}
+                <Route path="mileage" element={<Mileage />} />
+                <Route path="mileage/req" element={<MileageReq />} />
+                {/* 환불 */}
+                <Route path="refund" element={<UserRefund />} />
+                <Route path="refund/detail/:id" element={<UserRefundDetail />} />
+                <Route path="refund/enroll" element={<ReqRefund />} />
+                <Route path="cancel" element={<UserCancel />} />
+                <Route path="cancel/detail/:id" element={<UserCancelDetail />} />
+                {/* 주문 */}
+                <Route path="order" element={<UserOrder />} />
+                <Route path="order/detail/:id" element={<OrderDetail />} />
+            </Route>
+            {/*장바구니*/}
+            <Route path="cart" element={<Cart/>} />
+
+            
+        </Routes>
+    );
+
 };
 
 export default UserRoutes;
