@@ -5,10 +5,11 @@ import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
-import Category from "../../../../../components/common/Item/Category";
+import Dropdown from "components/common/Dropdown";
 import AdminTable from "../../../userPage/list/AdminTable";
-import data from "../../../../../assets/datas/ItemDetailData";
+import data from "assets/datas/ItemDetailData";
 
+// 상품 등록 관리자 페이지
 const Index = () => {
   // 테이블 column
   const columns = [
@@ -35,8 +36,6 @@ const Index = () => {
     { name: "sub_category", label: "상세 카테고리" },
     { name: "stock", label: "재고량" },
   ];
-  //  상태 저장 : 예정, 진행, 종료
-  const [index, setIndex] = React.useState("");
   // 드롭박스 placeholder 값 + 후보값
   const category = [
     "카테고리를 선택해주세요",
@@ -51,8 +50,6 @@ const Index = () => {
   const navigate = useNavigate();
   /* 선택된 행은 상세정보로 이동 */
   const handleRowClick = (row) => {
-    // setSelectedRow(row); // 클릭된 행의 정보를 상태로 업데이트
-    console.log("dddd", row);
     navigate(`${row[0]}`);
   };
   const handleAddBtn = () => {
@@ -66,7 +63,7 @@ const Index = () => {
         <FilterSection>
           <SearchWrap>
             {/* 카테고리 선택 드롭다운*/}
-            <Category value={category} />
+            <Dropdown value={category} width={"15rem"} />
             {/* 검색창 */}
             <Paper
               component="form"
@@ -133,7 +130,7 @@ const FilterSection = styled.div`
   box-sizing: border-box; // padding까지 합쳐서 width 설정하기
   flex-direction: row;
   align-items: center;
-  gap: 20.5rem;
+  gap: 23.9rem;
 `;
 const SearchWrap = styled.div`
   display: flex;
