@@ -3,11 +3,11 @@ import * as React from "react";
 import { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import Fab from "@mui/material/Fab";
-import PhotoIcon from "@mui/icons-material/Photo";
 import Category from "../../../../../components/common/Item/Category";
 
-const ProductDefaultEnroll = ({ productInfo, setProductInfo }) => {
+const ProductDefaultEdit = ({ productInfo, setProductInfo }) => {
+  const [itemInfo, setItemInfo] = useState(); // 상품 상세조회 할 id값 주소에서 가져오기
+
   const [eventname, setEventName] = useState("");
   const [code, setCode] = useState([]);
   const [productList, setProductList] = useState([]);
@@ -34,14 +34,14 @@ const ProductDefaultEnroll = ({ productInfo, setProductInfo }) => {
   ];
 
   const handleNameChange = (e) => {
-    setProductInfo((prev) => ({ ...prev, productName: e.target.value }));
+    setProductInfo((prev) => ({ ...prev, name: e.target.value }));
   };
 
   const handlePriceChange = (e) => {
-    setProductInfo((prev) => ({ ...prev, productPrice: e.target.value }));
+    setProductInfo((prev) => ({ ...prev, price: e.target.value }));
   };
 
-  const handleStuffChange = (e) => {
+  const handleStockChange = (e) => {
     setProductInfo((prev) => ({ ...prev, stock: e.target.value }));
   };
   return (
@@ -55,6 +55,7 @@ const ProductDefaultEnroll = ({ productInfo, setProductInfo }) => {
           <ContentBox>
             <TextField
               id="name"
+              value={productInfo.name}
               onChange={handleNameChange}
               variant="outlined"
               InputLabelProps={{ shrink: true }}
@@ -75,6 +76,7 @@ const ProductDefaultEnroll = ({ productInfo, setProductInfo }) => {
           <ContentBox>
             <TextField
               id="price"
+              value={productInfo.price}
               onChange={handlePriceChange}
               variant="outlined"
               InputLabelProps={{ shrink: true }}
@@ -127,13 +129,14 @@ const ProductDefaultEnroll = ({ productInfo, setProductInfo }) => {
             </div>
           </ContentBox>
         </Row>
-        {/* 입고량 등록 */}
+        {/* 재고 수정 */}
         <Row>
-          <p className="cm-SBold16 col-Black">입고량</p>
+          <p className="cm-SBold16 col-Black">재고</p>
           <ContentBox>
             <TextField
-              id="stuff"
-              onChange={handleStuffChange}
+              id="stock"
+              value={productInfo.stock}
+              onChange={handleStockChange}
               variant="outlined"
               InputLabelProps={{ shrink: true }}
               sx={{
@@ -152,7 +155,8 @@ const ProductDefaultEnroll = ({ productInfo, setProductInfo }) => {
   );
 };
 
-export default ProductDefaultEnroll;
+export default ProductDefaultEdit;
+
 const Wrap = styled.div`
   display: flex;
   width: 88.9375rem;
