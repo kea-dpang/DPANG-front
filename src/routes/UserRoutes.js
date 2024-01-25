@@ -27,6 +27,7 @@ import SearchPage from "../pages/user/searchPage/Index";
 import ProductDetail from "../pages/user/productDetail/Index";
 import UserCancel from '../pages/user/myPage/Cancel/Index'
 import UserCancelDetail from '../pages/user/myPage/Cancel/Detail/Index'
+import Order from '../pages/user/orderPage/Index'
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
@@ -51,6 +52,10 @@ const UserRoutes = () => {
             <Route path="search" element={<SearchPage/>}/>
             {/* 위시리스트 */}
             <Route path="wishlist" element={<WishList />} />
+            {/*장바구니*/}
+            <Route path="cart" element={<Cart/>} />
+            {/*주문하기*/}
+            <Route path="order" element={<Order/>} />
             {/* 마이페이지 */}
             <Route path="mypage/temp/*" element={<MyPage />}>
                 <Route path="directask" element={<DirectAskPage />} />
@@ -83,8 +88,7 @@ const UserRoutes = () => {
                 <Route path="order" element={<UserOrder />} />
                 <Route path="order/detail/:id" element={<OrderDetail />} />
             </Route>
-            {/*장바구니*/}
-            <Route path="cart" element={<Cart/>} />
+
 
             
         </Routes>
