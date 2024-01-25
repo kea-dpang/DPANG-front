@@ -3,7 +3,7 @@ import * as React from "react";
 import { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import Category from "../../../../../components/common/Item/Category";
+import Dropdown from "components/common/Dropdown";
 
 const ProductDefaultEdit = ({ productInfo, setProductInfo }) => {
   const [itemInfo, setItemInfo] = useState(); // 상품 상세조회 할 id값 주소에서 가져오기
@@ -109,14 +109,14 @@ const ProductDefaultEdit = ({ productInfo, setProductInfo }) => {
                             }}
                             placeholder="판매가를 입력해주세요"
                         /> */}
-            <Category value={brand} />
+            <Dropdown value={brand} />
           </ContentBox>
         </Row>
         {/* 카테고리 등록 */}
         <Row>
           <p className="cm-SBold16 col-Black">카테고리</p>
           <ContentBox>
-            {/* <Category value={category} /> */}
+            {/* <Dropdown value={category} /> */}
             <div
               style={{
                 display: "flex",
@@ -124,8 +124,8 @@ const ProductDefaultEdit = ({ productInfo, setProductInfo }) => {
                 gap: "1rem",
               }}
             >
-              <Category value={category} />
-              <Category value={sub_category} />
+              <Dropdown value={category} />
+              <Dropdown value={sub_category} />
             </div>
           </ContentBox>
         </Row>
