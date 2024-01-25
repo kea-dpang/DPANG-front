@@ -13,6 +13,8 @@ import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import DataTable from "./Table";
+import { Link, useNavigate } from 'react-router-dom';
+
 
 const Index = () => {
     //  상태 저장 : 예정, 진행, 종료
@@ -21,6 +23,8 @@ const Index = () => {
     const handleChange = (event) => {
       setIndex(event.target.value);
     };
+
+    const navi = useNavigate();
 
     return (
         <>  
@@ -50,9 +54,10 @@ const Index = () => {
                             </Paper>
                         </SearchWrap>
                         {/* 추가하기 버튼 */}
-                        <Box sx={{ '& button': { m: 1 } }}>
+                        <Box sx={{ '& button': { m: 1 } }}
+                        onClick={()=>{navi('/admin/brand/enroll')}}>
                             {/* <StyledButton sx={{height: '3rem', backgroundColor: 'var(--navy)', p:'0rem 2.8rem'}}variant="contained" size="large"> 추가하기 </StyledButton> */}
-                            <StyledButton variant="contained" size="large"> 추가하기 </StyledButton>
+                            <StyledButton variant="contained" size="large" > 추가하기 </StyledButton>
                         </Box>
                     </Section1>
                     {/* 삭제, 정렬 */}

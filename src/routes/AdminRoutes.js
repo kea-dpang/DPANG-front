@@ -17,6 +17,7 @@ import AdminCancelList from "../pages/admin/Cancel/List/Index";
 import AdminCancelDetail from "../pages/admin/Cancel/Detail/Index";
 import BrandListPage from "../pages/admin/Item/Store/List/Index";
 import BrandEditPage from "../pages/admin/Item/Store/Edit/Index";
+import BrandEnrollPage from "../pages/admin/Item/Store/Enroll/Index";
 import AdminErollPage from "../pages/admin/faqPage/enroll/Index";
 import AdminEditPage from "../pages/admin/faqPage/edit/Index";
 import AdminDirectAskPage from "../pages/admin/directAskPage/list/Index";
@@ -38,6 +39,7 @@ const AdminRoutes = () => {
         <Route path="product/enroll" element={<ProductEnrollPage />} />
         <Route path="product/:id" element={<ProductEditPage />} />
         <Route path="brand" element={<BrandListPage />} />
+        <Route path="brand/enroll" element={<BrandEnrollPage/>} />
         <Route path="brand/:id" element={<BrandEditPage />} />
         {/* 이벤트 관리 */}
         <Route path="event" element={<EventListPage />} />
