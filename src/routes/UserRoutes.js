@@ -25,9 +25,12 @@ import Cart from "../pages/user/cartPage/Index";
 import OrderDetail from "../pages/user/myPage/Order/Detail/Index";
 import SearchPage from "../pages/user/searchPage/Index";
 import ProductDetail from "../pages/user/productDetail/Index";
-import Order from '../pages/user/orderPage/Index'
+import Order from "../pages/user/orderPage/Index";
 import UserCancel from "../pages/user/myPage/Cancel/Index";
 import UserCancelDetail from "../pages/user/myPage/Cancel/Detail/Index";
+import EventPage from "pages/user/eventPage/Index";
+import ProductEventList from "pages/user/eventPage/ProductEventPage";
+import BrandEventPage from "pages/user/eventPage/BrandEventPage";
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 
@@ -44,6 +47,10 @@ const UserRoutes = () => {
       <Route path="collections/*" element={<ProductListPage />}>
         <Route path="best" element={<BestProductPage />} />
         <Route path="event" element={<EventProductPage />} />
+      </Route>
+      <Route path="event/*" element={<EventPage />}>
+        <Route path="product" element={<ProductEventList />} />
+        <Route path="brand" element={<BrandEventPage />} />
       </Route>
       {/* 상품 상세 페이지 */}
       <Route path="products/:itemId" element={<ProductDetail />} />
@@ -66,32 +73,28 @@ const UserRoutes = () => {
         {/* FAQ */}
         <Route path="faq" element={<FaqPage />} />
 
-                {/* 회원정보 */}
-                <Route path="userinfo" element={<UserInfoPage />} />
-                <Route path="userinfo/editpassword" element={<EditPassword />} />
-                <Route path="userinfo/leave" element={<Leave />} />
-                {/* 리뷰관리 */}
-                <Route path="review" element={<Review />} />
-                <Route path="review/enroll" element={<EnrollReview />} />
-                {/* 마일리지 */}
-                <Route path="mileage" element={<Mileage />} />
-                <Route path="mileage/req" element={<MileageReq />} />
-                {/* 환불 */}
-                <Route path="refund" element={<UserRefund />} />
-                <Route path="refund/detail/:id" element={<UserRefundDetail />} />
-                <Route path="refund/enroll" element={<ReqRefund />} />
-                <Route path="cancel" element={<UserCancel />} />
-                <Route path="cancel/detail/:id" element={<UserCancelDetail />} />
-                {/* 주문 */}
-                <Route path="order" element={<UserOrder />} />
-                <Route path="order/detail/:id" element={<OrderDetail />} />
-            </Route>
-
-
-            
-        </Routes>
-    );
-
+        {/* 회원정보 */}
+        <Route path="userinfo" element={<UserInfoPage />} />
+        <Route path="userinfo/editpassword" element={<EditPassword />} />
+        <Route path="userinfo/leave" element={<Leave />} />
+        {/* 리뷰관리 */}
+        <Route path="review" element={<Review />} />
+        <Route path="review/enroll" element={<EnrollReview />} />
+        {/* 마일리지 */}
+        <Route path="mileage" element={<Mileage />} />
+        <Route path="mileage/req" element={<MileageReq />} />
+        {/* 환불 */}
+        <Route path="refund" element={<UserRefund />} />
+        <Route path="refund/detail/:id" element={<UserRefundDetail />} />
+        <Route path="refund/enroll" element={<ReqRefund />} />
+        <Route path="cancel" element={<UserCancel />} />
+        <Route path="cancel/detail/:id" element={<UserCancelDetail />} />
+        {/* 주문 */}
+        <Route path="order" element={<UserOrder />} />
+        <Route path="order/detail/:id" element={<OrderDetail />} />
+      </Route>
+    </Routes>
+  );
 };
 
 export default UserRoutes;
