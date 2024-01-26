@@ -9,16 +9,10 @@ const tableTitles = ["문의날짜", "카테고리", "제목", "문의상태"];
 const colWidths = ["15%", "15%", "50%", "20%"]; // 각 컬럼의 너비를 정의하는 배열
 
 const AskList = () => {
-  const [askLists, setAskLists] = useState([]);
+  const [askLists, setAskLists] = useState(DirectAskList);
 
   // period 값 가져오기
   const period = useRecoilValue(periodAtom);
-
-  // 더미 데이터 넣기
-  useEffect(() => {
-    setAskLists(DirectAskList); // DirectAskList의 데이터를 askLists 상태에 넣습니다.
-  }, []);
-  //   console.log("리코일 값 확인ㅣ", period);
 
   return (
     <Table>
