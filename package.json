@@ -13,8 +13,10 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.6.7",
     "bootstrap": "^5.3.2",
     "dayjs": "^1.11.10",
+    "http-proxy-middleware": "^2.0.6",
     "mui-datatables": "^4.3.0",
     "react": "^17.0.2",
     "react-bootstrap": "^2.9.2",
@@ -54,5 +56,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "webpack": "^5.90.0",
+    "webpack-cli": "^5.1.4"
   }
 }
