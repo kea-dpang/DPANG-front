@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { DirectAskList } from "../../../../assets/datas/DirectAskData";
+import { DirectAskData } from "assets/data/user/DirectAskData";
 import { useRecoilValue } from "recoil";
 import { periodAtom } from "../../../../recoil/user/PeriodSelectAtom";
 
@@ -9,7 +9,7 @@ const tableTitles = ["문의날짜", "카테고리", "제목", "문의상태"];
 const colWidths = ["15%", "15%", "50%", "20%"]; // 각 컬럼의 너비를 정의하는 배열
 
 const AskList = () => {
-  const [askLists, setAskLists] = useState(DirectAskList);
+  const [askLists, setAskLists] = useState(DirectAskData);
 
   // period 값 가져오기
   const period = useRecoilValue(periodAtom);

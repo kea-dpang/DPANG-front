@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import TableHeader from "../../../../../components/utils/TableHeader";
+import TableHeader from "../../../../../components/common/MypageTableHeader";
 import TableRow from "./TableRow";
 
 const Container = styled.div`

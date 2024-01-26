@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import DetailShip from "./DetailShip";
 import DetailPay from "./DetailPay";
-import DetailTableTitle from "../../../../../components/utils/DetailTable/DetailTableTitle";
+import DetailTableTitle from "../../../../../components/common/HiddenShowBtn";
 import { useState } from "react";
 
 const Wrap = styled.div`

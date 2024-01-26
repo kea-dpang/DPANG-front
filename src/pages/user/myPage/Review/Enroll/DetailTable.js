@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import MyPageBodyHeader from "../../../../../components/utils/MyPageBodyHeader";
+import MyPageBodyHeader from "../../../../../components/common/MyPageBodyHeader";
 
 function TableRow(props) {
   const navi = useNavigate();

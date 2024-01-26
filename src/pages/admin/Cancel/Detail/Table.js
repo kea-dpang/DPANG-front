@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import * as React from "react";
 import "../../../../styles/fonts.css";
-import TableRow from "./TableRow";
+import TableRow from "pages/admin/cancel/Detail/TableRow";
 
 const Index = (props) => {
   return (
@@ -15,7 +15,7 @@ const Index = (props) => {
           <Col width="10rem">상품금액/수량</Col>
           <Col width="10rem">예상 환불액</Col>
         </Table>
-        <TableRow data={props.data} id={props.id}/>
+        <TableRow data={props.data} id={props.id} />
       </TableBox>
     </Wrap>
   );

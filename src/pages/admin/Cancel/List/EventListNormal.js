@@ -3,7 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import TempData from "../../../../assets/datas/AdminCancelData";
+import TempData from "../../../../assets/data/admin/AdminCancelData";
 
 export default function DataTable() {
   const navigate = useNavigate();

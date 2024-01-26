@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Table from "./Table";
 import RequestTable from "./RequestTable";
-import MyPageBodyHeader from "../../../../../components/utils/MyPageBodyHeader";
+import MyPageBodyHeader from "../../../../../components/common/MyPageBodyHeader";
 
 const Container = styled.div`
   width: 72rem;

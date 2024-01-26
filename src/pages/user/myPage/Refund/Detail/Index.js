@@ -2,7 +2,7 @@ import styled from "styled-components";
 import RefundBox from "./RefundBox";
 import Refund from "./Refund/Table";
 import { useParams } from "react-router-dom";
-import TempData from "../../../../../assets/datas/RefundData";
+import TempData from "../../../../../assets/data/user/UserRefundData";
 
 const Container = styled.div`
   min-height: 100vh;

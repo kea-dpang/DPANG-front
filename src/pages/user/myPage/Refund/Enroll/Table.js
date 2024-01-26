@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import TableRow from "./TableRow";
-import TempData from '../../../../../assets/datas/UserOrderData'
+import TempData from "../../../../../assets/data/user/UserOrderData";
 
 const Head = styled.div`
   height: 3rem;
@@ -12,38 +12,27 @@ const Head = styled.div`
 `;
 const TableBox = styled.div`
   width: 72rem;
-  
 `;
 const Col = styled.div`
-
-width: ${(props) => props.width};
-color: white;
-display: flex;
-align-items: center;
-justify-content: center;
-
-`
-
+  width: ${(props) => props.width};
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 function Table() {
-
-  
-
   return (
     <TableBox>
       <Head className="cm-SBold18">
-      <Col width="13rem">날짜/주문번호</Col>
+        <Col width="13rem">날짜/주문번호</Col>
         <Col width="22rem">상품명</Col>
         <Col width="11rem">상품 금액 / 수량</Col>
         <Col width="15rem">환불 예정액</Col>
         <Col width="11rem">상태</Col>
-        
-
       </Head>
 
-
       <TableRow data={TempData} />
-
     </TableBox>
   );
 }

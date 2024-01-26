@@ -3,12 +3,10 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import TempData from "../../../../assets/datas/AdminMileageData";
+import TempData from "../../../../assets/data/admin/AdminMileageData";
 
 export default function DataTable() {
-
   const handleButtonClick = (id) => {
-
     console.log(id);
   };
 
@@ -91,7 +89,7 @@ export default function DataTable() {
       headerName: "승인/거절",
       width: 200,
       headerAlign: "left",
-      renderCell: renderEditButton, 
+      renderCell: renderEditButton,
     },
   ];
 

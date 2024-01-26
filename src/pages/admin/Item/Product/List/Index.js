@@ -6,8 +6,8 @@ import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Dropdown from "components/common/Dropdown";
-import AdminTable from "../../../userPage/list/AdminTable";
-import data from "assets/datas/ItemDetailData";
+import DataTable from "../../../../../components/common/AdminDataTable";
+import data from "assets/data/user/ItemDetailData";
 
 // 상품 등록 관리자 페이지
 const Index = () => {
@@ -98,7 +98,7 @@ const Index = () => {
         </FilterSection>
         {/* 이벤트 목록 */}
         <ListSection>
-          <AdminTable
+          <DataTable
             data={data}
             columns={columns}
             onRowClick={handleRowClick}

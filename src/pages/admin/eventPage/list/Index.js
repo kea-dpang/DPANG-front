@@ -5,8 +5,8 @@ import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Dropdown from "components/common/Dropdown";
-import AdminTable from "pages/admin/userPage/list/AdminTable";
-import data from "assets/datas/EventData";
+import DataTable from "components/common/AdminDataTable";
+import data from "assets/data/user/EventData";
 import { useNavigate } from "react-router-dom";
 
 const Index = () => {
@@ -115,7 +115,7 @@ const Index = () => {
           </Button>
         </FilterSection>
         <ListSection>
-          <AdminTable
+          <DataTable
             data={data}
             columns={columns}
             onRowClick={handleRowClick}

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import ProductDefaultEdit from "./ProductDefaultEdit";
 import ProductDetailEnroll from "./ProductDetailEdit";
 import { useParams } from "react-router-dom";
-import ItemDetailData from "../../../../../assets/datas/ItemDetailData";
+import ItemDetailData from "../../../../../assets/data/user/ItemDetailData";
 // 상품 index 페이지
 const ProductEditPage = () => {
   let itemId = useParams().id;

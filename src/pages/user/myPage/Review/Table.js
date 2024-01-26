@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import TableRow from "./TableRow";
-import TempData from '../../../../assets/datas/UserReviewList'
+import TempData from "../../../../assets/data/user/UserMyReviewData";
 
 const Head = styled.div`
   height: 3rem;
@@ -13,18 +13,14 @@ const Head = styled.div`
 const TableBox = styled.div`
   height: 43rem;
   width: 72rem;
-  
 `;
 const Col = styled.div`
-
-width: ${(props)=>props.width};
-color: white;
-display: flex;
-align-items: center;
-justify-content: center;
-
-`
-
+  width: ${(props) => props.width};
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 function Table() {
   return (
@@ -36,8 +32,7 @@ function Table() {
         <Col width="15rem">평점</Col>
       </Head>
 
-      <TableRow data = {TempData}/>
-
+      <TableRow data={TempData} />
     </TableBox>
   );
 }

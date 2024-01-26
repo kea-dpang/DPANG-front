@@ -4,7 +4,7 @@ import Category from "./Category";
 import AskTitle from "./AskTitle";
 import AskContent from "./AskContent";
 import { useLocation, useParams } from "react-router-dom";
-import { DirectAskList } from "../../../../../assets/datas/DirectAskData";
+import { DirectAskData } from "assets/data/user/DirectAskData";
 import { FormProvider, useForm } from "react-hook-form";
 
 const AskEnrollPage = () => {
@@ -31,7 +31,7 @@ const AskEnrollPage = () => {
 
   /* detail 값 */
   useEffect(() => {
-    const matchedData = DirectAskList.find((item) => item.askId === params); // DirectAskList에서 askId가 일치하는 데이터 찾기
+    const matchedData = DirectAskData.find((item) => item.askId === params); // DirectAskList에서 askId가 일치하는 데이터 찾기
     if (matchedData) {
       setDetail(matchedData); // 찾은 데이터를 detail 상태에 설정
     }

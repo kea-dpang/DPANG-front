@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import TableRow from "./TableRow";
-import TempData from "../../../../assets/datas/UserOrderData";
+import TempData from "../../../../assets/data/user/UserOrderData";
 
 const Head = styled.div`
   height: 3rem;

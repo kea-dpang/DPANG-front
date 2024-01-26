@@ -3,7 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import TempData from "../../../../assets/datas/AdminRefundData";
+import TempData from "../../../../assets/data/admin/AdminRefundData";
 
 export default function DataTable() {
   const navigate = useNavigate();
@@ -19,7 +19,8 @@ export default function DataTable() {
 
   const renderDropBox = (params) => {
     return (
-      <NumBox className="cm-SRegular16"
+      <NumBox
+        className="cm-SRegular16"
         onClick={(e) => {
           e.stopPropagation();
         }}
@@ -32,28 +33,21 @@ export default function DataTable() {
         </Form>
       </NumBox>
     );
-
   };
 
   const renderItemInfo = (params) => {
-
     return (
-
-
       <NumBox className="cm-SRegular16">
         <ItemBox>
-          <ImgBox><ItemImg src={params.row.itemImg} /></ImgBox>
+          <ImgBox>
+            <ItemImg src={params.row.itemImg} />
+          </ImgBox>
 
           <NameBox>{params.row.itemName}</NameBox>
         </ItemBox>
       </NumBox>
-
-
-    )
-
-
-
-  }
+    );
+  };
 
   const columns = [
     {
@@ -78,8 +72,11 @@ export default function DataTable() {
       width: 60,
       headerAlign: "left",
       renderCell: (params) => {
-
-        return <div style={{ color: "var(--navy)" }} className="cm-SRegular16">{params.value}</div>;
+        return (
+          <div style={{ color: "var(--navy)" }} className="cm-SRegular16">
+            {params.value}
+          </div>
+        );
       },
     },
     {
@@ -106,7 +103,6 @@ export default function DataTable() {
       width: 340,
       headerAlign: "center",
       renderCell: renderItemInfo,
-
     },
     {
       field: "state",
@@ -167,8 +163,8 @@ const NumBox = styled.div`
   width: 100%;
   height: 100%;
   overflow-wrap: break-word;
-  word-break: break-all; 
-white-space: pre-wrap;
+  word-break: break-all;
+  white-space: pre-wrap;
 `;
 
 const Form = styled.select`
@@ -177,40 +173,31 @@ const Form = styled.select`
 `;
 
 const ItemImg = styled.img`
-
-width: 5rem;
-height: 5rem;
-
-
-`
+  width: 5rem;
+  height: 5rem;
+`;
 const ItemBox = styled.div`
-
-width: 100%;
-height: 100%;
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: center;
-
-`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
 
 const ImgBox = styled.div`
-
-height: 100%;
-width: 6rem;
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: center;
-
-`
+  height: 100%;
+  width: 6rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
 const NameBox = styled.div`
-
-height: 100%;
-width: calc(340px - 6rem);
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: start;
-
-`
+  height: 100%;
+  width: calc(340px - 6rem);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+`;

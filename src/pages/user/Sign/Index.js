@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Logo from "../../../assets/images/logo.png";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { TermsData } from "../../../assets/datas/UserTermsData";
+import { TermsData } from "../../../assets/data/user/UserTermsData";
 
 const SignPage = () => {
   const methods = useForm({
