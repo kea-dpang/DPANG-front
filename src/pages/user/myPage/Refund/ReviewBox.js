@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import Table from "./Table";
 import PeriodSelector from "../../../../components/common/PeriodSelector";
-import OrderBox from "../../../../components/common/OrderBox/Index";
+import OrderBox from "../../../../components/common/ProductProgressBox";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import MyPageBodyHeader from "../../../../components/utils/MyPageBodyHeader";
+import MyPageBodyHeader from "../../../../components/common/MyPageBodyHeader";
 
 const Container = styled.div`
   width: 72rem;

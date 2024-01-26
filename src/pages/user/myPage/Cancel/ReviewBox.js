@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import Table from "./TableRow";
 import PeriodSelector from "../../../../components/common/PeriodSelector";
-import OrderBox from "../../../../components/common/OrderBox/Index";
+import OrderBox from "../../../../components/common/ProductProgressBox";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import MyPageBodyHeader from "../../../../components/utils/MyPageBodyHeader";
-import TableHeader from "components/utils/TableHeader";
-import TempData from "../../../../assets/datas/UserCancelData";
+import MyPageBodyHeader from "../../../../components/common/MyPageBodyHeader";
+import TableHeader from "components/common/MypageTableHeader";
+import TempData from "../../../../assets/data/user/UserCancelData";
 
 const Container = styled.div`
   width: 72rem;

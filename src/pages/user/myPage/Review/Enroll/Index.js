@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Header from "../../../../../components/common/HeaderBar/Index";
+import Header from "../../../../../components/common/UserHeaderBar/Index";
 import EnrollReviewBox from "./EnrollReviewBox";
 import DetailTable from "./DetailTable";
 import { useParams } from "react-router-dom";

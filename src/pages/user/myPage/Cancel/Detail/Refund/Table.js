@@ -1,6 +1,6 @@
 import DetailRefund from "pages/user/myPage/Cancel/Detail/Refund/DetailRefund";
 import styled from "styled-components";
-import DetailHeader from "components/utils/DetailTable/DetailTableTitle";
+import DetailHeader from "components/common/HiddenShowBtn";
 import { useState } from "react";
 
 const Wrap = styled.div`

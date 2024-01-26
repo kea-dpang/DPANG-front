@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import PeriodSelector from "../../../../components/common/PeriodSelector";
 import TableRow from "./TableRow";
-import TableHeader from "../../../../components/utils/TableHeader";
-import TempData from "../../../../assets/datas/UserMileageData";
-import MyPageBodyHeader from "../../../../components/utils/MyPageBodyHeader";
+import TableHeader from "../../../../components/common/MypageTableHeader";
+import TempData from "assets/data/user/UserMileageData";
+import MyPageBodyHeader from "../../../../components/common/MyPageBodyHeader";
 
 const Container = styled.div`
   width: 72rem;

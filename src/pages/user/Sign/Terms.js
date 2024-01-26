@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { TermsData } from "../../../assets/datas/UserTermsData";
+import { TermsData } from "../../../assets/data/user/UserTermsData";
 import { ReactComponent as CheckBtn } from "../../../assets/images/checkBtn.svg";
 import styled from "styled-components";
 import { Controller, useFormContext } from "react-hook-form";

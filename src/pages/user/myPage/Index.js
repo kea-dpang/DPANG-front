@@ -4,9 +4,9 @@ import UserSideBar from "../../../components/common/UserSideBar";
 // import SubSection from './userInfo/SubSection';
 import { Outlet } from "react-router-dom";
 import media from "../../../styles/responsive";
-import Header from "../../../components/common/HeaderBar/Index";
+import Header from "../../../components/common/UserHeaderBar/Index";
 import MypageTitleBox from "../../../components/common/MypageTitleBox";
-import Footer from "../../../components/common/Footer/Index";
+import Footer from "../../../components/common/UserFooter/Index";
 
 const MyPage = () => {
   return (

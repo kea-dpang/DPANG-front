@@ -3,7 +3,7 @@ import DetailShip from "./DetailShip";
 import DetailPay from "./DetailPay";
 import DetailCancel from "./DetailCancel";
 import { useState } from "react";
-import DetailTableTitle from "../../../../../../components/utils/DetailTable/DetailTableTitle";
+import DetailTableTitle from "../../../../../../components/common/HiddenShowBtn";
 
 const Wrap = styled.div`
   width: 71rem;

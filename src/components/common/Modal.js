@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import SingleItem from "../../assets/datas/ItemDetailData";
+import SingleItem from "../../assets/data/user/ItemDetailData";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";

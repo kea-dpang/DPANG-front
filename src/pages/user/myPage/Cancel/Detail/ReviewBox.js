@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Table from "./TableRow";
-import TableHeader from "components/utils/TableHeader";
+import TableHeader from "components/common/MypageTableHeader";
 
 const Container = styled.div`
   width: 72rem;
