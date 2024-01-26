@@ -45,7 +45,7 @@ const FaqList = () => {
 
       <Main>
         {filteredFaqDataList.map((item, index) => (
-          <>
+          <React.Fragment key={index}>
             <Row key={index} onClick={() => handleItemClick(index)}>
               {" "}
               {/*세로 정렬 */}
@@ -62,7 +62,7 @@ const FaqList = () => {
                 </FoldItem>
               </Row>
             )}
-          </>
+          </React.Fragment>
         ))}
       </Main>
     </Table>
