@@ -7,7 +7,7 @@ import DataTable from "../../../../components/common/AdminDataTable";
 import { faqManageData } from "../../../../assets/data/admin/AdminFaqData";
 import Button from "@mui/material/Button";
 import { withStyles } from "@mui/styles";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const handleButtonClick = (buttonType, dataIndex) => {
   const row = faqManageData[dataIndex];
@@ -27,25 +27,6 @@ const columns = [
   { name: "category", label: "카테고리", options: { sort: true } },
   { name: "title", label: "제목", options: { sort: true } },
   { name: "writer", label: "작성자", options: { sort: true } },
-  // {
-  //     name: "action",
-  //     label: "관리",
-  //     options: {
-  //         sort: false,
-  //         customBodyRenderLite: (dataIndex) => {
-  //             return (
-  //                 <>
-  //                 <StyledButton variant="outlined" color="primary" onClick={() => handleButtonClick('button1', dataIndex)}>
-  //                     수정하기
-  //                 </StyledButton>
-  //                 {/* <StyledButton2 variant="outlined" color="secondary" onClick={() => handleButtonClick('button2', dataIndex)} style={{ marginLeft: '10px', }}>
-  //                     삭제하기
-  //                 </StyledButton2> */}
-  //                 </>
-  //             );
-  //         }
-  //     }
-  // }
 ];
 
 const FaqListPage = () => {
@@ -86,15 +67,6 @@ const FaqListPage = () => {
               renderValue: (selectedValue) =>
                 selectedValue ? selectedValue : "문의 유형을 선택해주세요", // 드롭다운 메뉴에서 선택한 항목
             }}
-            sx={{
-              "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-                borderColor: category ? "var(--navy)" : "",
-              },
-              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                {
-                  borderColor: "var(--navy)",
-                },
-            }}
           >
             <MenuItem value="" disabled>
               문의 카테고리를 선택해주세요
@@ -107,7 +79,9 @@ const FaqListPage = () => {
             <MenuItem value="회원">회원</MenuItem>
           </TextField>
         </FormControl>
-        <button className="Btn_M_Navy">추가하기</button>
+        <Link className="Btn_M_Navy" to="enroll">
+          추가하기
+        </Link>
       </Option>
 
       <Title className="cm-SBold18 col-Navy"> FAQ관리</Title>

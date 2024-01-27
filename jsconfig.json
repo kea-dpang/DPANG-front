@@ -2,12 +2,15 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-      "@apis/*": ["apis/*"],
-      "@assets/*": ["assets/*"],
-      "@components/*": ["components/*"],
+      "@api/*": ["api/*"],
+      "@data/*": ["assets/data/*"],
+      "@fonts/*": ["assets/fonts/*"],
+      "@images/*": ["assets/images/*"],
+      "@components/*": ["components/common/*"],
       "@adminPages/*": ["pages/admin/*"],
       "@userPages/*": ["pages/user/*"],
-      "@routes/*": ["routes/*"],
+      "@userRoutes/*": ["routes/UserRoutes"],
+      "@adminRoutes": ["routes/AdminRoutes"],
       "@styles/*": ["styles/*"]
     }
   },
