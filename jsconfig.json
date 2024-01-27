@@ -1,6 +1,15 @@
 {
   "compilerOptions": {
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "paths": {
+      "@apis/*": ["apis/*"],
+      "@assets/*": ["assets/*"],
+      "@components/*": ["components/*"],
+      "@adminPages/*": ["pages/admin/*"],
+      "@userPages/*": ["pages/user/*"],
+      "@routes/*": ["routes/*"],
+      "@styles/*": ["styles/*"]
+    }
   },
-  "includes": ["src"]
+  "include": ["src"]
 }
