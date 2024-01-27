@@ -58,29 +58,9 @@ const Index = () => {
   ];
   // 선택된 카테고리 상태
   const [selectedCategory, setSelectedCategory] = useState(dropdownValue[0]);
-  // Dropdown에서 선택이 변경되었을 때 호출할 함수
   const handleCategoryChange = (newCategory) => {
     setSelectedCategory(newCategory);
-    console.log("set category: ", newCategory);
   };
-  // Dropdown에서 선택된 카테고리에 따라 데이터를 필터링하는 함수
-  const getFilteredData = () => {
-    // placeholder 값일 때는 전체리스트 보여주기
-    if (selectedCategory === dropdownValue[0]) {
-      return data;
-    } else {
-      // 그 외의 경우, selectedCategory와 일치하는 이벤트 상태의 데이터만 필터링
-      return data.filter((item) => item.eventStatus === selectedCategory);
-    }
-  };
-
-  // 필터링된 데이터를 상태로 관리합니다.
-  const [filteredData, setFilteredData] = useState(getFilteredData());
-  // selectedCategory가 변경될 때마다 필터링된 데이터를 업데이트합니다.
-  useEffect(() => {
-    setFilteredData(getFilteredData());
-  }, [selectedCategory]); // selectedCategory가 변경될 때만 이 effect를 재실행합니다.
-
   const handleRowClick = (rowData) => {
     // rowData[0] : columns의 id / rowData[1].prop.children : columns의 kind
     // customBodyRender를 설정한 column값은 props.children까지 해줘야한다
@@ -140,9 +120,12 @@ const Index = () => {
         </FilterSection>
         <ListSection>
           <DataTable
-            data={filteredData}
+            data={data}
             columns={columns}
             onRowClick={handleRowClick}
+            filterValue={selectedCategory}
+            index={"eventStatus"}
+            placeholder={dropdownValue[0]}
           />
         </ListSection>
       </Wrap>
