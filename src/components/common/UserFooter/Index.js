@@ -11,12 +11,7 @@ const Container = styled.div`
 
 const BorderBar = styled.div`
   width: 100vw;
-  height: 15rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--navy);
+
 `;
 
 const P = styled.div`

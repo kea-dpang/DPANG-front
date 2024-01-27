@@ -20,11 +20,11 @@ const Index = () => {
         <PageSubName className="cm-MBold24 col-Navy"> 이벤트 등록</PageSubName>
         {/* 상품 이벤트 & 브랜드 이벤트 선택 버튼 */}
         <ProductBrandTab className="cm-SRegular16">
-          <Nav colour="var(--semi-light-grey)" onClick={() => handleNavClick()}>
+          <Nav color="var(--semi-light-grey)" onClick={() => handleNavClick()}>
             {" "}
             상품 이벤트
           </Nav>
-          <Nav colour="var(--navy)"> 브랜드 이벤트</Nav>
+          <Nav color="var(--navy)"> 브랜드 이벤트</Nav>
         </ProductBrandTab>
         {/* 이벤트 내용 입력하는 공간 */}
         <InputSection>
@@ -72,7 +72,7 @@ const Nav = styled.div`
   border-radius: 0.9375rem 0.9375rem 0rem 0rem;
 
   // 상품 이벤트 or 브랜드 이벤트 선택
-  background-color: ${(props) => props.colour};
+  background-color: ${(props) => props.color};
   color: var(--white);
   cursor: pointer;
 `;

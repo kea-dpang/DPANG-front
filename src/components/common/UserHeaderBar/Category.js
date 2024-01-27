@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import menuimg from "../../../assets/images/menu.svg";
+import menuimg from "@images/menu.svg";
 
 const CategoryBox = styled.div`
   width: 7rem;
@@ -7,7 +7,6 @@ const CategoryBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
 `;
 
 const MenuBox = styled.div`

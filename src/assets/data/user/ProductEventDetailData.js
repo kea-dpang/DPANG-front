@@ -61,7 +61,7 @@ const ProductEventData = [
     startDate: "2024-01-04 18:00:00",
     endDate: "2024-01-10 00:00:00",
     eventBannerUrL:
-      "https://lh3.googleusercontent.com/proxy/HGrBP_smS6lQNIYN2M2ogdH2gFwJDgNbwqouiIfz4SAmoz1bao817KyS_hbxrky_q4iACFRrLW7cfHCf2Jomrl6lwBEW6J0xG10FsoVmRCoryz7HUR7ZxgS39cBoLonUWG0nSxGqhyOcu1Q6b9YDwJDI4sAlDe77OIDJ3CngwtWqdBr9Ic-vCiCuTYEU1403ZQGDqYPRlZt6fIpOZ80RJ8qM5IAdMHE9IwABUNisbncf1bHf",
+      "https://m.w-skinlab.com/file_data/wskinlab/2021/03/31/aa26fa43d8fd4aa9e893750df428508f.jpg",
     discount: 20,
     eventItems: ["item1", "item2", "item3"],
   },

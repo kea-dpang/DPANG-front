@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import FacebookIcon from "assets/images/userFooterIcon/facebook.svg";
 import InstaIcon from "assets/images/userFooterIcon/instagram.svg";
 import GithubIcon from "assets/images/userFooterIcon/github.svg";
@@ -16,6 +17,7 @@ const handleIconClick = (url) =>{
       <Image src={FacebookIcon} onClick={()=>{handleIconClick("https://www.facebook.com/?locale=ko_KR")}}/>
       <Image src={InstaIcon} onClick={()=>{handleIconClick("https://www.instagram.com/")}}/>
       <Image src={GithubIcon} onClick={()=>{handleIconClick("https://github.com/kea-dpang")}}/>
+
     </ImageContainer>
   );
 }

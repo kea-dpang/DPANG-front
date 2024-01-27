@@ -1,18 +1,17 @@
 import styled from "styled-components";
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
-import Dropdown from "components/common/Dropdown";
-import DataTable from "components/common/AdminDataTable";
-import data from "assets/data/user/EventData";
+import Dropdown from "@components/Dropdown";
+import DataTable from "@components/AdminDataTable";
+import data from "@data/user/EventData";
 import { useNavigate } from "react-router-dom";
 
+// 이벤트 리스트 페이지
 const Index = () => {
   const navigate = useNavigate();
-  //  상태 저장 : 예정, 진행, 종료
-  const [index, setIndex] = React.useState("");
   const dropdownValue = ["이벤트 상태", "대기", "진행", "종료"];
   const columns = [
     { name: "id", label: "번호", options: { sort: false } },
@@ -57,6 +56,11 @@ const Index = () => {
     { name: "eventStart", label: "이벤트 시작일", options: { sort: false } },
     { name: "eventEnd", label: "이벤트 종료일", options: { sort: false } },
   ];
+  // 선택된 카테고리 상태
+  const [selectedCategory, setSelectedCategory] = useState(dropdownValue[0]);
+  const handleCategoryChange = (newCategory) => {
+    setSelectedCategory(newCategory);
+  };
   const handleRowClick = (rowData) => {
     // rowData[0] : columns의 id / rowData[1].prop.children : columns의 kind
     // customBodyRender를 설정한 column값은 props.children까지 해줘야한다
@@ -66,12 +70,8 @@ const Index = () => {
         : "/admin/event/editbrand/" + rowData[0];
     navigate(path);
   };
-
-  const handleChange = (event) => {
-    setIndex(event.target.value);
-  };
   const handleAddBtn = () => {
-    console.log("추가");
+    navigate("/admin/event/enrollproduct");
   };
 
   return (
@@ -83,7 +83,11 @@ const Index = () => {
           {/* 이벤트 상태 드롭다운, 검색창*/}
           <SearchWrap>
             {/* 카테고리 선택 드롭다운*/}
-            <Dropdown value={dropdownValue} width={"10rem"} />
+            <Dropdown
+              value={dropdownValue}
+              onChange={handleCategoryChange}
+              width={"10rem"}
+            />
             {/* 검색창 */}
             <Paper
               component="form"
@@ -119,6 +123,9 @@ const Index = () => {
             data={data}
             columns={columns}
             onRowClick={handleRowClick}
+            filterValue={selectedCategory}
+            index={"eventStatus"}
+            placeholder={dropdownValue[0]}
           />
         </ListSection>
       </Wrap>
