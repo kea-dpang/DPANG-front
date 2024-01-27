@@ -22,7 +22,7 @@ function RefundDetail(props) {
     setPayClick(!payClick);
   };
 
-  const data = props.data
+  const data = props.data;
   return (
     <Container>
       <DetailTableTitle

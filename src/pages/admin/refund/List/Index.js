@@ -106,7 +106,7 @@ const Index = () => {
   return (
     <>
       <Wrap>
-        <PageName className="cm-LBold30 col-Black"> 이벤트 관리</PageName>
+        <PageName className="cm-LBold30 col-Black"> 환불 관리</PageName>
         {/* 검색창, 취소 상태 필터링 박스 */}
         <FilterSection>
           {/* 취소 상태 드롭다운, 검색창*/}
