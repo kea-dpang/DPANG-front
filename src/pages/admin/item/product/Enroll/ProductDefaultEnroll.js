@@ -1,17 +1,10 @@
 import styled from "styled-components";
-import * as React from "react";
-import { useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Fab from "@mui/material/Fab";
-import PhotoIcon from "@mui/icons-material/Photo";
-import Dropdown from "components/common/Dropdown";
+import Dropdown from "@components/Dropdown";
+import InputText from "./InputText";
 
 const ProductDefaultEnroll = ({ productInfo, setProductInfo }) => {
-  const [eventname, setEventName] = useState("");
-  const [code, setCode] = useState([]);
-  const [productList, setProductList] = useState([]);
-  const [salepercent, setPercent] = useState("");
   const brand = ["브랜드를 선택해주세요", "lg생활건강", "카카오"];
   const category = [
     "카테고리를 선택해주세요",
@@ -36,13 +29,20 @@ const ProductDefaultEnroll = ({ productInfo, setProductInfo }) => {
   const handleNameChange = (e) => {
     setProductInfo((prev) => ({ ...prev, productName: e.target.value }));
   };
-
   const handlePriceChange = (e) => {
     setProductInfo((prev) => ({ ...prev, productPrice: e.target.value }));
   };
-
-  const handleStuffChange = (e) => {
+  const handleStockChange = (e) => {
     setProductInfo((prev) => ({ ...prev, stock: e.target.value }));
+  };
+  const handleCategoryChange = (e) => {
+    setProductInfo((prev) => ({ ...prev, category: e }));
+  };
+  const handleSubCateChange = (e) => {
+    setProductInfo((prev) => ({ ...prev, subCategory: e }));
+  };
+  const handleBrandChange = (e) => {
+    setProductInfo((prev) => ({ ...prev, brandName: e }));
   };
   return (
     <Wrap>
@@ -52,69 +52,36 @@ const ProductDefaultEnroll = ({ productInfo, setProductInfo }) => {
         {/* 상품명 등록 */}
         <Row>
           <p className="cm-SBold16 col-Black">상품명</p>
-          <ContentBox>
-            <TextField
-              id="name"
-              onChange={handleNameChange}
-              variant="outlined"
-              InputLabelProps={{ shrink: true }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "&.Mui-focused fieldset": {
-                    borderColor: "var(--navy)", // 포커스 시 borderColor를 원하는 색상으로 변경
-                  },
-                },
-              }}
-              placeholder="상품명을 입력해주세요"
-            />
-          </ContentBox>
+          <InputText
+            id={"name"}
+            placeholder={"상품명을 입력해주세요"}
+            onChange={handleNameChange}
+          />
         </Row>
         {/* 판매가 등록 */}
         <Row>
           <p className="cm-SBold16 col-Black">판매가</p>
-          <ContentBox>
-            <TextField
-              id="price"
-              onChange={handlePriceChange}
-              variant="outlined"
-              InputLabelProps={{ shrink: true }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "&.Mui-focused fieldset": {
-                    borderColor: "var(--navy)", // 포커스 시 borderColor를 원하는 색상으로 변경
-                  },
-                },
-              }}
-              placeholder="판매가를 입력해주세요"
-            />
-          </ContentBox>
+          <InputText
+            id={"price"}
+            placeholder={"판매가를 입력해주세요"}
+            onChange={handlePriceChange}
+          />
         </Row>
         {/* 브랜드 등록 */}
         <Row>
           <p className="cm-SBold16 col-Black">브랜드</p>
           <ContentBox>
-            {/* <TextField
-                            id="price"
-                            onChange={handlePriceChange}
-                            variant="outlined"
-                            InputLabelProps={{ shrink: true }}
-                            sx={{
-                                '& .MuiOutlinedInput-root': {
-                                    '&.Mui-focused fieldset': {
-                                        borderColor: 'var(--navy)', // 포커스 시 borderColor를 원하는 색상으로 변경
-                                    },
-                                },
-                            }}
-                            placeholder="판매가를 입력해주세요"
-                        /> */}
-            <Dropdown value={brand} />
+            <Dropdown
+              value={brand}
+              width={"100%"}
+              onChange={handleBrandChange}
+            />
           </ContentBox>
         </Row>
         {/* 카테고리 등록 */}
         <Row>
           <p className="cm-SBold16 col-Black">카테고리</p>
           <ContentBox>
-            {/* <Dropdown value={category} /> */}
             <div
               style={{
                 display: "flex",
@@ -122,30 +89,19 @@ const ProductDefaultEnroll = ({ productInfo, setProductInfo }) => {
                 gap: "1rem",
               }}
             >
-              <Dropdown value={category} />
-              <Dropdown value={sub_category} />
+              <Dropdown value={category} onChange={handleCategoryChange} />
+              <Dropdown value={sub_category} onChange={handleSubCateChange} />
             </div>
           </ContentBox>
         </Row>
         {/* 입고량 등록 */}
         <Row>
           <p className="cm-SBold16 col-Black">입고량</p>
-          <ContentBox>
-            <TextField
-              id="stuff"
-              onChange={handleStuffChange}
-              variant="outlined"
-              InputLabelProps={{ shrink: true }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "&.Mui-focused fieldset": {
-                    borderColor: "var(--navy)", // 포커스 시 borderColor를 원하는 색상으로 변경
-                  },
-                },
-              }}
-              placeholder="입고수량을 입력해주세요"
-            />
-          </ContentBox>
+          <InputText
+            id={"stock"}
+            placeholder={"입고수량을 입력해주세요"}
+            onChange={handleStockChange}
+          />
         </Row>
       </Table>
     </Wrap>
@@ -159,14 +115,6 @@ const Wrap = styled.div`
   box-sizing: border-box; // padding까지 합쳐서 width 설정하기
   padding: 0rem 10rem 6.25rem 10rem;
   flex-direction: column;
-`;
-const Section = styled.div`
-  display: flex;
-  box-sizing: border-box; // padding까지 합쳐서 width 설정하기
-  padding-top: 1rem;
-  flex-direction: column;
-  align-items: center;
-  gap: -0.0625rem;
 `;
 const ContentBox = ({ children }) => (
   <div style={{ width: "100%", margin: "1rem" }}>
@@ -206,13 +154,4 @@ const Row = styled.div`
     justify-content: center;
     text-align: center;
   }
-`;
-const Content = styled.div`
-  width: 100%;
-  margin: 1rem;
-`;
-const Submit = styled.div`
-  padding-top: 3rem;
-  display: flex;
-  justify-content: flex-end;
 `;
