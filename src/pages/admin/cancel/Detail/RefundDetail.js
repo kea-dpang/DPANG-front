@@ -2,7 +2,12 @@ import styled from "styled-components";
 
 function RefundDetail(props) {
 
-  const data = props.data[props.id];
+  //데이터의 ID를 기준으로 전달받은 ID를 가지는 item의 ID 값을 찾고, 해당 아이템을 보여준다
+  const data = props.data.find(item => {
+
+    return parseInt(props.id, 10) === item.id;
+    
+  });
   return (
     <Container>
       <Border />
