@@ -2,15 +2,18 @@ import React, { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
 
 const DataTable = ({
-  data,
+  data: initialData,
   columns,
   onRowClick,
   filterValue,
   index,
   placeholder,
 }) => {
-  // filterValue : 선택된 드롭박스 값. index: 필터링 조건 적용할 index. placeholder: 카테고리 선택 안 할 때 기본값
+  // data 상태 관리
+  const [data, setData] = useState(initialData);
   const [filteredData, setFilteredData] = useState(data);
+  const [resetCheckBox, setResetCheckBox] = useState(false); // 체크박스 리셋
+
   // 드롭박스 필터링
   useEffect(() => {
     // 선택된 드롭다운값이 placeholder일때 : 필터링 x
@@ -25,9 +28,13 @@ const DataTable = ({
   const options = {
     selectableRows: "multiple",
     onRowsDelete: (rowsDeleted) => {
-      const deletedData = rowsDeleted.data.map((d) => data[d.index]);
-      console.log("Selected rows:", deletedData);
-      return false; // prevent the default delete action
+      const idsToDelete = rowsDeleted.data.map((d) => data[d.dataIndex].id);
+      const newData = data.filter((item) => !idsToDelete.includes(item.id));
+      setData(newData); // 삭제 완료된 데이터 리스트 업데이트
+      setFilteredData(newData); // 삭제 완료된 데이터 리스트 업데이트
+      setResetCheckBox(!resetCheckBox); // 체크박스 리셋
+
+      return false; // 기본 삭제 동작 방지
     },
     onRowClick: (rowData, rowMeta) => {
       // state 값이 '답변완료'일 경우 클릭 이벤트를 무시합니다.
@@ -50,7 +57,12 @@ const DataTable = ({
 
   return (
     <div style={{ height: 400, width: "100%" }}>
-      <MUIDataTable data={filteredData} columns={columns} options={options} />
+      <MUIDataTable
+        key={resetCheckBox}
+        data={filteredData}
+        columns={columns}
+        options={options}
+      />
     </div>
   );
 };
