@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../../../components/common/UserHeaderBar/Index";
+import Header from "@components/UserHeaderBar/Index";
 import styled from "styled-components";
 import SearchResult from "./SearchResult";
 import { useLocation } from "react-router-dom";
