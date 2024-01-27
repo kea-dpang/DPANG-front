@@ -1,25 +1,11 @@
 import { React, useState } from "react";
 import styled from "styled-components";
 import ReviewData from "assets/data/user/UserProductReviewData";
-import SortButton from "../../../components/common/Sort/SortButton";
-import ButtonGroup from "@mui/material/ButtonGroup";
+import SortButton from "@components/Sort/SortButton";
 import ReviewBox from "./ReviewBox";
 
 const ProductReview = (props) => {
-  const total = 20;
-  const [selectedButton, setSelectedButton] = useState(1); // 최신순인지 평점순인지
-  let sortedReviews;
-
-  // 정렬
-  if (selectedButton === 1) {
-    // 최신순 정렬
-    sortedReviews = [...ReviewData].sort(
-      (a, b) => new Date(b.enrollDate) - new Date(a.enrollDate)
-    );
-  } else if (selectedButton === 2) {
-    // 평점순 정렬
-    sortedReviews = [...ReviewData].sort((a, b) => b.star - a.star);
-  }
+  const [sortedReviews, setSortedReviews] = useState(ReviewData);
 
   return (
     <Wrap>
@@ -27,22 +13,12 @@ const ProductReview = (props) => {
 
       {/* 리뷰 총 개수 & 정렬 */}
       <TotalSortWrap>
-        <div className="cm-SRegular18">총 {total} 개</div>
+        <div className="cm-SRegular18">총 {ReviewData.length} 개</div>
         {/* 최신순 정렬, 평점순 정렬 */}
-        <ButtonGroup variant="text" aria-label="text button group">
-          <SortButton
-            selected={selectedButton === 1}
-            onClick={() => setSelectedButton(1)}
-          >
-            최신순
-          </SortButton>
-          <SortButton
-            selected={selectedButton === 2}
-            onClick={() => setSelectedButton(2)}
-          >
-            평점순
-          </SortButton>
-        </ButtonGroup>
+        <SortButton
+          reviewData={ReviewData}
+          setSortedReviews={setSortedReviews}
+        />
       </TotalSortWrap>
 
       {/* 리뷰 내용 리스트 */}
