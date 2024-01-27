@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
-import { askManageData } from "../../assets/data/admin/AdminAskData";
 
-const DataTable = ({ data, columns, onRowClick }) => {
-  console.log(data);
+const DataTable = ({
+  data,
+  columns,
+  onRowClick,
+  filterValue,
+  index,
+  placeholder,
+}) => {
+  // filterValue : 선택된 드롭박스 값. index: 필터링 조건 적용할 index. placeholder: 카테고리 선택 안 할 때 기본값
+  const [filteredData, setFilteredData] = useState(data);
+  // 드롭박스 필터링
+  useEffect(() => {
+    // 선택된 드롭다운값이 placeholder일때 : 필터링 x
+    if (filterValue === placeholder) {
+      setFilteredData(data);
+    } else {
+      const filtered = data.filter((item) => item[index] === filterValue);
+      setFilteredData(filtered); // 필터링된 데이터로 상태 업데이트
+    }
+  }, [data, filterValue, index]);
 
   const options = {
     selectableRows: "multiple",
@@ -33,7 +50,7 @@ const DataTable = ({ data, columns, onRowClick }) => {
 
   return (
     <div style={{ height: 400, width: "100%" }}>
-      <MUIDataTable data={data} columns={columns} options={options} />
+      <MUIDataTable data={filteredData} columns={columns} options={options} />
     </div>
   );
 };

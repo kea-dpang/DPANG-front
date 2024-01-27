@@ -9,6 +9,7 @@ const Category = (props) => {
 
   const handleValue = (e) => {
     setSelected(e.target.value);
+    props.onChange(e.target.value);
   };
 
   return (

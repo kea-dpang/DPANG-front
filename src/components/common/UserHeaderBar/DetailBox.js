@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const DetailedBox = styled.div`
   width: 11rem;
@@ -8,42 +8,30 @@ const DetailedBox = styled.div`
 `;
 
 const Title = styled.p`
-
-margin-bottom: 1rem;
-
-
-`
+  margin-bottom: 1rem;
+`;
 const SubCategoty = styled.p`
+  font-size: 14px;
+  margin-bottom: 12px;
 
-font-size: 14px;
-margin-bottom: 12px;
+  &:hover {
+    color: var(--orange);
+  }
+`;
 
-&:hover { 
-  color: var(--orange);
- }
+function DetailBox(props) {
+  return (
+    <DetailedBox>
+      <Title className="cm-SBold18">{props.content.title} &gt; </Title>
 
-`
-
-function DetailBox(props){
-
-    return(
-
-        <DetailedBox>
-           <Title className="cm-SBold18">{props.content.title} &gt; </Title>
-
-           {props.content.content.map((a) => {
-
-            return(
-            <SubCategoty className="cm-SRegular16 ">{a}</SubCategoty>
-
-            )
-
-           })}
-           
-        </DetailedBox>
-
-
-    )
-
+      {props.content.content.map((subcategory) => {
+        return (
+          <SubCategoty key={subcategory} className="cm-SRegular16 ">
+            {subcategory}
+          </SubCategoty>
+        );
+      })}
+    </DetailedBox>
+  );
 }
 export default DetailBox;
