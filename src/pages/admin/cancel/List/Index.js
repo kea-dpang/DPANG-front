@@ -7,24 +7,28 @@ import SearchIcon from "@mui/icons-material/Search";
 import Dropdown from "components/common/Dropdown";
 import DataTable from "components/common/AdminDataTable";
 import data from "assets/data/admin/AdminCancelData";
+import {useState} from 'react'
 import { useNavigate } from "react-router-dom";
 
 const Index = () => {
   const navigate = useNavigate();
   //  상태 저장 : 예정, 진행, 종료
   const [index, setIndex] = React.useState("");
-  const dropdownValue = ["취소 상태", "취소 요청", "취소 완료"];
+  //필터링을 해줄 dropdown 박스의 값. 첫 값은 이름, 뒤에 두 값은 필터링에 들어갈 value
+  const dropdownValue = ["취소 상태", "취소요청", "취소승인"];
   const columns = [
     
     { name: "id", label: "번호", options: { sort: false } },
     {
-      name: "orderinfo",
+      name: "id",
       label: "결제일 | 주문번호",
       options: {
         sort: false,
         customBodyRender: (value, tableMeta) => {
 
-          const rowData = data[tableMeta.rowIndex];
+          //ID를 기준으로 데이터 찾기
+          const rowData = data.find(row => row.id === value);
+          //날짜와 주문 번호를 가져옴
           const date = rowData['date'];
           const ordernum = rowData['ordernum'];
 
@@ -38,16 +42,17 @@ const Index = () => {
       },
     },
     { name: "name", label: "이름"},
-    { name: "iteminfo", label: "상품 정보", options: { sort: false, customBodyRender: (value, tableMeta)=>{
+    { name: "id", label: "상품 정보", options: { sort: false, customBodyRender: (value, tableMeta)=>{
 
 
-
-      const rowData = data[tableMeta.rowIndex];
+      //ID를 기준으로 데이터 가져옴
+      const rowData = data.find(row => row.id === value);
       const img = rowData['itemImg'];
       const name = rowData['itemName'];
 
       return (
 
+        //이미지와 상품명 표시
         <div style={{display: "flex", height: "6rem", alignItems: "center"}}>
           <img style={{width: "5rem"}} src = {img} />
           <p>{name}</p>
@@ -67,6 +72,7 @@ const Index = () => {
       options: {
         sort: false,
         customBodyRender: (value) => {
+          //상태에 따라 다른 색
           let color;
           if (value === "취소승인") {
             color = "var(--navy)";
@@ -79,11 +85,12 @@ const Index = () => {
       },
     },
 
-    { name: "statusreview", label: "상태 관리하기", options: {customBodyRender: (value, tableMeta) => {
+    { name: "id", label: "상태 관리하기", options: {customBodyRender: (value, tableMeta) => {
 
-      const rowData = data[tableMeta.rowIndex];
+      const rowData = data.find(row => row.id === value);
       const val = rowData['status'];
 
+      //취소 요청인 경우에만 버튼 보여준다
       return val === '취소요청' ? <Button>승인</Button> : null;
 
     } },
@@ -92,27 +99,29 @@ const Index = () => {
   ];
   const handleRowClick = (rowData) => {
 
+    //ID값 전달 위해 url에 ID값 추가
     navigate(`/admin/cancel/${rowData[0]}`)
 
   };
 
-  const handleChange = (event) => {
-    setIndex(event.target.value);
+  //선택한 드롭 박스의 값을 저장하기 위한 state 변수
+  const [selectedCategory, setSelectedCategory] = useState(dropdownValue[0]);
+  const handleCategoryChange = (newCategory) => {
+    //드롭다운 박스에서 가져온 값으로 카테고리를 설정
+    setSelectedCategory(newCategory);
   };
-  const handleAddBtn = () => {
-    console.log("추가");
-  };
+
 
   return (
     <>
       <Wrap>
         <PageName className="cm-LBold30 col-Black"> 이벤트 관리</PageName>
-        {/* 검색창, 추가하기 버튼, 삭제 버튼, 조회기간 필터링 박스 */}
+        {/* 검색창, 취소 상태 필터링 박스 */}
         <FilterSection>
-          {/* 이벤트 상태 드롭다운, 검색창*/}
+          {/* 취소 상태 드롭다운, 검색창*/}
           <SearchWrap>
             {/* 카테고리 선택 드롭다운*/}
-            <Dropdown value={dropdownValue} width={"10rem"} />
+            <Dropdown value={dropdownValue} width={"10rem"} onChange={handleCategoryChange}/>
             {/* 검색창 */}
             <Paper
               component="form"
@@ -138,10 +147,14 @@ const Index = () => {
           </SearchWrap>
         </FilterSection>
         <ListSection>
+          {/* 공용 컴포넌트 호출 */}
           <DataTable
             data={data}
             columns={columns}
             onRowClick={handleRowClick}
+            filterValue={selectedCategory}
+            index={"status"}
+            placeholder={dropdownValue[0]}
           />
         </ListSection>
       </Wrap>
