@@ -8,7 +8,6 @@ import { useForm } from "react-hook-form";
 const EnrollPage = () => {
   //////////////////////////////////
   const {
-    control,
     register,
     handleSubmit,
     formState: { errors },
