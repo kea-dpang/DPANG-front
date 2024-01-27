@@ -9,7 +9,7 @@ const List = [
     date: "2023.11.13",
     ordernum: 112232,
     itemImg: img,
-    itemName: "한국시리즈 후드 105",
+    itemName: "한국시리즈 후드 105zzz",
     itemMoney: 160000,
     refund: 160000,
     amt: 2,
