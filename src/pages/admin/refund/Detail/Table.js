@@ -16,7 +16,7 @@ const Index = (props) => {
           <Col width="10rem">상품금액/수량</Col>
           <Col width="10rem">예상 환불액</Col>
         </Table>
-        <TableRow data={props.data} id={props.id}/>
+        <TableRow data={props.data} />
       </TableBox>
     </Wrap>
   );
