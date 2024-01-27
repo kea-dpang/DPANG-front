@@ -56,7 +56,7 @@ const DataTable = ({
   };
 
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ height: 400, width: "100%" }}>
       <MUIDataTable
         key={resetCheckBox}
         data={filteredData}
