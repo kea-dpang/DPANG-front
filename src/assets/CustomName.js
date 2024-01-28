@@ -10,22 +10,30 @@ export const customStatusName = (status) => {
   }
 };
 /* [문의] 상품, 회원정보, 상품확인, 배송, 교환/취소, 기타 */
-export const customCategoryName = (category) => {
-  switch (category) {
-    case "ITEM_INQUIRY":
-      return "상품 문의";
-    case "MEMBER_INFORMATION":
-      return "회원 정보 문의";
-    case "DELIVERY":
-      return "배송 문의";
-    case "EXCHANGE_CANCELLATION":
-      return "교환/취소 문의";
-    case "ETC":
-      return "기타 문의";
-    default:
-      return "상태 미정";
+export const customCategoryName = (category, isReverse) => {
+  const map = {
+    ITEM_INQUIRY: "상품 문의",
+    MEMBER_INFORMATION: "회원 정보 문의",
+    DELIVERY: "배송 문의",
+    EXCHANGE_CANCELLATION: "교환/취소 문의",
+    ETC: "기타 문의",
+  };
+
+  const reverseMap = {
+    "상품 문의": "ITEM_INQUIRY",
+    "회원 정보 문의": "MEMBER_INFORMATION",
+    "배송 문의": "DELIVERY",
+    "교환/취소 문의": "EXCHANGE_CANCELLATION",
+    "기타 문의": "ETC",
+  };
+
+  if (isReverse) {
+    return reverseMap[category] || "UNKNOWN_STATUS";
+  } else {
+    return map[category] || "상태 미정";
   }
 };
+
 /* 2024-01-28T02:58:56.773782 -> 2024.01.28 */
 export const customDate = (createdAt) => {
   const date = new Date(createdAt);

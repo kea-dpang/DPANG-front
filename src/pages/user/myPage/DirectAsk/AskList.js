@@ -49,7 +49,7 @@ const AskList = () => {
 
       <Main>
         {askDataList.map((item, index) => (
-          <Row key={index} to={`${item.askId}`}>
+          <Row key={index} to={`${item.qnaId}`}>
             <Item width={colWidths[0]}>{item.createdAt}</Item>
             <Item width={colWidths[1]}>{item.category}</Item>
             <Item width={colWidths[2]}>{item.title}</Item>

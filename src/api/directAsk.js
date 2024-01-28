@@ -25,7 +25,7 @@ export const GET_QnAList = async (userId) => {
   });
   // 커스텀
   res.data.data.content = res.data.data.content.map((item) => {
-    item.category = customCategoryName(item.category);
+    item.category = customCategoryName(item.category, false);
     item.status = customStatusName(item.status);
     item.createdAt = customDate(item.createdAt);
     return item;
@@ -41,7 +41,7 @@ export const GET_QnA = async (QnAId) => {
   });
   // 커스텀
   const custom = res.data.data;
-  custom.category = customCategoryName(res.data.data.category);
+  custom.category = customCategoryName(res.data.data.category, false);
   custom.createdAt = customDate(res.data.data.createdAt);
   custom.status = customStatusName(res.data.data.status);
   return res.data;
@@ -55,6 +55,41 @@ export const PUT_Answer = async (QnAId, answer) => {
     data: {
       responderId: 2,
       answer: answer,
+    },
+  });
+  return res.data;
+};
+
+export const POST_Question = async (data) => {
+  data.category = customCategoryName(data.category, true);
+
+  const res = await axios({
+    method: "post",
+    url: url,
+    data: {
+      userId: 0,
+      category: data.category,
+      itemId: 0,
+      title: data.askTitle,
+      content: data.askContent,
+      imageUrl: "",
+    },
+  });
+  return res.data;
+};
+
+export const PUT_Question = async (qnaId, data) => {
+  data.category = customCategoryName(data.category, true);
+  console.log("33323232", data);
+  const res = await axios({
+    method: "put",
+    url: `${url}/${qnaId}`,
+    data: {
+      itemId: 0,
+      title: data.askTitle,
+      category: data.category,
+      question: data.askCotent,
+      attachmentUrl: "",
     },
   });
   return res.data;
