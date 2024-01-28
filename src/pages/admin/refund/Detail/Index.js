@@ -3,13 +3,21 @@ import * as React from "react";
 import { useState } from "react";
 import "../../../../styles/fonts.css";
 import Table from "./Table";
-import data from "../../../../assets/data/admin/AdminRefundData";
+import Data from "../../../../assets/data/admin/AdminRefundData";
 import { useParams } from "react-router-dom";
 import RefundDetail from "./RefundDetail";
 
 const Index = () => {
   const { id } = useParams();
-  console.log(id);
+
+
+  //ID를 기준으로 표시해야 될 데이터를 찾는다
+  const data = Data.find(item => {
+
+    return parseInt(id, 10) === item.id;
+    
+  });
+
 
   return (
     <>
@@ -21,8 +29,8 @@ const Index = () => {
         </PageSubName>
 
         <InputSection>
-          <Table data={data} id={id} />
-          <RefundDetail data={data} id={id} />
+          <Table data={data} />
+          <RefundDetail data={data} />
         </InputSection>
       </Wrap>
     </>

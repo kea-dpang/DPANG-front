@@ -1,6 +1,18 @@
 {
   "compilerOptions": {
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "paths": {
+      "@api/*": ["api/*"],
+      "@data/*": ["assets/data/*"],
+      "@fonts/*": ["assets/fonts/*"],
+      "@images/*": ["assets/images/*"],
+      "@components/*": ["components/common/*"],
+      "@adminPages/*": ["pages/admin/*"],
+      "@userPages/*": ["pages/user/*"],
+      "@userRoutes/*": ["routes/UserRoutes"],
+      "@adminRoutes": ["routes/AdminRoutes"],
+      "@styles/*": ["styles/*"]
+    }
   },
-  "includes": ["src"]
+  "include": ["src"]
 }

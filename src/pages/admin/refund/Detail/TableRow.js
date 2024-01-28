@@ -36,7 +36,7 @@ function TableRow(props) {
 
   console.log(props.id)
 
-  const data = props.data[props.id];
+  const data = props.data
 
   return (
     <Row className="cm-SRegular16">

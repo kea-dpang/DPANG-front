@@ -34,18 +34,18 @@ const ProductAskList = () => {
 
       <Main>
         {askLists.map((item, index) => (
-          <>
-            <Row key={index} onClick={() => handleRowClick(index)}>
-              <Item width={colWidths[0]} state="not">
+          <React.Fragment key={item.askId}>
+            <Row onClick={() => handleRowClick(index)}>
+              <Item width={colWidths[0]} $state="not">
                 {item.title}
               </Item>
-              <Item width={colWidths[1]} state="not">
+              <Item width={colWidths[1]} $state="not">
                 {item.userName}
               </Item>
-              <Item width={colWidths[2]} state="not">
+              <Item width={colWidths[2]} $state="not">
                 {item.date}
               </Item>
-              <Item width={colWidths[3]} state={item.askState}>
+              <Item width={colWidths[3]} $state={item.askState}>
                 {item.askState}
               </Item>
             </Row>
@@ -63,7 +63,7 @@ const ProductAskList = () => {
                 )}
               </FoldItem>
             )}
-          </>
+          </React.Fragment>
         ))}
       </Main>
     </Table>
@@ -107,9 +107,9 @@ const Row = styled.button`
 const Item = styled.div`
   width: ${(props) => props.width};
   color: ${(props) =>
-    props.state === "not"
+    props.$state === "not"
       ? "var(--black)"
-      : props.state === "답변 완료"
+      : props.$state === "답변 완료"
       ? "var(--orange)"
       : "var(--semi-light-grey)"}; // askState에 따라 글자색 변경
 `;

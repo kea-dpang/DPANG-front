@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import FilterSideBar from "./FilterSideBar";
-import ItemData from "../../../assets/data/user/ItemData";
-import Item from "../../../components/common/ProductCard/Index";
+import ItemData from "@data/user/ItemData";
+import Item from "@components/ProductCard/Index";
 
 const SearchResult = (props) => {
   const total = 19; //TODO: 검색결과 api에서 가져오기

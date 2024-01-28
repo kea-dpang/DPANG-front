@@ -3,12 +3,13 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 // 드롭다운박스 props - data값, width
-const Category = (props) => {
+const Dropdown = (props) => {
   // 선택된 값
   const [selected, setSelected] = useState("");
 
   const handleValue = (e) => {
     setSelected(e.target.value);
+    props.onChange(e.target.value);
   };
 
   return (
@@ -51,4 +52,4 @@ const Category = (props) => {
   );
 };
 
-export default Category;
+export default Dropdown;

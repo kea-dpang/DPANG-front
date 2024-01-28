@@ -67,8 +67,7 @@ const Modal = ({ setIsModalOpen }) => {
                 InputLabelProps={{ shrink: true }}
                 InputProps={{ style: { whiteSpace: "pre-line" } }}
                 multiline
-                maxRows={6}
-                rows={6}
+                minRows={4}
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "&.Mui-focused fieldset": { borderColor: "var(--navy)" },

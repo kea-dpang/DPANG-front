@@ -1,16 +1,50 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
-import { askManageData } from "../../assets/data/admin/AdminAskData";
 
-const DataTable = ({ data, columns, onRowClick }) => {
-  console.log(data);
+const DataTable = ({
+  data: initialData,
+  columns,
+  onRowClick,
+  onRowsDelete,
+  filterValue,
+  index,
+  placeholder,
+}) => {
+  // data 상태 관리
+  const [data, setData] = useState(initialData);
+  const [filteredData, setFilteredData] = useState(data);
+  const [resetCheckBox, setResetCheckBox] = useState(false); // 체크박스 리셋
+
+  // 드롭박스 필터링
+  useEffect(() => {
+    // 선택된 드롭다운값이 placeholder일때 : 필터링 x
+    if (filterValue === placeholder) {
+      setFilteredData(data);
+    } else {
+      const filtered = data.filter((item) => item[index] === filterValue);
+      setFilteredData(filtered); // 필터링된 데이터로 상태 업데이트
+    }
+  }, [data, filterValue, index]);
 
   const options = {
     selectableRows: "multiple",
     onRowsDelete: (rowsDeleted) => {
-      const deletedData = rowsDeleted.data.map((d) => data[d.index]);
-      console.log("Selected rows:", deletedData);
-      return false; // prevent the default delete action
+      console.log("rowsDeleted: ", rowsDeleted);
+      const idsToDelete = rowsDeleted.data.map((d) => data[d.dataIndex].id);
+      const newData = data.filter((item) => !idsToDelete.includes(item.id));
+      setData(newData); // 삭제 완료된 데이터 리스트 업데이트
+      setFilteredData(newData); // 삭제 완료된 데이터 리스트 업데이트
+      setResetCheckBox(!resetCheckBox); // 체크박스 리셋
+      const rowsDeletedUpdated = {
+        ...rowsDeleted,
+        data: rowsDeleted.data.map((d) => ({
+          ...d,
+          dataIndex: filteredData[d.dataIndex][columns[0].name],
+        })),
+      };
+
+      onRowsDelete(rowsDeletedUpdated);
+      return false; // 기본 삭제 동작 방지
     },
     onRowClick: (rowData, rowMeta) => {
       // state 값이 '답변완료'일 경우 클릭 이벤트를 무시합니다.
@@ -33,7 +67,12 @@ const DataTable = ({ data, columns, onRowClick }) => {
 
   return (
     <div style={{ height: 400, width: "100%" }}>
-      <MUIDataTable data={data} columns={columns} options={options} />
+      <MUIDataTable
+        key={resetCheckBox}
+        data={filteredData}
+        columns={columns}
+        options={options}
+      />
     </div>
   );
 };

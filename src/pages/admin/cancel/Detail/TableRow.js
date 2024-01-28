@@ -33,9 +33,15 @@ const Column = styled.div`
 
 function TableRow(props) {
 
-  console.log(props.id)
+//ID를 기준으로 데이터 찾기
+  const data = props.data.find(item => {
 
-  const data = props.data[props.id];
+    return parseInt(props.id, 10) === item.id;
+
+  });
+
+  console.log("data:", data);
+
 
   return (
     <Row className="cm-SRegular16">
