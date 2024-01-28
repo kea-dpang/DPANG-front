@@ -4,63 +4,77 @@ import "@styles/fonts.css";
 import InputText from "@adminPages/item/product/Enroll/InputText";
 import dayjs from "dayjs";
 import EventDate from "@adminPages/eventPage/Enroll/EventDate";
+import { POST_Brand } from "@api/Brand";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
+  const navi = useNavigate();
   const [isFormValid, setFormValid] = useState(false); // 입력값 다 입력했는지 판단
-  const [storename, setStoreName] = useState("");
-  const [storenumber, setStoreNumber] = useState("");
-  const [storeemployee, setStoreEmployee] = useState("");
-  const [storedirector, setStoreDirector] = useState("");
-  const [finishdate, setFinishDate] = useState(dayjs());
-  const [etc, setEtc] = useState("");
+  const [inputValue, setInputValue] = useState({
+    name: "",
+    phone: "",
+    sellerStaff: "",
+    manager: "",
+    expiryDate: dayjs(),
+    note: "",
+  });
   // 입력필드에 다 안찼으면 등록버튼 비활성화
   useEffect(() => {
     if (
-      storename !== "" &&
-      storenumber !== "" &&
-      storeemployee !== "" &&
-      storedirector !== "" &&
-      finishdate !== "" &&
-      etc !== ""
+      inputValue.name !== "" &&
+      inputValue.phone !== "" &&
+      inputValue.sellerStaff !== "" &&
+      inputValue.manager !== "" &&
+      inputValue.expiryDate !== "" &&
+      inputValue.note !== ""
     ) {
       setFormValid(true);
     } else {
       setFormValid(false);
     }
-  }, [storename, storenumber, etc, storeemployee, storedirector, finishdate]);
+  }, [
+    inputValue.name,
+    inputValue.phone,
+    inputValue.note,
+    inputValue.sellerStaff,
+    inputValue.manager,
+    inputValue.expiryDate,
+  ]);
 
   // 판매처명 변경 감지
   const handleNameChange = (e) => {
-    setStoreName(e.target.value);
+    setInputValue({ ...inputValue, name: e.target.value });
   };
   // 판매처 연락처 변경 감지
   const handleNumberChange = (e) => {
-    setStoreNumber(e.target.value);
+    setInputValue({ ...inputValue, phone: e.target.value });
   };
   //판매처 담당 직원 변경 감지
   const handleEmployeeChange = (e) => {
-    setStoreEmployee(e.target.value);
+    setInputValue({ ...inputValue, sellerStaff: e.target.value });
   };
   //담당자 변경 감지
   const handleDirectorChange = (e) => {
-    setStoreDirector(e.target.value);
+    setInputValue({ ...inputValue, manager: e.target.value });
   };
   // 계약 종료일 변경 감지
   const handleDateChange = (date, details) => {
-    setFinishDate(date);
-    console.log(date);
+    setInputValue({ ...inputValue, expiryDate: date });
   };
-  const handleEtcChange = (e) => {
-    setEtc(e.target.value);
+  const handlenoteChange = (e) => {
+    setInputValue({ ...inputValue, note: e.target.value });
   };
 
   // 등록 버튼 : 판매처명, 판매처 연락처, 판매처 담당 직원,, 담당자, 계약 만료일 정보 저장
   const handleSubmit = () => {
-    console.log("판매처명: ", storename);
-    console.log("판매처 연락처", storenumber);
-    console.log("판매처 담당 직원", storeemployee);
-    console.log("담당자", storedirector);
-    console.log("계약 만료일", finishdate);
+    POST_Brand(inputValue)
+      .then((data) => {
+        console.log("브랜드 등록", data.data);
+        navi(`/admin/brand`);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -71,7 +85,7 @@ const Index = () => {
           <Row>
             <p className="cm-SBold16 col-Black">판매처명</p>
             <InputText
-              id={"storename"}
+              id={"name"}
               placeholder={"판매처를 입력해주세요"}
               onChange={handleNameChange}
             />
@@ -81,7 +95,7 @@ const Index = () => {
           <Row>
             <p className="cm-SBold16 col-Black">판매처 연락처</p>
             <InputText
-              id={"storenumber"}
+              id={"phone"}
               placeholder={"판매처 연락처를 입력해주세요"}
               onChange={handleNumberChange}
             />
@@ -93,7 +107,7 @@ const Index = () => {
               판매처 담당 직원
             </p>
             <InputText
-              id={"storeemployee"}
+              id={"sellerStaff"}
               placeholder={"판매처 담당 직원"}
               onChange={handleEmployeeChange}
             />
@@ -101,7 +115,7 @@ const Index = () => {
               담당자
             </p>
             <InputText
-              id={"storedirector"}
+              id={"manager"}
               placeholder={"자사 담당자"}
               onChange={handleDirectorChange}
             />
@@ -112,7 +126,7 @@ const Index = () => {
             <p className="cm-SBold16 col-Black">계약 종료일</p>
             <EventDate
               label="계약 종료일"
-              date={finishdate}
+              date={inputValue.expiryDate}
               onChange={handleDateChange}
             />
           </Row>
@@ -121,9 +135,9 @@ const Index = () => {
           <Row>
             <p className="cm-SBold16 col-Black">비고</p>
             <InputText
-              id={"etc"}
+              id={"note"}
               placeholder={"비고"}
-              onChange={handleEtcChange}
+              onChange={handlenoteChange}
             />
           </Row>
         </Table>

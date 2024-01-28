@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
-const InputText = ({ id, placeholder, onChange }) => {
+const InputEdit = ({ value, id, placeholder, onChange }) => {
   return (
     <Wrap>
       <Box
@@ -16,6 +16,7 @@ const InputText = ({ id, placeholder, onChange }) => {
         autoComplete="off"
       >
         <TextField
+          value={value}
           id={id}
           onChange={onChange}
           variant="outlined"
@@ -34,7 +35,7 @@ const InputText = ({ id, placeholder, onChange }) => {
   );
 };
 
-export default InputText;
+export default InputEdit;
 
 const Wrap = styled.div`
   width: 100%;

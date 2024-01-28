@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import * as React from "react";
-import { useState } from "react";
-import "../../../../../styles/fonts.css";
+import React from "react";
+import "@styles/fonts.css";
 import EditStorePage from "./EditStore";
 import { useParams } from "react-router-dom";
 
-// 상품 이벤트 수정 index 페이지
+// 판매처정보 수정 index 페이지
 const Index = () => {
   const { id } = useParams(); // URL에서 id 가져오기
 
@@ -15,7 +14,7 @@ const Index = () => {
         <PageName className="cm-LBold30 col-Black"> 상품 관리</PageName>
         <PageSubName className="cm-MBold24 col-Navy"> 판매처 수정</PageSubName>
 
-        {/* 이벤트 내용 수정하는 공간 */}
+        {/* 판매처 정보 수정하는 공간 */}
         <InputSection>
           <EditStorePage id={id} />
         </InputSection>

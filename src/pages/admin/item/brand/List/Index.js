@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
@@ -7,23 +7,49 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Dropdown from "@components/Dropdown";
 import DataTable from "@components/AdminDataTable";
-import adminStoreData from "@data/admin/AdminStoreData";
+import { GET_BrandList, DELETE_Brand } from "@api/Brand";
 
 // 상품 등록 관리자 페이지
 const Index = () => {
   // 테이블 column
   const columns = [
     { name: "id", label: "판매처 ID", options: { sort: false } },
-    { name: "storename", label: "판매처명" },
-    { name: "storenumber", label: "판매자 연락처" },
-    { name: "storeemployee", label: "판매처 담당 직원" },
-    { name: "storedirector", label: "자사 담당자" },
-    { name: "finishdate", label: "계약 만료일" },
+    { name: "name", label: "판매처명" },
+    { name: "phone", label: "판매자 연락처" },
+    { name: "sellerStaff", label: "판매처 담당 직원" },
+    { name: "manager", label: "자사 담당자" },
+    { name: "expiryDate", label: "계약 만료일" },
   ];
-  const dropdownValue = [
-    "브랜드를 선택해주세요",
-    ...new Set(adminStoreData.map((item) => item.storename)),
-  ];
+  const [dropdownValue, setDropdownValue] = useState(["브랜드를 선택해주세요"]);
+  const [brand, setBrand] = useState([]);
+  useEffect(() => {
+    GET_BrandList()
+      .then((data) => {
+        setBrand(data.data.content);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const handleRowsDelete = (rowsDeleted) => {
+    const dataIndexArray = rowsDeleted.data.map((item) => item.dataIndex);
+    DELETE_Brand(dataIndexArray)
+      .then((data) => {
+        console.log("브랜드 삭제");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    console.log("삭제: ", rowsDeleted);
+  };
+
+  useEffect(() => {
+    setDropdownValue([
+      "브랜드를 선택해주세요",
+      ...new Set(brand.map((item) => item.name)),
+    ]);
+  }, [brand]);
 
   const navigate = useNavigate();
   /* 선택된 행은 상세정보로 이동 */
@@ -33,7 +59,7 @@ const Index = () => {
   const handleAddBtn = () => {
     navigate("/admin/brand/enroll");
   };
-  // 선택된 카테고리 상태
+  // 선택된 브랜드 상태
   const [selectedDropValue, setSelectedDropValue] = useState(dropdownValue[0]);
   const handleDropChange = (newDropValue) => {
     setSelectedDropValue(newDropValue);
@@ -84,14 +110,17 @@ const Index = () => {
         </FilterSection>
         {/* 이벤트 목록 */}
         <ListSection>
-          <DataTable
-            data={adminStoreData}
-            columns={columns}
-            onRowClick={handleRowClick}
-            filterValue={selectedDropValue}
-            index={"storename"}
-            placeholder={dropdownValue[0]}
-          />
+          {brand.length > 0 && (
+            <DataTable
+              data={brand}
+              columns={columns}
+              onRowClick={handleRowClick}
+              onRowsDelete={handleRowsDelete}
+              filterValue={selectedDropValue}
+              index={"name"}
+              placeholder={dropdownValue[0]}
+            />
+          )}
         </ListSection>
       </Wrap>
     </>

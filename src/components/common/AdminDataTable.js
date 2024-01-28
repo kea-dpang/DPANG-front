@@ -5,6 +5,7 @@ const DataTable = ({
   data: initialData,
   columns,
   onRowClick,
+  onRowsDelete,
   filterValue,
   index,
   placeholder,
@@ -28,12 +29,21 @@ const DataTable = ({
   const options = {
     selectableRows: "multiple",
     onRowsDelete: (rowsDeleted) => {
+      console.log("rowsDeleted: ", rowsDeleted);
       const idsToDelete = rowsDeleted.data.map((d) => data[d.dataIndex].id);
       const newData = data.filter((item) => !idsToDelete.includes(item.id));
       setData(newData); // 삭제 완료된 데이터 리스트 업데이트
       setFilteredData(newData); // 삭제 완료된 데이터 리스트 업데이트
       setResetCheckBox(!resetCheckBox); // 체크박스 리셋
+      const rowsDeletedUpdated = {
+        ...rowsDeleted,
+        data: rowsDeleted.data.map((d) => ({
+          ...d,
+          dataIndex: filteredData[d.dataIndex][columns[0].name],
+        })),
+      };
 
+      onRowsDelete(rowsDeletedUpdated);
       return false; // 기본 삭제 동작 방지
     },
     onRowClick: (rowData, rowMeta) => {
