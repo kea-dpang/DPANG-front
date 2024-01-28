@@ -8,7 +8,7 @@ import Box from "@mui/material/Box";
 import "../../../styles/fonts.css";
 
 const CartList = () => {
-  const [brandSelection, setBrandSelection] = useState({});
+  const [brandSelection, setBrandSelection] = useState(true);
 
   const handleBrandSelection = (brand, selected) => {
     setBrandSelection((prevState) => ({
@@ -16,7 +16,9 @@ const CartList = () => {
       [brand]: selected,
     }));
   };
+  
 
+  
   const BrandPrice = (brand) => {
     let totalPrice = 0;
     TempItemData.filter(
