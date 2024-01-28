@@ -89,7 +89,7 @@ const AdminStoreData = [
   },
   {
     id: 12,
-    storename: "LG전자",
+    storename: "카카오",
     storenumber: "02-6412-4943",
     storeemployee: "라이언",
     storedirector: "무지",
@@ -97,7 +97,7 @@ const AdminStoreData = [
   },
   {
     id: 13,
-    storename: "LG전자",
+    storename: "태광",
     storenumber: "02-6412-4943",
     storeemployee: "라이언",
     storedirector: "무지",
@@ -105,7 +105,7 @@ const AdminStoreData = [
   },
   {
     id: 14,
-    storename: "LG전자",
+    storename: "삼성",
     storenumber: "02-6412-4943",
     storeemployee: "라이언",
     storedirector: "무지",

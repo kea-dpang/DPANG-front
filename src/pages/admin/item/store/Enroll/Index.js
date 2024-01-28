@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import * as React from "react";
-import "../../../../../styles/fonts.css";
-import EnrollStorePage from "./EnrollStore";
+import React from "react";
+import "@styles/fonts.css";
+import EnrollStorePage from "./StoreEnroll";
 
 // 판매처 등록 index 페이지
 const Index = () => {
@@ -10,7 +10,7 @@ const Index = () => {
       <Wrap>
         <PageName className="cm-LBold30 col-Black"> 상품 관리</PageName>
         <PageSubName className="cm-MBold24 col-Navy"> 판매처 등록</PageSubName>
-        {/* 이벤트 내용 입력하는 공간 */}
+        {/* 내용 입력하는 공간 */}
         <InputSection>
           <EnrollStorePage />
         </InputSection>
