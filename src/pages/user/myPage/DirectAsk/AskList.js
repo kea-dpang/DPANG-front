@@ -18,23 +18,23 @@ const AskList = () => {
   useEffect(() => {
     GET_QnAList() // 나중에 userId 값 넣어서 보내기
       .then((data) => {
-        setAskDataList(data.data.content);
+        /* 원본 리스트 데이터를 날짜 필터링 하기 */
+        let filteredData = data.data.content; //기간 설정 없을 때는 필터링 X
+        if (period.startDate && period.endDate) {
+          //기간 설정이 있을 때만 필터링 걸기
+          filteredData = data.data.content.filter((item) => {
+            const createdAt = new Date(item.createdAt);
+            const startDate = new Date(period.startDate);
+            const endDate = new Date(period.endDate);
+
+            return startDate <= createdAt && createdAt <= endDate;
+          });
+        }
+        setAskDataList(filteredData);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
-
-  /* 원본 리스트 데이터를 날짜 필터링 하기 */
-  useEffect(() => {
-    const filteredData = askDataList.filter((item) => {
-      const createdAt = new Date(item.createdAt);
-      const startDate = new Date(period.startDate);
-      const endDate = new Date(period.endDate);
-
-      return startDate <= createdAt && createdAt <= endDate;
-    });
-    setAskDataList(filteredData);
   }, [period]);
 
   return (
