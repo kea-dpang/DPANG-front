@@ -1,4 +1,7 @@
-import { customCategoryName, customStatusName } from "../CustomName";
+import {
+  customCategoryName,
+  customStatusName,
+} from "../../../../assets/CustomName";
 
 /* 데이터 테이블 columns 값 */
 export const AskColumns = (askDataList) => [
@@ -10,8 +13,8 @@ export const AskColumns = (askDataList) => [
       sort: true,
       customBodyRenderLite: (dataIndex) => {
         const item = askDataList[dataIndex];
-        const customCategory = customCategoryName(item.category);
-        return <div>{customCategory}</div>;
+        // const customCategory = customCategoryName(item.category);
+        return <div>{item.category}</div>;
       },
     },
   },
@@ -23,15 +26,15 @@ export const AskColumns = (askDataList) => [
       sort: true,
       customBodyRenderLite: (dataIndex) => {
         const item = askDataList[dataIndex];
-        const customStatus = customStatusName(item.status);
+        // const customStatus = customStatusName(item.status);
         return (
           <div
             style={{
               color:
-                customStatus === "답변 대기" ? "var(--orange)" : "var(--black)",
+                item.status === "답변 대기" ? "var(--orange)" : "var(--black)",
             }}
           >
-            {customStatus}
+            {item.status}
           </div>
         );
       },

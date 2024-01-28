@@ -10,7 +10,7 @@ import {
   customCategoryName,
   customDate,
   customStatusName,
-} from "../CustomName";
+} from "../../../../assets/CustomName";
 
 /* 답변 등록 & 문의 조회 */
 const EnrollPage = () => {
@@ -21,10 +21,6 @@ const EnrollPage = () => {
     GET_QnA(params)
       .then((data) => {
         console.log("값:", data.data);
-        // 커스텀
-        data.data.category = customCategoryName(data.data.category);
-        data.data.createdAt = customDate(data.data.createdAt);
-        data.data.status = customStatusName(data.data.status);
         setAskData(data.data);
       })
       .catch((error) => {
