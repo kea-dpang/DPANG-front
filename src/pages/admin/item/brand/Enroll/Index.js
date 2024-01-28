@@ -1,23 +1,18 @@
 import styled from "styled-components";
-import * as React from "react";
-import { useState } from "react";
-import "../../../../../styles/fonts.css";
-import EditStorePage from "./EditStore";
-import { useParams } from "react-router-dom";
+import React from "react";
+import "@styles/fonts.css";
+import EnrollStorePage from "./StoreEnroll";
 
-// 상품 이벤트 수정 index 페이지
+// 판매처 등록 index 페이지
 const Index = () => {
-  const { id } = useParams(); // URL에서 id 가져오기
-
   return (
     <>
       <Wrap>
         <PageName className="cm-LBold30 col-Black"> 상품 관리</PageName>
-        <PageSubName className="cm-MBold24 col-Navy"> 판매처 수정</PageSubName>
-
-        {/* 이벤트 내용 수정하는 공간 */}
+        <PageSubName className="cm-MBold24 col-Navy"> 판매처 등록</PageSubName>
+        {/* 내용 입력하는 공간 */}
         <InputSection>
-          <EditStorePage id={id} />
+          <EnrollStorePage />
         </InputSection>
       </Wrap>
     </>
@@ -25,7 +20,6 @@ const Index = () => {
 };
 
 export default Index;
-
 const Wrap = styled.div`
   display: flex;
   justify-content: center;
@@ -46,6 +40,7 @@ const PageSubName = styled.div`
   align-items: center;
   font-size: 1.5rem;
 `;
+
 const InputSection = styled.div`
   display: flex;
   width: 88.9375rem;

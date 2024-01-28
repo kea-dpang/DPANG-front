@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import React from "react";
 import Box from "@mui/material/Box";
-import Dropdown from "@components/Dropdown";
+import Dropdown from "components/common/Dropdown";
 import InputText from "./InputText";
 
 const ProductDefaultEnroll = ({ productInfo, setProductInfo }) => {
