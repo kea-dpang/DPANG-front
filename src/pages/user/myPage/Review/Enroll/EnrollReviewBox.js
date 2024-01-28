@@ -11,11 +11,11 @@ const TableBox = styled.div`
   background-color: white;
 `;
 
-function ReviewBox() {
+function ReviewBox(props) {
   return (
     <Container>
       <TableBox>
-        <EnrollTable />
+        <EnrollTable id={props.itemID} />
       </TableBox>
     </Container>
   );

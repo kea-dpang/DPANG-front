@@ -79,7 +79,7 @@ const UserRoutes = () => {
         <Route path="userinfo/leave" element={<Leave />} />
         {/* 리뷰관리 */}
         <Route path="review" element={<Review />} />
-        <Route path="review/enroll" element={<EnrollReview />} />
+        <Route path="review/enroll/:id" element={<EnrollReview />} />
         {/* 마일리지 */}
         <Route path="mileage" element={<Mileage />} />
         <Route path="mileage/req" element={<MileageReq />} />
