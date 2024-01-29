@@ -2,76 +2,93 @@ import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import "@styles/fonts.css";
 import dayjs from "dayjs";
-import EventTitle from "./EventTitle";
-import EventDiscount from "./EventDiscount";
 import EventDate from "./EventDate";
 import EventImage from "./EventImage";
 import EventBrandName from "./EventBrandName";
+import InputText from "@adminPages/item/product/Enroll/InputText";
+import { POST_Image } from "@api/image";
+import { useNavigate } from "react-router-dom";
+import { POST_BrandEvent } from "@api/event";
 
 const Index = () => {
+  const navi = useNavigate();
   const [isFormValid, setFormValid] = useState(false); // 입력값 다 입력했는지 판단
-
-  const [eventname, setEventName] = useState("");
-  const [brandname, setBrandname] = useState("");
-  const [salepercent, setPercent] = useState("");
-  const [eventimage, setEventImage] = useState(null);
-  const [eventstart, setEventStart] = useState(dayjs());
-  const [eventend, setEventEnd] = useState(dayjs());
+  const [inputValue, setInputValue] = useState({
+    discountRate: "",
+    eventName: "",
+    startDate: dayjs(),
+    endDate: dayjs(),
+    imagePath: "",
+    sellerId: "",
+  });
   // 입력필드에 다 안찼으면 등록버튼 비활성화
   useEffect(() => {
     if (
-      eventname !== "" &&
-      salepercent !== "" &&
-      eventimage &&
-      eventstart &&
-      eventend &&
-      brandname !== ""
+      inputValue.eventName !== "" &&
+      inputValue.discountRate !== "" &&
+      inputValue.imagePath &&
+      inputValue.startDate &&
+      inputValue.endDate &&
+      inputValue.sellerId !== ""
     ) {
       setFormValid(true);
     } else {
       setFormValid(false);
     }
-  }, [eventname, salepercent, eventimage, eventstart, eventend, brandname]);
+  }, [
+    inputValue.eventName,
+    inputValue.discountRate,
+    inputValue.imagePath,
+    inputValue.startDate,
+    inputValue.endDate,
+    inputValue.sellerId,
+  ]);
   // 이벤트 이름 변경 감지
   const handleNameChange = (e) => {
-    setEventName(e.target.value);
+    setInputValue({ ...inputValue, eventName: e.target.value });
   };
   // 이벤트 시작일 변경 감지
   const handleStartChange = (date, details) => {
-    setEventStart(date);
+    setInputValue({ ...inputValue, startDate: date });
   };
   // 이벤트 종료일 변경 감지
   const handleEndChange = (date, details) => {
-    setEventEnd(date);
+    setInputValue({ ...inputValue, endDate: date });
   };
   // 브랜드이름 변경 감지
-  const handleBrandChange = (e) => {
-    setBrandname(e.target.value);
+  const handleBrandChange = (e, changedValue) => {
+    setInputValue({ ...inputValue, sellerId: changedValue });
   };
   // 이벤트 할인율 변경 감지
   const handlePercentChange = (e) => {
-    setPercent(e.target.value);
+    setInputValue({ ...inputValue, discountRate: e.target.value });
   };
   // 이벤트 이미지 관리
   const handleImageChange = (file) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setEventImage(reader.result);
-    };
-    reader.readAsDataURL(file);
+    console.log("file: ", file);
+    POST_Image(file)
+      .then((data) => {
+        console.log("사진 등록", data.data.uploadedFileUrl);
+        setInputValue({ ...inputValue, imagePath: data.data.uploadedFileUrl });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   const handleImageDelete = () => {
-    setEventImage(null);
+    setInputValue({ ...inputValue, imagePath: null });
   };
   // 등록 버튼 : 이벤트 이름, 시작일, 종료일, 내용, 브랜드이름, 할인율 정보 저장
   const handleSubmit = () => {
-    console.log("이벤트 이름: ", eventname);
-    console.log("브랜드 이름", brandname);
-    console.log("이벤트 할인율", salepercent);
-    console.log("이벤트 시작일: ", eventstart);
-    console.log("이벤트 종료일: ", eventend);
-    //setShowAlert(true); // Alert 보여주기
-    alert("상품 등록 성공");
+    console.log("등록할게: ", inputValue);
+    POST_BrandEvent(inputValue)
+      .then((data) => {
+        console.log("브랜드 이벤트 등록");
+        navi(`/admin/event`);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -82,14 +99,18 @@ const Index = () => {
           {/* 이벤트 이름 등록 */}
           <Row>
             <p className="cm-SBold16 col-Black">이벤트 이름</p>
-            <EventTitle onChange={handleNameChange} />
+            <InputText
+              id={"eventName"}
+              placeholder={"이벤트 이름을 입력해주세요"}
+              onChange={handleNameChange}
+            />{" "}
           </Row>
           {/* 이벤트 시작일 */}
           <Row>
             <p className="cm-SBold16 col-Black">이벤트 시작일</p>
             <EventDate
               label="이벤트 시작일"
-              date={eventstart}
+              date={inputValue.startDate}
               onChange={handleStartChange}
             />
           </Row>
@@ -98,7 +119,7 @@ const Index = () => {
             <p className="cm-SBold16 col-Black">이벤트 종료일</p>
             <EventDate
               label="이벤트 종료일"
-              date={eventend}
+              date={inputValue.endDate}
               onChange={handleEndChange}
             />
           </Row>
@@ -110,13 +131,17 @@ const Index = () => {
           {/* 이벤트 할인율 */}
           <Row>
             <p className="cm-SBold16 col-Black">이벤트 할인율</p>
-            <EventDiscount onChange={handlePercentChange} />
+            <InputText
+              id={"discountRate"}
+              placeholder={"이벤트 할인율을 입력해주세요."}
+              onChange={handlePercentChange}
+            />
           </Row>
           {/* 이벤트 내용(사진) */}
           <Row>
             <p className="cm-SBold16 col-Black">이벤트 내용</p>
             <EventImage
-              eventImage={eventimage}
+              imagePath={inputValue.imagePath}
               handleImageDelete={handleImageDelete}
               handleImageChange={handleImageChange}
             />

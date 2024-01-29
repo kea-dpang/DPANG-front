@@ -3,13 +3,11 @@ import React, { useState, useEffect } from "react";
 import "@styles/fonts.css";
 import InputEdit from "./InputEdit";
 import EventDate from "@adminPages/eventPage/Enroll/EventDate";
-import TempDetailData from "@data/admin/AdminStoreData";
 import { useNavigate } from "react-router-dom";
 import { GET_BrandInfo, PUT_Brand } from "@api/Brand";
 
 const Index = ({ id }) => {
   const dayjs = require("dayjs");
-  let date = dayjs();
   const [storeData, setStoreData] = useState([]);
   const [inputValue, setInputValue] = useState({
     name: "",
@@ -85,17 +83,6 @@ const Index = ({ id }) => {
   const handlenoteChange = (e) => {
     setInputValue({ ...inputValue, note: e.target.value });
   };
-
-  // id가 인식되면 id를 통해 상품상세정보 저장 (storeData)
-  useEffect(() => {
-    const matchedData = TempDetailData.find((data) => data.id === Number(id));
-    setStoreData(matchedData);
-  }, [id]);
-
-  useEffect(() => {
-    date = dayjs(storeData.expiryDate);
-    console.log(storeData);
-  }, [storeData]);
 
   // 수정 완료 버튼 : 판매처명, 판매처 연락처, 판매처 담당 직원, 담당자, 계약 종료일 정보 저장
   const handleSubmit = () => {

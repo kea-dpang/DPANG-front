@@ -5,6 +5,16 @@ export const customStatusName = (status) => {
       return "답변 대기";
     case "COMPLETED":
       return "답변 완료";
+    case "PROCEEDING":
+      return "진행";
+    case "WAITING":
+      return "대기";
+    case "END":
+      return "종료";
+    case "seller":
+      return "브랜드";
+    case "item":
+      return "상품";
     default:
       return "상태 미정";
   }

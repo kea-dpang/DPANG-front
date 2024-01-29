@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import * as React from "react";
-import { useState } from "react";
-import "../../../../styles/fonts.css";
+import React from "react";
+import "@styles/fonts.css";
 import ProductEventPage from "./ProductEventPage";
 import { useNavigate } from "react-router-dom";
 
