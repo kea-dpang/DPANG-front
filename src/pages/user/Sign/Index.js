@@ -5,6 +5,8 @@ import Logo from "../../../assets/images/logo.png";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { TermsData } from "../../../assets/data/user/UserTermsData";
+import { useNavigate } from "react-router-dom";
+import { POST_User } from "@api/\bsign";
 
 const SignPage = () => {
   const methods = useForm({
@@ -24,15 +26,18 @@ const SignPage = () => {
     isSubmitting,
     formState: { errors },
   } = methods;
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    console.log("dd");
-    if (Object.values(errors).length > 0) {
-      console.log(errors); // 에러 출력
-      alert("필수 항목을 모두 입력해주세요.");
-      return;
-    }
-    alert(JSON.stringify(data));
+    POST_User(data)
+      .then((data) => {
+        alert("회원가입이 완료되었습니다.");
+        navigate(`/user/login`);
+      })
+      .catch((error) => {
+        alert("회원가입에 실패하였습니다. 다시 시도해 주세요.");
+      });
+    // alert(JSON.stringify(data));
   };
 
   return (
@@ -116,7 +121,6 @@ const SignPage = () => {
               id="name"
               variant="outlined"
               name="name"
-              type="password"
               error={!!errors.name}
               helperText={errors.name && errors.name.message}
               {...register("name", {
@@ -128,14 +132,14 @@ const SignPage = () => {
               id="joinDate"
               variant="outlined"
               name="joinDate"
-              placeholder="YYYYMMDD 형식으로 입력해주세요."
+              placeholder="YYYY-MM-DD 형식으로 입력해주세요."
               error={!!errors.joinDate}
               helperText={errors.joinDate && errors.joinDate.message}
               {...register("joinDate", {
                 required: "입사일은 필수 입력입니다.",
                 pattern: {
-                  value: /^\d{6}$/,
-                  message: "6자리 숫자로 작성되어야 합니다.",
+                  value: /^\d{4}-\d{2}-\d{2}$/,
+                  message: "YYYY-MM-DD 형식으로 입력해주세요.",
                 },
               })}
             />
