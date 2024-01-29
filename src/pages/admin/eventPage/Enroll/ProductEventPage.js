@@ -15,7 +15,6 @@ const Index = () => {
   const [productList, setProductList] = useState([]);
   const [salepercent, setPercent] = useState("");
   const [eventimage, setEventImage] = useState(null);
-  const [isHovered, setIsHovered] = useState(false);
   const [eventstart, setEventStart] = useState(dayjs());
   const [eventend, setEventEnd] = useState(dayjs()); // 기본값은 오늘날짜
   // 입력필드에 다 안찼으면 등록버튼 비활성화
@@ -70,11 +69,7 @@ const Index = () => {
   const handleImageDelete = () => {
     setEventImage(null);
   };
-  // 등록 버튼 : 이벤트 이름, 시작일, 종료일, 내용, 상품코드, 할인율, 적용상품 정보 저장
   const handleSubmit = () => {
-    console.log("이벤트 이름: ", eventname);
-    console.log("적용상품", productList);
-    console.log("이벤트 할인율", salepercent);
     alert("상품 등록 성공");
   };
 
@@ -183,7 +178,6 @@ const Row = styled.div`
   display: flex;
   p {
     background: var(--light-grey, #f4f4f4);
-    /* padding: 2rem; */
     width: 13rem;
     display: flex;
     align-items: center;

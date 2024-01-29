@@ -81,21 +81,21 @@ const UserMileageData = [
     date: "2023.10.05",
     name: "김디팡",
     money: "100,000",
-    status: "승인",
+    status: "대기",
   },
   {
     id: 12,
     date: "2023.10.05",
     name: "김디팡",
     money: "100,000",
-    status: "승인",
+    status: "반려",
   },
   {
     id: 13,
     date: "2023.10.05",
     name: "김디팡",
     money: "100,000",
-    status: "승인",
+    status: "대기",
   },
   {
     id: 14,
@@ -109,7 +109,14 @@ const UserMileageData = [
     date: "2023.10.05",
     name: "김디팡",
     money: "100,000",
-    status: "반려 ",
+    status: "승인",
+  },
+  {
+    id: 16,
+    date: "2023.10.05",
+    name: "김디팡",
+    money: "100,000",
+    status: "대기",
   },
 ];
 

@@ -1,12 +1,9 @@
 import styled from "styled-components";
-import * as React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import dayjs from "dayjs";
-import "../../../../styles/fonts.css";
+import "@styles/fonts.css";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
 import Stack from "@mui/material/Stack";
 import Chip from "@mui/material/Chip";
 import Fab from "@mui/material/Fab";
@@ -16,13 +13,12 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import TempDetailData from "../../../../assets/data/user/ProductEventDetailData";
+import TempDetailData from "@data/user/ProductEventDetailData";
 
 const Index = ({ eventId }) => {
   const [eventData, setEventData] = useState(null);
   const [code, setCode] = useState([]);
   const [productList, setProductList] = useState([]);
-  const [showAlert, setShowAlert] = useState(false); // 등록 성공 alert 보여주기
 
   // eventId가 인식되면 id를 통해 상품상세정보 저장 (eventData)
   useEffect(() => {

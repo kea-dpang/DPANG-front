@@ -6,8 +6,8 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Dropdown from "@components/Dropdown";
 import DataTable from "@components/AdminDataTable";
-import data from "@data/user/EventData";
 import { useNavigate } from "react-router-dom";
+import { GET_EventList, DELETE_Event } from "@api/event";
 
 // 이벤트 리스트 페이지
 const Index = () => {
@@ -16,7 +16,7 @@ const Index = () => {
   const columns = [
     { name: "id", label: "번호", options: { sort: false } },
     {
-      name: "kind",
+      name: "type",
       label: "구분",
       options: {
         sort: false,
@@ -32,7 +32,11 @@ const Index = () => {
         },
       },
     },
-    { name: "submitDate", label: "이벤트 등록일", options: { sort: false } },
+    {
+      name: "registrationDate",
+      label: "이벤트 등록일",
+      options: { sort: false },
+    },
     { name: "eventName", label: "이벤트 이름", options: { sort: false } },
     {
       name: "eventStatus",
@@ -53,13 +57,34 @@ const Index = () => {
         },
       },
     },
-    { name: "eventStart", label: "이벤트 시작일", options: { sort: false } },
-    { name: "eventEnd", label: "이벤트 종료일", options: { sort: false } },
+    { name: "startDate", label: "이벤트 시작일", options: { sort: false } },
+    { name: "endDate", label: "이벤트 종료일", options: { sort: false } },
   ];
   // 선택된 카테고리 상태
-  const [selectedCategory, setSelectedCategory] = useState(dropdownValue[0]);
-  const handleCategoryChange = (newCategory) => {
-    setSelectedCategory(newCategory);
+  const [selectedDropValue, setSelectedDropValue] = useState(dropdownValue[0]);
+  const handleCategoryChange = (newDropValue) => {
+    setSelectedDropValue(newDropValue);
+  };
+  const [event, setEvent] = useState([]);
+  useEffect(() => {
+    GET_EventList()
+      .then((data) => {
+        setEvent(data.data.content);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+  const handleRowsDelete = (rowsDeleted) => {
+    const dataIndexArray = rowsDeleted.data.map((item) => item.dataIndex);
+    DELETE_Event(dataIndexArray)
+      .then((data) => {
+        console.log("이벤트 삭제");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    console.log("삭제: ", rowsDeleted);
   };
   const handleRowClick = (rowData) => {
     // rowData[0] : columns의 id / rowData[1].prop.children : columns의 kind
@@ -119,14 +144,17 @@ const Index = () => {
           </Button>
         </FilterSection>
         <ListSection>
-          <DataTable
-            data={data}
-            columns={columns}
-            onRowClick={handleRowClick}
-            filterValue={selectedCategory}
-            index={"eventStatus"}
-            placeholder={dropdownValue[0]}
-          />
+          {event.length > 0 && (
+            <DataTable
+              data={event}
+              columns={columns}
+              onRowClick={handleRowClick}
+              onRowsDelete={handleRowsDelete}
+              filterValue={selectedDropValue}
+              index={"eventStatus"}
+              placeholder={dropdownValue[0]}
+            />
+          )}
         </ListSection>
       </Wrap>
     </>

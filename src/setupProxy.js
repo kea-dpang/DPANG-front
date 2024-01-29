@@ -11,7 +11,7 @@ module.exports = function (app) {
   );
   /* FAQ */
   app.use(
-    "/api/posts",
+    "/api/faq",
     createProxyMiddleware({
       target: "http://61.109.214.181:8081",
       changeOrigin: true,
@@ -38,6 +38,30 @@ module.exports = function (app) {
     ["/api/refund", "/api/order", "/api/cancel"],
     createProxyMiddleware({
       target: "http://61.109.214.181:8085",
+      changeOrigin: true,
+    })
+  );
+  /* 리뷰관리 */
+  app.use(
+    "/api/reviews",
+    createProxyMiddleware({
+      target: "http://61.109.214.181:8086",
+      changeOrigin: true,
+    })
+  );
+  /* 이미지 업로드 */
+  app.use(
+    "/api/image",
+    createProxyMiddleware({
+      target: "http://61.109.214.181:8087",
+      changeOrigin: true,
+    })
+  );
+  /* 이벤트관리 */
+  app.use(
+    "/api/events",
+    createProxyMiddleware({
+      target: "http://61.109.214.181:8088",
       changeOrigin: true,
     })
   );

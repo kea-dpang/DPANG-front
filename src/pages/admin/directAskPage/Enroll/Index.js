@@ -3,28 +3,46 @@ import styled from "styled-components";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { askManageData } from "../../../../assets/data/admin/AdminAskData";
+import { GET_QnA, PUT_Answer } from "@api/directAsk";
+import {
+  customAskCategoryName,
+  customDate,
+  customStatusName,
+} from "../../../../assets/CustomName";
 
+/* 답변 등록 & 문의 조회 */
 const EnrollPage = () => {
   let params = useParams().askId;
-  // const askData = askManageData.find(data => parseInt(params));
-  // const [answer, setAnswer] = useState(askData.answer);
-  // parseInt를 사용하여 params를 숫자로 변환하고 비교해야 합니다.
-  const askData = askManageData.find((data) => data.id === parseInt(params));
-
-  // askData가 존재하지 않을 수 있으므로 조건부 연산자를 사용합니다.
-  const [answer, setAnswer] = useState("");
+  const [askData, setAskData] = useState();
 
   useEffect(() => {
-    if (askData) {
-      setAnswer(askData.answer);
-      console.log("askData:", askData);
-    }
-  }, [askData]);
+    GET_QnA(params)
+      .then((data) => {
+        console.log("값:", data.data);
+        setAskData(data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  // askData가 존재하지 않을 수 있으므로 조건부 연산자를 사용(옵셔널 체이닝)
+  const [answer, setAnswer] = useState("");
 
   const handleAnswerChange = (e) => {
     setAnswer(e.target.value);
+  };
+  const handleSubmit = () => {
+    PUT_Answer(params, answer)
+      .then((data) => {
+        alert("답변이 성공적으로 등록되었습니다.");
+        // window.location.reload();
+      })
+      .catch((error) => {
+        alert("답변 등록에 실패하였습니다. 다시 시도해 주세요.");
+      });
   };
 
   return (
@@ -33,15 +51,15 @@ const EnrollPage = () => {
       <Title className="cm-SBold18 col-Navy">1:1문의 답변</Title>
       <Main>
         <Option>
-          <p>{askData.category}</p>
-          <p>{askData.title}</p>
+          <p>[{askData?.category}]</p>
+          <p>{askData?.title}</p>
         </Option>
         <Option2>
-          <p>{askData.date} </p>
+          <p>{askData?.createdAt} </p>
           <p>|</p>
-          <p>{askData.name}</p>
+          <p>글 작성한 사용자 name</p>
           <p>|</p>
-          <p>{askData.email}</p>
+          <p>글 작성한 사용자 email</p>
         </Option2>
         <Item>
           <p className="cm-XLBold36 col-Navy">Q.</p>
@@ -50,7 +68,8 @@ const EnrollPage = () => {
             rows="10"
             className="cm-SRegular16"
             disabled
-            value={askData.content}
+            // value={askData?.contents}
+            value={askData?.contents || ""}
             style={{ padding: "2rem" }}
           ></textarea>
         </Item>
@@ -60,18 +79,30 @@ const EnrollPage = () => {
             cols="50"
             rows="10"
             className="cm-SRegular16"
-            disabled={askData.state === "답변완료"}
-            value={answer}
+            disabled={askData?.status === "답변 완료"}
+            value={askData?.answer || answer}
             onChange={handleAnswerChange}
             style={{ padding: "2rem" }}
           ></textarea>
         </Item>
       </Main>
       <Button>
-        {askData.state === "답변대기" ? (
-          <button className="Btn_S_Navy">등록</button>
-        ) : (
-          <button className="Btn_S_Navy">수정</button>
+        {askData?.status === "답변 대기" && (
+          <button
+            className="Btn_S_Navy"
+            onClick={handleSubmit}
+            disabled={!answer}
+            style={
+              !answer
+                ? {
+                    backgroundColor: "var(--semi-light-grey)",
+                    cursor: "not-allowed",
+                  }
+                : {}
+            }
+          >
+            등록
+          </button>
         )}
       </Button>
     </Wrap>
@@ -92,12 +123,10 @@ const Title = styled.div`
   padding: 2.125rem 0rem 0.9375rem 0;
 `;
 const Main = styled.div`
-  /* border-top: 1px solid black; */
   border-bottom: 1px solid black;
 `;
 const Option = styled.div`
   border-top: 1px solid black;
-  /* border: 1px solid black; */
   padding: 1rem;
 
   display: flex;
@@ -105,7 +134,7 @@ const Option = styled.div`
 `;
 const Option2 = styled.div`
   border-top: 1px solid black;
-  padding: 0.38rem;
+  padding: 0.5rem 1rem;
 
   display: flex;
   gap: 3rem;
@@ -125,6 +154,5 @@ const Item = styled.div`
 const Button = styled.div`
   padding-top: 2rem;
   display: flex;
-  /* align-content: flex-end; */
   justify-content: flex-end;
 `;

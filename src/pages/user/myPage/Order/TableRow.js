@@ -35,8 +35,8 @@ function TableRow({ data }) {
   return (
     <>
       {/* 페이지  */}
-      {currentData.map((a) => {
-        return <RowData data={a} />;
+      {currentData.map((a, i) => {
+        return <RowData data={a} key={i}/>;
       })}
 
       <PaginationContainer>

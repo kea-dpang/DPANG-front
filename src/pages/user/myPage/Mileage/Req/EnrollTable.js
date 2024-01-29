@@ -2,85 +2,31 @@ import styled from "styled-components";
 import { GlobalStyle } from "../../../../../styles/GlobalStyled";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-const Container = styled.div`
-  width: 72rem;
-  height: 50rem;
-`;
-
-const Table = styled.div`
-  width: 72rem;
-  margin-top: 2rem;
-  z-index: 5;
-`;
-const Border = styled.div`
-  width: 72rem;
-  border-bottom: 1px black solid;
-`;
-const Box = styled.div`
-  height: ${(props) => props.height};
-  width: 72rem;
-  display: flex;
-`;
-
-const ColBox = styled.div`
-  heigth: ${(props) => props.height};
-  width: 10rem;
-  background-color: var(--light-grey);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1;
-`;
-const InputBox = styled.div`
-  height: ${(props) => props.height};
-  width: ${(props) => props.width};
-  display: flex;
-  align-items: center;
-  padding-left: 2rem;
-  box-sizing: border-box;
-`;
-
-const TextArea = styled.textarea`
-  width: 18rem;
-  height: 1.2rem;
-  resize: none;
-  outline: none;
-  padding: 10px;
-`;
-const Text = styled.p`
-  color: ${(props) => props.colour};
-`;
-const TextBox = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Button = styled.button`
-  width: 11rem;
-  height: 3rem;
-  background-color: var(--navy);
-  color: white;
-  border-radius: 3px;
-`;
-
-const ButtonBox = styled.div`
-  width: 72rem;
-  display: flex;
-  height: 10rem;
-  justify-content: end;
-  align-items: end;
-`;
-
-const P = styled.div`
-  color: var(--orange);
-`;
+import { POST_mileage_request } from "@api/mileage";
 
 function EnrollTable(props) {
   const [money, setMoney] = useState(0);
   const user = props.userData;
   const [name, setName] = useState(user.name);
   const navi = useNavigate();
+
+  const handleClick = () => {
+    const XID = 1;
+    const userId = 1;
+
+    const data = { XID: XID, userId: userId, amount: money, depositor: name };
+    console.log(data);
+
+    POST_mileage_request(data)
+      .then((data) => {
+        console.log("등록", data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    navi("/user/mypage/temp/order");
+  };
 
   return (
     <Container>
@@ -157,16 +103,85 @@ function EnrollTable(props) {
         완료되지 않으면 문의주세요
       </P>
       <ButtonBox>
-        <Button
-          className="cm-SBold16"
-          onClick={() => {
-            navi("/user/mypage/temp/order");
-          }}
-        >
+        <Button className="cm-SBold16" onClick={handleClick}>
           충전 하기
         </Button>
       </ButtonBox>
     </Container>
   );
 }
+
+const Container = styled.div`
+  width: 72rem;
+  height: 50rem;
+`;
+
+const Table = styled.div`
+  width: 72rem;
+  margin-top: 2rem;
+  z-index: 5;
+`;
+const Border = styled.div`
+  width: 72rem;
+  border-bottom: 1px black solid;
+`;
+const Box = styled.div`
+  height: ${(props) => props.height};
+  width: 72rem;
+  display: flex;
+`;
+
+const ColBox = styled.div`
+  heigth: ${(props) => props.height};
+  width: 10rem;
+  background-color: var(--light-grey);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+`;
+const InputBox = styled.div`
+  height: ${(props) => props.height};
+  width: ${(props) => props.width};
+  display: flex;
+  align-items: center;
+  padding-left: 2rem;
+  box-sizing: border-box;
+`;
+
+const TextArea = styled.textarea`
+  width: 18rem;
+  height: 1.2rem;
+  resize: none;
+  outline: none;
+  padding: 10px;
+`;
+const Text = styled.p`
+  color: ${(props) => props.colour};
+`;
+const TextBox = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Button = styled.button`
+  width: 11rem;
+  height: 3rem;
+  background-color: var(--navy);
+  color: white;
+  border-radius: 3px;
+`;
+
+const ButtonBox = styled.div`
+  width: 72rem;
+  display: flex;
+  height: 10rem;
+  justify-content: end;
+  align-items: end;
+`;
+
+const P = styled.div`
+  color: var(--orange);
+`;
+
 export default EnrollTable;
