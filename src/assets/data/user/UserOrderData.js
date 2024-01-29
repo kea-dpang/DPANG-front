@@ -12,7 +12,7 @@ const UserOrderData = [
     shipmessage: "문 앞에 두고 가주세요",
     item: [
       {
-        id: "item1_id",
+        id: "0",
         img: img,
         name: "한국시리즈 후드 105",
         money: 160000,
@@ -31,14 +31,14 @@ const UserOrderData = [
     shipmessage: "문 앞에 두고 가주세요",
     item: [
       {
-        id: "item2_id",
+        id: "1",
         img: img,
         name: "한국시리즈 후드 105",
         money: 160000,
         amt: 2,
       },
       {
-        id: "item2_id",
+        id: "1",
         img: img,
         name: "한국시리즈 후드 105",
         money: 160000,
@@ -57,21 +57,21 @@ const UserOrderData = [
     shipmessage: "문 앞에 두고 가주세요",
     item: [
       {
-        id: "item2_id",
+        id: "1",
         img: img,
         name: "한국시리즈 후드 105",
         money: 160000,
         amt: 2,
       },
       {
-        id: "item2_id",
+        id: "1",
         img: img,
         name: "한국시리즈 후드 105",
         money: 160000,
         amt: 2,
       },
       {
-        id: "item2_id",
+        id: "2",
         img: img,
         name: "한국시리즈 후드 105",
         money: 160000,

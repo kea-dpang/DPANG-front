@@ -41,4 +41,12 @@ module.exports = function (app) {
       changeOrigin: true,
     })
   );
+  /* 리뷰관리 */
+  app.use(
+    "/api/reviews",
+    createProxyMiddleware({
+      target: "http://61.109.214.181:8086",
+      changeOrigin: true,
+    })
+  );
 };

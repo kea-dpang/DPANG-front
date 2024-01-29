@@ -20,9 +20,9 @@ const Col = styled.div`
 function TableHeader(props) {
   return (
     <Head>
-      {props.head.map(function (a) {
+      {props.head.map(function (a, i) {
         return (
-          <Col width={a.width} className="cm-SBold18">
+          <Col width={a.width} className="cm-SBold18" key={i}>
             {a.text}
           </Col>
         );

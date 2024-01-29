@@ -3,13 +3,31 @@ import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"
+import { POST_review } from "@api/review";
 
-function EnrollTable() {
+function EnrollTable(props) {
 
   const [value, setValue] = useState(5);
   const [text, setText] = useState("");
   const navi = useNavigate();
-  const newReview = {star: "", text:""};
+  const id = props.id;
+
+  const handleClick = () => {
+    //서버로 보내줄 데이터
+    const newReview = {reviewerId: 0, itemId: parseInt(id, 10), rating: value, content: text};
+
+    
+  
+    POST_review(newReview)
+    .then((data) => {
+      console.log("등록", data.data);
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+  
+    navi('/user/mypage/temp/order'); 
+  }
 
   return (
     <>
@@ -40,7 +58,7 @@ function EnrollTable() {
       </Table>
 
       <ButtonBox>
-        <Button className="cm-SBold16" onClick={()=>{newReview.star = value; newReview.text = text; navi('/user/mypage/temp/order'); }}>리뷰 등록</Button>
+        <Button className="cm-SBold16" onClick={handleClick}>리뷰 등록</Button>
       </ButtonBox>
     </>
   );

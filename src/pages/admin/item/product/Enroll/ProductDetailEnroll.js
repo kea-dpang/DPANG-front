@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import React, { useState } from "react";
-import Box from "@mui/material/Box";
+import React from "react";
 import EventImage from "@adminPages/eventPage/Enroll/EventImage";
 
 const ProductDetailEnroll = ({ productInfo, setProductInfo }) => {

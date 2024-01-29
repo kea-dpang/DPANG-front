@@ -2,7 +2,8 @@ import styled from "styled-components";
 import Rating from "@mui/material/Rating";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import axios from "axios";
 
 const Row = styled.div`
   width: 72rem;
@@ -57,9 +58,10 @@ function TableRow(props) {
 
   return (
     <>
-      {currentData.map((a) => {
+      {currentData.map((a, i) => {
+
         return (
-          <Row className="cm-SRegular16">
+          <Row className="cm-SRegular16" key={i}>
             <Col width="10rem">{a.date}</Col>
             <Col width="22rem">
               <ItemImg src={a.img} />
