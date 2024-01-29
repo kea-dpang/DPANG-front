@@ -34,6 +34,17 @@ export const customAskCategoryName = (category, isReverse) => {
   }
 };
 
+export const customMileageStatusName = (status) => {
+  switch (status) {
+    case "REQUESTED":
+      return "요청";
+    case "APPROVED":
+      return "승인";
+    default:
+      return "반려";
+  }
+};
+
 /* 2024-01-28T02:58:56.773782 -> 2024.01.28 */
 export const customDate = (createdAt) => {
   const date = new Date(createdAt);
