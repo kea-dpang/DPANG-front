@@ -3,7 +3,7 @@ import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { POST_review } from "@api/review";
+import { GET_review, POST_review } from "@api/review";
 
 function EnrollTable(props) {
   const [value, setValue] = useState(5);
@@ -13,23 +13,36 @@ function EnrollTable(props) {
 
   const handleClick = () => {
     //서버로 보내줄 데이터
-    const newReview = {
-      reviewerId: 0,
-      itemId: parseInt(id, 10),
-      rating: value,
-      content: text,
-    };
+    // const newReview = {
+    //   reviewerId: 0,
+    //   itemId: 3,
+    //   rating: value,
+    //   content: text,
+    // };
 
-    POST_review(newReview)
-      .then((data) => {
-        console.log("등록", data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // POST_review(newReview)
+    //   .then((data) => {
+    //     console.log("등록", data.data);
+    //   })
+    //   .catch((error) => {
+    //     console.log("시바", error);
+    //   });
 
     navi("/user/mypage/temp/order");
+
+    GET_review(4)
+    .then((data) => {
+  
+  console.log("성공", data.data);
+  
+    })
+    .catch((error) =>{
+      console.log(error);
+    })
+
+    
   };
+
 
   return (
     <>

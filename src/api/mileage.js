@@ -62,3 +62,29 @@ export const GET_mileage_list = async (inputValue) => {
 
   return res.data;
 };
+
+export const GET_admin_mileage_list = async (inputValue) => {
+  console.log(inputValue);
+
+  //parameter 값과 함께 api요청을 보낸다
+  const res = await axios({
+    method: "get",
+    url: `${url}/recharge-requests`,
+    params: {
+      userId: inputValue.userId || undefined,
+      status: inputValue.status || undefined,
+      startDate: inputValue.startDate || undefined,
+      endDate: inputValue.endDate || undefined,
+      depositorName: inputValue.depositorName || undefined,
+      sortOption: inputValue.sortOption || undefined,
+      page: inputValue.page || undefined,
+      size: inputValue.size || undefined,
+      sort: "ID",
+    },
+    headers: {
+      "X-DPANG-CLIENT-ID": inputValue.XID,
+    },
+  });
+
+  return res.data;
+};
