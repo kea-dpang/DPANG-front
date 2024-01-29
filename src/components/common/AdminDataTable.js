@@ -47,22 +47,8 @@ const DataTable = ({
       return false; // 기본 삭제 동작 방지
     },
     onRowClick: (rowData, rowMeta) => {
-      // state 값이 '답변완료'일 경우 클릭 이벤트를 무시합니다.
-      // if (rowData[3] === '답변완료') {
-      //     console.log('답변완료 상태의 행은 클릭할 수 없습니다.');
-      //     return;
-      // }
-      // console.log(rowData)
       onRowClick(rowData); // 클릭된 행의 데이터를 부모 컴포넌트로 전달
     },
-    // setRowProps: (row, dataIndex, rowIndex) => {
-    //   if (askManageData[dataIndex].state === '답변완료') {
-    //       // '답변완료' 상태의 행에 대해 투명도를 조절하여 비활성화처럼 보이게 합니다.
-    //       return {
-    //           style: { backgroundColor: 'var(--dark-grey)', opacity: 0.5, pointerEvents: 'none' },
-    //       };
-    //   }
-    // },
   };
 
   return (

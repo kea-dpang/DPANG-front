@@ -1,22 +1,14 @@
 import styled from "styled-components";
-import * as React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import dayjs from "dayjs";
-import "../../../../styles/fonts.css";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Fab from "@mui/material/Fab";
-import PhotoIcon from "@mui/icons-material/Photo";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import TempDetailData from "../../../../assets/data/user/ProductEventDetailData";
+import "@styles/fonts.css";
+import TempDetailData from "@data/user/ProductEventDetailData";
+import InputEdit from "@adminPages/item/brand/Edit/InputEdit";
+import EventDate from "../Enroll/EventDate";
+import EventImage from "../Enroll/EventImage";
 
 const Index = ({ eventId }) => {
   const [eventData, setEventData] = useState(null);
-
   // eventId가 인식되면 id를 통해 상품상세정보 저장 (eventData)
   useEffect(() => {
     const matchedData = TempDetailData.find(
@@ -60,7 +52,13 @@ const Index = ({ eventId }) => {
       discount: e.target.value,
     }));
   };
-  const handleImageChange = (e) => {};
+  const handleImageChange = (file) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setEventData((prev) => ({ ...prev, eventBannerUrL: reader.result }));
+    };
+    reader.readAsDataURL(file);
+  };
   // 이미지 삭제 감지
   const handleImageDelete = (e) => {
     setEventData((prevData) => ({
@@ -89,209 +87,59 @@ const Index = ({ eventId }) => {
             {/* 이벤트 이름 수정 */}
             <Row>
               <p className="cm-SBold16 col-Black">이벤트 이름</p>
-              <Content>
-                <Box
-                  sx={{
-                    "& > :not(style)": { m: 0, width: "61rem" },
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                  noValidate
-                  autoComplete="off"
-                >
-                  <TextField
-                    id="eventname"
-                    onChange={handleNameChange}
-                    variant="outlined"
-                    InputLabelProps={{ shrink: true }}
-                    sx={{
-                      "& .MuiOutlinedInput-root": {
-                        "&.Mui-focused fieldset": {
-                          borderColor: "var(--navy)", // 포커스 시 borderColor를 원하는 색상으로 변경
-                        },
-                      },
-                    }}
-                    placeholder="이벤트 이름을 입력해주세요"
-                    defaultValue={eventData.title} // 기본값 설정
-                  />
-                </Box>
-              </Content>
+              <InputEdit
+                value={eventData.title}
+                id={"eventname"}
+                placeholder={"이벤트 이름을 입력해주세요"}
+                onChange={handleNameChange}
+              />
             </Row>
             {/* 이벤트 시작일 */}
             <Row>
               <p className="cm-SBold16 col-Black">이벤트 시작일</p>
-              <Content>
-                <Box
-                  sx={{
-                    "& > :not(style)": { m: 0, width: "61rem" },
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                  noValidate
-                  autoComplete="off"
-                >
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DemoContainer components={["DatePicker"]}>
-                      <DatePicker
-                        label="이벤트 시작일"
-                        value={dayjs(eventData.startDate)}
-                        onChange={handleStartChange}
-                      />
-                    </DemoContainer>
-                  </LocalizationProvider>
-                </Box>
-              </Content>
+              <EventDate
+                label="이벤트 시작일"
+                date={dayjs(eventData.startDate)}
+                onChange={handleStartChange}
+              />
             </Row>
             {/* 이벤트 종료일 */}
             <Row>
               <p className="cm-SBold16 col-Black">이벤트 종료일</p>
-              <Content>
-                <Box
-                  sx={{
-                    "& > :not(style)": { m: 0, width: "61rem" },
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                  noValidate
-                  autoComplete="off"
-                >
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DemoContainer components={["DatePicker"]}>
-                      <DatePicker
-                        label="이벤트 종료일"
-                        value={dayjs(eventData.endDate)}
-                        onChange={handleEndChange}
-                      />
-                    </DemoContainer>
-                  </LocalizationProvider>
-                </Box>
-              </Content>
+              <EventDate
+                label="이벤트 종료일"
+                date={dayjs(eventData.endDate)}
+                onChange={handleEndChange}
+              />
             </Row>
             {/* 브랜드 이름 */}
             <Row>
               <p className="cm-SBold16 col-Black">브랜드 이름</p>
-              <Content>
-                <Box
-                  sx={{
-                    "& > :not(style)": { m: 0, width: "61rem" },
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                  noValidate
-                  autoComplete="off"
-                >
-                  <TextField
-                    id="brandname"
-                    onChange={handleBrandChange}
-                    variant="outlined"
-                    InputLabelProps={{ shrink: true }}
-                    sx={{
-                      "& .MuiOutlinedInput-root": {
-                        "&.Mui-focused fieldset": {
-                          borderColor: "var(--navy)", // 포커스 시 borderColor를 원하는 색상으로 변경
-                        },
-                      },
-                    }}
-                    placeholder="브랜드 이름을 입력해주세요"
-                    defaultValue={eventData.title} // 기본값 설정
-                  />
-                </Box>
-              </Content>
+              <InputEdit
+                value={eventData.title}
+                id={"brandname"}
+                placeholder={"이벤트 이름을 입력해주세요"}
+                onChange={handleNameChange}
+              />
             </Row>
             {/* 이벤트 할인율 */}
             <Row>
               <p className="cm-SBold16 col-Black">이벤트 할인율</p>
-              <Content>
-                <Box
-                  sx={{
-                    "& > :not(style)": { m: 0, width: "61rem" },
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                  noValidate
-                  autoComplete="off"
-                >
-                  <TextField
-                    id="salepercent"
-                    onChange={handlePercentChange}
-                    variant="outlined"
-                    InputLabelProps={{ shrink: true }}
-                    sx={{
-                      "& .MuiOutlinedInput-root": {
-                        "&.Mui-focused fieldset": {
-                          borderColor: "var(--navy)", // 포커스 시 borderColor를 원하는 색상으로 변경
-                        },
-                      },
-                    }}
-                    placeholder="이벤트 할인율을 입력해주세요."
-                    defaultValue={eventData.discount} // 기본값 설정
-                  />
-                </Box>
-              </Content>
+              <InputEdit
+                value={eventData.discount}
+                id={"salepercent"}
+                placeholder={"이벤트 할인율을 입력해주세요."}
+                onChange={handlePercentChange}
+              />
             </Row>
             {/* 이벤트 내용(사진) */}
             <Row>
               <p className="cm-SBold16 col-Black">이벤트 내용</p>
-              <Content>
-                <Box
-                  sx={{
-                    "& > :not(style)": { m: 1 },
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                  noValidate
-                  autoComplete="off"
-                >
-                  {eventData.eventBannerUrL ? (
-                    <div
-                      style={{ position: "relative" }}
-                      onMouseEnter={() => setIsHovered(true)}
-                      onMouseLeave={() => setIsHovered(false)}
-                    >
-                      <img
-                        src={eventData.eventBannerUrL}
-                        alt="이벤트 배너"
-                        style={{ width: "100%", height: "auto" }}
-                      />
-                      {isHovered && (
-                        <div
-                          style={{
-                            position: "absolute",
-                            top: 0,
-                            left: 0,
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "rgba(0, 0, 0, 0.5)",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            transition: "opacity 0.3s",
-                            cursor: "pointer",
-                          }}
-                        >
-                          {/* 사진에 마우스 hover시, 삭제아이콘 등장 */}
-                          <button
-                            onClick={handleImageDelete}
-                            style={{
-                              backgroundColor: "transparent",
-                              border: "none",
-                            }}
-                          >
-                            <DeleteIcon
-                              style={{ color: "var(--light-grey)" }}
-                            />{" "}
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    // 사진 선택하는 로직 넣기
-                    <Fab color="inherit" aria-label="add">
-                      <PhotoIcon color="var(--light-grey)" />
-                    </Fab>
-                  )}
-                </Box>
-              </Content>
+              <EventImage
+                eventImage={eventData.eventBannerUrL}
+                handleImageDelete={handleImageDelete}
+                handleImageChange={handleImageChange}
+              />
             </Row>
           </Table>
 
