@@ -10,7 +10,7 @@ export const customStatusName = (status) => {
   }
 };
 /* [문의] 상품, 회원정보, 상품확인, 배송, 교환/취소, 기타 */
-export const customCategoryName = (category, isReverse) => {
+export const customAskCategoryName = (category, isReverse) => {
   const map = {
     ITEM_INQUIRY: "상품 문의",
     MEMBER_INFORMATION: "회원 정보 문의",
@@ -42,4 +42,31 @@ export const customDate = (createdAt) => {
   const day = String(date.getDate()).padStart(2, "0");
 
   return `${year}-${month}-${day}`;
+};
+
+/* [FAQ] 자주 찾는 FAQ, 배송, 취소/교환/환불, 기타, 결제, 회원 */
+export const customFAQCategoryName = (category, isReverse) => {
+  const map = {
+    FAQ: "자주 찾는 FAQ",
+    SHIPPING: "배송",
+    CANCELLATION_REFUND_EXCHANGE: "취소/교환/환불",
+    PAYMENT: "결제",
+    MEMBER: "회원",
+    ETC: "기타",
+  };
+
+  const reverseMap = {
+    "자주 찾는 FAQ": "FAQ",
+    배송: "SHIPPING",
+    "취소/교환/환불": "CANCELLATION_REFUND_EXCHANGE",
+    결제: "PAYMENT",
+    회원: "MEMBER",
+    기타: "ETC",
+  };
+
+  if (isReverse) {
+    return reverseMap[category] || "UNKNOWN_STATUS";
+  } else {
+    return map[category] || "상태 미정";
+  }
 };

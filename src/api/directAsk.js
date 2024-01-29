@@ -1,5 +1,5 @@
 import {
-  customCategoryName,
+  customAskCategoryName,
   customDate,
   customStatusName,
 } from "assets/CustomName";
@@ -25,7 +25,7 @@ export const GET_QnAList = async (userId) => {
   });
   // 커스텀
   res.data.data.content = res.data.data.content.map((item) => {
-    item.category = customCategoryName(item.category, false);
+    item.category = customAskCategoryName(item.category, false);
     item.status = customStatusName(item.status);
     item.createdAt = customDate(item.createdAt);
     return item;
@@ -41,7 +41,7 @@ export const GET_QnA = async (QnAId) => {
   });
   // 커스텀
   const custom = res.data.data;
-  custom.category = customCategoryName(res.data.data.category, false);
+  custom.category = customAskCategoryName(res.data.data.category, false);
   custom.createdAt = customDate(res.data.data.createdAt);
   custom.status = customStatusName(res.data.data.status);
   return res.data;
@@ -61,7 +61,7 @@ export const PUT_Answer = async (QnAId, answer) => {
 };
 
 export const POST_Question = async (data) => {
-  data.category = customCategoryName(data.category, true);
+  data.category = customAskCategoryName(data.category, true);
 
   const res = await axios({
     method: "post",
@@ -79,7 +79,7 @@ export const POST_Question = async (data) => {
 };
 
 export const PUT_Question = async (qnaId, data) => {
-  data.category = customCategoryName(data.category, true);
+  data.category = customAskCategoryName(data.category, true);
   console.log("33323232", data);
   const res = await axios({
     method: "put",

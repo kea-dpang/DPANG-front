@@ -103,27 +103,3 @@ const Option = styled.div`
   gap: 1.5rem;
   padding-bottom: 3rem;
 `;
-const StyledButton = withStyles({
-  // Material UI의 Button 컴포넌트를 스타일링
-  root: {
-    backgroundColor: "var(--navy)",
-    color: "var(--white)",
-    border: "none",
-    "&:hover": {
-      backgroundColor: "var(--navy)",
-      border: "none",
-    },
-  },
-})(Button);
-const StyledButton2 = withStyles({
-  // Material UI의 Button 컴포넌트를 스타일링
-  root: {
-    backgroundColor: "var(--white)",
-    border: "1px solid var(--navy)",
-    color: "var(--black)",
-    "&:hover": {
-      backgroundColor: "var(--white)",
-      border: "1px solid var(--navy)",
-    },
-  },
-})(Button);

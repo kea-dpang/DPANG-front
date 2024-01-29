@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
@@ -8,19 +8,9 @@ import { faqManageData } from "../../../../assets/data/admin/AdminFaqData";
 import Button from "@mui/material/Button";
 import { withStyles } from "@mui/styles";
 import { Link, useNavigate } from "react-router-dom";
-
-const handleButtonClick = (buttonType, dataIndex) => {
-  const row = faqManageData[dataIndex];
-  console.log(row);
-
-  if (buttonType === "button1") {
-    // 버튼1 클릭시 수행할 작업을 여기에 추가합니다.
-    console.log("버튼1 클릭");
-  } else if (buttonType === "button2") {
-    // 버튼2 클릭시 수행할 작업을 여기에 추가합니다.
-    console.log("버튼2 클릭");
-  }
-};
+import DropboxStyle from "@adminPages/directAskPage/List/DropBox.styled";
+import { useForm } from "react-hook-form";
+import { GET_FAQList } from "@api/faq";
 
 const columns = [
   { name: "id", label: "번호", options: { sort: true } },
@@ -30,61 +20,63 @@ const columns = [
 ];
 
 const FaqListPage = () => {
-  const [category, setCategory] = useState("");
-  const navigate = useNavigate();
+  ////////////////////////////////
+  const methods = useForm();
+  const { watch } = methods;
 
-  /* 정렬 함수 */
-  const handleCategory = (e) => {
-    setCategory(e.target.value);
-    console.log("ss:", category);
-  };
+  const categoryValue = watch("문의 유형");
+
+  useEffect(() => {
+    console.log("문의 유형:", categoryValue);
+  }, [categoryValue]);
+  ////////////////////////////////
+
+  const navigate = useNavigate();
+  const [faqDataList, setFaqDataList] = useState();
+
+  /* 서버에서 1:1문의 리스트 가져오기 */
+  useEffect(() => {
+    GET_FAQList(categoryValue)
+      .then((data) => {
+        console.log("값:", data.data.content);
+        setFaqDataList(data.data.content);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [categoryValue]);
 
   /* 선택된 행은 상세정보로 이동 */
   const handleRowClick = (row) => {
-    // setSelectedRow(row); // 클릭된 행의 정보를 상태로 업데이트
-    console.log("dddd", row);
+    console.log("선택된 행 상세 페이지로 이동:", row);
     navigate(`${row[0]}`);
   };
 
   return (
     <Wrap>
       <Title className="cm-LBold30 col-Black"> 고객센터</Title>
-
+      <h2 className="cm-SBold18 col-Navy" style={{ paddingBottom: "3rem" }}>
+        FAQ 관리
+      </h2>
       <Option>
-        {/* 정렬 */}
-        <FormControl sx={{ width: "18.125rem" }}>
-          <TextField
-            select
-            value={category}
-            onChange={handleCategory}
-            variant="outlined"
-            InputLabelProps={{
-              shrink: true,
-              style: { visibility: "hidden" }, // 레이블을 숨깁니다.
-            }}
-            SelectProps={{
-              displayEmpty: true,
-              renderValue: (selectedValue) =>
-                selectedValue ? selectedValue : "문의 유형을 선택해주세요", // 드롭다운 메뉴에서 선택한 항목
-            }}
-          >
-            <MenuItem value="" disabled>
-              문의 카테고리를 선택해주세요
-            </MenuItem>
-            <MenuItem value="자주 찾는 FAQ">자주 찾는 FAQ</MenuItem>
-            <MenuItem value="배송">배송</MenuItem>
-            <MenuItem value="취소/교환/환불">취소/교환/환불</MenuItem>
-            <MenuItem value="기타">기타</MenuItem>
-            <MenuItem value="결제">결제</MenuItem>
-            <MenuItem value="회원">회원</MenuItem>
-          </TextField>
-        </FormControl>
+        {/* 드롭박스 */}
+        <DropboxStyle
+          dropTitle={"문의 유형"}
+          dropItems={[
+            "자주 찾는 FAQ",
+            "배송",
+            "취소/교환/환불",
+            "기타",
+            "결제",
+            "회원",
+          ]}
+          methods={methods}
+        />
+
         <Link className="Btn_M_Navy" to="enroll">
           추가하기
         </Link>
       </Option>
-
-      <Title className="cm-SBold18 col-Navy"> FAQ관리</Title>
 
       <DataTable
         data={faqManageData}
@@ -109,6 +101,7 @@ const Title = styled.div`
 const Option = styled.div`
   display: flex;
   justify-content: space-between;
+  padding-bottom: 3rem;
 `;
 const StyledButton = withStyles({
   // Material UI의 Button 컴포넌트를 스타일링

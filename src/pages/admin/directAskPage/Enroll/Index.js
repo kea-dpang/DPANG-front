@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { askManageData } from "../../../../assets/data/admin/AdminAskData";
 import { GET_QnA, PUT_Answer } from "@api/directAsk";
 import {
-  customCategoryName,
+  customAskCategoryName,
   customDate,
   customStatusName,
 } from "../../../../assets/CustomName";

@@ -11,7 +11,7 @@ module.exports = function (app) {
   );
   /* FAQ */
   app.use(
-    "/api/posts",
+    "/api/faq",
     createProxyMiddleware({
       target: "http://61.109.214.181:8081",
       changeOrigin: true,

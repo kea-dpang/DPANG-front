@@ -1,5 +1,5 @@
 import {
-  customCategoryName,
+  customAskCategoryName,
   customStatusName,
 } from "../../../../assets/CustomName";
 
@@ -13,7 +13,7 @@ export const AskColumns = (askDataList) => [
       sort: true,
       customBodyRenderLite: (dataIndex) => {
         const item = askDataList[dataIndex];
-        // const customCategory = customCategoryName(item.category);
+        // const customCategory = customAskCategoryName(item.category);
         return <div>{item.category}</div>;
       },
     },
