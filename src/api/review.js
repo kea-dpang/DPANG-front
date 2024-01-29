@@ -19,3 +19,12 @@ export const POST_review = async (inputValue) => {
 
   return res.data;
 };
+
+export const GET_review = async (reviewId) => {
+  const res = await axios({
+    method: "get",
+    url: `${url}/1`,
+  });
+
+  return res.data;
+};
