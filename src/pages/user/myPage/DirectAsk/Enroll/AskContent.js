@@ -53,7 +53,7 @@ const AskTitle = ({ control, detail }) => {
               cols="50"
               rows="10"
               className="cm-SRegular16"
-              disabled={detail ? detail.askState === "답변 완료" : false}
+              disabled={detail ? detail.status === "답변 완료" : false}
               value={field.value}
               onChange={field.onChange}
             ></textarea>

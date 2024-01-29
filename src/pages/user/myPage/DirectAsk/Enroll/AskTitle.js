@@ -24,7 +24,7 @@ const AskTitle = ({ control, detail }) => {
               id="Title"
               value={field.value}
               onChange={field.onChange}
-              disabled={detail ? detail.askState === "답변 완료" : false}
+              disabled={detail ? detail.status === "답변 완료" : false}
               variant="outlined"
               // placeholder="제목을 입력해주세요"
               placeholder={"제목을 입력해주세요"}

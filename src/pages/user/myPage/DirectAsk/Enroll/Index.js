@@ -3,9 +3,10 @@ import styled from "styled-components";
 import Category from "./Category";
 import AskTitle from "./AskTitle";
 import AskContent from "./AskContent";
-import { useLocation, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { DirectAskData } from "assets/data/user/DirectAskData";
 import { FormProvider, useForm } from "react-hook-form";
+import { GET_QnA, POST_Question, PUT_Question } from "@api/directAsk";
 
 const AskEnrollPage = () => {
   //////////////////////////////////
@@ -24,60 +25,83 @@ const AskEnrollPage = () => {
   //////////////////////////////////
 
   let params = useParams().askId;
-  const location = useLocation();
-
   const [detail, setDetail] = useState();
-  const [isEnrollPage, setIsEnrollPage] = useState(false); // '등록 페이지'인지 여부를 저장하는 상태
-
-  /* detail 값 */
+  const navigate = useNavigate();
+  /* detail 값 서버로부터 가져오기 */
   useEffect(() => {
-    const matchedData = DirectAskData.find((item) => item.askId === params); // DirectAskList에서 askId가 일치하는 데이터 찾기
-    if (matchedData) {
-      setDetail(matchedData); // 찾은 데이터를 detail 상태에 설정
-    }
-
-    // 클린업 함수
-    return () => {
+    // 문의 상세 조회
+    if (params) {
+      GET_QnA(params)
+        .then((data) => {
+          console.log("값:", data.data);
+          setDetail(data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      // 문의 등록하기
       setDetail(undefined);
-    };
+    }
   }, [params]);
 
-  /* enroll 값 */
-  useEffect(() => {
-    setIsEnrollPage(location.pathname.includes("enroll")); // 현재 위치가 'directask/enroll'인지 확인
-  }, [location]);
-
-  //////////////////////////////////
   /* form 값 */
   useEffect(() => {
+    // 문의 상세 조회 시 값 넣기
     if (detail) {
       reset({
-        category: detail.category, // detail 객체의 category 속성을 초기 값으로 설정
+        category: detail.category, // (form)detail 객체의 category 속성을 초기 값으로 설정
         askTitle: detail.title,
         askContent: detail.content,
       });
     } else {
+      // 문의 등록 시 값 초기화
       reset({
         category: "", // detail이 없는 경우, 초기 값을 빈 문자열로 설정 (새 글 작성할 때 필요)
         askTitle: "",
         askContent: "",
       });
     }
-  }, [isEnrollPage, detail, reset]);
+  }, [detail]);
 
-  const onSubmit = (data) => {
+  const onSubmit = (btnName, data) => {
+    console.log(btnName);
     console.log("카테고리 값 확인:", data.category);
     console.log("제목 값 확인:", data.askTitle);
     console.log("내용 값 확인:", data.askContent);
+
+    const dataArr = {
+      category: data.category,
+      askTitle: data.askTitle,
+      askContent: data.askContent,
+    };
+    if (btnName === "edit") {
+      PUT_Question(detail.qnaId, dataArr)
+        .then((data) => {
+          alert("답변이 성공적으로 등록되었습니다.");
+          window.location.reload();
+        })
+        .catch((error) => {
+          alert("답변 등록에 실패하였습니다. 다시 시도해 주세요.");
+        });
+    } else {
+      POST_Question(dataArr) // 나중에 userId도 넘겨주기
+        .then((data) => {
+          alert("답변이 성공적으로 등록되었습니다.");
+          navigate(`/user/mypage/temp/directAsk`);
+        })
+        .catch((error) => {
+          alert("답변 등록에 실패하였습니다. 다시 시도해 주세요.");
+        });
+    }
   };
-  //////////////////////////////////
 
   return (
     <Wrap>
       <Title>
         <h1 className="cm-LBold30">1:1 문의</h1>
       </Title>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form>
         <FormProvider {...methods}>
           <Item>
             <p>유형</p>
@@ -95,7 +119,7 @@ const AskEnrollPage = () => {
           </Item>
 
           {/* 답변 */}
-          {detail && detail.askState === "답변 완료" && (
+          {detail && detail.status === "답변 완료" && (
             <Item>
               <p>답변</p>
               <textarea
@@ -109,39 +133,29 @@ const AskEnrollPage = () => {
           )}
 
           {/* 버튼 */}
-          {isEnrollPage ? (
-            <Submit>
-              <button
-                type="submit"
+          <Submit>
+            {!params ? (
+              // 문의 등록하기 페이지
+              <SubmitBtn
+                type="button"
                 className="Btn_M_Navy"
+                onClick={() => onSubmit("submit", watchAllFields)} // 버튼이 2개라서 onClick으로 대체하므로 type은 submit이 아님. 그리고 <form onSubmit={handleSubmit(onSubmit)}>도 삭제
                 disabled={
-                  // 버튼 비활성화
                   !watchAllFields.category ||
                   !watchAllFields.askTitle ||
                   !watchAllFields.askContent
-                }
-                style={
-                  // 버튼 비활성화 스타일
-                  !watchAllFields.category ||
-                  !watchAllFields.askTitle ||
-                  !watchAllFields.askContent
-                    ? {
-                        backgroundColor: "var(--semi-light-grey)",
-                        cursor: "not-allowed",
-                      }
-                    : {}
                 }
               >
-                문의접수
-              </button>
-            </Submit>
-          ) : (
-            detail &&
-            detail.askState === "답변 대기" && (
-              <Submit>
-                <button
-                  type="submit"
+                문의 접수
+              </SubmitBtn>
+            ) : (
+              // 문의 수정 페이지
+              detail &&
+              !detail.answer && (
+                <SubmitBtn
+                  type="button"
                   className="Btn_M_Navy"
+                  onClick={() => onSubmit("edit", watchAllFields)}
                   disabled={
                     !watchAllFields.category ||
                     !watchAllFields.askTitle ||
@@ -149,10 +163,10 @@ const AskEnrollPage = () => {
                   }
                 >
                   수정 완료
-                </button>
-              </Submit>
-            )
-          )}
+                </SubmitBtn>
+              )
+            )}
+          </Submit>
         </FormProvider>
       </form>
     </Wrap>
@@ -202,4 +216,9 @@ const Submit = styled.div`
   padding-top: 3rem;
   display: flex;
   justify-content: flex-end;
+`;
+const SubmitBtn = styled.button`
+  background-color: ${({ disabled }) =>
+    disabled ? "var(--semi-light-grey)" : "var(--navy)"};
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
 `;
