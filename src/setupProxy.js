@@ -49,6 +49,14 @@ module.exports = function (app) {
       changeOrigin: true,
     })
   );
+  /* 아이템관리 */
+  app.use(
+    "/api/items",
+    createProxyMiddleware({
+      target: "http://61.109.214.181:8086",
+      changeOrigin: true,
+    })
+  );
   /* 이미지 업로드 */
   app.use(
     "/api/image",

@@ -3,51 +3,59 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ProductDefaultEnroll from "./ProductDefaultEnroll";
 import ProductDetailEnroll from "./ProductDetailEnroll";
+import { POST_Item } from "@api/Item";
 
 // 상품 이벤트 등록 index 페이지
 const ProductEnrollPage = () => {
   const navi = useNavigate();
   const [isFormValid, setFormValid] = useState(false); // 입력값 다 입력했는지 판단
   const [productInfo, setProductInfo] = useState({
-    productName: "",
-    productPrice: "",
-    brandName: "",
-    productImage: "",
+    itemName: "",
+    itemPrice: "",
+    sellerId: "",
+    itemImage: "",
     category: "",
     subCategory: "",
-    detailImage: "",
-    stock: "",
+    images: "",
+    stockQuantity: "",
   });
   // 입력필드에 다 안찼으면 등록버튼 비활성화
   useEffect(() => {
     if (
-      productInfo.productName !== "" &&
-      productInfo.productPrice !== "" &&
-      productInfo.brandName &&
-      productInfo.productImage &&
+      productInfo.itemName !== "" &&
+      productInfo.itemPrice !== "" &&
+      productInfo.sellerId &&
+      productInfo.itemImage &&
       productInfo.category &&
       productInfo.subCategory &&
-      productInfo.detailImage &&
-      productInfo.stock
+      productInfo.images &&
+      productInfo.stockQuantity
     ) {
       setFormValid(true);
     } else {
       setFormValid(false);
     }
   }, [
-    productInfo.productName,
-    productInfo.productPrice,
-    productInfo.brandName,
-    productInfo.productImage,
+    productInfo.itemName,
+    productInfo.itemPrice,
+    productInfo.sellerId,
+    productInfo.itemImage,
     productInfo.category,
     productInfo.subCategory,
-    productInfo.detailImage,
-    productInfo.stock,
+    productInfo.images,
+    productInfo.stockQuantity,
   ]);
 
   const handleSubmit = () => {
-    console.log("상품 등록완료");
-    console.log(productInfo);
+    console.log("상품 등록한다: ", productInfo);
+    POST_Item(productInfo)
+      .then((data) => {
+        console.log("상품 등록");
+        navi(`/admin/product`);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (

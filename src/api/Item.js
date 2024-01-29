@@ -1,4 +1,5 @@
 import axios from "axios";
+const url = "/api/items";
 // 관리자 - 상품 등록
 export const POST_Item = async (inputValue) => {
   console.log("상품 등록");
@@ -6,17 +7,14 @@ export const POST_Item = async (inputValue) => {
     method: "post",
     url: url,
     data: {
-      sellerId: inputValue.sellerId,
+      sellerId: "8",
       itemName: inputValue.itemName,
-      category: inputValue.category,
-      subCategory: inputValue.subCategory,
+      category: "FASHION",
+      subCategory: "WOMEN_CLOTHES",
       itemPrice: inputValue.itemPrice,
-      discountPrice: inputValue.discountPrice,
       stockQuantity: inputValue.stockQuantity,
-      minStock: inputValue.minStock,
-      maxStock: inputValue.maxStock,
       itemImage: inputValue.itemImage,
-      images: inputValue.images,
+      images: [inputValue.images],
     },
   });
   return res.data;
