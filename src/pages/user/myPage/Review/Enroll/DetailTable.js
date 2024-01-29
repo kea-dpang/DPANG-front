@@ -10,12 +10,7 @@ function TableRow(props) {
   return (
     <>
       <MyPageBodyHeader header="리뷰 등록" />
-      {/* <Row className="cm-SRegular16">
-        <Col width="13rem">
-          <Column>=</Column>
-        </Col>
-        <Col width="11rem">dd</Col>
-      </Row> */}
+
     </>
   );
 }

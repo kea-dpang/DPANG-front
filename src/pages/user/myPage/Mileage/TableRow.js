@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { useState } from "react";
+import axios from "axios";
 
 const Row = styled.div`
   width: 72rem;
@@ -38,14 +39,16 @@ const PaginationContainer = styled.div`
 `;
 // props의 데이터를 이용하여 데이터에 따라 다른 색을 props로 넘겨줌
 const getColour = (s) => {
-  switch (s) {
-    case "승인":
-      return "#043277";
-    case "반려":
-      return "#BCBCBC";
-    default:
-      return "#FA622F";
-  }
+
+  console.log(s);
+
+  if (s === '승인')
+    return "#043277";
+  else if (s === '반려')
+    return "#BCBCBC";
+  else
+    return "#FA622F";
+
 };
 
 function TableRow({ data }) {
@@ -56,10 +59,11 @@ function TableRow({ data }) {
   const handlePageChange = (e, newPage) => {
     //현재 페이지를 새로운 페이지로 변경
     setCurrentPage(newPage);
+
   };
 
   //한페이지당 보여줄 아이템의 개수
-  const itemPerPage = 9;
+  const itemPerPage = 10;
   //시작 index는 현재 페이지의 첫번째 원소부터
   const start = (currentPage - 1) * itemPerPage;
   //끝 index는 start부터 보여주어야할 아이템의 개수 만큼

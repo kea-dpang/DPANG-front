@@ -36,6 +36,9 @@ function MileageBox() {
     { text: "내역", width: "18rem" },
   ];
 
+
+
+
   return (
     <Container>
       <MyPageBodyHeader header="마일리지 충전 내역" />

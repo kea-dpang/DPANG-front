@@ -30,7 +30,7 @@ function Index() {
       <ContentBox>
         <DetailTable itemID={id} />
         <ReviewContainer>
-          <EnrollReviewBox />
+          <EnrollReviewBox itemID={id}/>
         </ReviewContainer>
       </ContentBox>
     </Container>
