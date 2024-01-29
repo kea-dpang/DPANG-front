@@ -1,23 +1,38 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { GET_BrandList } from "@api/Brand";
 
 const Brand = () => {
-  const brand = ["lg", "kakao", "samsung"];
+  const [brand, setBrand] = useState([]);
+  useEffect(() => {
+    GET_BrandList()
+      .then((data) => {
+        setBrand(data.data.content);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   const handleClick = (item) => {
     console.log(item);
   };
   return (
-    <Wrap>
-      {brand.map((item, index) => (
-        <Item
-          className="cm-SRegular16 col-Black"
-          key={index}
-          onClick={() => handleClick(item)}
-        >
-          {item}
-        </Item>
-      ))}{" "}
-    </Wrap>
+    <>
+      {brand.length > 0 && (
+        <Wrap>
+          {brand.map((item, index) => (
+            <Item
+              className="cm-SRegular16 col-Black"
+              key={index}
+              onClick={() => handleClick(item.name)}
+            >
+              {item.name}
+            </Item>
+          ))}
+        </Wrap>
+      )}
+    </>
   );
 };
 

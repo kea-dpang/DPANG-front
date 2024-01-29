@@ -1,26 +1,23 @@
 import axios from "axios";
-
-export const GET_CardList = async (filterList) => {
-  const accessToken = window.localStorage.getItem("accessToken");
-  console.log("test:", filterList);
-
-  const url = "/posts";
+// 관리자 - 상품 등록
+export const POST_Item = async (inputValue) => {
+  console.log("상품 등록");
   const res = await axios({
-    method: "get",
+    method: "post",
     url: url,
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-    params: {
-      topic: filterList.topic,
-      hashtag: filterList.hashtag,
-      blog_id: filterList.blog_id,
-      category_id: filterList.category_id,
-      page: 0,
-      size: 20,
-      sort: "string",
+    data: {
+      sellerId: inputValue.sellerId,
+      itemName: inputValue.itemName,
+      category: inputValue.category,
+      subCategory: inputValue.subCategory,
+      itemPrice: inputValue.itemPrice,
+      discountPrice: inputValue.discountPrice,
+      stockQuantity: inputValue.stockQuantity,
+      minStock: inputValue.minStock,
+      maxStock: inputValue.maxStock,
+      itemImage: inputValue.itemImage,
+      images: inputValue.images,
     },
   });
-
   return res.data;
 };
