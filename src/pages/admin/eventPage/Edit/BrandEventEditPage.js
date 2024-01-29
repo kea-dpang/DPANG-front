@@ -1,86 +1,116 @@
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
-import dayjs from "dayjs";
 import "@styles/fonts.css";
-import TempDetailData from "@data/user/ProductEventDetailData";
 import InputEdit from "@adminPages/item/brand/Edit/InputEdit";
 import EventDate from "../Enroll/EventDate";
 import EventImage from "../Enroll/EventImage";
+import { GET_BrandEventInfo, PUT_BrandEvent } from "@api/event";
+import { useNavigate } from "react-router-dom";
+import { POST_Image } from "@api/image";
 
 const Index = ({ eventId }) => {
-  const [eventData, setEventData] = useState(null);
-  // eventId가 인식되면 id를 통해 상품상세정보 저장 (eventData)
+  const dayjs = require("dayjs");
+  const [storeData, setStoreData] = useState([]);
+  const [inputValue, setInputValue] = useState({
+    discountRate: "",
+    eventName: "",
+    startDate: dayjs(),
+    endDate: dayjs(),
+    sellerId: "",
+    imagePath: "",
+  });
   useEffect(() => {
-    const matchedData = TempDetailData.find(
-      (data) => data.eventId === Number(eventId)
-    );
-    setEventData(matchedData);
-  }, [eventId]);
-
+    GET_BrandEventInfo(eventId)
+      .then((data) => {
+        console.log("Store data : ", data.data);
+        setStoreData(data.data);
+        setInputValue({
+          discountRate: data.data.discountRate || "",
+          eventName: data.data.eventName || "",
+          sellerId: data.data.sellerId || "",
+          imagePath: data.data.imagePath || "",
+          startDate: dayjs(data.data.startDate) || dayjs(),
+          endDate: dayjs(data.data.endDate) || dayjs(),
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+  const navi = useNavigate();
+  const [isFormValid, setFormValid] = useState(false); // 입력값 다 입력했는지 판단
+  // 입력필드에 다 안찼으면 등록버튼 비활성화
   useEffect(() => {
-    console.log(eventData);
-  }, [eventData]);
+    if (
+      inputValue.discountRate !== "" &&
+      inputValue.eventName !== "" &&
+      inputValue.sellerId !== "" &&
+      inputValue.imagePath !== "" &&
+      inputValue.startDate !== "" &&
+      inputValue.endDate !== ""
+    ) {
+      setFormValid(true);
+    } else {
+      setFormValid(false);
+    }
+  }, [
+    inputValue.discountRate,
+    inputValue.eventName,
+    inputValue.imagePath,
+    inputValue.sellerId,
+    inputValue.startDate,
+    inputValue.endDate,
+  ]);
 
   // 이벤트 이름 변경 감지
   const handleNameChange = (e) => {
-    setEventData((prevData) => ({
-      ...prevData,
-      title: e.target.value,
-    }));
+    setInputValue({ ...inputValue, eventName: e.target.value });
   };
   // 이벤트 시작일 변경 감지
-  const handleStartChange = (date) => {
-    setEventData((prevData) => ({
-      ...prevData,
-      startDate: date.format("YYYY-MM-DD HH:mm:ss"),
-    }));
+  const handleStartChange = (date, details) => {
+    setInputValue({ ...inputValue, startDate: date });
   };
   // 이벤트 종료일 변경 감지
   const handleEndChange = (date) => {
-    setEventData((prevData) => ({
-      ...prevData,
-      endDate: date.format("YYYY-MM-DD HH:mm:ss"),
-    }));
+    setInputValue({ ...inputValue, endDate: date });
   };
   const handleBrandChange = (e) => {
-    // TODO: 브랜드 이름 값 변경 코드
+    // setInputValue({ ...inputValue, eventName: e.target.value });
   };
   // 이벤트 할인율 변경 감지
   const handlePercentChange = (e) => {
-    setEventData((prevData) => ({
-      ...prevData,
-      discount: e.target.value,
-    }));
+    setInputValue({ ...inputValue, discountRate: e.target.value });
   };
+  // 이벤트 이미지 관리
   const handleImageChange = (file) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setEventData((prev) => ({ ...prev, eventBannerUrL: reader.result }));
-    };
-    reader.readAsDataURL(file);
+    console.log("file: ", file);
+    POST_Image(file)
+      .then((data) => {
+        console.log("사진 등록", data.data.uploadedFileUrl);
+        setInputValue({ ...inputValue, imagePath: data.data.uploadedFileUrl });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
-  // 이미지 삭제 감지
-  const handleImageDelete = (e) => {
-    setEventData((prevData) => ({
-      ...prevData,
-      eventBannerUrL: null,
-    }));
+  const handleImageDelete = () => {
+    setInputValue({ ...inputValue, imagePath: null });
   };
   // 수정 완료 버튼 : 이벤트 이름, 시작일, 종료일, 내용, 상품코드, 할인율, 적용상품 정보 저장
   const handleSubmit = () => {
-    // 이미지가 null값이면 수정 못하게 하기
-    console.log("이벤트 이름: ", eventData.title);
-    console.log("적용상품", eventData.eventItems);
-    console.log("이벤트 할인율", eventData.discount);
-    //setShowAlert(true); // Alert 보여주기
-    alert("이벤트 수정 성공");
+    console.log("수정할게: ", inputValue);
+    PUT_BrandEvent(eventId, inputValue)
+      .then((data) => {
+        navi(`/admin/event`);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
-
-  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <>
-      {eventData && (
+      {storeData && (
         <Wrap>
           {/* 상품 정보 수정칸 */}
           <Table>
@@ -88,8 +118,8 @@ const Index = ({ eventId }) => {
             <Row>
               <p className="cm-SBold16 col-Black">이벤트 이름</p>
               <InputEdit
-                value={eventData.title}
-                id={"eventname"}
+                value={inputValue.eventName}
+                id={"eventName"}
                 placeholder={"이벤트 이름을 입력해주세요"}
                 onChange={handleNameChange}
               />
@@ -99,7 +129,7 @@ const Index = ({ eventId }) => {
               <p className="cm-SBold16 col-Black">이벤트 시작일</p>
               <EventDate
                 label="이벤트 시작일"
-                date={dayjs(eventData.startDate)}
+                date={dayjs(inputValue.startDate)}
                 onChange={handleStartChange}
               />
             </Row>
@@ -108,7 +138,7 @@ const Index = ({ eventId }) => {
               <p className="cm-SBold16 col-Black">이벤트 종료일</p>
               <EventDate
                 label="이벤트 종료일"
-                date={dayjs(eventData.endDate)}
+                date={dayjs(inputValue.endDate)}
                 onChange={handleEndChange}
               />
             </Row>
@@ -116,18 +146,18 @@ const Index = ({ eventId }) => {
             <Row>
               <p className="cm-SBold16 col-Black">브랜드 이름</p>
               <InputEdit
-                value={eventData.title}
-                id={"brandname"}
+                value={inputValue.sellerId}
+                id={"sellerId"}
                 placeholder={"이벤트 이름을 입력해주세요"}
-                onChange={handleNameChange}
+                onChange={handleBrandChange}
               />
             </Row>
             {/* 이벤트 할인율 */}
             <Row>
               <p className="cm-SBold16 col-Black">이벤트 할인율</p>
               <InputEdit
-                value={eventData.discount}
-                id={"salepercent"}
+                value={inputValue.discountRate}
+                id={"discountRate"}
                 placeholder={"이벤트 할인율을 입력해주세요."}
                 onChange={handlePercentChange}
               />
@@ -136,7 +166,7 @@ const Index = ({ eventId }) => {
             <Row>
               <p className="cm-SBold16 col-Black">이벤트 내용</p>
               <EventImage
-                eventImage={eventData.eventBannerUrL}
+                eventImage={inputValue.imagePath}
                 handleImageDelete={handleImageDelete}
                 handleImageChange={handleImageChange}
               />
@@ -145,8 +175,21 @@ const Index = ({ eventId }) => {
 
           {/* 등록버튼 */}
           <Submit>
-            <button type="submit" className="Btn_S_Navy" onClick={handleSubmit}>
-              수정 완료
+            <button
+              onClick={handleSubmit}
+              type="submit"
+              className="Btn_S_Navy"
+              disabled={!isFormValid}
+              style={
+                !isFormValid
+                  ? {
+                      backgroundColor: "var(--semi-light-grey)",
+                      cursor: "not-allowed",
+                    }
+                  : {}
+              }
+            >
+              수정완료
             </button>
           </Submit>
         </Wrap>
@@ -187,10 +230,6 @@ const Row = styled.div`
     justify-content: center;
     text-align: center;
   }
-`;
-const Content = styled.div`
-  width: 100%;
-  margin: 1rem;
 `;
 const Submit = styled.div`
   padding-top: 3rem;

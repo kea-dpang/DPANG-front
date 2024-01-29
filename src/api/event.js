@@ -22,6 +22,30 @@ export const GET_EventList = async () => {
   });
   return res.data;
 };
+// 관리자 - 브랜드 이름으로 아이디 조회
+export const GET_BrandName = async () => {
+  const res = await axios({
+    method: "get",
+    url: `${url}/admin`,
+    params: {
+      page: 0,
+      size: 20,
+      sort: "",
+    },
+  });
+  return res.data;
+};
+// 관리자 - 브랜드 이름으로 아이디 조회
+export const GET_BrandEventInfo = async (id) => {
+  const res = await axios({
+    method: "get",
+    url: `${url}/seller/${id}`,
+    params: {
+      id: id,
+    },
+  });
+  return res.data;
+};
 // 관리자 - 이벤트 삭제
 export const DELETE_Event = async (id) => {
   console.log("이벤트 삭제", id);
@@ -49,16 +73,22 @@ export const POST_BrandEvent = async (inputValue) => {
   });
   return res.data;
 };
-// 관리자 - 브랜드 이름으로 아이디 조회
-export const GET_BrandName = async () => {
-  const res = await axios({
-    method: "get",
-    url: `${url}/admin`,
-    params: {
-      page: 0,
-      size: 20,
-      sort: "",
+// 관리자 - 브랜드 이벤트 수정
+export const PUT_BrandEvent = async (id, value) => {
+  console.log("브랜드 이벤트 수정");
+  const response = await axios({
+    method: "put",
+    url: `${url}/seller/${id}`,
+    data: {
+      id: id,
+      discountRate: value.discountRate,
+      eventName: value.eventName,
+      startDate: value.startDate,
+      endDate: value.endDate,
+      imagePath: value.imagePath,
+      sellerId: "9",
+      eventStatus: "WAITING",
     },
   });
-  return res.data;
+  return response.data;
 };
