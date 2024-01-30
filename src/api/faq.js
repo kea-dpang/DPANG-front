@@ -1,5 +1,6 @@
 import {
   customAskCategoryName,
+  customDate,
   customFAQCategoryName,
 } from "assets/CustomName";
 import axios from "axios";
@@ -35,21 +36,69 @@ export const GET_FAQList = async (category) => {
   return res.data;
 };
 
-// export const POST_Faq = async (data) => {
-//   // const accessToken = window.localStorage.getItem("accessToken");
+export const POST_Faq = async (data) => {
+  // const accessToken = window.localStorage.getItem("accessToken");
+  data.category = customFAQCategoryName(data.category, true);
 
-//   const res = await axios({
-//     method: "post",
-//     url: url,
-//     // headers: {
-//     //     'Authorization': `Bearer ${accessToken}`
-//     // },
-//     params: {
-//       categoryName: filterList.topic,
-//       question: filterList.hashtag,
-//       answer: filterList.blog_id,
-//     },
-//   });
+  const res = await axios({
+    method: "post",
+    url: url,
+    headers: {
+      // 'Authorization': `Bearer ${accessToken}`
+      "X-DPANG-CLIENT-ID": 1,
+    },
+    data: {
+      category: data.category,
+      question: data.question,
+      answer: data.answer,
+    },
+  });
 
-//   return res.data;
-// };
+  return res.data;
+};
+
+export const GET_FAQ = async (faqId) => {
+  console.log("faqId:", faqId);
+  const res = await axios({
+    method: "get",
+    url: `${url}/${faqId}`,
+  });
+  const custom = res.data.data;
+  custom.category = customFAQCategoryName(custom.category, false);
+  custom.createdAt = customDate(custom.createdAt);
+
+  console.log("custom:", custom);
+
+  return res.data;
+};
+
+export const PUT_FAQ = async (faqId, data) => {
+  data.category = customFAQCategoryName(data.category, true);
+
+  const res = await axios({
+    method: "put",
+    headers: {
+      // 'Authorization': `Bearer ${accessToken}`
+      "X-DPANG-CLIENT-ID": 1,
+    },
+    url: `${url}/${faqId}`,
+    data: {
+      category: data.category,
+      question: data.question,
+      answer: data.answer,
+    },
+  });
+
+  return res.data;
+};
+
+export const DELETE_FAQ = async (faqIdArr) => {
+  const res = await axios({
+    method: "delete",
+    url: url,
+    data: {
+      faqIdArr,
+    },
+  });
+  return res.data;
+};
