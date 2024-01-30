@@ -1,30 +1,44 @@
 import styled from "styled-components";
 import React from "react";
 import EventImage from "@adminPages/eventPage/Enroll/EventImage";
+import { POST_Image } from "@api/image";
 
 const ProductDetailEnroll = ({ productInfo, setProductInfo }) => {
   // 대표 이미지 관리
   const handleDefaultImgChange = (file) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setProductInfo((prev) => ({ ...prev, productImage: reader.result }));
-    };
-    reader.readAsDataURL(file);
+    POST_Image(file)
+      .then((data) => {
+        console.log("사진 등록", data.data.uploadedFileUrl);
+        setProductInfo((prev) => ({
+          ...prev,
+          itemImage: data.data.uploadedFileUrl,
+        }));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   const handleDefaultImgDelete = () => {
-    setProductInfo((prev) => ({ ...prev, productImage: null }));
+    setProductInfo((prev) => ({ ...prev, itemImage: null }));
   };
   // 상세 이미지 관리
   const handleDetailImgChange = (file) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setProductInfo((prev) => ({ ...prev, detailImage: reader.result }));
-    };
-    reader.readAsDataURL(file);
+    POST_Image(file)
+      .then((data) => {
+        console.log("사진 등록", data.data.uploadedFileUrl);
+        setProductInfo((prev) => ({
+          ...prev,
+          images: data.data.uploadedFileUrl,
+        }));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   const handleDetailImgDelete = () => {
-    setProductInfo((prev) => ({ ...prev, detailImage: null }));
+    setProductInfo((prev) => ({ ...prev, images: null }));
   };
+
   return (
     <Wrap>
       <div className="cm-SBold18 col-Navy">상품 상세 정보</div>
@@ -43,7 +57,7 @@ const ProductDetailEnroll = ({ productInfo, setProductInfo }) => {
         <Row>
           <p className="cm-SBold16 col-Black">상세 이미지</p>
           <EventImage
-            eventImage={productInfo.detailImage}
+            eventImage={productInfo.images}
             handleImageDelete={handleDetailImgDelete}
             handleImageChange={handleDetailImgChange}
           />

@@ -1,30 +1,34 @@
 import { React, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import Header from "components/common/UserHeaderBar/Index";
-import Footer from "components/common/UserFooter/Index";
+import Header from "@components/UserHeaderBar/Index";
+import Footer from "@components/UserFooter/Index";
 import ProductSummary from "./ProductSummary";
 import ProductDetailNav from "./ProductDetailNav";
 import ProductInfo from "./ProductInfo";
 import ProductReview from "./ProductReview";
-import ProductAsk from "pages/user/Product/ProductAsk";
-import ItemDetailData from "assets/data/user/ItemDetailData";
+import ProductAsk from "@userPages/Product/ProductAsk";
+import { GET_ItemInfo } from "@api/Item";
 const ProductDetail = () => {
   const { itemId } = useParams();
   // 어떤 nav가 눌려있는지 - 상품 정보, 후기, 문의
   const [clicked, setClicked] = useState(1);
   const [itemInfo, setItemInfo] = useState(); // 상품 상세조회 할 id값 주소에서 가져오기
 
+  useEffect(() => {
+    GET_ItemInfo(itemId)
+      .then((data) => {
+        console.log("상품 상세보기 data : ", data);
+        setItemInfo(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
   // clicked 정보가 바뀔 때마다 해당 위치로 이동하기
   useEffect(() => {
     console.log("clicked: ", clicked);
   }, [clicked]);
-
-  //   주소에서 가져온 id값과 일치하는 상품조회 데이터 가져오기
-  useEffect(() => {
-    const matchedItem = ItemDetailData.find((item) => item.id === itemId);
-    setItemInfo(matchedItem);
-  }, [itemId]);
 
   return (
     <>

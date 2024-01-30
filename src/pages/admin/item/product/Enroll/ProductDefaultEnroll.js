@@ -27,13 +27,13 @@ const ProductDefaultEnroll = ({ productInfo, setProductInfo }) => {
   ];
 
   const handleNameChange = (e) => {
-    setProductInfo((prev) => ({ ...prev, productName: e.target.value }));
+    setProductInfo((prev) => ({ ...prev, itemName: e.target.value }));
   };
   const handlePriceChange = (e) => {
-    setProductInfo((prev) => ({ ...prev, productPrice: e.target.value }));
+    setProductInfo((prev) => ({ ...prev, itemPrice: e.target.value }));
   };
   const handleStockChange = (e) => {
-    setProductInfo((prev) => ({ ...prev, stock: e.target.value }));
+    setProductInfo((prev) => ({ ...prev, stockQuantity: e.target.value }));
   };
   const handleCategoryChange = (e) => {
     setProductInfo((prev) => ({ ...prev, category: e }));
@@ -42,7 +42,7 @@ const ProductDefaultEnroll = ({ productInfo, setProductInfo }) => {
     setProductInfo((prev) => ({ ...prev, subCategory: e }));
   };
   const handleBrandChange = (e) => {
-    setProductInfo((prev) => ({ ...prev, brandName: e }));
+    setProductInfo((prev) => ({ ...prev, sellerId: e }));
   };
   return (
     <Wrap>
