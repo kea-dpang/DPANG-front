@@ -62,6 +62,7 @@ export const customFAQCategoryName = (category, isReverse) => {
     결제: "PAYMENT",
     회원: "MEMBER",
     기타: "ETC",
+    전체: " ",
   };
 
   if (isReverse) {

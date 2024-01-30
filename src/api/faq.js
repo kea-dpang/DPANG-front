@@ -1,21 +1,37 @@
-import { customAskCategoryName } from "assets/CustomName";
+import {
+  customAskCategoryName,
+  customFAQCategoryName,
+} from "assets/CustomName";
 import axios from "axios";
-
 const url = "/api/faq";
 
 export const GET_FAQList = async (category) => {
-  if (category === undefined) {
-    // 일단 전체가 없으므로 '자주 찾는 FAQ로 지정해둠. 나중에 바꿀 것'
-    category = "FAQ";
+  if (!category) {
+    // 전체
+    category = "";
   } else {
-    category = customAskCategoryName(category, true);
+    category = customFAQCategoryName(category, true);
   }
   console.log("abc:", category);
 
   const res = await axios({
     method: "get",
-    url: `${url}/category/${category}`,
+    url: `${url}/category`,
+    params: {
+      category: category,
+      page: 0,
+      size: 20,
+      sort: "",
+    },
   });
+  const custom = res.data.data.content;
+  res.data.data.content = res.data.data.content.map((item) => {
+    item.category = customFAQCategoryName(item.category, false);
+    return item;
+  });
+
+  console.log("custom:", custom);
+
   return res.data;
 };
 

@@ -13,10 +13,10 @@ import { useForm } from "react-hook-form";
 import { GET_FAQList } from "@api/faq";
 
 const columns = [
-  { name: "id", label: "번호", options: { sort: true } },
+  { name: "postId", label: "번호", options: { sort: true } },
   { name: "category", label: "카테고리", options: { sort: true } },
-  { name: "title", label: "제목", options: { sort: true } },
-  { name: "writer", label: "작성자", options: { sort: true } },
+  { name: "question", label: "제목", options: { sort: true } },
+  { name: "authorId", label: "작성자", options: { sort: true } },
 ];
 
 const FaqListPage = () => {
@@ -25,10 +25,6 @@ const FaqListPage = () => {
   const { watch } = methods;
 
   const categoryValue = watch("문의 유형");
-
-  useEffect(() => {
-    console.log("문의 유형:", categoryValue);
-  }, [categoryValue]);
   ////////////////////////////////
 
   const navigate = useNavigate();
@@ -38,7 +34,6 @@ const FaqListPage = () => {
   useEffect(() => {
     GET_FAQList(categoryValue)
       .then((data) => {
-        console.log("값:", data.data.content);
         setFaqDataList(data.data.content);
       })
       .catch((error) => {
@@ -63,6 +58,7 @@ const FaqListPage = () => {
         <DropboxStyle
           dropTitle={"문의 유형"}
           dropItems={[
+            "전체",
             "자주 찾는 FAQ",
             "배송",
             "취소/교환/환불",
@@ -77,12 +73,16 @@ const FaqListPage = () => {
           추가하기
         </Link>
       </Option>
-
-      <DataTable
-        data={faqManageData}
-        columns={columns}
-        onRowClick={handleRowClick}
-      />
+      {faqDataList && (
+        <DataTable
+          data={faqDataList}
+          columns={columns}
+          onRowClick={handleRowClick}
+          index={"category"}
+          filterValue={categoryValue}
+          placeholder={""}
+        />
+      )}
       <button className="Btn_M_Navy">선택 삭제</button>
     </Wrap>
   );
@@ -103,27 +103,3 @@ const Option = styled.div`
   justify-content: space-between;
   padding-bottom: 3rem;
 `;
-const StyledButton = withStyles({
-  // Material UI의 Button 컴포넌트를 스타일링
-  root: {
-    backgroundColor: "var(--navy)",
-    color: "var(--white)",
-    border: "none",
-    "&:hover": {
-      backgroundColor: "var(--navy)",
-      border: "none",
-    },
-  },
-})(Button);
-const StyledButton2 = withStyles({
-  // Material UI의 Button 컴포넌트를 스타일링
-  root: {
-    backgroundColor: "var(--white)",
-    border: "1px solid var(--navy)",
-    color: "var(--black)",
-    "&:hover": {
-      backgroundColor: "var(--white)",
-      border: "1px solid var(--navy)",
-    },
-  },
-})(Button);
