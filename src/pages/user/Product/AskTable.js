@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { ProductAskData } from "../../../assets/data/user/ProductAskData";
+import { GET_QnAList } from "@api/directAsk";
 
 const ProductAskList = () => {
   const tableTitles = ["제목", "작성자", "작성일", "상태"];
@@ -17,9 +17,14 @@ const ProductAskList = () => {
     }
   };
 
-  // 더미 데이터 넣기
   useEffect(() => {
-    setAskLists(ProductAskData);
+    GET_QnAList(0)
+      .then((data) => {
+        setAskLists(data.data.content);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   return (
@@ -34,7 +39,7 @@ const ProductAskList = () => {
 
       <Main>
         {askLists.map((item, index) => (
-          <React.Fragment key={item.askId}>
+          <React.Fragment key={item.qnaId}>
             <Row onClick={() => handleRowClick(index)}>
               <Item width={colWidths[0]} $state="not">
                 {item.title}
@@ -43,10 +48,10 @@ const ProductAskList = () => {
                 {item.userName}
               </Item>
               <Item width={colWidths[2]} $state="not">
-                {item.date}
+                {item.createdAt}
               </Item>
               <Item width={colWidths[3]} $state={item.askState}>
-                {item.askState}
+                {item.status}
               </Item>
             </Row>
             {selectedRow === index && (

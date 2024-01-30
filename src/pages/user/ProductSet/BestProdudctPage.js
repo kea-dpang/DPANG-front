@@ -1,19 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import itemList from "../../../assets/data/user/ItemData";
-import Item from "../../../components/common/ProductCard/Index";
+import Item from "@components/ProductCard/Index";
+import { GET_ItemListUser } from "@api/Item";
 
 const BestProductPage = () => {
+  // 아이템 리스트
+  const [itemList, setItemList] = useState([]);
+  useEffect(() => {
+    GET_ItemListUser()
+      .then((data) => {
+        setItemList(data); // API 응답으로 받은 데이터를 상태에 저장
+        console.log("넘겨받은 아이템 리스트 데이터 : ", data);
+      })
+      .catch((error) => {
+        console.error("아이템 리스트 가져오기 실패", error);
+      });
+  }, []);
+
   return (
     <>
-      <Wrap>
-        <Title className="cm-XLBold36"> 지금 가장 핫한 상품 🔥 </Title>
-        <ItemWrap>
-          {itemList.map((item) => (
-            <Item key={item.id} value={item} />
-          ))}
-        </ItemWrap>
-      </Wrap>
+      {itemList.length > 0 && (
+        <Wrap>
+          <Title className="cm-XLBold36"> 지금 가장 핫한 상품 🔥 </Title>
+          <ItemWrap>
+            {itemList.map((item) => (
+              <Item key={item.itemId} value={item} />
+            ))}
+          </ItemWrap>
+        </Wrap>
+      )}
     </>
   );
 };

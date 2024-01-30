@@ -7,7 +7,7 @@ export const POST_Item = async (inputValue) => {
     method: "post",
     url: url,
     data: {
-      sellerId: "8",
+      sellerId: "9",
       itemName: inputValue.itemName,
       category: "FASHION",
       subCategory: "WOMEN_CLOTHES",
@@ -18,4 +18,52 @@ export const POST_Item = async (inputValue) => {
     },
   });
   return res.data;
+};
+// 관리자 - 상품 리스트 조회
+export const GET_ItemList = async () => {
+  console.log("get itemlist");
+  const res = await axios({
+    method: "get",
+    url: url,
+    params: {
+      page: 0,
+      size: 20,
+      sort: "",
+    },
+  });
+  console.log("상품 목록 result : ", res.data);
+  return res.data;
+};
+// 사용자 - 상품 리스트 조회
+export const GET_ItemListUser = async () => {
+  console.log("아이템 리스트 조회에옹");
+  const res = await axios({
+    method: "get",
+    url: url,
+    params: {
+      page: 0,
+      size: 20,
+      sort: "",
+    },
+  });
+  return res.data;
+};
+// 관리자 - 상품 상세 조회 (사용자)
+export const GET_ItemInfo = async (id) => {
+  console.log("아이템 상세정보 조회");
+  const res = await axios({
+    method: "get",
+    url: `${url}/${id}`,
+  });
+  return res.data;
+};
+// 관리자 - 상품 삭제
+export const DELETE_Item = async (itemId) => {
+  console.log("상품 삭제", itemId);
+  const response = await axios({
+    method: "delete",
+    url: url,
+    data: itemId,
+  });
+  return response.data;
 };

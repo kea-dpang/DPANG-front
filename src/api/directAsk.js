@@ -63,13 +63,14 @@ export const PUT_Answer = async (QnAId, answer) => {
 export const POST_Question = async (data) => {
   data.category = customAskCategoryName(data.category, true);
 
+  console.log("data: ", data);
   const res = await axios({
     method: "post",
     url: url,
     data: {
       userId: 0,
       category: data.category,
-      itemId: 0,
+      itemId: data.itemId,
       title: data.askTitle,
       content: data.askContent,
       imageUrl: "",

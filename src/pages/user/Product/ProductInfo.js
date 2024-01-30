@@ -7,7 +7,7 @@ const ProductInfo = (props) => {
   return (
     <Wrap>
       <ImgDiv>
-        <Image src={props.item.detailImgUrl} alt="상품 상세설명" />
+        <Image src={props.item.images} alt="상품 상세설명" />
       </ImgDiv>
     </Wrap>
   );
