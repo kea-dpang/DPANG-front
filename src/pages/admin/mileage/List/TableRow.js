@@ -7,8 +7,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import Dropdown from "components/common/Dropdown";
 import DataTable from "components/common/AdminDataTable";
 import data from "assets/data/admin/AdminMileageData";
-import { useState, useEffect } from 'react'
-import { GET_admin_mileage_list } from "@api/mileage";
+import { useState, useEffect } from "react";
+import { GET_admin_mileage_list, POST_charge_req } from "@api/mileage";
 import { useNavigate } from "react-router-dom";
 import { customDate, customMileageStatusName } from "assets/CustomName";
 
@@ -19,56 +19,66 @@ const Index = (props) => {
   //필터링을 해줄 dropdown 박스의 값. 첫 값은 이름, 뒤에 두 값은 필터링에 들어갈 value
   const dropdownValue = ["처리 상태", "대기", "승인", "반려"];
 
+  const handleApprove = (val) => {
+    // 확인 창을 띄움
+    const userConfirmed = window.confirm("충전을 승인하시겠습니까?");
 
-
-
-  
+    // 사용자가 확인을 누른 경우에만 POST_charge_req를 호출
+    if (userConfirmed) {
+      POST_charge_req(val);
+      alert("충전이 완료되었습니다.");
+      window.location.reload();
+    }
+  };
 
   const columns = [
-
     { name: "chargeRequestId", label: "번호", options: { sort: false } },
-    { name: "requestDate", label: "요청일자", options: {customBodyRender: (value)=>{
-
-      return customDate(value);
-
-
-
-    }}},
     {
-      name: "status", label: "처리 상태", options: {
+      name: "requestDate",
+      label: "요청일자",
+      options: {
         customBodyRender: (value) => {
-
+          return customDate(value);
+        },
+      },
+    },
+    {
+      name: "status",
+      label: "처리 상태",
+      options: {
+        customBodyRender: (value) => {
           return customMileageStatusName(value);
-
-
-        }
-
-
-
-      }
+        },
+      },
     },
     { name: "name", label: "이름" },
     { name: "depositorName", label: "입금자명" },
     { name: "requestedMileage", label: "충전 희망 금액" },
     {
-      name: "status", label: "충전 상태 관리", options: {
+      name: "chargeRequestId",
+      label: "충전 상태 관리",
+      options: {
         customBodyRender: (value, tableMeta) => {
+          //ID를 기준으로 데이터 찾기
+          const rowData = props.mileageList.find(
+            (row) => row.chargeRequestId === value
+          );
 
-          return value === 'REQUESTED' ? <ButtonBox style={{ display: "flex" }}>
+          //주문 상태를 가져옴
+          const status = rowData["status"];
 
-            <Button colour="var(--navy)" onClick={() => { console.log("ede") }}>승인</Button>
-            <Button colour="var(--orange)">거절</Button>
-
-
-          </ButtonBox> : null;
-
-        }
+          return status === "REQUESTED" ? (
+            <ButtonBox style={{ display: "flex" }}>
+              <Button colour="var(--navy)" onClick={() => handleApprove(value)}>
+                승인
+              </Button>
+              <Button colour="var(--orange)">거절</Button>
+            </ButtonBox>
+          ) : null;
+        },
       },
-
-    }
-
+    },
   ];
-
 
   //선택한 드롭 박스의 값을 저장하기 위한 state 변수
   const [selectedCategory, setSelectedCategory] = useState(dropdownValue[0]);
@@ -76,7 +86,6 @@ const Index = (props) => {
     //드롭다운 박스에서 가져온 값으로 카테고리를 설정
     setSelectedCategory(newCategory);
   };
-
 
   return (
     <>
@@ -87,7 +96,11 @@ const Index = (props) => {
           {/* 취소 상태 드롭다운, 검색창*/}
           <SearchWrap>
             {/* 카테고리 선택 드롭다운*/}
-            <Dropdown value={dropdownValue} width={"10rem"} onChange={handleCategoryChange} />
+            <Dropdown
+              value={dropdownValue}
+              width={"10rem"}
+              onChange={handleCategoryChange}
+            />
             {/* 검색창 */}
             <Paper
               component="form"
@@ -117,7 +130,7 @@ const Index = (props) => {
           <DataTable
             data={props.mileageList}
             columns={columns}
-            onRowClick={() => { }}
+            onRowClick={() => {}}
             filterValue={selectedCategory}
             index={"status"}
             placeholder={dropdownValue[0]}
@@ -177,10 +190,7 @@ const Button = styled.div`
 `;
 
 const ButtonBox = styled.div`
-
-height: 2rem;
-display: flex;
-align-items: center;
-
-`
-
+  height: 2rem;
+  display: flex;
+  align-items: center;
+`;

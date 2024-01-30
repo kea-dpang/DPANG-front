@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
-import TableRow from './TableRow';
+import { useState, useEffect } from "react";
+import TableRow from "./TableRow";
 import { GET_admin_mileage_list } from "@api/mileage";
+import styled from "styled-components";
 
 function Index() {
   const [mileageList, setMileageList] = useState([]);
@@ -29,7 +30,7 @@ function Index() {
       if (data.data.content.length === 0) {
         fetchData();
       }
-      //데이터가 비어있지 않은 경우에는 그냥 값 그대로 넣어준다 
+      //데이터가 비어있지 않은 경우에는 그냥 값 그대로 넣어준다
       else {
         setMileageList(data.data.content);
         setLoading(false);
@@ -37,7 +38,6 @@ function Index() {
       //실패하면
     } catch (error) {
       console.error("Error fetching mileage data: ", error);
-
     }
   };
 
@@ -48,10 +48,20 @@ function Index() {
   }, [val]);
 
   if (loading) {
-    return <p>로딩중</p>;
+    return <PageName className="cm-MBold24">로딩중.......</PageName>;
   }
 
   return <TableRow mileageList={mileageList} />;
 }
+
+const PageName = styled.div`
+  display: flex;
+  width: 88.9375rem;
+  height: 50rem;
+  box-sizing: border-box; // padding까지 합쳐서 width 설정하기
+  padding: 2.125rem 0rem 0.9375rem 7.5rem;
+  align-items: center;
+  justify-content: center;
+`;
 
 export default Index;

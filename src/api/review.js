@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = `/api/reviews`;
+const url = `/reviews`;
 
 export const POST_review = async (inputValue) => {
   console.log("inputValue: ", inputValue);
@@ -23,7 +23,7 @@ export const POST_review = async (inputValue) => {
 export const GET_review = async (reviewId) => {
   const res = await axios({
     method: "get",
-    url: `${url}/1`,
+    url: `${url}/${reviewId}`,
   });
 
   return res.data;
