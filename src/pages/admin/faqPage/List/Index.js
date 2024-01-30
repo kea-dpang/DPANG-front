@@ -47,6 +47,11 @@ const FaqListPage = () => {
     navigate(`${row[0]}`);
   };
 
+  /* 표에서 삭제된 id 값 */
+  const handleRowDelete = (rowDelted) => {
+    const faqIdArrDeleted = rowDelted.data.map((item) => item.dataIndex);
+    console.log("delete 값", faqIdArrDeleted);
+  };
   return (
     <Wrap>
       <Title className="cm-LBold30 col-Black"> 고객센터</Title>
@@ -81,9 +86,9 @@ const FaqListPage = () => {
           index={"category"}
           filterValue={categoryValue}
           placeholder={""}
+          onRowsDelete={handleRowDelete}
         />
       )}
-      <button className="Btn_M_Navy">선택 삭제</button>
     </Wrap>
   );
 };
