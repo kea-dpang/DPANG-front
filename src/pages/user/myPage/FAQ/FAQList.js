@@ -1,34 +1,42 @@
 import React, { useEffect, useState } from "react";
-import FaqFoldItem from "pages/user/myPage/FAQ/FAQFoldItem";
 import {
   FaqDataList,
   FaqTableTitle,
 } from "../../../../assets/data/user/FAQData";
 import styled from "styled-components";
+import { GET_FAQList } from "@api/faq";
 
 const colWidths = ["20%", "20%", "20%", "20%", "20%", "20%"]; // 각 컬럼의 너비를 정의하는 배열
 
 const FaqList = () => {
-  const [FoldCheck, setFoldCheck] = useState(
-    Array(FaqDataList.length).fill(false)
-  );
+  const [faqDataList, setFaqDataList] = useState();
+  const [FoldCheck, setFoldCheck] = useState();
+  // Array(faqDataList.length).fill(false)
   const [selectedId, setSelectedId] = useState(1); // 선택된 id를 관리하는 상태
-
-  // 선택된 id에 따라 FaqDataList 필터링
-  const filteredFaqDataList = FaqDataList.filter(
-    (faqData) => faqData.subjectId === selectedId
-  );
 
   const handleItemClick = (index) => {
     const newFoldCheck = [...FoldCheck];
     newFoldCheck[index] = !newFoldCheck[index];
     setFoldCheck(newFoldCheck);
   };
+
   useEffect(() => {
-    console.log(FoldCheck);
-  }, [FoldCheck]);
+    const selectedSubject = FaqTableTitle.find(
+      (item) => item.id === selectedId
+    )?.subject;
+
+    GET_FAQList(selectedSubject)
+      .then((data) => {
+        console.log("하이루~ ", data.data.content);
+        setFaqDataList(data.data.content);
+        setFoldCheck(Array(data.data.content.length).fill(false));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [selectedId]);
+
   return (
-    // <Wrap>
     <Table>
       <Header>
         {FaqTableTitle.map((item, index) => (
@@ -44,35 +52,34 @@ const FaqList = () => {
       </Header>
 
       <Main>
-        {filteredFaqDataList.map((item, index) => (
-          <React.Fragment key={index}>
-            <Row key={index} onClick={() => handleItemClick(index)}>
-              {" "}
-              {/*세로 정렬 */}
-              <Item>
-                <h1 className="cm-SBold18">Q. </h1>
-                <p className="cm-SRegular18">{item.title}</p>
-              </Item>
-            </Row>
-            {FoldCheck[index] && (
-              <Row>
-                <FoldItem>
-                  <h1 className="cm-SBold18">A. </h1>
-                  <p className="cm-SRegular18">{item.content}</p>
-                </FoldItem>
+        {faqDataList &&
+          FoldCheck &&
+          faqDataList.map((item, index) => (
+            <React.Fragment key={index}>
+              <Row key={index} onClick={() => handleItemClick(index)}>
+                {" "}
+                <Item>
+                  <h1 className="cm-SBold18">Q. </h1>
+                  <p className="cm-SRegular18">{item.question}</p>
+                </Item>
               </Row>
-            )}
-          </React.Fragment>
-        ))}
+              {FoldCheck[index] && (
+                <Row>
+                  <FoldItem>
+                    <h1 className="cm-SBold18">A. </h1>
+                    <p className="cm-SRegular18">{item.answer}</p>
+                  </FoldItem>
+                </Row>
+              )}
+            </React.Fragment>
+          ))}
       </Main>
     </Table>
-    // </Wrap>
   );
 };
 
 export default FaqList;
 
-const Wrap = styled.div``;
 const Table = styled.div``;
 const Header = styled.div`
   background-color: var(--navy);
