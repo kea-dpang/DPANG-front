@@ -46,7 +46,7 @@ const MypageTitleBox = () => {
               <MileText>
                 <Miletitle>사원 마일리지</Miletitle>
                 {/* 사원 마일리지 */}
-                <Mile>{mileage} 마일</Mile>
+                <Mile>{mileage.toLocaleString()} 마일</Mile>
               </MileText>
               <Mileimg src={membermileImg} />
               <StyledArrowStrokeVector />
@@ -55,7 +55,7 @@ const MypageTitleBox = () => {
               <MileText>
                 <Miletitle>충전 마일리지</Miletitle>
                 {/* 개인 충전 마알리지 */}
-                <Mile>{personalChargedMileage} 마일</Mile>
+                <Mile>{personalChargedMileage.toLocaleString()} 마일</Mile>
               </MileText>
               <Mileimg src={chargemileImg} />
               <StyledArrowStrokeVector />

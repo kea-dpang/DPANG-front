@@ -1,6 +1,7 @@
+import { IronOutlined } from "@mui/icons-material";
 import axios from "axios";
 
-const url = `/reviews`;
+const url = `/api/reviews`;
 
 export const POST_review = async (inputValue) => {
   console.log("inputValue: ", inputValue);
@@ -20,10 +21,13 @@ export const POST_review = async (inputValue) => {
   return res.data;
 };
 
-export const GET_review = async (reviewId) => {
+export const GET_review_list = async (inputValue) => {
   const res = await axios({
     method: "get",
-    url: `${url}/${reviewId}`,
+    url: `${url}/${inputValue.reviewerId}/reviewlist`,
+    page: 0,
+    size: 10,
+    sort: "",
   });
 
   return res.data;

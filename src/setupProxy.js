@@ -43,7 +43,7 @@ module.exports = function (app) {
   );
   /* 리뷰관리 */
   app.use(
-    "/reviews",
+    "/api/reviews",
     createProxyMiddleware({
       target: "http://61.109.214.181:8086",
       changeOrigin: true,
