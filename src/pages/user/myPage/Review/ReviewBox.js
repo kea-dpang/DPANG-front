@@ -16,7 +16,6 @@ const CalenderBox = styled.div`
   background-color: white;
 `;
 const TableBox = styled.div`
-  height: 43rem;
   background-color: white;
 `;
 const DetailHeader = styled.div`

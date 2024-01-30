@@ -3,13 +3,13 @@ import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { GET_review, POST_review } from "@api/review";
+import { POST_review } from "@api/review";
 
 function EnrollTable(props) {
   const [value, setValue] = useState(5);
   const [text, setText] = useState("");
   const navi = useNavigate();
-  const id = props.id;
+  const id = parseInt(props.id, 10);
 
   const handleClick = () => {
     //서버로 보내줄 데이터
@@ -29,14 +29,6 @@ function EnrollTable(props) {
       });
 
     navi("/user/mypage/temp/order");
-
-    // GET_review(1)
-    //   .then((data) => {
-    //     console.log("성공", data);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
   };
 
   return (
