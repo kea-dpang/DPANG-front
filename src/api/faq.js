@@ -35,21 +35,23 @@ export const GET_FAQList = async (category) => {
   return res.data;
 };
 
-// export const POST_Faq = async (data) => {
-//   // const accessToken = window.localStorage.getItem("accessToken");
+export const POST_Faq = async (data) => {
+  // const accessToken = window.localStorage.getItem("accessToken");
+  data.category = customFAQCategoryName(data.category, true);
 
-//   const res = await axios({
-//     method: "post",
-//     url: url,
-//     // headers: {
-//     //     'Authorization': `Bearer ${accessToken}`
-//     // },
-//     params: {
-//       categoryName: filterList.topic,
-//       question: filterList.hashtag,
-//       answer: filterList.blog_id,
-//     },
-//   });
+  const res = await axios({
+    method: "post",
+    url: url,
+    headers: {
+      // 'Authorization': `Bearer ${accessToken}`
+      "X-DPANG-CLIENT-ID": 1,
+    },
+    data: {
+      category: data.category,
+      question: data.question,
+      answer: data.answer,
+    },
+  });
 
-//   return res.data;
-// };
+  return res.data;
+};
