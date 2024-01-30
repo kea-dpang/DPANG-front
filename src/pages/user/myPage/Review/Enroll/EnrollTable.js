@@ -13,36 +13,31 @@ function EnrollTable(props) {
 
   const handleClick = () => {
     //서버로 보내줄 데이터
-    // const newReview = {
-    //   reviewerId: 0,
-    //   itemId: 3,
-    //   rating: value,
-    //   content: text,
-    // };
+    const newReview = {
+      reviewerId: 1,
+      itemId: id,
+      rating: value,
+      content: text,
+    };
 
-    // POST_review(newReview)
-    //   .then((data) => {
-    //     console.log("등록", data.data);
-    //   })
-    //   .catch((error) => {
-    //     console.log("시바", error);
-    //   });
+    POST_review(newReview)
+      .then((data) => {
+        console.log("등록", data.data);
+      })
+      .catch((error) => {
+        console.log("실패!!!", error);
+      });
 
     navi("/user/mypage/temp/order");
 
-    GET_review(4)
-    .then((data) => {
-  
-  console.log("성공", data.data);
-  
-    })
-    .catch((error) =>{
-      console.log(error);
-    })
-
-    
+    // GET_review(1)
+    //   .then((data) => {
+    //     console.log("성공", data);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   };
-
 
   return (
     <>

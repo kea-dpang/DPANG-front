@@ -22,7 +22,7 @@ export const POST_mileage_request = async (inputValue) => {
   const res = await axios({
     //유저 ID, 충전액, 충전 신청자 입력
     method: "post",
-    url: `${url}/recharge-requests`,
+    url: `${url}/recharge-request`,
     data: {
       userId: inputValue.userId,
       amount: inputValue.amount,
@@ -86,5 +86,17 @@ export const GET_admin_mileage_list = async (inputValue) => {
     },
   });
 
+  return res.data;
+};
+
+export const POST_charge_req = async (requestId) => {
+  console.log(requestId);
+  const res = await axios({
+    method: "post",
+    url: `${url}/recharge-requests/${requestId}/process`,
+    data: {
+      approve: true,
+    },
+  });
   return res.data;
 };
