@@ -32,36 +32,16 @@ const Index = () => {
       },
     },
     { name: "itemName", label: "상품명", sort: false },
-    { name: "discountRate", label: "카테고리" },
-    { name: "discountPrice", label: "상세 카테고리" },
-    { name: "wishlistCheck", label: "재고량" },
+    { name: "category", label: "카테고리" },
+    { name: "subCategory", label: "상세 카테고리" },
+    { name: "stockQuantity", label: "재고량" },
   ];
-  // 드롭박스 placeholder 값 + 후보값
-  // const dropdownValue = [
-  //   "카테고리를 선택해주세요",
-  //   "패션",
-  //   "뷰티",
-  //   "스포츠/레저",
-  //   "디지털/가전",
-  //   "인테리어",
-  //   "출산/유아동",
-  //   "생활",
-  // ];
-  const dropdownValue = [
-    "카테고리를 선택해주세요",
-    "category1",
-    "category2",
-    "category3",
-    "category4",
-    "category5",
-    "category6",
-    "category7",
-  ];
+  const dropdownValue = ["카테고리를 선택해주세요", "FASHION"];
   const [item, setItem] = useState([]);
   useEffect(() => {
     GET_ItemList()
       .then((data) => {
-        setItem(data.data);
+        setItem(data);
       })
       .catch((error) => {
         console.log(error);
@@ -70,6 +50,7 @@ const Index = () => {
 
   const handleRowsDelete = (rowsDeleted) => {
     const dataIndexArray = rowsDeleted.data.map((item) => item.dataIndex);
+    console.log("dataIndexArray: ", dataIndexArray);
     DELETE_Item(dataIndexArray)
       .then((data) => {
         console.log("상품 삭제");
@@ -77,7 +58,7 @@ const Index = () => {
       .catch((error) => {
         console.log(error);
       });
-    console.log("삭제: ", rowsDeleted);
+    console.log("item : ", item);
   };
 
   const navigate = useNavigate();
@@ -139,15 +120,17 @@ const Index = () => {
         </FilterSection>
         {/* 이벤트 목록 */}
         <ListSection>
-          <DataTable
-            data={item}
-            columns={columns}
-            onRowClick={handleRowClick}
-            onRowsDelete={handleRowsDelete}
-            filterValue={selectedDropValue}
-            index={"itemId"}
-            placeholder={dropdownValue[0]}
-          />
+          {item.length > 0 && (
+            <DataTable
+              data={item}
+              columns={columns}
+              onRowClick={handleRowClick}
+              onRowsDelete={handleRowsDelete}
+              filterValue={selectedDropValue}
+              index={"category"}
+              placeholder={dropdownValue[0]}
+            />
+          )}
         </ListSection>
       </Wrap>
     </>

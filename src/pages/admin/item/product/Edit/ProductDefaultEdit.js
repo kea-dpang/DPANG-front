@@ -1,17 +1,11 @@
 import styled from "styled-components";
-import * as React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Dropdown from "components/common/Dropdown";
+import InputEdit from "@adminPages/item/brand/Edit/InputEdit";
+import { POST_Image } from "@api/image";
+import EventImage from "@adminPages/eventPage/Enroll/EventImage";
 
 const ProductDefaultEdit = ({ productInfo, setProductInfo }) => {
-  const [itemInfo, setItemInfo] = useState(); // 상품 상세조회 할 id값 주소에서 가져오기
-
-  const [eventname, setEventName] = useState("");
-  const [code, setCode] = useState([]);
-  const [productList, setProductList] = useState([]);
-  const [salepercent, setPercent] = useState("");
   const brand = ["브랜드를 선택해주세요", "lg생활건강", "카카오"];
   const category = [
     "카테고리를 선택해주세요",
@@ -34,15 +28,33 @@ const ProductDefaultEdit = ({ productInfo, setProductInfo }) => {
   ];
 
   const handleNameChange = (e) => {
-    setProductInfo((prev) => ({ ...prev, name: e.target.value }));
+    setProductInfo((prev) => ({ ...prev, itemName: e.target.value }));
   };
 
   const handlePriceChange = (e) => {
-    setProductInfo((prev) => ({ ...prev, price: e.target.value }));
+    setProductInfo((prev) => ({ ...prev, itemPrice: e.target.value }));
   };
 
   const handleStockChange = (e) => {
-    setProductInfo((prev) => ({ ...prev, stock: e.target.value }));
+    setProductInfo((prev) => ({ ...prev, stockQuantity: e.target.value }));
+  };
+  // 이벤트 이미지 관리
+  const handleImageChange = (file) => {
+    console.log("file: ", file);
+    POST_Image(file)
+      .then((data) => {
+        console.log("사진 등록", data.data.uploadedFileUrl);
+        setProductInfo({
+          ...productInfo,
+          itemImage: data.data.uploadedFileUrl,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const handleImageDelete = () => {
+    setProductInfo({ ...productInfo, itemImage: null });
   };
   return (
     <Wrap>
@@ -52,103 +64,32 @@ const ProductDefaultEdit = ({ productInfo, setProductInfo }) => {
         {/* 상품명 등록 */}
         <Row>
           <p className="cm-SBold16 col-Black">상품명</p>
-          <ContentBox>
-            <TextField
-              id="name"
-              value={productInfo.name}
-              onChange={handleNameChange}
-              variant="outlined"
-              InputLabelProps={{ shrink: true }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "&.Mui-focused fieldset": {
-                    borderColor: "var(--navy)", // 포커스 시 borderColor를 원하는 색상으로 변경
-                  },
-                },
-              }}
-              placeholder="상품명을 입력해주세요"
-            />
-          </ContentBox>
+          <InputEdit
+            value={productInfo.itemName}
+            id={"itemName"}
+            placeholder={"상품명을 입력해주세요"}
+            onChange={handleNameChange}
+          />
         </Row>
         {/* 판매가 등록 */}
         <Row>
           <p className="cm-SBold16 col-Black">판매가</p>
-          <ContentBox>
-            <TextField
-              id="price"
-              value={productInfo.price}
-              onChange={handlePriceChange}
-              variant="outlined"
-              InputLabelProps={{ shrink: true }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "&.Mui-focused fieldset": {
-                    borderColor: "var(--navy)", // 포커스 시 borderColor를 원하는 색상으로 변경
-                  },
-                },
-              }}
-              placeholder="판매가를 입력해주세요"
-            />
-          </ContentBox>
-        </Row>
-        {/* 브랜드 등록 */}
-        <Row>
-          <p className="cm-SBold16 col-Black">브랜드</p>
-          <ContentBox>
-            {/* <TextField
-                            id="price"
-                            onChange={handlePriceChange}
-                            variant="outlined"
-                            InputLabelProps={{ shrink: true }}
-                            sx={{
-                                '& .MuiOutlinedInput-root': {
-                                    '&.Mui-focused fieldset': {
-                                        borderColor: 'var(--navy)', // 포커스 시 borderColor를 원하는 색상으로 변경
-                                    },
-                                },
-                            }}
-                            placeholder="판매가를 입력해주세요"
-                        /> */}
-            <Dropdown value={brand} />
-          </ContentBox>
-        </Row>
-        {/* 카테고리 등록 */}
-        <Row>
-          <p className="cm-SBold16 col-Black">카테고리</p>
-          <ContentBox>
-            {/* <Dropdown value={category} /> */}
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "flex-start",
-                gap: "1rem",
-              }}
-            >
-              <Dropdown value={category} />
-              <Dropdown value={sub_category} />
-            </div>
-          </ContentBox>
+          <InputEdit
+            value={productInfo.itemPrice}
+            id={"itemPrice"}
+            placeholder={"판매가를 입력해주세요"}
+            onChange={handlePriceChange}
+          />
         </Row>
         {/* 재고 수정 */}
         <Row>
           <p className="cm-SBold16 col-Black">재고</p>
-          <ContentBox>
-            <TextField
-              id="stock"
-              value={productInfo.stock}
-              onChange={handleStockChange}
-              variant="outlined"
-              InputLabelProps={{ shrink: true }}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "&.Mui-focused fieldset": {
-                    borderColor: "var(--navy)", // 포커스 시 borderColor를 원하는 색상으로 변경
-                  },
-                },
-              }}
-              placeholder="입고수량을 입력해주세요"
-            />
-          </ContentBox>
+          <InputEdit
+            value={productInfo.stockQuantity}
+            id={"stockQuantity"}
+            placeholder={"재고량을 수정해주세요"}
+            onChange={handleStockChange}
+          />
         </Row>
       </Table>
     </Wrap>

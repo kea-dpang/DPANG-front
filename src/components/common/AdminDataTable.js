@@ -14,6 +14,7 @@ const DataTable = ({
   const [data, setData] = useState(initialData);
   const [filteredData, setFilteredData] = useState(data);
   const [resetCheckBox, setResetCheckBox] = useState(false); // 체크박스 리셋
+  const [newData, setNewData] = useState("");
 
   // 드롭박스 필터링
   useEffect(() => {

@@ -5,30 +5,71 @@ import { useNavigate } from "react-router-dom";
 import ProductDefaultEdit from "./ProductDefaultEdit";
 import ProductDetailEnroll from "./ProductDetailEdit";
 import { useParams } from "react-router-dom";
-import ItemDetailData from "../../../../../assets/data/user/ItemDetailData";
+import { GET_ItemInfo, PUT_Item } from "@api/Item";
 // 상품 index 페이지
 const ProductEditPage = () => {
   let itemId = useParams().id;
+  const [isFormValid, setFormValid] = useState(false); // 입력값 다 입력했는지 판단
 
   const navi = useNavigate();
-  const [itemInfo, setItemInfo] = useState(); // 상품 상세조회 할 id값 주소에서 가져오기
+  const [itemInfo, setItemInfo] = useState({
+    itemName: "",
+    itemPrice: "",
+    eventPrice: "",
+    stockQuantity: "",
+    itemImage: "",
+    images: [],
+  });
   //   주소에서 가져온 id값과 일치하는 상품조회 데이터 가져오기
   useEffect(() => {
-    const matchedItem = ItemDetailData.find((item) => item.id === itemId);
-    setItemInfo(matchedItem);
+    GET_ItemInfo(itemId)
+      .then((data) => {
+        console.log("상품 data : ", data);
+        setItemInfo({
+          itemName: data.itemName,
+          itemPrice: data.itemPrice,
+          stockQuantity: data.stockQuantity,
+          itemImage: data.itemImage,
+          images: data.images,
+          eventPrice: data.itemPrice,
+          category: data.category,
+          subCategory: data.subCategory,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, [itemId]);
-  //   const [productInfo, setProductInfo] = useState({
-  //     productName: "",
-  //     productPrice: "",
-  //     brandName: "",
-  //     productImage: "",
-  //     detailImage: "",
-  //     stock: "",
-  //   });
-
-  const handleAddBtn = () => {
-    console.log("상품 수정완료");
-    console.log(itemInfo);
+  // 입력필드에 다 안찼으면 등록버튼 비활성화
+  useEffect(() => {
+    if (
+      itemInfo.itemName !== "" &&
+      itemInfo.itemPrice !== "" &&
+      itemInfo.stockQuantity !== "" &&
+      itemInfo.itemImage !== "" &&
+      itemInfo.images.length > 0
+    ) {
+      setFormValid(true);
+    } else {
+      setFormValid(false);
+    }
+  }, [
+    itemInfo.itemName,
+    itemInfo.itemPrice,
+    itemInfo.stockQuantity,
+    itemInfo.itemImage,
+    itemInfo.images,
+  ]);
+  const handleSubmit = () => {
+    PUT_Item(itemId, itemInfo)
+      .then((data) => {
+        console.log("수정 완료 : ");
+        navi(`/admin/product`);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    console.log("상품 수정할게: ", itemInfo);
   };
 
   return (
@@ -49,8 +90,21 @@ const ProductEditPage = () => {
             />
             {/* 수정하기 버튼 */}
             <Button>
-              <button className="Btn_S_Navy" onClick={() => handleAddBtn()}>
-                수정하기
+              <button
+                onClick={handleSubmit}
+                type="submit"
+                className="Btn_S_Navy"
+                disabled={!isFormValid}
+                style={
+                  !isFormValid
+                    ? {
+                        backgroundColor: "var(--semi-light-grey)",
+                        cursor: "not-allowed",
+                      }
+                    : {}
+                }
+              >
+                수정완료
               </button>
             </Button>
           </InputSection>

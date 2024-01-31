@@ -24,7 +24,7 @@ export const GET_ItemList = async () => {
   console.log("get itemlist");
   const res = await axios({
     method: "get",
-    url: url,
+    url: `${url}/managelist`,
     params: {
       page: 0,
       size: 20,
@@ -39,7 +39,7 @@ export const GET_ItemListUser = async () => {
   console.log("아이템 리스트 조회에옹");
   const res = await axios({
     method: "get",
-    url: url,
+    url: `${url}/cards`,
     params: {
       page: 0,
       size: 20,
@@ -62,8 +62,26 @@ export const DELETE_Item = async (itemId) => {
   console.log("상품 삭제", itemId);
   const response = await axios({
     method: "delete",
-    url: url,
-    data: itemId,
+    url: `${url}/${itemId}`,
+  });
+  return response.data;
+};
+// 관리자 - 상품 수정
+export const PUT_Item = async (id, value) => {
+  console.log("상품 수정");
+  const response = await axios({
+    method: "put",
+    url: `${url}/${id}`,
+    data: {
+      id: id,
+      itemName: value.itemName,
+      category: value.category,
+      subCategory: value.subCategory,
+      eventPrice: value.eventPrice,
+      stockQuantity: value.stockQuantity,
+      itemImage: value.itemImage,
+      images: value.images,
+    },
   });
   return response.data;
 };
