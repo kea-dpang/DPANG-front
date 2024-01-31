@@ -31,7 +31,7 @@ const ProductEditPage = () => {
           stockQuantity: data.stockQuantity,
           itemImage: data.itemImage,
           images: data.images,
-          eventPrice: data.itemPrice,
+          eventPrice: "0",
           category: data.category,
           subCategory: data.subCategory,
         });

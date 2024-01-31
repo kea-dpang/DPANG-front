@@ -77,6 +77,7 @@ export const PUT_Item = async (id, value) => {
       itemName: value.itemName,
       category: value.category,
       subCategory: value.subCategory,
+      itemPrice: value.itemPrice,
       eventPrice: value.eventPrice,
       stockQuantity: value.stockQuantity,
       itemImage: value.itemImage,
