@@ -43,39 +43,52 @@ const BrandEventPage = () => {
           <Nav color="var(--navy)"> 브랜드 이벤트</Nav>
         </ProductBrandTab>
         {/* 진행중인 이벤트 */}
-        {eventDataList.ProceedingList && (
+        <StatusTitle className="cm-SBold18 col-Navy"> 진행 중 </StatusTitle>
+        {eventDataList.ProceedingList &&
+        eventDataList.ProceedingList.length > 0 ? (
           <>
-            <StatusTitle className="cm-SBold18 col-Navy"> 진행 중 </StatusTitle>
             <ListSection>
               {eventDataList.ProceedingList.map((item) => (
                 <EventList key={item.id} data={item} />
               ))}
             </ListSection>
           </>
+        ) : (
+          <PlaceholderWrap className="cm-SRegular18 col-DarkGrey">
+            아직 진행 중인 이벤트가 없어요. 새로운 이벤트를 준비 중이니
+            기대해주세요!
+          </PlaceholderWrap>
         )}
         {/* 대기중인 이벤트 */}
-        {eventDataList.WaitingList && (
+        <StatusTitle className="cm-SBold18 col-Orange">진행 예정</StatusTitle>
+        {eventDataList.WaitingList && eventDataList.WaitingList.length > 0 ? (
           <>
-            <StatusTitle className="cm-SBold18 col-Orange">
-              진행 예정
-            </StatusTitle>
             <ListSection>
               {eventDataList.WaitingList.map((item) => (
                 <EventList key={item.id} data={item} />
               ))}
             </ListSection>
           </>
+        ) : (
+          <PlaceholderWrap className="cm-SRegular18 col-DarkGrey">
+            아직 진행 예정인 이벤트가 없어요. 더 흥미로운 이벤트로 곧
+            찾아뵐게요!
+          </PlaceholderWrap>
         )}
         {/* 종료된 이벤트 */}
-        {eventDataList.EndList && (
+        <StatusTitle className="cm-SBold18 col-DarkGrey">종료</StatusTitle>
+        {eventDataList.EndList && eventDataList.EndList.length > 0 ? (
           <>
-            <StatusTitle className="cm-SBold18 col-DarkGrey">종료</StatusTitle>
             <ListSection>
               {eventDataList.EndList.map((item) => (
                 <EventList key={item.id} data={item} />
               ))}
             </ListSection>
           </>
+        ) : (
+          <PlaceholderWrap className="cm-SRegular18 col-DarkGrey">
+            종료된 이벤트가 없어요!
+          </PlaceholderWrap>
         )}
       </Wrap>
     </>
@@ -109,6 +122,12 @@ const Nav = styled.div`
 `;
 const StatusTitle = styled.div`
   padding: 0rem 18rem;
+`;
+const PlaceholderWrap = styled.div`
+  padding: 2rem 20rem;
+  box-sizing: border-box;
+  margin: 1rem 0rem;
+  // background-color: var(--light-grey);
 `;
 const ListSection = styled.div`
   display: flex;
