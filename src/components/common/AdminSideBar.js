@@ -30,7 +30,7 @@ const AdminSideBar = () => {
     <>
       <Wrap>
         {/* 디팡 로고 & 메뉴바 로고*/}
-        <LogoBar to="user">
+        <LogoBar to="monitoring">
           <img
             src={logo}
             alt="logo"
@@ -257,6 +257,32 @@ const AdminSideBar = () => {
               <Nav> - 배송상태 업데이트 </Nav>
             </OpenMenuWrap>
           )}
+          {/* 모니터링 */}
+          {/* 상위메뉴 */}
+          <SubMenuWrap
+            style={{ gap: "6.8rem" }}
+            $isOpen={openSubMenu === "모니터링"}
+            onClick={() => handleSubMenuClick("모니터링")}
+          >
+            <Left>
+              <Order
+                style={{
+                  color:
+                    openSubMenu === "모니터링"
+                      ? "var(--white)"
+                      : "var(--semi-light-grey)",
+                }}
+              />
+              <MenuName $isOpen={openSubMenu === "모니터링"}>모니터링</MenuName>
+            </Left>
+            <Arrow $isOpen={openSubMenu === "모니터링"} />
+          </SubMenuWrap>
+          {/* 클릭하면 열리는 상세메뉴 */}
+          {openSubMenu === "모니터링" && (
+            <OpenMenuWrap>
+              <Nav to="monitoring"> - 모니터링 </Nav>
+            </OpenMenuWrap>
+          )}
         </MenuWrap>
       </Wrap>
     </>
@@ -280,7 +306,6 @@ const MenuWrap = styled.div`
   padding-top: 3.75rem;
   flex-direction: column;
   align-items: flex-start;
-  // gap: 1.1875rem;
 `;
 const SubMenuWrap = styled.button`
   background: none;
