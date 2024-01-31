@@ -9,13 +9,13 @@ function EnrollTable(props) {
   const [value, setValue] = useState(5);
   const [text, setText] = useState("");
   const navi = useNavigate();
-  const id = props.id;
+  const id = parseInt(props.id, 10);
 
   const handleClick = () => {
     //서버로 보내줄 데이터
     const newReview = {
-      reviewerId: 0,
-      itemId: parseInt(id, 10),
+      reviewerId: 1,
+      itemId: id,
       rating: value,
       content: text,
     };
@@ -25,7 +25,7 @@ function EnrollTable(props) {
         console.log("등록", data.data);
       })
       .catch((error) => {
-        console.log(error);
+        console.log("실패!!!", error);
       });
 
     navi("/user/mypage/temp/order");

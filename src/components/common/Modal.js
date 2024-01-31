@@ -1,17 +1,41 @@
 import styled from "styled-components";
-import SingleItem from "../../assets/data/user/ItemDetailData";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { POST_Question } from "@api/directAsk";
 
-const Modal = ({ setIsModalOpen }) => {
-  const [askTitle, setAskTitle] = useState();
-  const [askContent, setAskContent] = useState();
+const Modal = ({ setIsModalOpen, value }) => {
+  const [isFormValid, setFormValid] = useState(false); // 입력값 다 입력했는지 판단
+  const [askTitle, setAskTitle] = useState("");
+  const [askContent, setAskContent] = useState("");
+  // 입력필드에 다 안찼으면 등록버튼 비활성화
+  useEffect(() => {
+    if (askTitle !== "" && askContent !== "") {
+      setFormValid(true);
+    } else {
+      setFormValid(false);
+    }
+  }, [askTitle, askContent]);
 
   const handleTitleChange = (e) => setAskTitle(e.target.value);
   const handleContentChange = (e) => setAskContent(e.target.value);
-  const handleAddBtn = () => {
-    console.log("문의 등록완료");
+  const handleSubmit = () => {
+    const askData = {
+      itemId: value.itemId,
+      category: "상품 문의",
+      askTitle: askTitle,
+      askContent: askContent,
+    };
+    POST_Question(askData) // 나중에 userId도 넘겨주기
+      .then((data) => {
+        setAskContent("");
+        setAskTitle("");
+        setIsModalOpen(false);
+        console.log("상품 문의가 성공적으로 등록되었습니다.");
+      })
+      .catch((error) => {
+        console.log("상품 문의 등록에 실패하였습니다. 다시 시도해 주세요.");
+      });
   };
 
   return (
@@ -28,8 +52,8 @@ const Modal = ({ setIsModalOpen }) => {
             </QuitButton>
           </TitleWrap>
           <ProductWrap>
-            <ProductImg $imgUrl={SingleItem[0].imgUrl} />
-            <div className="cm-SBold18 col-Black">{SingleItem[0].name}</div>
+            <ProductImg $imgUrl={value.itemImage} />
+            <div className="cm-SBold18 col-Black">{value.itemName}</div>
           </ProductWrap>
           <ContextWrap>
             <div className="cm-SBold16">제목</div>
@@ -78,8 +102,21 @@ const Modal = ({ setIsModalOpen }) => {
           </ContextWrap>
           {/* 등록하기 버튼 */}
           <Button>
-            <button className="Btn_S_Navy" onClick={() => handleAddBtn()}>
-              등록하기
+            <button
+              onClick={handleSubmit}
+              type="submit"
+              className="Btn_S_Navy"
+              disabled={!isFormValid}
+              style={
+                !isFormValid
+                  ? {
+                      backgroundColor: "var(--semi-light-grey)",
+                      cursor: "not-allowed",
+                    }
+                  : {}
+              }
+            >
+              문의 등록
             </button>
           </Button>
         </ModalBlock>

@@ -49,6 +49,22 @@ module.exports = function (app) {
       changeOrigin: true,
     })
   );
+  /* 아이템관리 */
+  app.use(
+    "/api/items",
+    createProxyMiddleware({
+      target: "http://61.109.214.181:8086",
+      changeOrigin: true,
+    })
+  );
+  /* 아이템관리 */
+  app.use(
+    "/api/items",
+    createProxyMiddleware({
+      target: "http://61.109.214.181:8086",
+      changeOrigin: true,
+    })
+  );
   /* 이미지 업로드 */
   app.use(
     "/api/image",
@@ -62,6 +78,14 @@ module.exports = function (app) {
     "/api/events",
     createProxyMiddleware({
       target: "http://61.109.214.181:8088",
+      changeOrigin: true,
+    })
+  );
+  /* 회원관리 */
+  app.use(
+    "/api/users",
+    createProxyMiddleware({
+      target: "http://61.109.214.181:8089",
       changeOrigin: true,
     })
   );

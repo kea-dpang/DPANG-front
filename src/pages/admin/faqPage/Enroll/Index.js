@@ -4,6 +4,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import { useForm } from "react-hook-form";
+import { POST_Faq } from "@api/faq";
 
 const EnrollPage = () => {
   //////////////////////////////////
@@ -23,9 +24,14 @@ const EnrollPage = () => {
   const watchAllFields = watch();
 
   const onSubmit = (data) => {
-    console.log("입력값 확인", data);
-
-    alert(JSON.stringify(data));
+    POST_Faq(data)
+      .then((data) => {
+        alert("FAQ가 성공적으로 등록되었습니다.");
+      })
+      .catch((error) => {
+        alert("FAQ 등록에 실패하였습니다. 다시 시도해 주세요.");
+      });
+    // alert(JSON.stringify(data));
   };
   //////////////////////////////////
 
@@ -63,7 +69,7 @@ const EnrollPage = () => {
               <MenuItem value="" disabled>
                 문의 유형을 선택해주세요
               </MenuItem>
-              <MenuItem value="자주하는 FAQ">자주하는 FAQ</MenuItem>
+              <MenuItem value="자주 찾는 FAQ">자주 찾는 FAQ</MenuItem>
               <MenuItem value="배송">배송</MenuItem>
               <MenuItem value="취소/교환/환불">취소/교환/환불</MenuItem>
               <MenuItem value="결제">결제</MenuItem>

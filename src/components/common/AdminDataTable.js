@@ -20,6 +20,8 @@ const DataTable = ({
     // 선택된 드롭다운값이 placeholder일때 : 필터링 x
     if (filterValue === placeholder) {
       setFilteredData(data);
+    } else if (filterValue === "전체") {
+      setFilteredData(data);
     } else {
       const filtered = data.filter((item) => item[index] === filterValue);
       setFilteredData(filtered); // 필터링된 데이터로 상태 업데이트

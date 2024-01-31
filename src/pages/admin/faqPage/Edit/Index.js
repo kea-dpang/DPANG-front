@@ -1,30 +1,60 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import { useParams } from "react-router-dom";
 import { faqManageData } from "../../../../assets/data/admin/AdminFaqData";
+import { useForm } from "react-hook-form";
+import { GET_FAQ, PUT_FAQ } from "@api/faq";
 
 const EditPage = () => {
   let params = useParams().faqId;
-  const faqData = faqManageData.find((data) => parseInt(params));
+  const [faqData, setFaqData] = useState({});
+  //////////////////////////////////
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    setValue,
+  } = useForm({
+    defaultValues: {
+      category: "",
+      question: "",
+      answer: "",
+    },
+  });
 
-  const [category, setCategory] = useState(faqData.category);
+  const watchAllFields = watch();
 
-  const [title, setTitle] = useState(faqData.title);
-  const [content, setContent] = useState(faqData.content);
+  useEffect(() => {
+    GET_FAQ(params)
+      .then((data) => {
+        setFaqData(data.data);
+        // API 호출이 완료된 후에 폼의 기본값을 설정
+        setValue("category", data.data.category);
+        setValue("question", data.data.question);
+        setValue("answer", data.data.answer);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
-  const handleCategory = (e) => {
-    setCategory(e.target.value);
-    console.log("ss:", category);
+  const onSubmit = (data) => {
+    PUT_FAQ(params, data)
+      .then((data) => {
+        alert("FAQ가 성공적으로 수정되었습니다.");
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("FAQ 수정에 실패하였습니다. 다시 시도해 주세요.");
+      });
   };
-  const handleTitleChange = (e) => {
-    setTitle(e.target.value);
-  };
-  const handleContentChange = (e) => {
-    setContent(e.target.value);
-  };
+  //////////////////////////////////
+
   return (
     <Wrap>
       <Title className="cm-LBold30 col-Black"> 고객센터</Title>
@@ -34,17 +64,16 @@ const EditPage = () => {
           <FormControl
             sx={{
               width: "11.68rem",
-              // height: '2.43rem'
             }}
           >
             <TextField
+              {...register("category")}
+              value={watchAllFields.category} // TextField의 value prop에 setValue로 업데이트 된 값을 전달해야 하므로!!!
               select
-              value={category}
-              onChange={handleCategory}
               variant="outlined"
               InputLabelProps={{
                 shrink: true,
-                style: { visibility: "hidden" }, // 레이블을 숨깁니다.
+                style: { visibility: "hidden" }, // 레이블 숨기기
               }}
               SelectProps={{
                 displayEmpty: true,
@@ -52,22 +81,15 @@ const EditPage = () => {
                   selectedValue ? selectedValue : "카테고리", // 드롭다운 메뉴에서 선택한 항목
               }}
               sx={{
-                "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-                  borderColor: category ? "var(--navy)" : "",
-                },
-                "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                  {
-                    borderColor: "var(--navy)",
-                  },
                 "& .MuiOutlinedInput-input": {
-                  padding: "0.5rem", // 여기에 padding을 0으로 설정하세요.
+                  padding: "0.5rem",
                 },
               }}
             >
               <MenuItem value="" disabled>
                 문의 유형을 선택해주세요
               </MenuItem>
-              <MenuItem value="자주하는 FAQ">자주하는 FAQ</MenuItem>
+              <MenuItem value="자주 찾는 FAQ">자주 찾는 FAQ</MenuItem>
               <MenuItem value="배송">배송</MenuItem>
               <MenuItem value="취소/교환/환불">취소/교환/환불</MenuItem>
               <MenuItem value="결제">결제</MenuItem>
@@ -82,29 +104,52 @@ const EditPage = () => {
         <Item>
           <p className="cm-XLBold36 col-Navy">Q.</p>
           <textarea
+            {...register("question")}
             cols="50"
             rows="10"
             className="cm-SRegular16"
-            value={title}
-            onChange={handleTitleChange}
-            // placeholder='수령한 상품을 반품하고 싶어요.'
+            // placeholder="수령한 상품을 반품하고 싶어요."
             style={{ padding: "2rem" }}
           ></textarea>
         </Item>
         <Item>
           <p className="cm-XLBold36 col-Navy">A.</p>
           <textarea
+            {...register("answer")}
             cols="50"
             rows="10"
-            value={content}
-            onChange={handleContentChange}
-            // placeholder={'수령한 상품을 반품하고 싶어요.\n\n 반품 접수 방법 \n -마이페이지 > 주문배송 > 상품선택 > 반품요청 \n -구매자의 사유로 반품 시 반품 배송비는 구매자 부담입니다. \n -판매자별 반품 배송비 지불 방법에 맞게 배송비가 지불되지 않은 경우 반품/승인이 보류되어 지연될 수 있습니다.'}
+            className="cm-SRegular16"
+            // placeholder={
+            //   "수령한 상품을 반품하고 싶어요.\n\n 반품 접수 방법 \n -마이페이지 > 주문배송 > 상품선택 > 반품요청 \n -구매자의 사유로 반품 시 반품 배송비는 구매자 부담입니다. \n -판매자별 반품 배송비 지불 방법에 맞게 배송비가 지불되지 않은 경우 반품/승인이 보류되어 지연될 수 있습니다."
+            // }
             style={{ padding: "2rem" }}
           ></textarea>
         </Item>
       </Main>
       <Button>
-        <button className="Btn_S_Navy">수정</button>
+        <button
+          className="Btn_S_Navy"
+          onClick={handleSubmit(onSubmit)}
+          disabled={
+            // 버튼 비활성화
+            !watchAllFields.category ||
+            !watchAllFields.question ||
+            !watchAllFields.answer
+          }
+          style={
+            // 버튼 비활성화 스타일
+            !watchAllFields.category ||
+            !watchAllFields.question ||
+            !watchAllFields.answer
+              ? {
+                  backgroundColor: "var(--semi-light-grey)",
+                  cursor: "not-allowed",
+                }
+              : {}
+          }
+        >
+          수정
+        </button>
       </Button>
     </Wrap>
   );

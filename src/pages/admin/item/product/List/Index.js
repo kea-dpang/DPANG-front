@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
@@ -7,15 +7,15 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Dropdown from "@components/Dropdown";
 import DataTable from "@components/AdminDataTable";
-import data from "@data/user/ItemDetailData";
+import { GET_ItemList, DELETE_Item, GET_ItemInfo } from "@api/Item";
 
 // 상품 등록 관리자 페이지
 const Index = () => {
   // 테이블 column
   const columns = [
-    { name: "id", label: "상품 ID", options: { sort: false } },
+    { name: "itemId", label: "상품 ID", options: { sort: false } },
     {
-      name: "imgUrl",
+      name: "itemImage",
       label: "대표 이미지",
       options: {
         sort: false,
@@ -31,10 +31,10 @@ const Index = () => {
         },
       },
     },
-    { name: "name", label: "상품명", sort: false },
-    { name: "category", label: "카테고리" },
-    { name: "sub_category", label: "상세 카테고리" },
-    { name: "stock", label: "재고량" },
+    { name: "itemName", label: "상품명", sort: false },
+    { name: "discountRate", label: "카테고리" },
+    { name: "discountPrice", label: "상세 카테고리" },
+    { name: "wishlistCheck", label: "재고량" },
   ];
   // 드롭박스 placeholder 값 + 후보값
   // const dropdownValue = [
@@ -57,6 +57,29 @@ const Index = () => {
     "category6",
     "category7",
   ];
+  const [item, setItem] = useState([]);
+  useEffect(() => {
+    GET_ItemList()
+      .then((data) => {
+        setItem(data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const handleRowsDelete = (rowsDeleted) => {
+    const dataIndexArray = rowsDeleted.data.map((item) => item.dataIndex);
+    DELETE_Item(dataIndexArray)
+      .then((data) => {
+        console.log("상품 삭제");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    console.log("삭제: ", rowsDeleted);
+  };
+
   const navigate = useNavigate();
   /* 선택된 행은 상세정보로 이동 */
   const handleRowClick = (row) => {
@@ -66,9 +89,9 @@ const Index = () => {
     navigate("/admin/product/enroll");
   };
   // 선택된 카테고리 상태
-  const [selectedCategory, setSelectedCategory] = useState(dropdownValue[0]);
-  const handleCategoryChange = (newCategory) => {
-    setSelectedCategory(newCategory);
+  const [selectedDropValue, setSelectedDropValue] = useState(dropdownValue[0]);
+  const handleDropChange = (newDropValue) => {
+    setSelectedDropValue(newDropValue);
   };
   return (
     <>
@@ -79,7 +102,7 @@ const Index = () => {
             {/* 카테고리 선택 드롭다운*/}
             <Dropdown
               value={dropdownValue}
-              onChange={handleCategoryChange}
+              onChange={handleDropChange}
               width={"15rem"}
             />
             {/* 검색창 */}
@@ -117,11 +140,12 @@ const Index = () => {
         {/* 이벤트 목록 */}
         <ListSection>
           <DataTable
-            data={data}
+            data={item}
             columns={columns}
             onRowClick={handleRowClick}
-            filterValue={selectedCategory}
-            index={"category"}
+            onRowsDelete={handleRowsDelete}
+            filterValue={selectedDropValue}
+            index={"itemId"}
             placeholder={dropdownValue[0]}
           />
         </ListSection>

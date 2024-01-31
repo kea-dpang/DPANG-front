@@ -16,6 +16,7 @@ const AskList = () => {
 
   /* 서버로부터 원본 리스트 데이터 가져오기 */
   useEffect(() => {
+    console.log(period.startDate, period.endDate);
     GET_QnAList() // 나중에 userId 값 넣어서 보내기
       .then((data) => {
         /* 원본 리스트 데이터를 날짜 필터링 하기 */

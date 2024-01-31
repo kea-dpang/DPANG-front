@@ -1,8 +1,8 @@
 import { React, useState } from "react";
 import styled from "styled-components";
 import ProductAskList from "./AskTable";
-import { ProductAskGuide } from "../../../assets/data/user/ProductAskData";
-import Modal from "../../../components/common/Modal";
+import { ProductAskGuide } from "@data/user/ProductAskData";
+import Modal from "@components/Modal";
 
 const ProductReview = (props) => {
   // 상품문의 팝업창 상태 관리
@@ -32,10 +32,10 @@ const ProductReview = (props) => {
       </ButtonWrap>
       {/* 문의 리스트 */}
       <ProductAskList />
-      {/* <ModalWrap> */}
       {/* 문의 팝업창 */}
-      {isModalOpen && <Modal setIsModalOpen={setIsModalOpen} />}
-      {/* </ModalWrap> */}
+      {isModalOpen && (
+        <Modal setIsModalOpen={setIsModalOpen} value={props.item} />
+      )}
     </Wrap>
   );
 };
@@ -72,10 +72,4 @@ const Guide = styled.div`
 `;
 const Button = styled.div`
   display: flex;
-`;
-
-const ModalWrap = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;

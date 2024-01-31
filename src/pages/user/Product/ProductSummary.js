@@ -11,7 +11,8 @@ import { ReactComponent as LikeImg } from "../../../assets/images/heart.svg";
 const ProductSummary = (props) => {
   // 세일가격
   const saleprice =
-    props.item.price - (props.item.price * props.item.discount) / 100;
+    props.item.itemPrice -
+    (props.item.itemPrice * props.item.discountRate) / 100;
   // 선택 개수
   const [count, setCount] = useState(1);
   // 총 가격
@@ -33,61 +34,70 @@ const ProductSummary = (props) => {
           <CategoryWrap>
             <Nav to=""> {props.item.category} </Nav>
             <div> {">"}</div>
-            <Nav to=""> {props.item.sub_category} </Nav>
+            <Nav to=""> {props.item.subCategory} </Nav>
           </CategoryWrap>
           {/* 상품 사진 */}
-          <ProductImg $imgUrl={props.item.imgUrl} />
+          <ProductImg $imgUrl={props.item.itemImage} />
         </ImgWrwap>
 
         {/* 상품 이름 / 가격 / 판매자 / 상품선택 / 좋아요 / 장바구니 */}
         <ContextWrap>
           {/* 상품 이름 */}
-          <div className="cm-XLBold36 col-Black"> {props.item.name}</div>
-
+          <div className="cm-XLBold36 col-Black"> {props.item.itemName}</div>
           {/* 상품 별점 및 리뷰 수 */}
           <ReviewWrap>
-            <Rating name="read-only" value={props.item.star} readOnly />
-            <div className="cm-SBold16 col-Black"> ( {props.item.review} )</div>
-          </ReviewWrap>
-
-          {/* 상품 가격 */}
-          <PriceWrap>
-            <DiscountWrap className="cm-SBold18">
-              <div className="col-Orange"> {props.item.discount}%</div>
-              <div className="col-Black"> {saleprice.toLocaleString()} </div>
-            </DiscountWrap>
-            <div
-              className="cm-SBold16 col-SemiLightGrey"
-              style={{ textDecoration: "line-through" }}
-            >
-              {" "}
-              {props.item.price}
+            <Rating
+              name="read-only"
+              value={props.item.averageRating}
+              readOnly
+            />
+            <div className="cm-SBold16 col-Black">
+              {props.item.reviews.length}
             </div>
-          </PriceWrap>
-
+          </ReviewWrap>
+          {/* 상품 가격 */}
+          {props.item.discountRate !== 0 ? (
+            <PriceWrap>
+              <DiscountWrap className="cm-SBold18">
+                <div className="col-Orange"> {props.item.discountRate}%</div>
+                <div className="col-Black"> {saleprice.toLocaleString()} </div>
+              </DiscountWrap>
+              <div
+                className="cm-SBold16 col-SemiLightGrey"
+                style={{ textDecoration: "line-through" }}
+              >
+                {props.item.itemPrice}
+              </div>
+            </PriceWrap>
+          ) : (
+            <DiscountWrap style={{ paddingTop: "1rem" }} className="cm-SBold18">
+              <div className="col-Black"> {props.item.itemPrice} </div>
+            </DiscountWrap>
+          )}
           {/* 판매자 */}
           <BrandWrap className="cm-SRegular16">
             <div> 판매자 </div>
-            <div> {props.item.brand} </div>
+            <div> {props.item.sellerId} </div>
           </BrandWrap>
-
           {/* 상품선택 */}
           <SelectWrap>
             {/* 수량선택 박스 */}
             <div style={{ display: "flex", flexDirection: "row" }}>
               <div className="cm-SRegular16" style={{ width: "4rem" }}>
-                {" "}
-                상품선택{" "}
+                상품선택
               </div>
               <AmountBox>
-                <div className="cm-SBold16 col-Navy"> {props.item.name} </div>
+                <div className="cm-SBold16 col-Navy">
+                  {" "}
+                  {props.item.itemName}{" "}
+                </div>
                 <SelectPriceWrap>
                   {/* 수량 선택 */}
                   <NumberBadge count={count} setCount={setCount} />
                   {/* 최종 값 */}
                   <div className="cm-SRegular16 col-Black">
                     {" "}
-                    {totalPrice.toLocaleString()}원{" "}
+                    {totalPrice.toLocaleString()}원
                   </div>
                 </SelectPriceWrap>
               </AmountBox>
