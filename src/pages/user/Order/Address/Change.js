@@ -1,44 +1,87 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import InfoData from "assets/data/user/UserShipData";
 import "../../../../styles/fonts.css";
-import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { Link, useNavigate } from "react-router-dom";
-import Select from "@mui/material/Select";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import { Modal } from "@mui/material";
 import TextField from "@mui/material/TextField";
+import { POST_OrderInfo } from "@api/order";
+import Dropdown from "@components/Dropdown";
+import { useEffect, useState } from "react";
 
 const Change = () => {
-  const navi = useNavigate();
-  const [message, setMessage] = React.useState("");
-  const [name, setName] = useState(InfoData.name);
-  const [phone, setPhone] = useState(InfoData.phone);
-  const [address, setAddress] = useState(InfoData.address);
-  const [detailaddress, setDetailAddress] = useState(InfoData.detailaddress);
   const [isEditing, setIsEditing] = useState(true);
+  const navi = useNavigate();
+  const [isFormValid, setFormValid] = useState(false); // 입력값 다 입력했는지 판단
+  const [inputValue, setInputValue] = useState({
+    name:"",
+    phoneNumber:"",
+    address:"",
+    detailaddress:"",
+    deliveryRequest:"",
+  });
 
-  const handleChange = (event) => {
-    setMessage(event.target.value);
+  useEffect(() => {
+    if (
+      inputValue.name !== "" &&
+      inputValue.phoneNumber !== "" &&
+      inputValue.address !== "" &&
+      inputValue.detailaddress !== "" &&
+      inputValue.deliveryRequest !== ""
+    ) {
+      setFormValid(true);
+    } else {
+      setFormValid(false);
+    }
+  }, [
+    inputValue.name,
+    inputValue.phoneNumber,
+    inputValue.address,
+    inputValue.detailaddress,
+    inputValue.deliveryRequest,
+  ]);
+
+  const handleNameChange = (e) => {
+    setInputValue({ ...inputValue, name: e.target.value });
+  };
+
+  const handleNumberChange = (e) => {
+    setInputValue({ ...inputValue, phoneNumber: e.target.value });
+  };
+
+  const handleAddressChange = (e) => {
+    setInputValue({...inputValue, address: e.target.value });
+  };
+
+  const handleDetailAddressChange = (e) => {
+    setInputValue({...inputValue, detailaddress: e.target.value});
+  };
+
+
+
+  const dropdownValue = [
+    "배송 메세지를 입력하세요",
+    "배송 전 연락 바랍니다",
+    "부재 시 경비실에 맡겨주세요",
+    "문 앞에 놓아주세요",
+  ]
+
+  const [selectedDropValue, setSelectedDropValue]=useState(dropdownValue[0]);
+  const handleRequest = (newStatus) => {
+    setSelectedDropValue(newStatus);
   };
 
   const handleEdit = () => {
     setIsEditing(true);
-  };
+  }
 
   const handleSave = () => {
-    InfoData.name = name;
-    InfoData.phone = phone;
-    InfoData.address = address;
-    InfoData.detailaddress = detailaddress;
+    inputValue.name=inputValue.name;
+    inputValue.phoneNumber=inputValue.phoneNumber;
+    inputValue.address=inputValue.address;
+    inputValue.detailaddress=inputValue.detailaddress;
 
     setIsEditing(false);
-  };
-
-  console.log(InfoData);
+  }
 
   return (
     <Box
@@ -77,9 +120,9 @@ const Change = () => {
           <>
             <TextField
               label="이름"
-              value={name}
+              value={inputValue.name}
               variant="outlined"
-              onChange={(e) => setName(e.target.value)}
+              onChange={handleNameChange}
               sx={{
                 "& .MuiOutlinedInput-root": {
                   borderColor: "var(--dark-grey, #BCBCBC)", // 포커스 시 borderColor를 원하는 색상으로 변경
@@ -89,8 +132,8 @@ const Change = () => {
             />
             <TextField
               label="전화번호"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              value={inputValue.phoneNumber}
+              onChange={handleNumberChange}
               variant="outlined"
               sx={{
                 "& .MuiOutlinedInput-root": {
@@ -103,8 +146,8 @@ const Change = () => {
             <AddressContainer>
               <TextField
                 label="주소"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
+                value={inputValue.address}
+                onChange={handleAddressChange}
                 variant="outlined"
                 sx={{
                   "& .MuiOutlinedInput-root": {
@@ -120,8 +163,8 @@ const Change = () => {
 
             <TextField
               label="상세주소"
-              value={detailaddress}
-              onChange={(e) => setDetailAddress(e.target.value)}
+              value={inputValue.detailaddress}
+              onChange={handleDetailAddressChange}
               variant="outlined"
               sx={{
                 "& .MuiOutlinedInput-root": {
@@ -133,10 +176,10 @@ const Change = () => {
           </>
         ) : (
           <>
-            <p className="cm-SBold18 col-Black">{InfoData.name}</p>
-            <p className="cm-SBold16 col-Black">{InfoData.phone}</p>
+            <p className="cm-SBold18 col-Black">{inputValue.name}</p>
+            <p className="cm-SBold16 col-Black">{inputValue.phone}</p>
             <p className="cm-SRegular16 col-Black">
-              {InfoData.address}, {InfoData.detailaddress}
+              {inputValue.address}, {inputValue.detailaddress}
             </p>
           </>
         )}
@@ -152,28 +195,18 @@ const Change = () => {
           gap: "65.625rem",
         }}
       >
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">
-            배송 메세지를 선택하세요
-          </InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={message}
-            label="Message"
-            onChange={handleChange}
-          >
-            <MenuItem value={10}>배송 전 연락 바랍니다</MenuItem>
-            <MenuItem value={20}>부재 시 경비실에 맡겨주세요</MenuItem>
-            <MenuItem value={30}>문 앞에 놓아주세요</MenuItem>
-          </Select>
-        </FormControl>
+        <Dropdown fullWidth
+          value={dropdownValue}
+          onChange={handleRequest}
+        />
       </Box>
     </Box>
   );
 };
 
 export default Change;
+
+
 
 const ChangeBox = styled.div`
   display: flex;

@@ -7,6 +7,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import DataTable from "@components/AdminDataTable";
 import { GET_Order, PUT_Order } from "@api/order";
 import Dropdown from "@components/Dropdown";
+import data from "@data/admin/AdminOrderData";
 
 
 const Index = () => {
@@ -37,7 +38,20 @@ const Index = () => {
     {name: "price", label: "상품금액"},
     {name: "productQuantity", label: "수량"},
     {name: "orderer", label: "주문 아이디", sort: false},
-    {name: "orderStatus", label: "상태 관리", sort: false},
+    {name: "orderStatus", label: "상태 관리", 
+    options: {sort: false,
+      filter: false,
+      customBodyRender: (value, tableMeta, updateValue) => {
+        return (
+          <Dropdown
+          value = {dropdownValue}
+          onChange = {handleStatusChange}
+          width={"8.875rem"}
+          />
+        );
+      },
+    },
+  },
   ];
 
   const [order, setOrder] = useState([]);
@@ -66,10 +80,11 @@ const Index = () => {
   
 
 
-  const [selectedStatus, setSelectedStatus]=useState(dropdownValue[0]);
+  const [selectedDropValue, setSelectedDropValue]=useState(dropdownValue[0]);
   const handleStatusChange = (newStatus) => {
-    setSelectedStatus(newStatus);
+    setSelectedDropValue(newStatus);
   };
+
   const [selectedRow, setSelectedRow] = useState(null);
 
 
@@ -119,7 +134,7 @@ const Index = () => {
             data={order}
             columns={columns}
             onRowClick={handleRowClick}
-            filterValue={selectedStatus}
+            filterValue={selectedDropValue}
             index={"orderStatus"}
             placeholder={dropdownValue[0]}
           />
