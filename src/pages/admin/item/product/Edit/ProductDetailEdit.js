@@ -5,19 +5,49 @@ import Box from "@mui/material/Box";
 import Fab from "@mui/material/Fab";
 import PhotoIcon from "@mui/icons-material/Photo";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EventImage from "@adminPages/eventPage/Enroll/EventImage";
+import { POST_Image } from "@api/image";
 
 const ProductDetailEnroll = ({ productInfo, setProductInfo }) => {
   const [itemImg, setItemImg] = useState();
   const [infoImg, setInfoImg] = useState();
 
-  const [isHovered, setIsHovered] = useState(false);
-  // 상품정보 이미지삭제 감지
-  const handleItemImgDelete = (e) => {
-    setItemImg(null);
+  // 상품 이미지 관리
+  const handleImageChange = (file) => {
+    console.log("file: ", file);
+    POST_Image(file)
+      .then((data) => {
+        console.log("사진 등록", data.data.uploadedFileUrl);
+        setProductInfo({
+          ...productInfo,
+          itemImage: data.data.uploadedFileUrl,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
-  // 상세정보 이미지삭제 감지
-  const handleInfoImgDelete = (e) => {
-    setInfoImg(null);
+  const handleImageDelete = () => {
+    setProductInfo({ ...productInfo, itemImage: null });
+  };
+
+  // 상품 상세 이미지 관리
+  const handleDetailImageChange = (file) => {
+    console.log("file: ", file);
+    POST_Image(file)
+      .then((data) => {
+        console.log("사진 등록", data.data.uploadedFileUrl);
+        setProductInfo({
+          ...productInfo,
+          itemImage: data.data.uploadedFileUrl,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const handleDetailImageDelete = () => {
+    setProductInfo({ ...productInfo, images: null });
   };
   return (
     <Wrap>
@@ -27,108 +57,20 @@ const ProductDetailEnroll = ({ productInfo, setProductInfo }) => {
         {/* 상품 이미지  */}
         <Row>
           <p className="cm-SBold16 col-Black">상품 이미지</p>
-          <ContentBox>
-            {itemImg ? (
-              <div
-                style={{ position: "relative" }}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-              >
-                <img
-                  src={infoImg}
-                  alt="상품 이미지"
-                  style={{ width: "100%", height: "auto" }}
-                />
-                {isHovered && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      width: "100%",
-                      height: "100%",
-                      backgroundColor: "rgba(0, 0, 0, 0.5)",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      transition: "opacity 0.3s",
-                      cursor: "pointer",
-                    }}
-                  >
-                    {/* 사진에 마우스 hover시, 삭제아이콘 등장 */}
-                    <button
-                      onClick={handleItemImgDelete}
-                      style={{ backgroundColor: "transparent", border: "none" }}
-                    >
-                      <DeleteIcon style={{ color: "var(--light-grey)" }} />{" "}
-                    </button>
-                  </div>
-                )}
-              </div>
-            ) : (
-              // 사진 선택하는 로직 넣기
-              <Fab
-                color="inherit"
-                aria-label="add"
-                sx={{ maxWidth: "40px", maxHeight: "40px" }}
-              >
-                <PhotoIcon color="var(--light-grey)" />
-              </Fab>
-            )}
-          </ContentBox>
+          <EventImage
+            eventImage={productInfo.itemImage}
+            handleImageDelete={handleImageDelete}
+            handleImageChange={handleImageChange}
+          />
         </Row>
         {/* 상세 이미지  */}
         <Row>
           <p className="cm-SBold16 col-Black">상세 이미지</p>
-          <ContentBox>
-            {infoImg ? (
-              <div
-                style={{ position: "relative" }}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-              >
-                <img
-                  src={infoImg}
-                  alt="상세정보 이미지"
-                  style={{ width: "100%", height: "auto" }}
-                />
-                {isHovered && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      width: "100%",
-                      height: "100%",
-                      backgroundColor: "rgba(0, 0, 0, 0.5)",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      transition: "opacity 0.3s",
-                      cursor: "pointer",
-                    }}
-                  >
-                    {/* 사진에 마우스 hover시, 삭제아이콘 등장 */}
-                    <button
-                      onClick={handleInfoImgDelete}
-                      style={{ backgroundColor: "transparent", border: "none" }}
-                    >
-                      <DeleteIcon style={{ color: "var(--light-grey)" }} />{" "}
-                    </button>
-                  </div>
-                )}
-              </div>
-            ) : (
-              // 사진 선택하는 로직 넣기
-              <Fab
-                color="inherit"
-                aria-label="add"
-                sx={{ maxWidth: "40px", maxHeight: "40px" }}
-              >
-                <PhotoIcon color="var(--light-grey)" />
-              </Fab>
-            )}
-          </ContentBox>
+          <EventImage
+            eventImage={productInfo.images}
+            handleImageDelete={handleDetailImageDelete}
+            handleImageChange={handleDetailImageChange}
+          />
         </Row>
       </Table>
     </Wrap>
