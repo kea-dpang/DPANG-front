@@ -41,10 +41,9 @@ export const GET_Order = async (id) => {
 
   export const PUT_Order = async (orderId, inputValue) => {
     console.log("주문상태 수정");
-    const url = `${url}/${orderId}`;
     const response = await axios({
       method: "put",
-      url: url,
+      url: `${url}/${orderId}`,
       data: {
         orderId: orderId,
         orderDate: inputValue.orderDate,
@@ -59,3 +58,13 @@ export const GET_Order = async (id) => {
     return response.data;
   };
 
+  export const GET_OrderList = async (orderId, inputValue) => {
+    console.log("주문상세조회");
+    const response = await axios({
+      method: "get",
+      url: `${url}/${orderId}`,
+      data: {
+        
+      }
+    })
+  }
