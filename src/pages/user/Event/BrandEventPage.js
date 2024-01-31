@@ -1,16 +1,36 @@
 import styled from "styled-components";
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import EventDataList from "../../../assets/data/user/ProductEventDetailData";
 import EventList from "./EventList";
+import { GET_BrandEventListUser } from "@api/event";
 
 // 사용자 - 브랜드 이벤트 리스트 확인 페이지
 const BrandEventPage = () => {
+  const [eventDataList, setEventDataList] = useState([]);
   const navi = useNavigate();
-
   const handleNavClick = () => {
     navi("/user/event/product");
   };
+
+  useEffect(() => {
+    GET_BrandEventListUser()
+      .then((data) => {
+        console.log("사용자 브랜드 이벤트 리스트 조회 : ", data.content);
+        const list = data.content;
+        const ProceedingList = list.filter(
+          (item) => item.eventStatus === "PROCEEDING"
+        );
+        const EndList = list.filter((item) => item.eventStatus === "END");
+        const WaitingList = list.filter(
+          (item) => item.eventStatus === "WAITING"
+        );
+
+        setEventDataList({ ProceedingList, EndList, WaitingList });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <>
@@ -18,20 +38,45 @@ const BrandEventPage = () => {
         {/* 상품 이벤트 & 브랜드 이벤트 선택 버튼 */}
         <ProductBrandTab className="cm-SRegular18 col-White">
           <Nav color="var(--semi-light-grey)" onClick={() => handleNavClick()}>
-            {" "}
             상품 이벤트
           </Nav>
           <Nav color="var(--navy)"> 브랜드 이벤트</Nav>
         </ProductBrandTab>
-
-        {/* 이벤트 리스트 나열하는 부분 */}
-        <ListSection>
-          {EventDataList.filter((item) => item.kind === "브랜드").map(
-            (filteredItem, index) => (
-              <EventList key={index} data={filteredItem} />
-            )
-          )}
-        </ListSection>
+        {/* 진행중인 이벤트 */}
+        {eventDataList.ProceedingList && (
+          <>
+            <StatusTitle className="cm-SBold18 col-Navy"> 진행 중 </StatusTitle>
+            <ListSection>
+              {eventDataList.ProceedingList.map((item) => (
+                <EventList key={item.id} data={item} />
+              ))}
+            </ListSection>
+          </>
+        )}
+        {/* 대기중인 이벤트 */}
+        {eventDataList.WaitingList && (
+          <>
+            <StatusTitle className="cm-SBold18 col-Orange">
+              진행 예정
+            </StatusTitle>
+            <ListSection>
+              {eventDataList.WaitingList.map((item) => (
+                <EventList key={item.id} data={item} />
+              ))}
+            </ListSection>
+          </>
+        )}
+        {/* 종료된 이벤트 */}
+        {eventDataList.EndList && (
+          <>
+            <StatusTitle className="cm-SBold18 col-DarkGrey">종료</StatusTitle>
+            <ListSection>
+              {eventDataList.EndList.map((item) => (
+                <EventList key={item.id} data={item} />
+              ))}
+            </ListSection>
+          </>
+        )}
       </Wrap>
     </>
   );
@@ -62,13 +107,16 @@ const Nav = styled.div`
   background-color: ${(props) => props.color};
   cursor: pointer;
 `;
+const StatusTitle = styled.div`
+  padding: 0rem 18rem;
+`;
 const ListSection = styled.div`
   display: flex;
   box-sizing: border-box;
-  padding: 0rem 15.9375rem;
+  padding: 0rem 15.9375rem 3rem 15.9375rem;
   flex-direction: row; // 가로로 배치
   flex-wrap: wrap; // 너비 초과 시 아래로 내려감    align-items: center;
-  justify-content: center;
+  justify-content: start;
   gap: 1.19rem;
   align-items: center;
 `;

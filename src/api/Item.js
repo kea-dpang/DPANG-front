@@ -57,6 +57,20 @@ export const GET_ItemInfo = async (id) => {
   });
   return res.data;
 };
+// 사용자 - 상품별 리뷰 조회
+export const GET_ItemReview = async (id) => {
+  console.log("아이템 리뷰 조회");
+  const res = await axios({
+    method: "get",
+    url: `${url}/${id}/reviews`,
+    params: {
+      page: 0,
+      size: 20,
+      sort: "",
+    },
+  });
+  return res.data;
+};
 // 관리자 - 상품 삭제
 export const DELETE_Item = async (itemId) => {
   console.log("상품 삭제", itemId);
