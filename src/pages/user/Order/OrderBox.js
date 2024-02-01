@@ -16,6 +16,8 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { POST_OrderInfo } from "@api/order";
 import Dropdown from "@components/Dropdown";
+import CartList from "@userPages/Cart/CartList";
+
 
 const Index = () => {
   const [open, setOpen] = React.useState(true);
@@ -30,8 +32,10 @@ const Index = () => {
   const [inputValue, setInputValue] = useState({
     name:"",
     phoneNumber:"",
+    zipCode:"",
     address:"",
     detailaddress:"",
+    deliveryRequest:"",
     itemId: 0,
     quantity: 0,
 
@@ -44,8 +48,8 @@ const Index = () => {
       inputValue.address !== "" &&
       inputValue.detailaddress !== "" &&
       inputValue.deliveryRequest !== "" &&
-      inputValue.itemId !== 0 &&
-      inputValue.quantity !== 0
+      inputValue.itemId  !== "" &&
+      inputValue.quantity !== ""
     ) {
       setFormValid(true);
     } else {
@@ -59,6 +63,7 @@ const Index = () => {
     inputValue.deliveryRequest,
     inputValue.itemId,
     inputValue.quantity,
+
   ]);
 
   const handleNameChange = (e) => {
@@ -77,6 +82,9 @@ const Index = () => {
     setInputValue({...inputValue, detailaddress: e.target.value});
   };
 
+  const handleDeliveryRequestChange = () => {
+    setInputValue({...inputValue, deliveryRequest: {handleRequest}})
+  };
 
 
   const dropdownValue = [
@@ -100,6 +108,9 @@ const Index = () => {
     inputValue.phoneNumber=inputValue.phoneNumber;
     inputValue.address=inputValue.address;
     inputValue.detailaddress=inputValue.detailaddress;
+    inputValue.deliveryRequest=inputValue.deliveryRequest;
+    inputValue.itemId = inputValue.itemId;
+    inputValue.quantity = inputValue.quantity;
 
     setIsEditing(false);
   }
@@ -213,9 +224,6 @@ const Index = () => {
                               },
                             }}
                           />
-                          <SearchButton onClick={() => window.open("user/order/address")}>
-                            <p className="cm-SRegular16 col-Black">주소 찾기</p>
-                          </SearchButton>
                         </AddressContainer>
 
                         <TextField
@@ -254,7 +262,7 @@ const Index = () => {
                   >
                     <Dropdown fullWidth
                       value={dropdownValue}
-                      onChange={handleRequest}
+                      onChange={handleDeliveryRequestChange}
                     />
                   </Box>
               </AddressBox>
@@ -295,9 +303,7 @@ const Index = () => {
                 flexDirection: "column",
               }}
             >
-              <OrderContainer>
-                
-              </OrderContainer>
+              <CartList/>
             </ListItemButton>
           </List>
         </Collapse>
@@ -366,17 +372,6 @@ const AddressContainer = styled.div`
   gap: 1.06rem;
 `;
 
-const SearchButton = styled.button`
-  display: flex;
-  width: 4.6875rem;
-  justify-content: center;
-  align-items: center;
-  gap: 0.3125rem;
-  flex-shrink: 0;
-  border-radius: 0.1875rem;
-  border: 1px solid var(—navy, #043277);
-  background: var(—white, #fff);
-`;
 
 const OrderContainer = styled.div`
   width: 84.875rem;

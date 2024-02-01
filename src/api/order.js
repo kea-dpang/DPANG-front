@@ -7,16 +7,28 @@ export const POST_OrderInfo = async (inputValue) => {
   const res = await axios({
     method: "post",
     url: url,
-    data: {
-      name: inputValue.name,
-      phoneNumber: inputValue.phoneNumber,
-      zipCode: inputValue.zipCode,
-      address: inputValue.address,
-      detailAddress: inputValue.detailAddress,
-      deliveryRequest: inputValue.deliveryRequest,
-      itemId: inputValue.itemId,
-      quantity: inputValue.quantity,
+    headers: {
+      "X-DPANG-CLIENT-ID": 1,
     },
+    data: {
+      deliveryInfo: {
+        name: inputValue.name,
+        phoneNumber: inputValue.phoneNumber,
+        zipCode: inputValue.zipCode,
+        address: inputValue.address,
+        detailAddress: inputValue.detailAddress,
+      },
+      deliveryRequest:inputValue.deliveryRequest,
+      orderIteminfo: {
+        itemId: inputValue.itemId,
+        quantity: inputValue.quantity,
+      },
+      productInfoDto: {
+        image: inputValue.image,
+        name: inputValue.name,
+        price: inputValue.price,
+      }
+    }
   });
   return res.data;
 };
@@ -68,3 +80,5 @@ export const GET_Order = async (id) => {
       }
     })
   }
+
+  

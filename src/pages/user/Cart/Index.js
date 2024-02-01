@@ -9,38 +9,6 @@ import Checkbox from "@mui/material/Checkbox";
 import { Link, useNavigate } from "react-router-dom";
 
 const Index = () => {
-  const [brandSelection, setBrandSelection] = useState({});
-  const navi = useNavigate();
-
-  const handleBrandSelection = (brand, selected) => {
-    setBrandSelection((prevState) => ({
-      ...prevState,
-      [brand]: selected,
-    }));
-  };
-
-  const BrandPrice = (brand) => {
-    let totalPrice = 0;
-    TempItemData.filter(
-      (item) => item.brand === brand && brandSelection[brand]
-    ).forEach((item) => {
-      totalPrice += item.price * item.quantity;
-    });
-    return totalPrice;
-  };
-
-  const calculateTotalPrice = () => {
-    let totalPrice = 0;
-
-    // 각 브랜드별로 선택된 상품의 가격을 합산
-    Object.entries(brandSelection).forEach(([brand, selected]) => {
-      if (selected) {
-        totalPrice += BrandPrice(brand);
-      }
-    });
-
-    return totalPrice;
-  };
 
   return (
     <>
@@ -51,25 +19,7 @@ const Index = () => {
         <InputSection>
           <CartList />
         </InputSection>
-        <SubContainer>
-          <TotalPriceBox>
-            <p className="cm-SBold18 col-Navy">
-              상품금액 {calculateTotalPrice()} 마일 +{" "}
-            </p>
-            <p className="cm-SBold18 col-Navy">배송비 {3000} 마일</p>
-            <p className="cm-SBold18 col-Navy">=</p>
-            <p className="cm-SBold18 col-Navy">
-              주문 예상금액 {calculateTotalPrice() + 3000} 마일
-            </p>
-          </TotalPriceBox>
-          <OrderButton
-            onClick={() => {
-              navi("/user/order");
-            }}
-          >
-            <p className="cm-SBold18 col-White">주문하기</p>
-          </OrderButton>
-        </SubContainer>
+
       </Wrap>
     </>
   );
