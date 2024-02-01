@@ -7,6 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Dropdown from "@components/Dropdown";
 import DataTable from "@components/AdminDataTable";
+import categoryData from "@data/user/CategoryData";
 import { GET_ItemList, DELETE_Item, GET_ItemInfo } from "@api/Item";
 
 // 상품 등록 관리자 페이지
@@ -36,12 +37,15 @@ const Index = () => {
     { name: "subCategory", label: "상세 카테고리" },
     { name: "stockQuantity", label: "재고량" },
   ];
-  const dropdownValue = ["카테고리를 선택해주세요", "FASHION"];
+  let dropdownValue = [
+    "카테고리를 선택해주세요",
+    ...categoryData.map((item) => item.title),
+  ];
   const [item, setItem] = useState([]);
   useEffect(() => {
     GET_ItemList()
       .then((data) => {
-        setItem(data);
+        setItem(data.data);
       })
       .catch((error) => {
         console.log(error);

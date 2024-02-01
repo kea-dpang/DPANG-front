@@ -1,4 +1,6 @@
 import axios from "axios";
+import { categoryFormat, subCategoryFormat } from "assets/CustomName";
+
 const url = "/api/items";
 // 관리자 - 상품 등록
 export const POST_Item = async (inputValue) => {
@@ -30,6 +32,12 @@ export const GET_ItemList = async () => {
       size: 20,
       sort: "",
     },
+  });
+  // 카테고리 커스텀
+  res.data.data = res.data.data.map((item) => {
+    item.category = categoryFormat(item.category, false);
+    item.subCategory = subCategoryFormat(item.subCategory, false);
+    return item;
   });
   console.log("상품 목록 result : ", res.data);
   return res.data;

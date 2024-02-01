@@ -9,7 +9,7 @@ const BestProductPage = () => {
   useEffect(() => {
     GET_ItemListUser()
       .then((data) => {
-        setItemList(data); // API 응답으로 받은 데이터를 상태에 저장
+        setItemList(data.data); // API 응답으로 받은 데이터를 상태에 저장
         console.log("넘겨받은 아이템 리스트 데이터 : ", data);
       })
       .catch((error) => {

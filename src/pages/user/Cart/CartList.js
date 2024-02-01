@@ -16,9 +16,7 @@ const CartList = () => {
       [brand]: selected,
     }));
   };
-  
 
-  
   const BrandPrice = (brand) => {
     let totalPrice = 0;
     TempItemData.filter(

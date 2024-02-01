@@ -115,3 +115,57 @@ export const customUserCategoryName = (category, isReverse) => {
     return map[category] || "상태 미정";
   }
 };
+// 상품 카테고리 이름 커스텀
+export const categoryFormat = (category, isToServer) => {
+  const map = {
+    패션: "FASHION",
+    뷰티: "BEAUTY",
+    "스포츠/레저": "SPORT_LEISURE",
+    "디지털/가전": "DIGITAL_ELECTRONICS",
+    인테리어: "INTERIOR",
+    "출산/유아동": "BABY",
+    생활: "LIFE",
+  };
+
+  const reverseMap = {
+    FASHION: "패션",
+    BEAUTY: "뷰티",
+    SPORT_LEISURE: "스포츠/레저",
+    DIGITAL_ELECTRONICS: "디지털/가전",
+    INTERIOR: "인테리어",
+    BABY: "출산/유아동",
+    LIFE: "생활",
+  };
+
+  if (isToServer) {
+    return map[category] || category;
+  } else {
+    return reverseMap[category] || category;
+  }
+};
+// 상품 서브카테고리 이름 커스텀
+export const subCategoryFormat = (category, isToServer) => {
+  const map = {
+    여성의류: "WOMEN_CLOTHES",
+    남성의류: "MEN_CLOTHES",
+    언더웨어: "UNDERWEAR",
+    신발: "SHOES",
+    "가방/지갑/잡화": "BAGS_WALLETS_ACCESSORIES",
+    "쥬얼리/시계/액세서리": "JEWELRY_WATCHES_ACCESSORIES",
+  };
+
+  const reverseMap = {
+    WOMEN_CLOTHES: "여성의류",
+    MEN_CLOTHES: "남성의류",
+    UNDERWEAR: "언더웨어",
+    SHOES: "신발",
+    BAGS_WALLETS_ACCESSORIES: "가방/지갑/잡화",
+    JEWELRY_WATCHES_ACCESSORIES: "쥬얼리/시계/액세서리",
+  };
+
+  if (isToServer) {
+    return map[category] || category;
+  } else {
+    return reverseMap[category] || category;
+  }
+};
