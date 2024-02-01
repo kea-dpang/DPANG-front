@@ -7,18 +7,21 @@ import axios from "axios";
 
 const url = "/api/qna";
 
-export const GET_QnAList = async (userId) => {
+export const GET_QnAList = async (category, state) => {
   // const accessToken = window.localStorage.getItem("accessToken");
-
+  console.log("gggggg", category, state);
   const res = await axios({
     method: "get",
     url: url,
     // headers: {
     //     'Authorization': `Bearer ${accessToken}`
     // },
+
     params: {
       //query
-      userId: userId,
+      category: category,
+      status: state,
+      userId: "",
       page: 0,
       size: 100,
     },

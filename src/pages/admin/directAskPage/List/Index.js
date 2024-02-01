@@ -22,14 +22,14 @@ const DirectAskPage = () => {
     console.log("문의 유형:", categoryValue);
     console.log("처리 상태:", stateValue);
   }, [categoryValue, stateValue]);
-  ////////////////////////////////
+  //////////////////////////////
 
   const navigate = useNavigate();
   const [askDataList, setAskDataList] = useState();
 
   /* 서버에서 1:1문의 리스트 가져오기 */
   useEffect(() => {
-    GET_QnAList()
+    GET_QnAList(categoryValue, stateValue)
       .then((data) => {
         console.log("값:", data.data.content);
         setAskDataList(data.data.content);
@@ -37,7 +37,7 @@ const DirectAskPage = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [categoryValue, stateValue]);
 
   /* 선택된 행은 상세정보로 이동 */
   const handleRowClick = (row) => {

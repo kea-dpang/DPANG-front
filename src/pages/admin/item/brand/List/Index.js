@@ -31,6 +31,9 @@ const Index = () => {
         console.log(error);
       });
   }, []);
+  useEffect(() => {
+    console.log("미친 확인 바로 고:", brand);
+  }, [brand]);
 
   const handleRowsDelete = (rowsDeleted) => {
     const dataIndexArray = rowsDeleted.data.map((item) => item.dataIndex);

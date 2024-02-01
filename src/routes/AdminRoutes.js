@@ -26,6 +26,8 @@ import AdminProduct from "@adminPages/item/product/List/Index";
 import ProductEnrollPage from "@adminPages/item/product/Enroll/Index";
 import ProductEditPage from "@adminPages/item/product/Edit/Index";
 import AdminOrderDetail from "@adminPages/Order/Detail/Index";
+import Monitoring from "@adminPages/monitoring/Index";
+
 
 const AdminRoutes = () => {
   return (
@@ -73,6 +75,7 @@ const AdminRoutes = () => {
         {/* 1:1문의 */}
         <Route path="directask" element={<AdminDirectAskPage />} />
         <Route path="directask/:askId" element={<AdminAskEnrollPage />} />
+        <Route path="monitoring" element={<Monitoring />} />
       </Route>
     </Routes>
   );

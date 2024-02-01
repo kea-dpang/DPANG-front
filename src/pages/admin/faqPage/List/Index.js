@@ -10,7 +10,7 @@ import { withStyles } from "@mui/styles";
 import { Link, useNavigate } from "react-router-dom";
 import DropboxStyle from "@adminPages/directAskPage/List/DropBox.styled";
 import { useForm } from "react-hook-form";
-import { GET_FAQList } from "@api/faq";
+import { DELETE_FAQ, GET_FAQList } from "@api/faq";
 
 const columns = [
   { name: "postId", label: "번호", options: { sort: true } },
@@ -31,14 +31,19 @@ const FaqListPage = () => {
   const [faqDataList, setFaqDataList] = useState();
 
   /* 서버에서 1:1문의 리스트 가져오기 */
-  useEffect(() => {
+  const handleGetFaqList = () => {
     GET_FAQList(categoryValue)
       .then((data) => {
+        console.log("GET_FAQList response:", data);
         setFaqDataList(data.data.content);
       })
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  useEffect(() => {
+    handleGetFaqList();
   }, [categoryValue]);
 
   /* 선택된 행은 상세정보로 이동 */
@@ -48,10 +53,18 @@ const FaqListPage = () => {
   };
 
   /* 표에서 삭제된 id 값 */
-  const handleRowDelete = (rowDelted) => {
-    const faqIdArrDeleted = rowDelted.data.map((item) => item.dataIndex);
-    console.log("delete 값", faqIdArrDeleted);
+  const handleRowDelete = (rowDeleted) => {
+    const faqIdArrDeleted = rowDeleted.data.map((item) => item.dataIndex);
+
+    DELETE_FAQ(faqIdArrDeleted)
+      .then((data) => {
+        handleGetFaqList();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
+
   return (
     <Wrap>
       <Title className="cm-LBold30 col-Black"> 고객센터</Title>
@@ -80,13 +93,14 @@ const FaqListPage = () => {
       </Option>
       {faqDataList && (
         <DataTable
+          key={faqDataList.length} // 강제 렌더링
           data={faqDataList}
           columns={columns}
           onRowClick={handleRowClick}
-          index={"category"}
-          filterValue={categoryValue}
-          placeholder={""}
-          onRowsDelete={handleRowDelete}
+          index={"category"} // 필터링 될 컬럼 이름(배송상태)
+          filterValue={categoryValue} // 드롭다운 들어있는 값(대기,진행,완료)
+          placeholder={""} // 필터링 안됐을 때 상태(전체 값)
+          onRowsDelete={handleRowDelete} // 삭제 시
         />
       )}
     </Wrap>

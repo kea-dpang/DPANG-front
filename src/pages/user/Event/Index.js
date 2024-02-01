@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../../../components/common/UserHeaderBar/Index";
+import Header from "@components/UserHeaderBar/Index";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 

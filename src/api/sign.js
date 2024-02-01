@@ -1,5 +1,5 @@
 import axios from "axios";
-const url = "/api/users";
+const url = "/api/users/register";
 
 export const POST_User = async (data) => {
   // data.category = customAskCategoryName(data.category, true);

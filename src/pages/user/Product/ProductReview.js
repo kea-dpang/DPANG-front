@@ -1,22 +1,35 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import styled from "styled-components";
-import ReviewData from "assets/data/user/UserProductReviewData";
 import SortButton from "@components/Sort/SortButton";
 import ReviewBox from "./ReviewBox";
+import { GET_ItemReview } from "@api/Item";
 
 const ProductReview = (props) => {
-  const [sortedReviews, setSortedReviews] = useState(ReviewData);
+  const [reviewData, setReviewData] = useState([]);
+  const [sortedReviews, setSortedReviews] = useState([]);
 
+  useEffect(() => {
+    GET_ItemReview(props.itemId)
+      .then((data) => {
+        console.log("리뷰 Data:", data);
+        setReviewData(data);
+        setSortedReviews(data);
+      })
+      .catch((error) => {
+        // API 요청 실패
+        console.error("리뷰데이터 가져오기 실패", error);
+      });
+  }, []);
   return (
     <Wrap>
       <PageName className="cm-MBold24 col-Black"> 상품 후기 </PageName>
 
       {/* 리뷰 총 개수 & 정렬 */}
       <TotalSortWrap>
-        <div className="cm-SRegular18">총 {ReviewData.length} 개</div>
+        <div className="cm-SRegular18">총 {reviewData.length} 개</div>
         {/* 최신순 정렬, 평점순 정렬 */}
         <SortButton
-          reviewData={ReviewData}
+          reviewData={reviewData}
           setSortedReviews={setSortedReviews}
         />
       </TotalSortWrap>

@@ -56,11 +56,10 @@ function ReviewBox() {
 
   const [amt, setAmt] = useState([0, 1, 2, 0, 3]);
   const head = [
-    { width: "10rem", text: "날짜/주문번호" },
-    { width: "9rem", text: "유형" },
-    { width: "10rem", text: "상태" },
-    { width: "23rem", text: "상품명" },
-    { width: "10rem", text: "상품 금액 / 수량" },
+    { width: "11rem", text: "날짜/주문번호" },
+    { width: "11rem", text: "상태" },
+    { width: "29rem", text: "상품명" },
+    { width: "11rem", text: "상품 금액 / 수량" },
     { width: "10rem", text: "환불 예정 금액" },
   ];
 

@@ -1,14 +1,14 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const EventSlide = ({ character, isActive }) => {
   return (
     <Slide className={isActive ? "active" : null}>
-        {/* TODO: event id로 주소 바꾸기 */}
-        <Link to={`/user/eventpage/${character.eventBannerUrL}`}>
-            <Images $eventImg={character.eventBannerUrL} />
-        </Link>
+      {/* TODO: event id로 주소 바꾸기 */}
+      <Link to={`/user/event/product`}>
+        <Images $eventImg={character.eventBannerUrL} />
+      </Link>
     </Slide>
   );
 };
@@ -31,6 +31,6 @@ const Images = styled.div`
   min-width: 1550px;
   height: 20rem;
   background-color: white;
-  background: url(${props => props.$eventImg}) center center / contain no-repeat;
+  background: url(${(props) => props.$eventImg}) center center / contain
+    no-repeat;
 `;
-

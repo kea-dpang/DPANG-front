@@ -46,6 +46,32 @@ export const GET_BrandEventInfo = async (id) => {
   });
   return res.data;
 };
+// 사용자 - 브랜드 이벤트 리스트 조회
+export const GET_BrandEventListUser = async () => {
+  const res = await axios({
+    method: "get",
+    url: `${url}/seller`,
+    params: {
+      page: 0,
+      size: 20,
+      sort: "",
+    },
+  });
+  return res.data.data;
+};
+// 사용자 - 상품 이벤트 리스트 조회
+export const GET_ProductEventListUser = async () => {
+  const res = await axios({
+    method: "get",
+    url: `${url}/item`,
+    params: {
+      page: 0,
+      size: 20,
+      sort: "",
+    },
+  });
+  return res.data.data;
+};
 // 관리자 - 이벤트 삭제
 export const DELETE_Event = async (id) => {
   console.log("이벤트 삭제", id);

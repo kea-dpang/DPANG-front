@@ -93,11 +93,13 @@ export const PUT_FAQ = async (faqId, data) => {
 };
 
 export const DELETE_FAQ = async (faqIdArr) => {
+  console.log("delete 값", faqIdArr);
+
   const res = await axios({
     method: "delete",
-    url: url,
+    url: `${url}/list`,
     data: {
-      faqIdArr,
+      faqIds: faqIdArr,
     },
   });
   return res.data;

@@ -1,12 +1,12 @@
 import { FormProvider, useForm } from "react-hook-form";
 import Terms from "./Terms";
 import styled from "styled-components";
-import Logo from "../../../assets/images/logo.png";
+import Logo from "@images/logo.png";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { TermsData } from "../../../assets/data/user/UserTermsData";
 import { useNavigate } from "react-router-dom";
-import { POST_User } from "@api/\bsign";
+import { POST_User } from "@api/sign";
 
 const SignPage = () => {
   const methods = useForm({
@@ -32,6 +32,7 @@ const SignPage = () => {
     POST_User(data)
       .then((data) => {
         alert("회원가입이 완료되었습니다.");
+        console.log(data);
         navigate(`/user/login`);
       })
       .catch((error) => {

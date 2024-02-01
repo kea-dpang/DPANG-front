@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { ReactComponent as ArrowImg } from "../../../assets/images/arrowStroke.svg";
-import bannerImgList from "../../../assets/data/user/ProductEventDetailData";
+import { ReactComponent as ArrowImg } from "@images/arrowStroke.svg";
+import bannerImgList from "@data/user/ProductEventDetailData";
 import EventSlide from "./EventSlider"; // eventslide 컴포넌트
 import { useEffect } from "react";
 import { Link } from "react-router-dom";

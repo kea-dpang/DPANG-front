@@ -92,3 +92,26 @@ export const customFAQCategoryName = (category, isReverse) => {
     return map[category] || "상태 미정";
   }
 };
+
+/* [회원]  */
+export const customUserCategoryName = (category, isReverse) => {
+  const map = {
+    EMPLOYEENUMBER: "사원번호",
+    EMAIL: "이메일",
+    NAME: "이름",
+    ALL: "ALL",
+  };
+
+  const reverseMap = {
+    사원번호: "EMPLOYEENUMBER",
+    이메일: "EMAIL",
+    이름: "NAME",
+    ALL: "ALL",
+  };
+
+  if (isReverse) {
+    return reverseMap[category] || "UNKNOWN_STATUS";
+  } else {
+    return map[category] || "상태 미정";
+  }
+};
