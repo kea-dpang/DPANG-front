@@ -15,6 +15,11 @@ const DataTable = ({
   const [filteredData, setFilteredData] = useState(data);
   const [resetCheckBox, setResetCheckBox] = useState(false); // 체크박스 리셋
 
+  // data가 바뀔 때마다 렌더링
+  useEffect(() => {
+    setData(initialData);
+  }, [initialData]);
+
   // 드롭박스 필터링
   useEffect(() => {
     // 선택된 드롭다운값이 placeholder일때 : 필터링 x
@@ -26,7 +31,7 @@ const DataTable = ({
       const filtered = data.filter((item) => item[index] === filterValue);
       setFilteredData(filtered); // 필터링된 데이터로 상태 업데이트
     }
-  }, [data, filterValue, index]);
+  }, [data, filterValue, index, placeholder]);
 
   const options = {
     selectableRows: "multiple",

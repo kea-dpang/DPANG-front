@@ -4,13 +4,13 @@ import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import { Controller } from "react-hook-form";
 
-const DropboxStyle = ({ dropTitle, dropItems, methods }) => {
+const DropboxStyle = ({ dropTitle, dropItems, methods, selected = "" }) => {
   return (
     <FormControl sx={{ width: "11.68rem" }}>
       <Controller
         name={dropTitle}
         control={methods.control}
-        defaultValue=""
+        defaultValue={selected}
         render={({ field }) => (
           <TextField
             select

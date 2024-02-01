@@ -97,10 +97,10 @@ const FaqListPage = () => {
           data={faqDataList}
           columns={columns}
           onRowClick={handleRowClick}
-          index={"category"}
-          filterValue={categoryValue}
-          placeholder={""}
-          onRowsDelete={handleRowDelete}
+          index={"category"} // 필터링 될 컬럼 이름(배송상태)
+          filterValue={categoryValue} // 드롭다운 들어있는 값(대기,진행,완료)
+          placeholder={""} // 필터링 안됐을 때 상태(전체 값)
+          onRowsDelete={handleRowDelete} // 삭제 시
         />
       )}
     </Wrap>
