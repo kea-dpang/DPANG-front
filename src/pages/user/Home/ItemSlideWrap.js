@@ -7,7 +7,7 @@ const ItemSlide = ({ items, isActive }) => {
   return (
     <Slide className={isActive ? "active" : null}>
       {items.map((item) => (
-        <Item key={item.id} value={item} />
+        <Item key={item.itemId} value={item} />
       ))}
     </Slide>
   );

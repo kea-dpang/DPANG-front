@@ -1,89 +1,79 @@
 const ItemData = [
   {
-    id: "item1_id",
-    name: "item1_name",
+    itemId: "item1_itemId",
+    itemName: "item1_itemName",
     category: "category1",
     sub_category: "subcategory1",
-    price: 10000,
+    itemPrice: 10000,
     brand: "brand1",
-    discount: 10,
-    imgUrl: "https://sitem.ssgcdn.com/42/60/55/item/1000527556042_i1_750.jpg",
+    discountRate: 0,
+    itemImage:
+      "https://sitem.ssgcdn.com/42/60/55/item/1000527556042_i1_750.jpg",
   },
   {
-    id: "item2_id",
-    name: "item2_name",
+    itemId: "item2_itemId",
+    itemName: "item2_itemName",
     category: "category2",
     sub_category: "subcategory2",
-    price: 11000,
+    itemPrice: 11000,
     brand: "brand2",
-    discount: 11,
-    imgUrl:
+    discountRate: 11,
+    itemImage:
       "https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/product/5830164993/B.jpg?174000000",
   },
   {
-    id: "item3_id",
-    name: "item3_name",
+    itemId: "item3_itemId",
+    itemName: "item3_itemName",
     category: "category3",
     sub_category: "subcategory3",
-    price: 12000,
+    itemPrice: 12000,
     brand: "brand3",
-    discount: 12,
-    imgUrl:
+    discountRate: 12,
+    itemImage:
       "https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/product/5665299141/A3.jpg?85000000",
   },
   {
-    id: "item4_id",
-    name: "item4_name",
+    itemId: "item4_itemId",
+    itemName: "item4_itemName",
     category: "category4",
     sub_category: "subcategory4",
-    price: 13000,
+    itemPrice: 13000,
     brand: "brand4",
-    discount: 13,
-    imgUrl:
+    discountRate: 13,
+    itemImage:
       "https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/product/5665299141/A3.jpg?85000000",
   },
   {
-    id: "item5_id",
-    name: "item5_name",
+    itemId: "item5_itemId",
+    itemName: "item5_itemName",
     category: "category5",
     sub_category: "subcategory5",
-    price: 14000,
+    itemPrice: 14000,
     brand: "brand5",
-    discount: 14,
-    imgUrl:
+    discountRate: 14,
+    itemImage:
       "https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/product/5665299141/A3.jpg?85000000",
   },
   {
-    id: "item6_id",
-    name: "item6_name",
+    itemId: "item6_itemId",
+    itemName: "item6_itemName",
     category: "category6",
     sub_category: "subcategory6",
-    price: 15000,
+    itemPrice: 15000,
     brand: "brand6",
-    discount: 15,
-    imgUrl:
+    discountRate: 15,
+    itemImage:
       "https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/product/5665299141/A3.jpg?85000000",
   },
   {
-    id: "item7_id",
-    name: "item7_name",
+    itemId: "item7_itemId",
+    itemName: "item7_itemName",
     category: "category7",
     sub_category: "subcategory7",
-    price: 16000,
+    itemPrice: 16000,
     brand: "brand7",
-    discount: 16,
-    imgUrl:
-      "https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/product/5665299141/A3.jpg?85000000",
-  },
-  {
-    id: "item8_id",
-    name: "item8_name",
-    category: "category8",
-    sub_category: "subcategory8",
-    price: 17000,
-    brand: "brand8",
-    discount: 17,
-    imgUrl:
+    discountRate: 16,
+    itemImage:
       "https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/product/5665299141/A3.jpg?85000000",
   },
 ];

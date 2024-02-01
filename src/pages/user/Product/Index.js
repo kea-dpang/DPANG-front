@@ -18,8 +18,8 @@ const ProductDetail = () => {
   useEffect(() => {
     GET_ItemInfo(itemId)
       .then((data) => {
-        console.log("상품 상세보기 data : ", data);
-        setItemInfo(data);
+        console.log("상품 상세보기 data : ", data.data);
+        setItemInfo(data.data);
       })
       .catch((error) => {
         console.log(error);

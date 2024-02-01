@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import ItemSlider from "./ItemSlider";
+import Carousel from "./Carousel";
 
 const ItemSection = (props) => {
   console.log(props.title);
@@ -10,10 +11,10 @@ const ItemSection = (props) => {
     <>
       <Wrap>
         <Title className="cm-XLBold36" to={`/user/collections`}>
-          {" "}
-          {props.title}{" "}
+          {props.title}
         </Title>
-        <ItemSlider />
+        {/* <ItemSlider /> */}
+        <Carousel />
       </Wrap>
     </>
   );

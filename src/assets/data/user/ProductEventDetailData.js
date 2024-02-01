@@ -6,7 +6,7 @@ const ProductEventData = [
     startDate: "2024-01-04 18:00:00",
     endDate: "2024-01-10 00:00:00",
     eventBannerUrL:
-      "https://m.w-skinlab.com/file_data/wskinlab/2022/08/05/9ba78b2fa40b857d05584743189138ed.jpg",
+      "https://objectstorage.kr-gov-central-1.kakaoicloud-kr-gov.com/v1/70e895c2d22b44e79797ed89d4dc2b5c/dpang-bucket/image/banner_temp.png",
     discount: 20,
     eventItems: ["item1", "item2", "item3"],
   },

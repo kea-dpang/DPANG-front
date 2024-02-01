@@ -36,10 +36,10 @@ export const GET_ItemList = async () => {
 };
 // 사용자 - 상품 리스트 조회
 export const GET_ItemListUser = async () => {
-  console.log("아이템 리스트 조회에옹");
+  console.log("아이템 카드리스트 조회에옹");
   const res = await axios({
     method: "get",
-    url: `${url}/cards`,
+    url: `${url}/cardlist`,
     params: {
       page: 0,
       size: 20,
