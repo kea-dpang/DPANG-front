@@ -27,7 +27,6 @@ const ProductEnrollPage = () => {
       productInfo.sellerId &&
       productInfo.itemImage &&
       productInfo.category &&
-      productInfo.subCategory &&
       productInfo.images &&
       productInfo.stockQuantity
     ) {
@@ -41,7 +40,6 @@ const ProductEnrollPage = () => {
     productInfo.sellerId,
     productInfo.itemImage,
     productInfo.category,
-    productInfo.subCategory,
     productInfo.images,
     productInfo.stockQuantity,
   ]);

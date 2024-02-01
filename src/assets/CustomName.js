@@ -150,8 +150,8 @@ export const subCategoryFormat = (category, isToServer) => {
     남성의류: "MEN_CLOTHES",
     언더웨어: "UNDERWEAR",
     신발: "SHOES",
-    "가방/지갑/잡화": "BAGS_WALLETS_ACCESSORIES",
-    "쥬얼리/시계/액세서리": "JEWELRY_WATCHES_ACCESSORIES",
+    잡화: "BAGS_WALLETS_ACCESSORIES",
+    액세서리: "JEWELRY_WATCHES_ACCESSORIES",
   };
 
   const reverseMap = {
@@ -159,8 +159,8 @@ export const subCategoryFormat = (category, isToServer) => {
     MEN_CLOTHES: "남성의류",
     UNDERWEAR: "언더웨어",
     SHOES: "신발",
-    BAGS_WALLETS_ACCESSORIES: "가방/지갑/잡화",
-    JEWELRY_WATCHES_ACCESSORIES: "쥬얼리/시계/액세서리",
+    BAGS_WALLETS_ACCESSORIES: "잡화",
+    JEWELRY_WATCHES_ACCESSORIES: "액세서리",
   };
 
   if (isToServer) {
