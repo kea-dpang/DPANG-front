@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import TableRow from "./TableRow";
 import { GET_admin_mileage_list } from "@api/mileage";
 import styled from "styled-components";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function Index() {
   const [mileageList, setMileageList] = useState([]);
@@ -48,7 +49,13 @@ function Index() {
   }, [val]);
 
   if (loading) {
-    return <PageName className="cm-MBold24">로딩중.......</PageName>;
+    return (
+      <PageName className="cm-MBold24">
+        <p>로딩중.......</p>
+        <br />
+        <CircularProgress />
+      </PageName>
+    );
   }
 
   return <TableRow mileageList={mileageList} />;
@@ -56,6 +63,7 @@ function Index() {
 
 const PageName = styled.div`
   display: flex;
+  flex-direction: column;
   width: 88.9375rem;
   height: 50rem;
   box-sizing: border-box; // padding까지 합쳐서 width 설정하기

@@ -47,7 +47,7 @@ function TableRow(props) {
 
   useEffect(() => {
     const val = {
-      userId: 1,
+      reviewerId: 1,
       page: 0,
       size: 10,
       sort: "",
@@ -55,7 +55,7 @@ function TableRow(props) {
     GET_review_list(val)
       .then((data) => {
         console.log(data);
-        setReviewData(data);
+        setReviewData(data.data);
       })
       .catch((error) => {
         console.log(error);
