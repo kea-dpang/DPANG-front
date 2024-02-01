@@ -89,4 +89,12 @@ module.exports = function (app) {
       changeOrigin: true,
     })
   );
+  /* auth */
+  app.use(
+    "/api/auth",
+    createProxyMiddleware({
+      target: "http://61.109.214.181:8091",
+      changeOrigin: true,
+    })
+  );
 };

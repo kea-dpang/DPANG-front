@@ -11,7 +11,8 @@
       "@userPages/*": ["pages/user/*"],
       "@userRoutes/*": ["routes/UserRoutes"],
       "@adminRoutes": ["routes/AdminRoutes"],
-      "@styles/*": ["styles/*"]
+      "@styles/*": ["styles/*"],
+      "@utils/*": ["utils/*"]
     }
   },
   "include": ["src"]

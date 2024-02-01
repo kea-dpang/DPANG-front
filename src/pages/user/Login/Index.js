@@ -3,9 +3,11 @@ import Logo from "../../../assets/images/logo.png";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import styled from "styled-components";
-import { display } from "@mui/system";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { POST_Login } from "@api/sign";
+// import { setCookie } from "@utils/cookie";
+import { setCookie } from "../../../utils/cookie";
 
 const LoginPage = ({ userType }) => {
   const methods = useForm();
@@ -16,13 +18,30 @@ const LoginPage = ({ userType }) => {
     isSubmitting,
     formState: { errors },
   } = methods;
-
+  const navigate = useNavigate();
   console.log(userType);
 
   const onSubmit = (data) => {
-    console.log("qwe:", data);
-    alert(JSON.stringify(data));
+    POST_Login(data)
+      .then((data) => {
+        alert("로그인되었습니다. 메인페이지로 이동합니다.");
+        navigate("/user/mainpage");
+
+        setCookie("accessToken", data.data.accessToken, {
+          expires: 7,
+          path: "/",
+        });
+        setCookie("refreshToken", data.data.refreshToken, {
+          expires: 7,
+          path: "/",
+        });
+      })
+      .catch((error) => {
+        alert("로그인에 실패하였습니다. 다시 시도해주세요.");
+        console.log(error);
+      });
   };
+
   return (
     <Wrap>
       <LogoImg src={Logo} alt="Logo" />
