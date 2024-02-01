@@ -53,7 +53,7 @@ const Item = (props) => {
                 </div>
                 {/* 할인율 & 현재 판매가격 */}
                 <SaleWrap className="cm-SBold16">
-                  <div className="col-Orange"> {props.value.discount}% </div>
+                  <div className="col-Orange"> {props.value.discountRate}%</div>
                   <div> {saleprice.toLocaleString()}원</div>
                 </SaleWrap>
               </>

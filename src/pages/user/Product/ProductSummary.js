@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import ItemDetailData from "../../../assets/data/user/ItemDetailData";
 import Rating from "@mui/material/Rating";
 import { Link } from "react-router-dom";
 import NumberBadge from "./Numbers";
 import Button from "@mui/material/Button";
-import { ReactComponent as CartImg } from "../../../assets/images/cart.svg";
-import { ReactComponent as LikeImg } from "../../../assets/images/heart.svg";
+import { ReactComponent as CartImg } from "@images/cart.svg";
+import { ReactComponent as LikeImg } from "@images/heart.svg";
 
 const ProductSummary = (props) => {
   // 세일가격
   const saleprice =
-    props.item.itemPrice -
-    (props.item.itemPrice * props.item.discountRate) / 100;
+    props.itemPrice - (props.itemPrice * props.discountRate) / 100;
   // 선택 개수
   const [count, setCount] = useState(1);
   // 총 가격
@@ -32,52 +30,46 @@ const ProductSummary = (props) => {
         <ImgWrwap className="cm-SRegular16 col-Black">
           {/* 카테고리 */}
           <CategoryWrap>
-            <Nav to=""> {props.item.category} </Nav>
+            <Nav to=""> {props.category} </Nav>
             <div> {">"}</div>
-            <Nav to=""> {props.item.subCategory} </Nav>
+            <Nav to=""> {props.subCategory} </Nav>
           </CategoryWrap>
           {/* 상품 사진 */}
-          <ProductImg $imgUrl={props.item.itemImage} />
+          <ProductImg $imgUrl={props.itemImage} />
         </ImgWrwap>
 
         {/* 상품 이름 / 가격 / 판매자 / 상품선택 / 좋아요 / 장바구니 */}
         <ContextWrap>
           {/* 상품 이름 */}
-          <div className="cm-XLBold36 col-Black"> {props.item.itemName}</div>
+          <div className="cm-XLBold36 col-Black"> {props.itemName}</div>
           {/* 상품 별점 및 리뷰 수 */}
           <ReviewWrap>
-            <Rating
-              name="read-only"
-              value={props.item.averageRating}
-              readOnly
-            />
-            <div className="cm-SBold16 col-Black">
-              {props.item.reviews.length}
-            </div>
+            <Rating name="read-only" value={props.averageRating} readOnly />
+            {/* <div className="cm-SBold16 col-Black">{props.reviews.length}</div> */}
           </ReviewWrap>
           {/* 상품 가격 */}
-          {props.item.discountRate !== 0 ? (
+          {props.discountRate !== 0 ? (
             <PriceWrap>
               <DiscountWrap className="cm-SBold18">
-                <div className="col-Orange"> {props.item.discountRate}%</div>
+                <div className="col-Orange"> {props.discountRate}%</div>
                 <div className="col-Black"> {saleprice.toLocaleString()} </div>
               </DiscountWrap>
               <div
                 className="cm-SBold16 col-SemiLightGrey"
                 style={{ textDecoration: "line-through" }}
               >
-                {props.item.itemPrice}
+                {props.itemPrice}
               </div>
             </PriceWrap>
           ) : (
             <DiscountWrap style={{ paddingTop: "1rem" }} className="cm-SBold18">
-              <div className="col-Black"> {props.item.itemPrice} </div>
+              <div className="col-Black"> {props.itemPrice} </div>
             </DiscountWrap>
           )}
           {/* 판매자 */}
           <BrandWrap className="cm-SRegular16">
             <div> 판매자 </div>
-            <div> {props.item.sellerId} </div>
+            <div> {props.sellerId} </div>
           </BrandWrap>
           {/* 상품선택 */}
           <SelectWrap>
@@ -87,10 +79,7 @@ const ProductSummary = (props) => {
                 상품선택
               </div>
               <AmountBox>
-                <div className="cm-SBold16 col-Navy">
-                  {" "}
-                  {props.item.itemName}{" "}
-                </div>
+                <div className="cm-SBold16 col-Navy"> {props.itemName} </div>
                 <SelectPriceWrap>
                   {/* 수량 선택 */}
                   <NumberBadge count={count} setCount={setCount} />

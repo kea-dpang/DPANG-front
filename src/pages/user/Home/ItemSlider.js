@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { ReactComponent as ArrowImg } from "../../../assets/images/arrowStroke.svg";
-import itemList from "../../../assets/data/user/ItemData";
+import { ReactComponent as ArrowImg } from "@images/arrowStroke.svg";
+import itemList from "@data/user/ItemData";
 import ItemSlide from "./ItemSlideWrap";
 
 function ItemSlider() {
@@ -16,9 +16,9 @@ function ItemSlider() {
     setSlideIndex((prev) =>
       direction === "prev"
         ? prev === 0
-          ? Math.floor(itemList.length / 4) - 1
+          ? Math.floor(Math.ceil(itemList.length / 4)) - 1
           : prev - 1
-        : prev === Math.floor(itemList.length / 4) - 1
+        : prev === Math.floor(Math.ceil(itemList.length / 4)) - 1
         ? 0
         : prev + 1
     );
