@@ -32,6 +32,7 @@ const SignPage = () => {
     POST_User(data)
       .then((data) => {
         alert("회원가입이 완료되었습니다.");
+        console.log(data);
         navigate(`/user/login`);
       })
       .catch((error) => {
