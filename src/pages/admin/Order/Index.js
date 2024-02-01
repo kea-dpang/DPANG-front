@@ -8,50 +8,77 @@ import DataTable from "@components/AdminDataTable";
 import { GET_Order, PUT_Order } from "@api/order";
 import Dropdown from "@components/Dropdown";
 import data from "@data/admin/AdminOrderData";
+import { useNavigate } from "react-router-dom";
 
 
 const Index = () => {
+  const navigate = useNavigate();
 
   // 테이블 column
   const columns = [
+    {name: "id", label: "번호", options: {sort: false}},
 
-    {name: "orderId", label: "주문번호", options: { sort: false } },
-    {name: "orderDate", label: "날짜"},
     {
-      name: "imgUrl",
-      label: "상품 이미지",
+      name: "id",
+      label: "날짜 | 주문번호",
       options: {
-        sort: false,
-        filter: false,
-        customBodyRender: (value, tableMeta, updateValue) => {
+        sort: false ,
+        customBodyRender: (value, tableMeta) => {
+
+          const rowData = data.find(row => row.id == value);
+          const orderDate = rowData['orderDate'];
+          const orderId = rowData['orderId'];
+
           return (
-            <img
-              src={value}
-              alt="상품 이미지"
-              style={{ width: "100px", height: "100px" }}
-            />
+            <div>
+              <p>{orderDate}</p>
+              <p>{orderId}</p>
+            </div>
           );
         },
       },
     },
-    { name: "name", label: "상품명", sort: false },
-    {name: "price", label: "상품금액"},
-    {name: "productQuantity", label: "수량"},
+    {name: "id", label: "상품 정보", options: {sort: false, customBodyRender: (value, tableMeta)=> {
+      const rowData = data.find(row => row.id == value);
+      const img = rowData['imgUrl'];
+      const name = rowData['name'];
+
+      return (
+
+        <div style={{display:"flex", height: "6rem", alignItems: "center"}}>
+          <img style={{width: "5rem"}} src = {img} />
+          <P>{name}</P>
+        </div>
+      )
+    }}},
+    {name: "id", label: "상품금액 / 수량", options: {sort: false, customBodyRender: (value, tableMeta)=> {
+      const rowData =data.find(row => row.id == value);
+      const price = rowData['price'];
+      const quantity = rowData['productQuantity'];
+
+      return (
+        <div>
+          <p>{price} / {quantity}</p>
+        </div>
+      )
+    }}},
     {name: "orderer", label: "주문 아이디", sort: false},
-    {name: "orderStatus", label: "상태 관리", 
-    options: {sort: false,
-      filter: false,
-      customBodyRender: (value, tableMeta, updateValue) => {
-        return (
-          <Dropdown
-          value = {dropdownValue}
-          onChange = {handleStatusChange}
-          width={"8.875rem"}
-          />
-        );
+    {name: "orderStatus", label: "상태", sort: false},
+    {
+      name: "orderStatus",
+      label: "상태 처리",
+      options: {
+        sort: false,
+        customBodyRender: (value) => {
+
+          return(<ButtonContainer>
+
+            {value !== '배송 완료' ? <Button>다음 단계</Button>: null}
+          </ButtonContainer>
+          )
+        }
       },
     },
-  },
   ];
 
   const [order, setOrder] = useState([]);
@@ -74,8 +101,8 @@ const Index = () => {
     "배송 완료"
   ];
 
-  const handleRowClick = (rowData, rowIndex) => {
-    setSelectedRow(rowIndex);
+  const handleRowClick = (rowData) => {
+    navigate(`/admin/order/${rowData[0]}`)
   };
   
 
@@ -84,9 +111,6 @@ const Index = () => {
   const handleStatusChange = (newStatus) => {
     setSelectedDropValue(newStatus);
   };
-
-  const [selectedRow, setSelectedRow] = useState(null);
-
 
   return(
 
@@ -103,7 +127,7 @@ const Index = () => {
             <Dropdown
               value = {dropdownValue}
               onChange = {handleStatusChange}
-              width={"8.875rem"}
+              width={"10rem"}
             />
             <Paper
               component="form"
@@ -131,7 +155,7 @@ const Index = () => {
 
         <ListSection>
           <DataTable
-            data={order}
+            data={data}
             columns={columns}
             onRowClick={handleRowClick}
             filterValue={selectedDropValue}
@@ -186,4 +210,22 @@ const ListSection = styled.div`
   align-items: flex-start;
 `;
 
+const Button = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--navy);
+  width: 5rem;
+  height: 2rem;
+  color: white;
+  border-radius: 3px;
+`;
+
+const ButtonContainer = styled.div`
+width: 5.2rem;
+`;
+
+const P = styled.div`
+width: 15rem;
+`;
 

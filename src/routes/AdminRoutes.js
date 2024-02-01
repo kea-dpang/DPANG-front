@@ -25,7 +25,9 @@ import AdminAskEnrollPage from "@adminPages/directAskPage/Enroll/Index";
 import AdminProduct from "@adminPages/item/product/List/Index";
 import ProductEnrollPage from "@adminPages/item/product/Enroll/Index";
 import ProductEditPage from "@adminPages/item/product/Edit/Index";
+import AdminOrderDetail from "@adminPages/Order/Detail/Index";
 import Monitoring from "@adminPages/monitoring/Index";
+
 
 const AdminRoutes = () => {
   return (
@@ -59,6 +61,7 @@ const AdminRoutes = () => {
         />
         {/* 주문관리 */}
         <Route path="order" element={<OrderPage />} />
+        <Route path="order/:id" element={<AdminOrderDetail />} />
         {/* 환불관리 */}
         <Route path="refund" element={<AdminRefundList />} />
         <Route path="refund/:id" element={<AdminRefundDetail />} />
