@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
+
 import { useEffect, useState } from "react";
 import { GET_mileage_list } from "@api/mileage";
 import { customDate, customMileageStatusName } from "assets/CustomName";
+import UserPagination from "@components/UserPagination";
 
 const Row = styled.div`
   width: 72rem;
@@ -31,13 +31,7 @@ const Status = styled.div`
   border-radius: 3px;
 `;
 
-const PaginationContainer = styled.div`
-  width: 72rem;
-  height: 5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+
 // props의 데이터를 이용하여 데이터에 따라 다른 색을 props로 넘겨줌
 const getColour = (s) => {
   console.log(s);
@@ -49,7 +43,7 @@ const getColour = (s) => {
 
 function TableRow() {
   //pagination에서 현재 페이지
-  const [currentPage, setCurrentPage] = useState(1);
+
   const [mileageList, setMileageList] = useState([]);
   const [numOfElement, setNumOfElement] = useState(0);
 
@@ -65,15 +59,13 @@ function TableRow() {
     XID: 1,
   });
 
-  //page가 변경된 경우
-  const handlePageChange = (e, newPage) => {
-    //현재 페이지를 새로운 페이지로 변경
-    setCurrentPage(newPage);
-    setVal((prevState)=>({...prevState, page: newPage-1}))
+  //하위 component에서 전달받은 새로운 val 값으로 업데이트 해준다
+  const handleValChange = (newVal) =>{
+    setVal(newVal);
+  }
 
 
-  };
-
+  //val이 변경될때마다 mileage 리스트를 업데이트 받는다
   useEffect(() => {
 
 
@@ -88,8 +80,7 @@ function TableRow() {
       });
   }, [val]);
 
-  //한페이지당 보여줄 아이템의 개수
-  const itemPerPage = 10;
+
 
 
   return (
@@ -110,20 +101,8 @@ function TableRow() {
           </Row>
         );
       })}
-      {/* 페이지네이션 컨테이너 */}
-      <PaginationContainer>
-        <Stack spacing={10}>
-          {/* MUI 페이지 네이션 라이브러리 이용 */}
-          <Pagination
-            //페이지당 아이템 개수에 따른 전체 페이지수 계산
-            count={Math.ceil(numOfElement / itemPerPage)}
-            //페이지는 현재 페이지
-            page={currentPage}
-            onChange={handlePageChange}
-            color="primary"
-          />
-        </Stack>
-      </PaginationContainer>
+      {/* pagination component에 리스트에서 원소의 개수, 전달해줄 value값, 그리고 값이 변경되었을때, state를 업데이트 시켜줄 함수를 props로 보낸다 */}
+      <UserPagination numOfElement={numOfElement} val={val} handleValChange={handleValChange}/>
     </>
   );
 }
