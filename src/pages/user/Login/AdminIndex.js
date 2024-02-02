@@ -103,7 +103,9 @@ const AdminLoginPage = () => {
             />
 
             <FindPassword className=".cm-SRegular18">
-              <Link to="/user/findpassword">비밀번호 찾기{">"}</Link>
+              <Link to="/user/findpassword" style={{ visibility: "hidden" }}>
+                비밀번호 찾기{">"}
+              </Link>
             </FindPassword>
           </Box>
 
@@ -114,7 +116,11 @@ const AdminLoginPage = () => {
             <Link
               className="Btn_M_White"
               to="/user/sign"
-              style={{ width: "100%", padding: "1.3rem 0rem" }}
+              style={{
+                width: "100%",
+                padding: "1.3rem 0rem",
+                visibility: "hidden",
+              }}
             >
               회원가입
             </Link>
