@@ -15,7 +15,7 @@ const MyPage = () => {
         <EventCarousel />
         {/* 상품 슬라이더 모음 */}
         <Section>
-          <ItemSection title="지금 가장 핫한 상품🔥" filter="hot" />
+          <ItemSection title="지금 가장 핫한 상품🔥" filter="best" />
           <ItemSection title="록시땅 원데이 찬스✨" filter="event" />
         </Section>
         <Footer />
