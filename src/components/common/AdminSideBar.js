@@ -199,6 +199,7 @@ const AdminSideBar = () => {
           {openSubMenu === "환불관리" && (
             <OpenMenuWrap>
               <Nav to="refund"> - 환불 관리 </Nav>
+              <Nav to="cancel"> - 취소 관리</Nav>
             </OpenMenuWrap>
           )}
           {/* 고객센터 */}
@@ -302,7 +303,7 @@ const LogoBar = styled(Link)`
 const MenuWrap = styled.div`
   display: flex;
   width: 19.0625rem;
-  height: 100vh;
+  min-height: 100vh;
   padding-top: 3.75rem;
   flex-direction: column;
   align-items: flex-start;

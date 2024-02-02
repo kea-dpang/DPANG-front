@@ -67,13 +67,13 @@ function TableRow() {
       depositorName: "",
       sortOption: "",
       page: 0,
-      size: 10,
+      size: 100,
       XID: 1,
     };
 
     GET_mileage_list(val)
       .then((data) => {
-        console.log(data.data.content);
+        console.log(data);
         setMileageList(data.data.content);
       })
       .catch((error) => {
@@ -82,7 +82,7 @@ function TableRow() {
   }, []);
 
   //한페이지당 보여줄 아이템의 개수
-  const itemPerPage = 10;
+  const itemPerPage = 100;
   //시작 index는 현재 페이지의 첫번째 원소부터
   const start = (currentPage - 1) * itemPerPage;
   //끝 index는 start부터 보여주어야할 아이템의 개수 만큼
