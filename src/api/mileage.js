@@ -38,7 +38,7 @@ export const POST_mileage_request = async (inputValue) => {
 
 //특정 user의 ID 정보 토대로 마일리지 신청 내역 리스트를 제공
 export const GET_mileage_list = async (inputValue) => {
-  console.log(inputValue);
+  console.log("서버로 전달할 데이터: ", inputValue);
 
   //parameter 값과 함께 api요청을 보낸다
   const res = await axios({
