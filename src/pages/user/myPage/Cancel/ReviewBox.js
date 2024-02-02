@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import MyPageBodyHeader from "../../../../components/common/MyPageBodyHeader";
 import TableHeader from "components/common/MypageTableHeader";
 import TempData from "../../../../assets/data/user/UserCancelData";
-import { GET_cancel_list } from "@api/cancel";
 
 const Container = styled.div`
   width: 72rem;
