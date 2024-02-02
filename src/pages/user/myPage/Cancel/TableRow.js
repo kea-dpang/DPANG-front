@@ -2,7 +2,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { GET_cancel_list } from "@api/cancel";
 
 const PaginationContainer = styled.div`
   width: 72rem;
@@ -43,12 +44,34 @@ function TableRow({ data }) {
   const navi = useNavigate();
   //pagination에서 현재 페이지
   const [currentPage, setCurrentPage] = useState(1);
+  const [cancelData, setCancelData] = useState([]);
 
   //page가 변경된 경우
   const handlePageChange = (_, newPage) => {
     //현재 페이지를 새로운 페이지로 변경
     setCurrentPage(newPage);
   };
+
+  //초기 rendering시 취소 리스트에 대한 정보를 API를 통해 받아온다
+  useEffect(() => {
+    const val = {
+      userId: 1,
+      startDate: "",
+      endDate: "",
+      page: 0,
+      size: 10,
+      sort: "",
+    };
+    //취소 내역 서버로 부터 받아오기
+    GET_cancel_list(val)
+      .then((data) => {
+        console.log(data, "API 연동 성공입니다");
+        setCancelData(data); //여기는 바꿔야 됩니다
+      })
+      .catch((error) => {
+        console.log(error, "실패입니다");
+      });
+  }, []);
 
   //한페이지당 보여줄 아이템의 개수
   const itemPerPage = 5;

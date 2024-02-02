@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
+import { POST_cancel_order } from "@api/cancel";
 import ArrowImg from "../../../../assets/images/UpArrowVector.svg";
 
 function RowData(props) {
@@ -69,15 +70,25 @@ function RowData(props) {
 
               <Col width="15rem" height="6">
                 <ButtonBox>
+                  {/* 버튼을 누르면 주문의 항목에 대한 ID를 넘겨서 취소 요청을 보낸다 */}
                   <Button
                     status={data.status}
                     onClick={(e) => {
                       e.stopPropagation();
+                      console.log(b.orderId);
+                      POST_cancel_order(b.orderId)
+                        .then((data) => {
+                          console.log("성공함", data);
+                        })
+                        .catch((error) => {
+                          console.log("실패함", error);
+                        });
                     }}
                   >
                     취소
                   </Button>
                   {/* 버튼을 클릭하더라도 상위 요소에 대하 이벤트 버블링 발생하지 않도록 함 */}
+                  {/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!여기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
                   <Button1
                     status={data.status}
                     onClick={(e) => {

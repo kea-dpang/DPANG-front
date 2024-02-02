@@ -2,8 +2,9 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import RowData from "./RowData";
+import { GET_OrderList } from "@api/order";
 
 const PaginationContainer = styled.div`
   width: 72rem;
@@ -16,12 +17,25 @@ const PaginationContainer = styled.div`
 function TableRow({ data }) {
   //pagination에서 현재 페이지
   const [currentPage, setCurrentPage] = useState(1);
+  const [orderList, setOrderList] = useState([]);
+  const userId = 1; //userId는 나중에 바꿀 수 있어야 한다
 
   //page가 변경된 경우
   const handlePageChange = (_, newPage) => {
     //현재 페이지를 새로운 페이지로 변경
     setCurrentPage(newPage);
   };
+
+  //order리스트를 가져올 API를 호출
+  useEffect(() => {
+    GET_OrderList(userId)
+      .then((data) => {
+        console.log("성공적!!", data);
+      })
+      .catch((error) => {
+        console.log("오류 발생", error);
+      });
+  }, []);
 
   //한페이지당 보여줄 아이템의 개수
   const itemPerPage = 5;
@@ -36,7 +50,7 @@ function TableRow({ data }) {
     <>
       {/* 페이지  */}
       {currentData.map((a, i) => {
-        return <RowData data={a} key={i}/>;
+        return <RowData data={a} key={i} />;
       })}
 
       <PaginationContainer>

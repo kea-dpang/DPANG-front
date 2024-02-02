@@ -12,6 +12,7 @@ const UserOrderData = [
     shipmessage: "문 앞에 두고 가주세요",
     item: [
       {
+        orderId: 100,
         id: 1,
         img: img,
         name: "한국시리즈 후드 105",
@@ -31,6 +32,7 @@ const UserOrderData = [
     shipmessage: "문 앞에 두고 가주세요",
     item: [
       {
+        orderId: 1,
         id: 1,
         img: img,
         name: "한국시리즈 후드 105",
@@ -38,6 +40,7 @@ const UserOrderData = [
         amt: 2,
       },
       {
+        orderId: 1,
         id: 2,
         img: img,
         name: "한국시리즈 후드 105",
@@ -57,6 +60,7 @@ const UserOrderData = [
     shipmessage: "문 앞에 두고 가주세요",
     item: [
       {
+        orderId: 1,
         id: 1,
         img: img,
         name: "한국시리즈 후드 105",
@@ -64,6 +68,7 @@ const UserOrderData = [
         amt: 2,
       },
       {
+        orderId: 1,
         id: 2,
         img: img,
         name: "한국시리즈 후드 105",
@@ -71,6 +76,7 @@ const UserOrderData = [
         amt: 2,
       },
       {
+        orderId: 1,
         id: 3,
         img: img,
         name: "한국시리즈 후드 105",

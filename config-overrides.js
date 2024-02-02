@@ -17,6 +17,7 @@ module.exports = override(
         "@userRoutes": "./src/routes/UserRoutes",
         "@adminRoutes": "./src/routes/AdminRoutes",
         "@styles": "./src/styles",
+        "@utils": "./src/utils",
       },
     },
   ])

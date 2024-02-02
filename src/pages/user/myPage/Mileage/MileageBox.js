@@ -2,7 +2,6 @@ import styled from "styled-components";
 import PeriodSelector from "../../../../components/common/PeriodSelector";
 import TableRow from "./TableRow";
 import TableHeader from "../../../../components/common/MypageTableHeader";
-import TempData from "assets/data/user/UserMileageData";
 import MyPageBodyHeader from "../../../../components/common/MyPageBodyHeader";
 
 const Container = styled.div`
@@ -16,7 +15,6 @@ const CalenderBox = styled.div`
   background-color: white;
 `;
 const TableBox = styled.div`
-  height: 43rem;
   background-color: white;
 `;
 const DetailHeader = styled.div`
@@ -36,9 +34,6 @@ function MileageBox() {
     { text: "내역", width: "18rem" },
   ];
 
-
-
-
   return (
     <Container>
       <MyPageBodyHeader header="마일리지 충전 내역" />
@@ -51,7 +46,7 @@ function MileageBox() {
       {/* 데이터를 보여줄 테이블 */}
       <TableBox>
         <TableHeader head={header} />
-        <TableRow data={TempData} />
+        <TableRow />
       </TableBox>
     </Container>
   );
