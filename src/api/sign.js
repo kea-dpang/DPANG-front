@@ -11,7 +11,7 @@ export const POST_User = async (data) => {
 
   const res = await axios({
     method: "post",
-    url: url,
+    url: `${authUrl}/join`,
     data: {
       email: data.email,
       password: data.password,
@@ -32,6 +32,18 @@ export const POST_Login = async (data) => {
     data: {
       email: data.email,
       password: data.password,
+    },
+  });
+  return res.data;
+};
+
+/* 비밀번호 찾기 */
+export const POST_Code = async (email) => {
+  const res = await axios({
+    method: "post",
+    url: `${authUrl}/send-verification-code`,
+    params: {
+      email: email,
     },
   });
   return res.data;
