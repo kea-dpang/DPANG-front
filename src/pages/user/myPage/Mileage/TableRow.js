@@ -51,49 +51,51 @@ function TableRow() {
   //pagination에서 현재 페이지
   const [currentPage, setCurrentPage] = useState(1);
   const [mileageList, setMileageList] = useState([]);
+  const [numOfElement, setNumOfElement] = useState(0);
+
+  const [val, setVal] = useState({
+    userId: 1,
+    status: "",
+    startDate: "",
+    endDate: "",
+    depositorName: "",
+    sortOption: "",
+    page: 0,
+    size: 10,
+    XID: 1,
+  });
 
   //page가 변경된 경우
   const handlePageChange = (e, newPage) => {
     //현재 페이지를 새로운 페이지로 변경
     setCurrentPage(newPage);
+    setVal((prevState)=>({...prevState, page: newPage-1}))
+
+
   };
 
   useEffect(() => {
-    const val = {
-      userId: 1,
-      status: "",
-      startDate: "",
-      endDate: "",
-      depositorName: "",
-      sortOption: "",
-      page: 0,
-      size: 100,
-      XID: 1,
-    };
+
 
     GET_mileage_list(val)
       .then((data) => {
         console.log(data);
+        setNumOfElement(data.data.totalElements);
         setMileageList(data.data.content);
       })
       .catch((error) => {
         console.error("Error fectching mileage data: ", error);
       });
-  }, []);
+  }, [val]);
 
   //한페이지당 보여줄 아이템의 개수
-  const itemPerPage = 100;
-  //시작 index는 현재 페이지의 첫번째 원소부터
-  const start = (currentPage - 1) * itemPerPage;
-  //끝 index는 start부터 보여주어야할 아이템의 개수 만큼
-  const end = start + itemPerPage;
-  //전체 데이터에서 시작 ~ 끝만 가져옴
-  const currentData = mileageList.slice(start, end);
+  const itemPerPage = 10;
+
 
   return (
     <>
       {/* currentData 만큼만 rendering해줌 */}
-      {currentData.map((a, i) => {
+      {mileageList.map((a, i) => {
         return (
           <Row className="cm-SRegular16" key={i}>
             <Col width="18rem">{customDate(a.requestDate)}</Col>
@@ -114,7 +116,7 @@ function TableRow() {
           {/* MUI 페이지 네이션 라이브러리 이용 */}
           <Pagination
             //페이지당 아이템 개수에 따른 전체 페이지수 계산
-            count={Math.ceil(mileageList.length / itemPerPage)}
+            count={Math.ceil(numOfElement / itemPerPage)}
             //페이지는 현재 페이지
             page={currentPage}
             onChange={handlePageChange}
