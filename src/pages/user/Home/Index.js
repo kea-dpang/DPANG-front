@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Header from "@components/UserHeaderBar/Index";
-import EventBanner from "./EventBanner";
 import ItemSection from "./ItemSection";
 import Footer from "@components/UserFooter/Index";
 import EventCarousel from "./EventCarousel";

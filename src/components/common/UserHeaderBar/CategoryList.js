@@ -49,16 +49,44 @@ function CategoryList(props) {
       >
         <CategoryBox>
           <Box>
-            <DetailBox key={list[0].title} content={list[0]} />
-            <DetailBox key={list[1].title} content={list[1]} />
-            <DetailBox key={list[2].title} content={list[2]} />
-            <DetailBox key={list[4].title} content={list[4]} />
-            <DetailBox key={list[3].title} content={list[3]} />
+            <DetailBox
+              onClick={props.handleClick}
+              key={list[0].title}
+              content={list[0]}
+            />
+            <DetailBox
+              onClick={props.handleClick}
+              key={list[1].title}
+              content={list[1]}
+            />
+            <DetailBox
+              onClick={props.handleClick}
+              key={list[2].title}
+              content={list[2]}
+            />
+            <DetailBox
+              onClick={props.handleClick}
+              key={list[4].title}
+              content={list[4]}
+            />
+            <DetailBox
+              onClick={props.handleClick}
+              key={list[3].title}
+              content={list[3]}
+            />
           </Box>
 
           <Box>
-            <DetailBox key={list[5].title} content={list[5]} />
-            <DetailBox key={list[6].title} content={list[6]} />
+            <DetailBox
+              onClick={props.handleClick}
+              key={list[5].title}
+              content={list[5]}
+            />
+            <DetailBox
+              onClick={props.handleClick}
+              key={list[6].title}
+              content={list[6]}
+            />
           </Box>
         </CategoryBox>
       </CategoryContainer>
