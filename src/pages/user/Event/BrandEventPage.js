@@ -121,10 +121,10 @@ const Nav = styled.div`
   cursor: pointer;
 `;
 const StatusTitle = styled.div`
-  padding: 0rem 18rem;
+  padding: 0rem 23rem;
 `;
 const PlaceholderWrap = styled.div`
-  padding: 2rem 20rem;
+  padding: 2rem 23rem;
   box-sizing: border-box;
   margin: 1rem 0rem;
   // background-color: var(--light-grey);
@@ -132,7 +132,7 @@ const PlaceholderWrap = styled.div`
 const ListSection = styled.div`
   display: flex;
   box-sizing: border-box;
-  padding: 0rem 15.9375rem 3rem 15.9375rem;
+  padding: 0rem 20.45rem 3rem 20.45rem;
   flex-direction: row; // 가로로 배치
   flex-wrap: wrap; // 너비 초과 시 아래로 내려감    align-items: center;
   justify-content: start;

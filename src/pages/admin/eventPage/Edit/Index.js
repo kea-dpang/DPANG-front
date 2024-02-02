@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import * as React from "react";
-import { useState } from "react";
-import "../../../../styles/fonts.css";
+import React from "react";
+import "@styles/fonts.css";
 import ProductEventPage from "./ProductEventEditPage";
 import { useParams } from "react-router-dom";
 
@@ -14,7 +13,6 @@ const Index = () => {
       <Wrap>
         <PageName className="cm-LBold30 col-Black"> 이벤트 관리</PageName>
         <PageSubName className="cm-MBold24 col-Navy">
-          {" "}
           상품 이벤트 수정
         </PageSubName>
 

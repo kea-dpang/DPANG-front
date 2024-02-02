@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import FilterSideBar from "./FilterSideBar";
+import FilterSideBar from "@userPages/Search/FilterSideBar";
 import Item from "@components/ProductCard/Index";
 import { GET_ItemListUser } from "@api/Item";
+import { categoryFormat } from "assets/CustomName";
 
-const SearchResult = (props) => {
+const CategoryResult = (props) => {
   console.log("query: ", props);
   // 아이템 리스트
   const [itemList, setItemList] = useState([]);
@@ -24,11 +25,12 @@ const SearchResult = (props) => {
       {itemList && (
         <>
           <Title className="cm-LBold30">
-            <div className="col-Navy">'{props.keyword}'</div>
-            <div className="cm-LRegular30"> &nbsp; 에 대한 검색 결과</div>
+            <div className="col-Navy">
+              {categoryFormat(props.category, false)}
+            </div>
           </Title>
           <Content>
-            <FilterSideBar value={"search"} />
+            <FilterSideBar />
             <Right>
               {/* 검색 결과 개수 + 추천순, 최신순 등 정렬 */}
               <Section className="cm-XsRegular14">
@@ -51,7 +53,7 @@ const SearchResult = (props) => {
   );
 };
 
-export default SearchResult;
+export default CategoryResult;
 const Wrap = styled.div`
   display: flex;
   align-items: center;

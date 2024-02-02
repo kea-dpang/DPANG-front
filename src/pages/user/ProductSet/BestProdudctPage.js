@@ -2,14 +2,20 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Item from "@components/ProductCard/Index";
 import { GET_ItemListUser } from "@api/Item";
+import { useLocation } from "react-router-dom";
 
 const BestProductPage = () => {
+  let location = useLocation();
+  console.log("location:", location);
+  const title = location.state ? location.state.title : "베스트 상품";
   // 아이템 리스트
   const [itemList, setItemList] = useState([]);
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
     GET_ItemListUser()
       .then((data) => {
-        setItemList(data); // API 응답으로 받은 데이터를 상태에 저장
+        setItemList(data.data); // API 응답으로 받은 데이터를 상태에 저장
         console.log("넘겨받은 아이템 리스트 데이터 : ", data);
       })
       .catch((error) => {
@@ -21,7 +27,7 @@ const BestProductPage = () => {
     <>
       {itemList.length > 0 && (
         <Wrap>
-          <Title className="cm-XLBold36"> 지금 가장 핫한 상품 🔥 </Title>
+          <Title className="cm-XLBold36"> {title} </Title>
           <ItemWrap>
             {itemList.map((item) => (
               <Item key={item.itemId} value={item} />
@@ -48,7 +54,7 @@ const ItemWrap = styled.div`
   width: 70rem;
   padding-bottom: 5rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   flex-wrap: wrap;
   gap: 3.0625rem;
 `;

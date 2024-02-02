@@ -8,8 +8,7 @@ export const GET_BrandList = async () => {
     url: url,
     params: {
       page: 0,
-      size: 20,
-      sort: "",
+      size: 10,
     },
   });
   console.log("판매처 목록 result : ", res.data.data.content);

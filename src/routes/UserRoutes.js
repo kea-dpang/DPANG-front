@@ -33,6 +33,8 @@ import ProductEventList from "@userPages/Event/ProductEventPage";
 import BrandEventPage from "@userPages/Event/BrandEventPage";
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import NewProductPage from "@userPages/ProductSet/NewProductPage";
+import CategorySet from "@userPages/CategorySet/Index";
 
 const UserRoutes = () => {
   return (
@@ -47,6 +49,7 @@ const UserRoutes = () => {
       <Route path="collections/*" element={<ProductListPage />}>
         <Route path="best" element={<BestProductPage />} />
         <Route path="event" element={<EventProductPage />} />
+        <Route path="new" element={<NewProductPage />} />
       </Route>
       <Route path="event/*" element={<EventPage />}>
         <Route path="product" element={<ProductEventList />} />
@@ -56,6 +59,7 @@ const UserRoutes = () => {
       <Route path="products/:itemId" element={<ProductDetail />} />
       {/* 검색 페이지 */}
       <Route path="search" element={<SearchPage />} />
+      <Route path="categories/:id" element={<CategorySet />} />
       {/* 위시리스트 */}
       <Route path="wishlist" element={<WishList />} />
       {/* 장바구니 */}

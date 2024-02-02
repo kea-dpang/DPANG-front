@@ -35,11 +35,22 @@ export const GET_BrandName = async () => {
   });
   return res.data;
 };
-// 관리자 - 브랜드 이름으로 아이디 조회
+// 관리자 - 브랜드 이벤트 상세 조회
 export const GET_BrandEventInfo = async (id) => {
   const res = await axios({
     method: "get",
     url: `${url}/seller/${id}`,
+    params: {
+      id: id,
+    },
+  });
+  return res.data;
+};
+// 관리자 - 상품 이벤트 상세 조회
+export const GET_ItemEventInfo = async (id) => {
+  const res = await axios({
+    method: "get",
+    url: `${url}/item/${id}`,
     params: {
       id: id,
     },
@@ -99,12 +110,48 @@ export const POST_BrandEvent = async (inputValue) => {
   });
   return res.data;
 };
+// 관리자 - 상품 이벤트 등록
+export const POST_ItemEvent = async (inputValue) => {
+  console.log("상품 이벤트 등록: ", inputValue);
+  const res = await axios({
+    method: "post",
+    url: `${url}/item`,
+    data: {
+      discountRate: inputValue.discountRate,
+      eventName: inputValue.eventName,
+      startDate: inputValue.startDate,
+      endDate: inputValue.endDate,
+      imagePath: inputValue.imagePath,
+      targetItems: inputValue.targetItems,
+    },
+  });
+  return res.data;
+};
 // 관리자 - 브랜드 이벤트 수정
 export const PUT_BrandEvent = async (id, value) => {
   console.log("브랜드 이벤트 수정");
   const response = await axios({
     method: "put",
     url: `${url}/seller/${id}`,
+    data: {
+      id: id,
+      discountRate: value.discountRate,
+      eventName: value.eventName,
+      startDate: value.startDate,
+      endDate: value.endDate,
+      imagePath: value.imagePath,
+      sellerId: "9",
+      eventStatus: "WAITING",
+    },
+  });
+  return response.data;
+};
+// 관리자 - 상품 이벤트 수정
+export const PUT_ItemEvent = async (id, value) => {
+  console.log("상품 이벤트 수정");
+  const response = await axios({
+    method: "put",
+    url: `${url}/item/${id}`,
     data: {
       id: id,
       discountRate: value.discountRate,

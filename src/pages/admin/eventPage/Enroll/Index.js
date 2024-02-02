@@ -21,7 +21,6 @@ const Index = () => {
         <ProductBrandTab className="cm-SRegular16">
           <Nav color="var(--navy)"> 상품 이벤트</Nav>
           <Nav color="var(--semi-light-grey)" onClick={() => handleNavClick()}>
-            {" "}
             브랜드 이벤트
           </Nav>
         </ProductBrandTab>

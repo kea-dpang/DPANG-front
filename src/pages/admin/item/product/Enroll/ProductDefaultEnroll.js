@@ -1,11 +1,23 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Dropdown from "components/common/Dropdown";
 import InputText from "./InputText";
+import { GET_BrandList } from "@api/Brand";
 
 const ProductDefaultEnroll = ({ productInfo, setProductInfo }) => {
-  const brand = ["브랜드를 선택해주세요", "lg생활건강", "카카오"];
+  const [brand, setBrand] = useState([]);
+  useEffect(() => {
+    GET_BrandList()
+      .then((data) => {
+        console.log("brand : ", data.data.content);
+        const brandNames = data.data.content.map((item) => item.id); // TODO: 일단 아이디로. 나중에 api 생기면 이름으로 변경
+        setBrand(["브랜드를 선택해주세요", ...new Set(brandNames)]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
   const category = [
     "카테고리를 선택해주세요",
     "패션",
@@ -45,66 +57,73 @@ const ProductDefaultEnroll = ({ productInfo, setProductInfo }) => {
     setProductInfo((prev) => ({ ...prev, sellerId: e }));
   };
   return (
-    <Wrap>
-      <div className="cm-SBold18 col-Navy">상품 기본 정보</div>
-      {/* 상품 정보 입력 칸 */}
-      <Table>
-        {/* 상품명 등록 */}
-        <Row>
-          <p className="cm-SBold16 col-Black">상품명</p>
-          <InputText
-            id={"name"}
-            placeholder={"상품명을 입력해주세요"}
-            onChange={handleNameChange}
-          />
-        </Row>
-        {/* 판매가 등록 */}
-        <Row>
-          <p className="cm-SBold16 col-Black">판매가</p>
-          <InputText
-            id={"price"}
-            placeholder={"판매가를 입력해주세요"}
-            onChange={handlePriceChange}
-          />
-        </Row>
-        {/* 브랜드 등록 */}
-        <Row>
-          <p className="cm-SBold16 col-Black">브랜드</p>
-          <ContentBox>
-            <Dropdown
-              value={brand}
-              width={"100%"}
-              onChange={handleBrandChange}
+    brand.length > 0 && (
+      <Wrap>
+        <div className="cm-SBold18 col-Navy">상품 기본 정보</div>
+        {/* 상품 정보 입력 칸 */}
+        <Table>
+          {/* 상품명 등록 */}
+          <Row>
+            <p className="cm-SBold16 col-Black">상품명</p>
+            <InputText
+              id={"name"}
+              placeholder={"상품명을 입력해주세요"}
+              onChange={handleNameChange}
             />
-          </ContentBox>
-        </Row>
-        {/* 카테고리 등록 */}
-        <Row>
-          <p className="cm-SBold16 col-Black">카테고리</p>
-          <ContentBox>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "flex-start",
-                gap: "1rem",
-              }}
-            >
-              <Dropdown value={category} onChange={handleCategoryChange} />
-              <Dropdown value={sub_category} onChange={handleSubCateChange} />
-            </div>
-          </ContentBox>
-        </Row>
-        {/* 입고량 등록 */}
-        <Row>
-          <p className="cm-SBold16 col-Black">입고량</p>
-          <InputText
-            id={"stock"}
-            placeholder={"입고수량을 입력해주세요"}
-            onChange={handleStockChange}
-          />
-        </Row>
-      </Table>
-    </Wrap>
+          </Row>
+          {/* 판매가 등록 */}
+          <Row>
+            <p className="cm-SBold16 col-Black">판매가</p>
+            <InputText
+              id={"price"}
+              placeholder={"판매가를 입력해주세요"}
+              onChange={handlePriceChange}
+            />
+          </Row>
+          {/* 브랜드 등록 */}
+          <Row>
+            <p className="cm-SBold16 col-Black">브랜드</p>
+            <ContentBox>
+              <Dropdown
+                value={brand}
+                width={"100%"}
+                onChange={handleBrandChange}
+              />
+            </ContentBox>
+          </Row>
+          {/* 카테고리 등록 : '패션' 카테고리일 때만 세부카테고리가 보여지게 */}
+          <Row>
+            <p className="cm-SBold16 col-Black">카테고리</p>
+            <ContentBox>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-start",
+                  gap: "1rem",
+                }}
+              >
+                <Dropdown value={category} onChange={handleCategoryChange} />
+                {productInfo.category === "패션" && (
+                  <Dropdown
+                    value={sub_category}
+                    onChange={handleSubCateChange}
+                  />
+                )}
+              </div>
+            </ContentBox>
+          </Row>
+          {/* 입고량 등록 */}
+          <Row>
+            <p className="cm-SBold16 col-Black">입고량</p>
+            <InputText
+              id={"stock"}
+              placeholder={"입고수량을 입력해주세요"}
+              onChange={handleStockChange}
+            />
+          </Row>
+        </Table>
+      </Wrap>
+    )
   );
 };
 

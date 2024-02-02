@@ -23,20 +23,23 @@ const FilterSideBar = (props) => {
 
   return (
     <Wrap>
-      <MenuWrap
-        $isOpen={openSubMenu.includes("카테고리")}
-        onClick={() => handleSubMenuClick("카테고리")}
-      >
-        <MenuName
-          className="cm-SBold16"
-          $isOpen={openSubMenu.includes("카테고리")}
-        >
-          카테고리
-        </MenuName>
-        <Arrow $isOpen={openSubMenu.includes("카테고리")} />
-      </MenuWrap>
-      {openSubMenu.includes("카테고리") && <Category />}
-
+      {props.value == "search" && (
+        <>
+          <MenuWrap
+            $isOpen={openSubMenu.includes("카테고리")}
+            onClick={() => handleSubMenuClick("카테고리")}
+          >
+            <MenuName
+              className="cm-SBold16"
+              $isOpen={openSubMenu.includes("카테고리")}
+            >
+              카테고리
+            </MenuName>
+            <Arrow $isOpen={openSubMenu.includes("카테고리")} />
+          </MenuWrap>
+          {openSubMenu.includes("카테고리") && <Category />}
+        </>
+      )}
       <MenuWrap
         $isOpen={openSubMenu.includes("브랜드")}
         onClick={() => handleSubMenuClick("브랜드")}

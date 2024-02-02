@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import ItemSlider from "./ItemSlider";
 import Carousel from "./Carousel";
 
 const ItemSection = (props) => {
@@ -10,10 +9,13 @@ const ItemSection = (props) => {
   return (
     <>
       <Wrap>
-        <Title className="cm-XLBold36" to={`/user/collections`}>
+        <Title
+          className="cm-XLBold36"
+          to={`/user/collections/${props.filter}`}
+          state={{ title: props.title }}
+        >
           {props.title}
         </Title>
-        {/* <ItemSlider /> */}
         <Carousel />
       </Wrap>
     </>

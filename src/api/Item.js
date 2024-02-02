@@ -1,16 +1,24 @@
 import axios from "axios";
+import { categoryFormat, subCategoryFormat } from "assets/CustomName";
+
 const url = "/api/items";
 // 관리자 - 상품 등록
 export const POST_Item = async (inputValue) => {
+  // 카테고리 커스텀
+  if (inputValue.subCategory !== "") {
+    inputValue.subCategory = subCategoryFormat(inputValue.subCategory, false);
+  } else {
+    inputValue.subCategory = "WOMEN_CLOTHES";
+  }
   console.log("상품 등록");
   const res = await axios({
     method: "post",
     url: url,
     data: {
-      sellerId: "9",
+      sellerId: "sellerId",
       itemName: inputValue.itemName,
-      category: "FASHION",
-      subCategory: "WOMEN_CLOTHES",
+      category: categoryFormat(inputValue.category, true),
+      subCategory: inputValue.subCategory,
       itemPrice: inputValue.itemPrice,
       stockQuantity: inputValue.stockQuantity,
       itemImage: inputValue.itemImage,
@@ -30,6 +38,12 @@ export const GET_ItemList = async () => {
       size: 20,
       sort: "",
     },
+  });
+  // 카테고리 커스텀
+  res.data.data = res.data.data.map((item) => {
+    item.category = categoryFormat(item.category, false);
+    item.subCategory = subCategoryFormat(item.subCategory, false);
+    return item;
   });
   console.log("상품 목록 result : ", res.data);
   return res.data;
