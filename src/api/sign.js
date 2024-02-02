@@ -38,12 +38,27 @@ export const POST_Login = async (data) => {
 };
 
 /* 비밀번호 찾기 */
+/* 이메일로 코드 전송 */
 export const POST_Code = async (email) => {
   const res = await axios({
     method: "post",
     url: `${authUrl}/send-verification-code`,
     params: {
       email: email,
+    },
+  });
+  return res.data;
+};
+/*  */
+export const POST_newPassword = async (data) => {
+  console.log(data);
+  const res = await axios({
+    method: "post",
+    url: `${authUrl}/reset-password`,
+    data: {
+      email: data.email,
+      code: data.code,
+      newPassword: data.newPassword,
     },
   });
   return res.data;
