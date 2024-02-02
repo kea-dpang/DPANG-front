@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { POST_Login } from "@api/sign";
 import { setCookie } from "@utils/cookie";
 
-const LoginPage = () => {
+const AdminLoginPage = () => {
   const methods = useForm();
   const {
     register,
@@ -20,7 +20,8 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const handleNavClick = () => {
-    navigate("/login/admin");
+    // navigate("/admin/event/enrollbrand");
+    navigate("/login");
   };
 
   const onSubmit = (data) => {
@@ -49,14 +50,13 @@ const LoginPage = () => {
       <LogoImg src={Logo} alt="Logo" />
       <BoxContainer>
         <LoginTab className="cm-SRegular16">
-          <Nav color="var(--navy)"> 사용자 로그인</Nav>
           <Nav color="var(--semi-light-grey)" onClick={() => handleNavClick()}>
-            {" "}
-            관리자 로그인
+            사용자 로그인
           </Nav>
+          <Nav color="var(--navy)"> 관리자 로그인</Nav>
         </LoginTab>
 
-        <h1 className="cm-MBold24">로그인</h1>
+        <h1 className="cm-MBold24">관리자 로그인</h1>
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <Box
@@ -125,7 +125,7 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default AdminLoginPage;
 
 const Wrap = styled.div`
   width: 100vw;

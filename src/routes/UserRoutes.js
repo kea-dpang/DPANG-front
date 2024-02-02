@@ -14,7 +14,6 @@ import UserRefundDetail from "@userPages/myPage/Refund/Detail/Index";
 import ReqRefund from "@userPages/myPage/Refund/Enroll/Index";
 import AskEnrollPage from "@userPages/myPage/DirectAsk/Enroll/Index";
 import FaqPage from "@userPages/myPage/FAQ/Index";
-import LoginPage from "@userPages/Login/Index";
 import SignPage from "@userPages/Sign/Index";
 import FindPasswordPage from "@userPages/Login/FindPassword";
 import MainPage from "@userPages/Home/Index";
@@ -39,7 +38,7 @@ const UserRoutes = () => {
     <Routes>
       {/* 로그인, 회원가입, 비밀번호 찾기 */}
       <Route path="sign" element={<SignPage />} />
-      <Route path="login" element={<LoginPage userType="user" />} />
+      {/* <Route path="login" element={<LoginPage />} /> */}
       <Route path="findpassword" element={<FindPasswordPage />} />
       {/* 메인페이지 */}
       <Route path="mainpage" element={<MainPage />} />

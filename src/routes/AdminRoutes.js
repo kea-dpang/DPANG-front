@@ -28,11 +28,13 @@ import ProductEditPage from "@adminPages/item/product/Edit/Index";
 import AdminOrderDetail from "@adminPages/Order/Detail/Index";
 import Monitoring from "@adminPages/monitoring/Index";
 
-
 const AdminRoutes = () => {
   return (
     <Routes>
       <Route path="" element={<AdminPage />}>
+        {/* 관리자 로그인 */}
+        {/* <Route path="login" element={<LoginPage userType="admin" />} /> */}
+
         {/* 회원관리 */}
         <Route path="user" element={<AdminUserListPage />} />
         <Route path="user/:memberId" element={<AdminUserEditPage />} />
