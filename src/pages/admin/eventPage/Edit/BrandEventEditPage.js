@@ -148,7 +148,7 @@ const Index = ({ eventId }) => {
               <InputEdit
                 value={inputValue.sellerId}
                 id={"sellerId"}
-                placeholder={"이벤트 이름을 입력해주세요"}
+                placeholder={"브랜드 이름을 입력해주세요"}
                 onChange={handleBrandChange}
               />
             </Row>

@@ -18,11 +18,10 @@ const Wrap = styled.div`
   width: 100vw;
   align-items: center;
   min-width: 1550px;
-  display: flex;
-  flex-direction: column;
 `;
 const Title = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
   padding: 2.25rem 15.9375rem 0rem 15.9375rem;
 `;

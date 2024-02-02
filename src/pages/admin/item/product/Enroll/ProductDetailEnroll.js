@@ -48,7 +48,7 @@ const ProductDetailEnroll = ({ productInfo, setProductInfo }) => {
         <Row>
           <p className="cm-SBold16 col-Black">상품 이미지</p>
           <EventImage
-            eventImage={productInfo.productImage}
+            eventImage={productInfo.itemImage}
             handleImageDelete={handleDefaultImgDelete}
             handleImageChange={handleDefaultImgChange}
           />

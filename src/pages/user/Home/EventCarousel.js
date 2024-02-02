@@ -34,6 +34,7 @@ export default EventCarousel;
 const Wrap = styled.div`
   width: 100%;
   overflow-x: hidden;
+  padding-bottom: 3rem;
 `;
 const StyledSlider = styled(Slider)`
   width: 100%;

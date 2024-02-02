@@ -33,6 +33,7 @@ import ProductEventList from "@userPages/Event/ProductEventPage";
 import BrandEventPage from "@userPages/Event/BrandEventPage";
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import NewProductPage from "@userPages/ProductSet/NewProductPage";
 
 const UserRoutes = () => {
   return (
@@ -47,6 +48,7 @@ const UserRoutes = () => {
       <Route path="collections/*" element={<ProductListPage />}>
         <Route path="best" element={<BestProductPage />} />
         <Route path="event" element={<EventProductPage />} />
+        <Route path="new" element={<NewProductPage />} />
       </Route>
       <Route path="event/*" element={<EventPage />}>
         <Route path="product" element={<ProductEventList />} />

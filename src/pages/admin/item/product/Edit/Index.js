@@ -31,9 +31,6 @@ const ProductEditPage = () => {
           stockQuantity: data.stockQuantity,
           itemImage: data.itemImage,
           images: data.images,
-          eventPrice: "0",
-          category: data.category,
-          subCategory: data.subCategory,
         });
       })
       .catch((error) => {

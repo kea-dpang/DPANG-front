@@ -1,61 +1,20 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import InputEdit from "@adminPages/item/brand/Edit/InputEdit";
 import { POST_Image } from "@api/image";
-import EventImage from "@adminPages/eventPage/Enroll/EventImage";
 
 const ProductDefaultEdit = ({ productInfo, setProductInfo }) => {
-  const brand = ["브랜드를 선택해주세요", "lg생활건강", "카카오"];
-  const category = [
-    "카테고리를 선택해주세요",
-    "패션",
-    "뷰티",
-    "스포츠/레저",
-    "디지털/가전",
-    "인테리어",
-    "출산/유아동",
-    "생활",
-  ];
-  const sub_category = [
-    "세부 카테고리를 선택해주세요",
-    "여성의류",
-    "남성의류",
-    "상의",
-    "하의",
-    "액세서리",
-    "가방",
-  ];
-
   const handleNameChange = (e) => {
     setProductInfo((prev) => ({ ...prev, itemName: e.target.value }));
   };
-
   const handlePriceChange = (e) => {
     setProductInfo((prev) => ({ ...prev, itemPrice: e.target.value }));
   };
-
   const handleStockChange = (e) => {
     setProductInfo((prev) => ({ ...prev, stockQuantity: e.target.value }));
   };
-  // 이벤트 이미지 관리
-  const handleImageChange = (file) => {
-    console.log("file: ", file);
-    POST_Image(file)
-      .then((data) => {
-        console.log("사진 등록", data.data.uploadedFileUrl);
-        setProductInfo({
-          ...productInfo,
-          itemImage: data.data.uploadedFileUrl,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-  const handleImageDelete = () => {
-    setProductInfo({ ...productInfo, itemImage: null });
-  };
+
   return (
     <Wrap>
       <div className="cm-SBold18 col-Navy">상품 기본 정보</div>
