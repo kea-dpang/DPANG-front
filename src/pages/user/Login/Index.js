@@ -6,8 +6,7 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { POST_Login } from "@api/sign";
-// import { setCookie } from "@utils/cookie";
-import { setCookie } from "../../../utils/cookie";
+import { setCookie } from "@utils/cookie";
 
 const LoginPage = ({ userType }) => {
   const methods = useForm();
