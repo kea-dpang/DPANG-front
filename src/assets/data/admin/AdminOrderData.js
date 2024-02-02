@@ -11,8 +11,8 @@ const AdminOrderData = [
     orderStatus: "결제 완료",
     username: "김디팡",
     phonenumber: "010-1234-5678",
-    zipCode: "123-567",
     address: "경기도 디팡시 디팡구 123",
+    detailaddress: "123동 123호"
   },
   {
     id: 10,
@@ -28,6 +28,8 @@ const AdminOrderData = [
     phonenumber: "010-1234-5678",
     zipCode: "123-567",
     address: "경기도 디팡시 디팡구 123",
+    detailaddress: "123동 123호"
+
   },
 
   {
@@ -44,6 +46,8 @@ const AdminOrderData = [
     phonenumber: "010-1234-5678",
     zipCode: "123-567",
     address: "경기도 디팡시 디팡구 123",
+    detailaddress: "123동 123호"
+
   },
 
   {
@@ -60,6 +64,7 @@ const AdminOrderData = [
     phonenumber: "010-1234-5678",
     zipCode: "123-567",
     address: "경기도 디팡시 디팡구 123",
+    detailaddress: "123동 123호"
   },
 
   {
@@ -76,6 +81,7 @@ const AdminOrderData = [
     phonenumber: "010-1234-5678",
     zipCode: "123-567",
     address: "경기도 디팡시 디팡구 123",
+    detailaddress: "123동 123호"
   },
 
   {
@@ -92,6 +98,7 @@ const AdminOrderData = [
     phonenumber: "010-1234-5678",
     zipCode: "123-567",
     address: "경기도 디팡시 디팡구 123",
+    detailaddress: "123동 123호"
   },
 ];
 

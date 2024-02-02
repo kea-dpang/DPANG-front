@@ -10,9 +10,9 @@ return(
         <ColHead>주문아이디</ColHead>
         <BlankDiv />
         <Content width="28rem">{data.orderer}</Content>
-        <ColHead>사용자 이름</ColHead>
+        <ColHead>주문 번호</ColHead>
         <BlankDiv />
-        <Content width="28rem">{data.username}</Content>
+        <Content width="28rem">{data.orderId}</Content>
       </Col>
       <Border />
       <Col height="5rem">
@@ -28,14 +28,14 @@ return(
       <Col height="5rem">
         <ColHead>사용자 주소</ColHead>
         <BlankDiv />
-        <Content width="64.9375rem">{data.address}</Content>
+        <Content width="64.9375rem">{data.address}, {data.detailaddress}</Content>
       </Col>
       <Border />
 
       <Col height="5rem">
         <ColHead>주문 상품</ColHead>
         <BlankDiv />
-        <Content width="64.9375rem">{data.name}</Content>
+        <Content width="28rem">{data.name}</Content>
         <ColHead>주문금액</ColHead>
         <BlankDiv />
         <Content width="28rem">{data.price * data.productQuantity}</Content>

@@ -1,21 +1,30 @@
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import '../../../styles/fonts.css';
 import styled from 'styled-components';
 import Checkbox from '@mui/material/Checkbox';
 
-const CartItem = ({ item, onSelect, onDelete }) => {
-  const [quantity, setQuantity] = useState(1);
+const CartItem = ({ item, updateQuantity, updateChecked, deleteItem  }) => {
+  const [quantity, setQuantity] = useState(item.quantity);
   const [totalPrice, setTotalPrice] = useState({});
-  const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useState(item.checked);
+
+  const handleCheckboxChange = () => {
+    const newChecked = !checked;
+    setChecked(newChecked);
+    updateChecked(item.id, newChecked);
+  };
 
   const updateTotalPrice = () => {
     setTotalPrice(item.price * quantity);
   };
+
+  useEffect(() => {
+    updateQuantity(item.id, quantity);
+  }, [quantity, item.id, updateQuantity]);
 
   const handleIncrease = () => {
     setQuantity(quantity + 1);
@@ -29,14 +38,16 @@ const CartItem = ({ item, onSelect, onDelete }) => {
     }
   };
 
-  const handleChange = (selected) => {
-    setChecked(selected);
+  const handleDelete = () => {
+    deleteItem(item.id);
   };
+
+  
 
   return (
     <Content>
       
-        <Checkbox checked={checked} onChange={(e) => handleChange(e.target.checked)} />
+      <Checkbox checked={checked} onChange={(e) => handleCheckboxChange(e.target.checked)} />
         <div>
         <ItemImg src={item.imgUrl} alt={item.name} />
         </div>
@@ -45,7 +56,7 @@ const CartItem = ({ item, onSelect, onDelete }) => {
             <ItemBox>
               <p className="cm-SBold16 col-Black">{item.name}</p>
             </ItemBox>
-            <DeleteButton>
+            <DeleteButton onClick={handleDelete}>
               <p className="cm-SRegular16 col-Black">삭제</p>
             </DeleteButton>
           </ItemName>

@@ -11,9 +11,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 import { Link, useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
 import { POST_OrderInfo } from "@api/order";
 import Dropdown from "@components/Dropdown";
 import CartList from "@userPages/Cart/CartList";
@@ -74,6 +71,10 @@ const Index = () => {
     setInputValue({ ...inputValue, phoneNumber: e.target.value });
   };
 
+  const handleZipCodeChange = (e) => {
+    setInputValue({...inputValue, zipCode: e.target.value });
+  }
+
   const handleAddressChange = (e) => {
     setInputValue({...inputValue, address: e.target.value });
   };
@@ -106,6 +107,7 @@ const Index = () => {
   const handleSave = () => {
     inputValue.name=inputValue.name;
     inputValue.phoneNumber=inputValue.phoneNumber;
+    inputValue.zipCode = inputValue.zipCode;
     inputValue.address=inputValue.address;
     inputValue.detailaddress=inputValue.detailaddress;
     inputValue.deliveryRequest=inputValue.deliveryRequest;
@@ -210,6 +212,18 @@ const Index = () => {
                             },
                           }}
                         />
+                        <TextField
+                          label="우편번호"
+                          value={inputValue.zipCode}
+                          onChange={handleZipCodeChange}
+                          variant="outlined"
+                          sx={{
+                            "& .MuiOutlinedInput-root": {
+                              borderColor: "var(--dark-grey, #BCBCBC)",
+                              width: "33.3125rem",
+                            },
+                          }}
+                          />
 
                         <AddressContainer>
                           <TextField
@@ -242,9 +256,10 @@ const Index = () => {
                     ) : (
                       <>
                         <p className="cm-SBold18 col-Black">{inputValue.name}</p>
-                        <p className="cm-SBold16 col-Black">{inputValue.phone}</p>
+                        <p className="cm-SRegular16 col-Black">{inputValue.phoneNumber}</p>
+                        <p className="cm-SRegular16 col-Black">우편번호 {inputValue.zipCode}</p>
                         <p className="cm-SRegular16 col-Black">
-                          {inputValue.address}, {inputValue.detailaddress}
+                          {inputValue.address} {inputValue.detailaddress}
                         </p>
                       </>
                     )}
@@ -303,7 +318,10 @@ const Index = () => {
                 flexDirection: "column",
               }}
             >
-              <CartList/>
+
+              <OrderContainer>
+                
+              </OrderContainer>
             </ListItemButton>
           </List>
         </Collapse>
