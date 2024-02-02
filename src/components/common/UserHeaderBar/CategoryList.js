@@ -7,7 +7,8 @@ const Container = styled.div`
   width: 100vw;
   height: 100rem;
   justify-content: center;
-  position: absolute;
+  position: fixed;
+  top: 20;
   z-index: 2;
   cursor: pointer;
 `;

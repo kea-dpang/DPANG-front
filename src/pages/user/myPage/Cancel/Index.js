@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ReviewBox from './ReviewBox'
+import ReviewBox from "./ReviewBox";
 
 const Container = styled.div`
   min-height: 100vh;
@@ -22,7 +22,10 @@ function Index() {
   return (
     <Container>
       <ContentBox>
-        <ReviewContainer><ReviewBox /></ReviewContainer>
+        {/* 리스트를 보여줄 테이블 */}
+        <ReviewContainer>
+          <ReviewBox />
+        </ReviewContainer>
       </ContentBox>
     </Container>
   );

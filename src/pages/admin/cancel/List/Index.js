@@ -7,7 +7,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import Dropdown from "components/common/Dropdown";
 import DataTable from "components/common/AdminDataTable";
 import data from "assets/data/admin/AdminCancelData";
-import {useState} from 'react'
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Index = () => {
@@ -17,7 +17,6 @@ const Index = () => {
   //필터링을 해줄 dropdown 박스의 값. 첫 값은 이름, 뒤에 두 값은 필터링에 들어갈 value
   const dropdownValue = ["취소 상태", "취소요청", "취소승인"];
   const columns = [
-    
     { name: "id", label: "번호", options: { sort: false } },
     {
       name: "id",
@@ -25,12 +24,11 @@ const Index = () => {
       options: {
         sort: false,
         customBodyRender: (value, tableMeta) => {
-
           //ID를 기준으로 데이터 찾기
-          const rowData = data.find(row => row.id === value);
+          const rowData = data.find((row) => row.id === value);
           //날짜와 주문 번호를 가져옴
-          const date = rowData['date'];
-          const ordernum = rowData['ordernum'];
+          const date = rowData["date"];
+          const ordernum = rowData["ordernum"];
 
           return (
             <div>
@@ -41,31 +39,30 @@ const Index = () => {
         },
       },
     },
-    { name: "name", label: "이름"},
-    { name: "id", label: "상품 정보", options: { sort: false, customBodyRender: (value, tableMeta)=>{
+    { name: "name", label: "이름" },
+    {
+      name: "id",
+      label: "상품 정보",
+      options: {
+        sort: false,
+        customBodyRender: (value, tableMeta) => {
+          //ID를 기준으로 데이터 가져옴
+          const rowData = data.find((row) => row.id === value);
+          const img = rowData["itemImg"];
+          const name = rowData["itemName"];
 
-
-      //ID를 기준으로 데이터 가져옴
-      const rowData = data.find(row => row.id === value);
-      const img = rowData['itemImg'];
-      const name = rowData['itemName'];
-
-      return (
-
-        //이미지와 상품명 표시
-        <div style={{display: "flex", height: "6rem", alignItems: "center"}}>
-          <img style={{width: "5rem"}} src = {img} />
-          <p>{name}</p>
-
-
-        </div>
-
-
-      )
-
-
-
-    } } },
+          return (
+            //이미지와 상품명 표시
+            <div
+              style={{ display: "flex", height: "6rem", alignItems: "center" }}
+            >
+              <img style={{ width: "5rem" }} src={img} />
+              <p>{name}</p>
+            </div>
+          );
+        },
+      },
+    },
     {
       name: "status",
       label: "취소 상태",
@@ -79,29 +76,29 @@ const Index = () => {
           } else {
             color = "var(--yellow)";
           }
-     
+
           return <div style={{ color: color }}>{value}</div>;
         },
       },
     },
 
-    { name: "id", label: "상태 관리하기", options: {customBodyRender: (value, tableMeta) => {
+    {
+      name: "id",
+      label: "상태 관리하기",
+      options: {
+        customBodyRender: (value, tableMeta) => {
+          const rowData = data.find((row) => row.id === value);
+          const val = rowData["status"];
 
-      const rowData = data.find(row => row.id === value);
-      const val = rowData['status'];
-
-      //취소 요청인 경우에만 버튼 보여준다
-      return val === '취소요청' ? <Button>승인</Button> : null;
-
-    } },
-  }
-
+          //취소 요청인 경우에만 버튼 보여준다
+          return val === "취소요청" ? <Button>승인</Button> : null;
+        },
+      },
+    },
   ];
   const handleRowClick = (rowData) => {
-
     //ID값 전달 위해 url에 ID값 추가
-    navigate(`/admin/cancel/${rowData[0]}`)
-
+    navigate(`/admin/cancel/${rowData[0]}`);
   };
 
   //선택한 드롭 박스의 값을 저장하기 위한 state 변수
@@ -110,7 +107,6 @@ const Index = () => {
     //드롭다운 박스에서 가져온 값으로 카테고리를 설정
     setSelectedCategory(newCategory);
   };
-
 
   return (
     <>
@@ -121,7 +117,11 @@ const Index = () => {
           {/* 취소 상태 드롭다운, 검색창*/}
           <SearchWrap>
             {/* 카테고리 선택 드롭다운*/}
-            <Dropdown value={dropdownValue} width={"10rem"} onChange={handleCategoryChange}/>
+            <Dropdown
+              value={dropdownValue}
+              width={"10rem"}
+              onChange={handleCategoryChange}
+            />
             {/* 검색창 */}
             <Paper
               component="form"
@@ -208,4 +208,3 @@ const Button = styled.div`
   color: white;
   border-radius: 3px;
 `;
-
