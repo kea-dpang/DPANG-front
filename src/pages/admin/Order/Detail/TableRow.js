@@ -16,8 +16,9 @@ const Col = styled.div`
 `;
 
 const ItemImg = styled.img`
-  width: 5rem;
-  height: 5rem;
+  width: 4rem;
+  height: 4rem;
+  padding: 1rem 0.5rem 1rem 0rem;
 `;
 const ItemName = styled.div`
   width: 19rem;
@@ -42,7 +43,7 @@ function TableRow(props) {
     <Row className="cm-SRegular16">
       <Col width="14.9375rem">
         <Column>
-          <p>{data.orderdate}</p>
+          <p>{data.orderDate}</p>
           <p>{data.orderId}</p>
         </Column>
       </Col>

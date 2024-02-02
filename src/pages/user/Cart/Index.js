@@ -1,14 +1,16 @@
 import styled from "styled-components";
 import React, { useState } from "react";
-import CartItem from "./CartItem";
 import CartList from "./CartList";
 import Header from "../../../components/common/UserHeaderBar/Index";
-import TempItemData from "../../../assets/data/user/UserCartData";
 import "../../../styles/fonts.css";
-import Checkbox from "@mui/material/Checkbox";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
+
+  const navigate = useNavigate();
+  const handleOrderSave = () => {
+    navigate(`/user/order`)
+  };
 
   return (
     <>
@@ -19,7 +21,10 @@ const Index = () => {
         <InputSection>
           <CartList />
         </InputSection>
-
+        <OrderButton
+        onClick={handleOrderSave}>
+          <p className="cm-SBold16 col-White">주문하기</p>
+        </OrderButton>
       </Wrap>
     </>
   );
@@ -34,6 +39,7 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
 const Title = styled.div`
   display: flex;
   align-items: center;
@@ -80,5 +86,5 @@ const OrderButton = styled.button`
   border-radius: 0.1875rem;
   border: 1px solid var(--semi-light-grey, #cfcfcf);
   background: var(--navy, #043277);
-  margin-top: 2rem;
+  margin-bottom: 2rem;
 `;
