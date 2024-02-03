@@ -3,6 +3,8 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import { POST_changePassword } from "@api/sign";
+import { useNavigate } from "react-router-dom";
 
 const EditPassword = () => {
   const methods = useForm();
@@ -12,10 +14,22 @@ const EditPassword = () => {
     formState: { errors },
     getValues,
   } = methods;
-
+  const navigete = useNavigate();
   const onSubmit = (data) => {
-    alert(JSON.stringify(data));
-    console.log(data);
+    // alert(JSON.stringify(data));
+    POST_changePassword(data)
+      .then((data) => {
+        alert("비밀번호 재설정에 성공하였습니다.");
+        navigete("/user/mypage/temp/userinfo");
+      })
+      .catch((error) => {
+        if (error.response.status === 400) {
+          alert("비밀번호가 일치하지 않습니다.");
+        } else {
+          alert("비밀번호 재설정에 실패하였습니다. 다시 시도해주세요.");
+          console.log(error);
+        }
+      });
   };
 
   return (

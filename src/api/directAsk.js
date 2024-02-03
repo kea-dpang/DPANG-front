@@ -7,7 +7,7 @@ import axios from "axios";
 
 const url = "/api/qna";
 
-export const GET_QnAList = async (category, state) => {
+export const GET_QnAList = async (userId, category, state) => {
   // const accessToken = window.localStorage.getItem("accessToken");
   console.log("gggggg", category, state);
   const res = await axios({
@@ -21,7 +21,7 @@ export const GET_QnAList = async (category, state) => {
       //query
       category: category,
       status: state,
-      userId: "",
+      userId: userId,
       page: 0,
       size: 100,
     },
@@ -63,19 +63,21 @@ export const PUT_Answer = async (QnAId, answer) => {
   return res.data;
 };
 
-export const POST_Question = async (data) => {
+export const POST_Question = async (userId, data) => {
   data.category = customAskCategoryName(data.category, true);
 
   console.log("data: ", data);
+  console.log("data: ", data.itemId);
+
   const res = await axios({
     method: "post",
     url: url,
     data: {
-      userId: 0,
+      userId: userId,
       category: data.category,
-      itemId: data.itemId,
-      title: data.title,
-      content: data.content,
+      itemId: data.itemId || "",
+      title: data.askTitle,
+      content: data.askContent,
       imageUrl: "",
     },
   });
@@ -84,7 +86,6 @@ export const POST_Question = async (data) => {
 
 export const PUT_Question = async (qnaId, data) => {
   data.category = customAskCategoryName(data.category, true);
-  console.log("33323232", data);
   const res = await axios({
     method: "put",
     url: `${url}/${qnaId}`,

@@ -33,10 +33,16 @@ const SignPage = () => {
       .then((data) => {
         alert("회원가입이 완료되었습니다.");
         console.log(data);
-        navigate(`/user/login`);
+        navigate(`/login`);
       })
       .catch((error) => {
-        alert("회원가입에 실패하였습니다. 다시 시도해 주세요.");
+        // 요청이 실패했을 때의 처리
+        if (error.response.status === 400) {
+          alert("이미 존재하는 이메일입니다. 로그인 페이지로 이동합니다.");
+          navigate(`/login`);
+        } else {
+          alert("회원가입에 실패하였습니다. 다시 시도해 주세요.");
+        }
       });
     // alert(JSON.stringify(data));
   };

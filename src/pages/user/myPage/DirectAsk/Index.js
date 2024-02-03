@@ -3,6 +3,7 @@ import styled from "styled-components";
 import "../../../../styles/fontStyle.scss";
 import PeriodSelector from "../../../../components/common/PeriodSelector";
 import AskList from "./AskList";
+import withAuth from "@utils/hoc/withAuth";
 
 const DirectAskPage = () => {
   return (
@@ -23,7 +24,7 @@ const DirectAskPage = () => {
   );
 };
 
-export default DirectAskPage;
+export default withAuth(DirectAskPage);
 
 const Wrap = styled.div``;
 const Title = styled.div`
