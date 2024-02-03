@@ -11,6 +11,8 @@ const withAuth = (WrappedComponent) => {
       if (!accessToken) {
         // 로그인 페이지로 이동
         navigate("/login");
+      } else {
+        // accessToken 쿠키가 만료되지 않았을 시, 자동로그인 api를 연동시켜야 함.
       }
     }, [accessToken, navigate]);
 

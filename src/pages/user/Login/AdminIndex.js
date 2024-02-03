@@ -24,23 +24,32 @@ const AdminLoginPage = () => {
     navigate("/login");
   };
 
-  const onSubmit = (data) => {
-    POST_Login(data)
+  const onSubmit = (userData) => {
+    POST_Login(userData)
       .then((data) => {
-        alert("로그인되었습니다. 메인페이지로 이동합니다.");
-        navigate("/user/mainpage");
+        if (data.data.token.role === "ADMIN") {
+          alert("관리자로 로그인되었습니다. 메인페이지로 이동합니다.");
+          navigate("/admin/user");
 
-        setCookie("accessToken", data.data.accessToken, {
-          expires: 7,
-          path: "/",
-        });
-        setCookie("refreshToken", data.data.refreshToken, {
-          expires: 7,
-          path: "/",
-        });
+          // accessToken, refreshToken은 쿠키에 저장
+          setCookie("accessToken", data.data.token.accessToken, {
+            expires: 7,
+            path: "/",
+          });
+          setCookie("refreshToken", data.data.token.refreshToken, {
+            expires: 7,
+            path: "/",
+          });
+          // userId, email, role은 로컬스토리지에 저장
+          localStorage.setItem("userId", data.data.userIdx);
+          localStorage.setItem("email", userData.email);
+          localStorage.setItem("role", data.data.token.role);
+        } else {
+          alert("관리자 권한이 없습니다.");
+        }
       })
       .catch((error) => {
-        alert("로그인에 실패하였습니다. 다시 시도해주세요.");
+        alert("관리자 로그인에 실패하였습니다. 다시 시도해주세요.");
         console.log(error);
       });
   };

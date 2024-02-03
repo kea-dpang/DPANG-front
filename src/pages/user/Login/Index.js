@@ -23,20 +23,25 @@ const LoginPage = () => {
     navigate("/login/admin");
   };
 
-  const onSubmit = (data) => {
-    POST_Login(data)
+  const onSubmit = (userData) => {
+    POST_Login(userData)
       .then((data) => {
         alert("로그인되었습니다. 메인페이지로 이동합니다.");
         navigate("/user/mainpage");
 
-        setCookie("accessToken", data.data.accessToken, {
+        // accessToken, refreshToken은 쿠키에 저장
+        setCookie("accessToken", data.data.token.accessToken, {
           expires: 7,
           path: "/",
         });
-        setCookie("refreshToken", data.data.refreshToken, {
+        setCookie("refreshToken", data.data.token.refreshToken, {
           expires: 7,
           path: "/",
         });
+        // userId, email, role은 로컬스토리지에 저장
+        localStorage.setItem("userId", data.data.userIdx);
+        localStorage.setItem("email", userData.email);
+        localStorage.setItem("role", data.data.token.role);
       })
       .catch((error) => {
         alert("로그인에 실패하였습니다. 다시 시도해주세요.");
