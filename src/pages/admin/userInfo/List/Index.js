@@ -59,19 +59,6 @@ const UserListPage = () => {
     navigate(`${row[0]}`);
   };
 
-  /* 표에서 삭제된 id 값 */
-  // const handleRowDelete = (rowDeleted) => {
-  //   const faqIdArrDeleted = rowDeleted.data.map((item) => item.dataIndex);
-
-  //   DELETE_FAQ(faqIdArrDeleted)
-  //     .then((data) => {
-  //       handleGetFaqList();
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
-
   return (
     <>
       <Wrap>
@@ -124,7 +111,7 @@ const UserListPage = () => {
               data={askDataList}
               columns={columns}
               onRowClick={handleRowClick}
-              // onRowsDelete={handleRowDelete} // 삭제 시
+              checkBoxCheck={false}
             />
           )}
         </ListSection>

@@ -12,7 +12,8 @@
       "@userRoutes/*": ["routes/UserRoutes"],
       "@adminRoutes": ["routes/AdminRoutes"],
       "@styles/*": ["styles/*"],
-      "@utils/*": ["utils/*"]
+      "@utils/*": ["utils/*"],
+      "@hoc/*": ["hoc/*"]
     }
   },
   "include": ["src"]

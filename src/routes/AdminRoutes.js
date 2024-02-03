@@ -1,5 +1,5 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import EventListPage from "@adminPages/eventPage/List/Index";
 import EventProductEnrollPage from "@adminPages/eventPage/Enroll/Index";
 import EventBrandEnrollPage from "@adminPages/eventPage/Enroll/BrandIndex";
@@ -28,11 +28,28 @@ import ProductEditPage from "@adminPages/item/product/Edit/Index";
 import AdminOrderDetail from "@adminPages/Order/Detail/Index";
 import Monitoring from "@adminPages/monitoring/Index";
 
-
 const AdminRoutes = () => {
+  /* 라우트 가드 */
+  const navigate = useNavigate();
+  const isAdmin = localStorage.getItem("role") === "ADMIN";
+
+  useEffect(() => {
+    if (!isAdmin) {
+      alert("관리자 권한이 없습니다. 로그인 페이지로 이동합니다.");
+      navigate("/login");
+    }
+  }, [isAdmin, navigate]);
+
+  if (!isAdmin) {
+    return null;
+  }
+
   return (
     <Routes>
       <Route path="" element={<AdminPage />}>
+        {/* 관리자 로그인 */}
+        {/* <Route path="login" element={<LoginPage userType="admin" />} /> */}
+
         {/* 회원관리 */}
         <Route path="user" element={<AdminUserListPage />} />
         <Route path="user/:memberId" element={<AdminUserEditPage />} />

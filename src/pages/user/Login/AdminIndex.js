@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { POST_Login } from "@api/sign";
 import { setCookie } from "@utils/cookie";
 
-const LoginPage = () => {
+const AdminLoginPage = () => {
   const methods = useForm();
   const {
     register,
@@ -20,31 +20,36 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const handleNavClick = () => {
-    navigate("/login/admin");
+    // navigate("/admin/event/enrollbrand");
+    navigate("/login");
   };
 
   const onSubmit = (userData) => {
     POST_Login(userData)
       .then((data) => {
-        alert("로그인되었습니다. 메인페이지로 이동합니다.");
-        navigate("/user/mainpage");
+        if (data.data.token.role === "ADMIN") {
+          alert("관리자로 로그인되었습니다. 메인페이지로 이동합니다.");
+          navigate("/admin/user");
 
-        // accessToken, refreshToken은 쿠키에 저장
-        setCookie("accessToken", data.data.token.accessToken, {
-          expires: 7,
-          path: "/",
-        });
-        setCookie("refreshToken", data.data.token.refreshToken, {
-          expires: 7,
-          path: "/",
-        });
-        // userId, email, role은 로컬스토리지에 저장
-        localStorage.setItem("userId", data.data.userIdx);
-        localStorage.setItem("email", userData.email);
-        localStorage.setItem("role", data.data.token.role);
+          // accessToken, refreshToken은 쿠키에 저장
+          setCookie("accessToken", data.data.token.accessToken, {
+            expires: 7,
+            path: "/",
+          });
+          setCookie("refreshToken", data.data.token.refreshToken, {
+            expires: 7,
+            path: "/",
+          });
+          // userId, email, role은 로컬스토리지에 저장
+          localStorage.setItem("userId", data.data.userIdx);
+          localStorage.setItem("email", userData.email);
+          localStorage.setItem("role", data.data.token.role);
+        } else {
+          alert("관리자 권한이 없습니다.");
+        }
       })
       .catch((error) => {
-        alert("로그인에 실패하였습니다. 다시 시도해주세요.");
+        alert("관리자 로그인에 실패하였습니다. 다시 시도해주세요.");
         console.log(error);
       });
   };
@@ -54,14 +59,13 @@ const LoginPage = () => {
       <LogoImg src={Logo} alt="Logo" />
       <BoxContainer>
         <LoginTab className="cm-SRegular16">
-          <Nav color="var(--navy)"> 사용자 로그인</Nav>
           <Nav color="var(--semi-light-grey)" onClick={() => handleNavClick()}>
-            {" "}
-            관리자 로그인
+            사용자 로그인
           </Nav>
+          <Nav color="var(--navy)"> 관리자 로그인</Nav>
         </LoginTab>
 
-        <h1 className="cm-MBold24">로그인</h1>
+        <h1 className="cm-MBold24">관리자 로그인</h1>
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <Box
@@ -108,7 +112,9 @@ const LoginPage = () => {
             />
 
             <FindPassword className=".cm-SRegular18">
-              <Link to="/user/findpassword">비밀번호 찾기{">"}</Link>
+              <Link to="/user/findpassword" style={{ visibility: "hidden" }}>
+                비밀번호 찾기{">"}
+              </Link>
             </FindPassword>
           </Box>
 
@@ -119,7 +125,11 @@ const LoginPage = () => {
             <Link
               className="Btn_M_White"
               to="/user/sign"
-              style={{ width: "100%", padding: "1.3rem 0rem" }}
+              style={{
+                width: "100%",
+                padding: "1.3rem 0rem",
+                visibility: "hidden",
+              }}
             >
               회원가입
             </Link>
@@ -130,7 +140,7 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default AdminLoginPage;
 
 const Wrap = styled.div`
   width: 100vw;
