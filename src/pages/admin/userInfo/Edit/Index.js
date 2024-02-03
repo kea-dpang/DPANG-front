@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { userListData } from "../../../../assets/data/admin/AdminUserData";
-import { GET_UserDetail } from "@api/user";
+import { DELETE_Users, GET_UserDetail } from "@api/user";
 
 const title = ["No.", "사원번호", "이름", "이메일", "입사일", "주소"];
 
 const EditPage = () => {
   let params = useParams().memberId;
   const [userData, setUserData] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     GET_UserDetail(params)
@@ -20,6 +21,18 @@ const EditPage = () => {
         console.log(error);
       });
   }, []);
+
+  const handleDelete = () => {
+    DELETE_Users(params)
+      .then((data) => {
+        alert("해당 회원이 삭제되었습니다.");
+        navigate("/admin/user");
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <Wrap>
@@ -56,7 +69,9 @@ const EditPage = () => {
           </>
         )}
       </Main>
-      <button className="Btn_S_White">삭제</button>
+      <button className="Btn_S_White" onClick={handleDelete}>
+        삭제
+      </button>
     </Wrap>
   );
 };

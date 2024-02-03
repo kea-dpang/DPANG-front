@@ -36,3 +36,16 @@ export const GET_UserDetail = async (userId) => {
   });
   return res.data;
 };
+
+export const DELETE_Users = async (userId) => {
+  console.log(userId);
+
+  const res = await axios({
+    method: "delete",
+    url: `${url}/list`,
+    data: {
+      userIds: [userId],
+    },
+  });
+  return res.data;
+};
