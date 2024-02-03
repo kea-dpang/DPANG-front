@@ -28,6 +28,11 @@ const AdminLoginPage = () => {
     POST_Login(userData)
       .then((data) => {
         if (data.data.token.role === "ADMIN") {
+          // userId, email, role은 로컬스토리지에 저장
+          localStorage.setItem("userId", data.data.userIdx);
+          localStorage.setItem("email", userData.email);
+          localStorage.setItem("role", "ADMIN");
+
           alert("관리자로 로그인되었습니다. 메인페이지로 이동합니다.");
           navigate("/admin/user");
 
@@ -40,10 +45,6 @@ const AdminLoginPage = () => {
             expires: 7,
             path: "/",
           });
-          // userId, email, role은 로컬스토리지에 저장
-          localStorage.setItem("userId", data.data.userIdx);
-          localStorage.setItem("email", userData.email);
-          localStorage.setItem("role", data.data.token.role);
         } else {
           alert("관리자 권한이 없습니다.");
         }
