@@ -9,6 +9,7 @@ const DataTable = ({
   filterValue,
   index,
   placeholder,
+  checkBoxCheck, // 체크박스 유무
 }) => {
   // data 상태 관리
   const [data, setData] = useState(initialData);
@@ -35,7 +36,10 @@ const DataTable = ({
   }, [data, filterValue, index, placeholder]);
 
   const options = {
-    selectableRows: "multiple",
+    // checkBoxCheck 인자로 안넘겨주면 체크박스 O / false로 넘겨주면 체크박스 X
+    selectableRows:
+      checkBoxCheck === undefined ? "multiple" : !checkBoxCheck && "none",
+
     onRowsDelete: (rowsDeleted) => {
       console.log("rowsDeleted: ", rowsDeleted);
       const idsToDelete = rowsDeleted.data.map((d) => data[d.dataIndex].id);
