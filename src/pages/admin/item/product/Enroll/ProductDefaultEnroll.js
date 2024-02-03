@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Dropdown from "components/common/Dropdown";
 import InputText from "./InputText";
 import { GET_BrandList } from "@api/Brand";
+import SearchDropdown from "@components/SearchDropdown";
 
 const ProductDefaultEnroll = ({ productInfo, setProductInfo }) => {
   const [brand, setBrand] = useState([]);
@@ -11,8 +12,11 @@ const ProductDefaultEnroll = ({ productInfo, setProductInfo }) => {
     GET_BrandList()
       .then((data) => {
         console.log("brand : ", data.data.content);
-        const brandNames = data.data.content.map((item) => item.id); // TODO: 일단 아이디로. 나중에 api 생기면 이름으로 변경
-        setBrand(["브랜드를 선택해주세요", ...new Set(brandNames)]);
+        const brandData = data.data.content.map((item) => ({
+          id: item.id,
+          name: item.name,
+        }));
+        setBrand(brandData);
       })
       .catch((error) => {
         console.log(error);
@@ -65,11 +69,7 @@ const ProductDefaultEnroll = ({ productInfo, setProductInfo }) => {
           {/* 상품명 등록 */}
           <Row>
             <p className="cm-SBold16 col-Black">상품명</p>
-            <InputText
-              id={"name"}
-              placeholder={"상품명을 입력해주세요"}
-              onChange={handleNameChange}
-            />
+            <InputText id={"name"} onChange={handleNameChange} />
           </Row>
           {/* 판매가 등록 */}
           <Row>
@@ -84,8 +84,9 @@ const ProductDefaultEnroll = ({ productInfo, setProductInfo }) => {
           <Row>
             <p className="cm-SBold16 col-Black">브랜드</p>
             <ContentBox>
-              <Dropdown
-                value={brand}
+              <SearchDropdown
+                id="brand"
+                options={brand}
                 width={"100%"}
                 onChange={handleBrandChange}
               />

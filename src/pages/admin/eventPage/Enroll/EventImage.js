@@ -7,7 +7,7 @@ const EventImage = ({ eventImage, handleImageDelete, handleImageChange }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div style={{ width: "100%", margin: "1rem" }}>
+    <div style={{ width: "30%", margin: "1rem" }}>
       {eventImage ? (
         <ImageWrapper
           onMouseEnter={() => setIsHovered(true)}

@@ -124,7 +124,7 @@ const Index = () => {
         </FilterSection>
         {/* 이벤트 목록 */}
         <ListSection>
-          {item.length > 0 && (
+          {item && (
             <DataTable
               data={item}
               columns={columns}

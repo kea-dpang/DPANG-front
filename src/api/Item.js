@@ -15,12 +15,12 @@ export const POST_Item = async (inputValue) => {
     method: "post",
     url: url,
     data: {
-      sellerId: "sellerId",
+      sellerId: inputValue.sellerId,
       itemName: inputValue.itemName,
       category: categoryFormat(inputValue.category, true),
       subCategory: inputValue.subCategory,
-      itemPrice: inputValue.itemPrice,
-      stockQuantity: inputValue.stockQuantity,
+      itemPrice: parseInt(inputValue.itemPrice, 10),
+      stockQuantity: parseInt(inputValue.stockQuantity, 10),
       itemImage: inputValue.itemImage,
       images: [inputValue.images],
     },
@@ -32,7 +32,7 @@ export const GET_ItemList = async () => {
   console.log("get itemlist");
   const res = await axios({
     method: "get",
-    url: `${url}/managelist`,
+    url: `${url}/manage/list`,
     params: {
       page: 0,
       size: 20,
@@ -90,7 +90,7 @@ export const DELETE_Item = async (itemId) => {
   console.log("상품 삭제", itemId);
   const response = await axios({
     method: "delete",
-    url: `${url}/${itemId}`,
+    url: `${url}/${itemId}/list`,
   });
   return response.data;
 };
