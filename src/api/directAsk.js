@@ -74,8 +74,8 @@ export const POST_Question = async (data) => {
       userId: 0,
       category: data.category,
       itemId: data.itemId,
-      title: data.askTitle,
-      content: data.askContent,
+      title: data.title,
+      content: data.content,
       imageUrl: "",
     },
   });

@@ -6,11 +6,14 @@ import NumberBadge from "./Numbers";
 import Button from "@mui/material/Button";
 import { ReactComponent as CartImg } from "@images/cart.svg";
 import { ReactComponent as LikeImg } from "@images/heart.svg";
+import { categoryFormat, subCategoryFormat } from "assets/CustomName";
 
 const ProductSummary = (props) => {
+  console.log("summary: ", props);
   // 세일가격
   const saleprice =
-    props.itemPrice - (props.itemPrice * props.discountRate) / 100;
+    props.item.itemPrice -
+    (props.item.itemPrice * props.item.discountRate) / 100;
   // 선택 개수
   const [count, setCount] = useState(1);
   // 총 가격
@@ -30,46 +33,52 @@ const ProductSummary = (props) => {
         <ImgWrwap className="cm-SRegular16 col-Black">
           {/* 카테고리 */}
           <CategoryWrap>
-            <Nav to=""> {props.category} </Nav>
+            <Nav to=""> {categoryFormat(props.item.category, false)} </Nav>
             <div> {">"}</div>
-            <Nav to=""> {props.subCategory} </Nav>
+            <Nav to=""> {subCategoryFormat(props.item.subCategory, false)}</Nav>
           </CategoryWrap>
           {/* 상품 사진 */}
-          <ProductImg $imgUrl={props.itemImage} />
+          <ProductImg $imgUrl={props.item.itemImage} />
         </ImgWrwap>
 
         {/* 상품 이름 / 가격 / 판매자 / 상품선택 / 좋아요 / 장바구니 */}
         <ContextWrap>
           {/* 상품 이름 */}
-          <div className="cm-XLBold36 col-Black"> {props.itemName}</div>
+          <div className="cm-XLBold36 col-Black"> {props.item.itemName}</div>
           {/* 상품 별점 및 리뷰 수 */}
           <ReviewWrap>
-            <Rating name="read-only" value={props.averageRating} readOnly />
-            {/* <div className="cm-SBold16 col-Black">{props.reviews.length}</div> */}
+            <Rating
+              name="read-only"
+              value={props.item.averageRating}
+              readOnly
+            />
+            <div className="cm-SRegular16 col-Black">
+              ( {props.item.averageRating} )
+            </div>
           </ReviewWrap>
           {/* 상품 가격 */}
-          {props.discountRate !== 0 ? (
+          {props.item.discountRate !== 0 ? (
             <PriceWrap>
               <DiscountWrap className="cm-SBold18">
-                <div className="col-Orange"> {props.discountRate}%</div>
+                <div className="col-Orange"> {props.item.discountRate}%</div>
                 <div className="col-Black"> {saleprice.toLocaleString()} </div>
               </DiscountWrap>
               <div
                 className="cm-SBold16 col-SemiLightGrey"
                 style={{ textDecoration: "line-through" }}
               >
-                {props.itemPrice}
+                {props.item.itemPrice}
               </div>
             </PriceWrap>
           ) : (
             <DiscountWrap style={{ paddingTop: "1rem" }} className="cm-SBold18">
-              <div className="col-Black"> {props.itemPrice} </div>
+              <div className="col-Black"> {props.item.itemPrice} </div>
             </DiscountWrap>
           )}
           {/* 판매자 */}
           <BrandWrap className="cm-SRegular16">
             <div> 판매자 </div>
-            <div> {props.sellerId} </div>
+            <div> {props.item.sellerName} </div>
           </BrandWrap>
           {/* 상품선택 */}
           <SelectWrap>
@@ -79,13 +88,15 @@ const ProductSummary = (props) => {
                 상품선택
               </div>
               <AmountBox>
-                <div className="cm-SBold16 col-Navy"> {props.itemName} </div>
+                <div className="cm-SBold16 col-Navy">
+                  {" "}
+                  {props.item.itemName}{" "}
+                </div>
                 <SelectPriceWrap>
                   {/* 수량 선택 */}
                   <NumberBadge count={count} setCount={setCount} />
                   {/* 최종 값 */}
                   <div className="cm-SRegular16 col-Black">
-                    {" "}
                     {totalPrice.toLocaleString()}원
                   </div>
                 </SelectPriceWrap>
@@ -157,6 +168,7 @@ const ContextWrap = styled.div`
   align-items: flex-start;
 `;
 const ReviewWrap = styled.button`
+  padding-top: 1rem;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -201,7 +213,7 @@ const SelectPriceWrap = styled.div`
   width: 30rem;
   display: flex;
   align-items: center;
-  gap: 17.0625rem;
+  gap: 16rem;
 `;
 const ButtonWrap = styled.div`
   display: flex;

@@ -28,10 +28,10 @@ const ProductReview = (props) => {
       <TotalSortWrap>
         <div className="cm-SRegular18">총 {reviewData.length} 개</div>
         {/* 최신순 정렬, 평점순 정렬 */}
-        <SortButton
+        {/* <SortButton
           reviewData={reviewData}
           setSortedReviews={setSortedReviews}
-        />
+        /> */}
       </TotalSortWrap>
 
       {/* 리뷰 내용 리스트 */}

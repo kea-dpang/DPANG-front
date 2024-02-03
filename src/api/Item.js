@@ -53,7 +53,7 @@ export const GET_ItemListUser = async () => {
   console.log("아이템 카드리스트 조회에옹");
   const res = await axios({
     method: "get",
-    url: `${url}/cardlist`,
+    url: `${url}/card/list`,
     params: {
       page: 0,
       size: 20,
