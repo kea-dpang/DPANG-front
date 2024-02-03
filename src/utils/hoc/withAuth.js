@@ -6,15 +6,16 @@ const withAuth = (WrappedComponent) => {
   return (props) => {
     const navigate = useNavigate();
     const accessToken = getCookie("accessToken");
+    const userId = localStorage.getItem("userId");
 
     useEffect(() => {
-      if (!accessToken) {
+      if (!accessToken || !userId) {
         // 로그인 페이지로 이동
         navigate("/login");
       } else {
         // accessToken 쿠키가 만료되지 않았을 시, 자동로그인 api를 연동시켜야 함.
       }
-    }, [accessToken, navigate]);
+    }, [accessToken, userId, navigate]);
 
     // 쿠키가 있으면 원래 컴포넌트를 렌더링
     return accessToken ? <WrappedComponent {...props} /> : null;

@@ -12,13 +12,6 @@ export const GET_User = async (userId) => {
 };
 
 export const GET_UserList = async (categoryValue, searchValue) => {
-  // if (categoryValue === undefined) {
-  //   console.log("check");
-  //   categoryValue = "ALL";
-  // }
-  // if (searchValue === undefined) {
-  //   categoryValue = "";
-  // }
   categoryValue = customUserCategoryName(categoryValue, true);
 
   console.log("확인:", categoryValue);

@@ -89,3 +89,18 @@ export const POST_newToken = async (refreshToken) => {
 
   return res.data; // accessToken, refreshToken 발급
 };
+
+/* 비밀번호 변경 */
+export const POST_changePassword = async (data) => {
+  const emailValue = localStorage.getItem("email");
+  const res = await axios({
+    method: "post",
+    url: `${authUrl}/change-password`,
+    data: {
+      email: emailValue,
+      oldPassword: data.current,
+      newPassword: data.new,
+    },
+  });
+  return res.data;
+};
