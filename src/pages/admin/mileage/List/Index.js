@@ -17,7 +17,7 @@ function Index() {
     depositorName: "",
     sortOption: "",
     page: 0,
-    size: 10,
+    size: 100,
     XID: 1,
   });
 

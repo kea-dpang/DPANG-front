@@ -89,13 +89,14 @@ export const GET_admin_mileage_list = async (inputValue) => {
   return res.data;
 };
 
-export const POST_charge_req = async (requestId) => {
+//관리자가 사용자의 마일리지 충전 요청을 승인/거절하는 프로세스
+export const POST_charge_req = async (requestId, bool) => {
   console.log(requestId);
   const res = await axios({
     method: "post",
     url: `${url}/recharge-requests/${requestId}/process`,
     data: {
-      approve: true,
+      approve: bool,
     },
   });
   return res.data;

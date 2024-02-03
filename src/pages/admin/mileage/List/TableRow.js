@@ -6,18 +6,27 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Dropdown from "components/common/Dropdown";
 import DataTable from "components/common/AdminDataTable";
-import data from "assets/data/admin/AdminMileageData";
 import { useState, useEffect } from "react";
-import { GET_admin_mileage_list, POST_charge_req } from "@api/mileage";
+import { POST_charge_req } from "@api/mileage";
 import { useNavigate } from "react-router-dom";
-import { customDate, customMileageStatusName } from "assets/CustomName";
+import { customDate, customMileageStatusName, CustomMileageStatusNameReverse } from "assets/CustomName";
 
 const Index = (props) => {
   const navigate = useNavigate();
   //  상태 저장 : 예정, 진행, 종료
   const [index, setIndex] = React.useState("");
+  const [bool, setBool] = useState(true)
   //필터링을 해줄 dropdown 박스의 값. 첫 값은 이름, 뒤에 두 값은 필터링에 들어갈 value
-  const dropdownValue = ["처리 상태", "대기", "승인", "반려"];
+  const dropdownValue = ["처리 상태", "전체", "요청", "승인", "반려"];
+
+  const options = {
+    pagination: false,
+  }
+
+  const handlePageChange = async (newPage) => {
+
+
+  }
 
   const handleApprove = (val) => {
     // 확인 창을 띄움
@@ -30,6 +39,23 @@ const Index = (props) => {
       window.location.reload();
     }
   };
+
+  const handleReject = (val) => {
+
+    const userReject = window.confirm("충전을 거절하시겠습니까?")
+
+    if (userReject) {
+
+      POST_charge_req(val);
+      alert("충전 신청이 거절되었습니다. ");
+      window.location.reload();
+
+
+    }
+
+  }
+
+
 
   const columns = [
     { name: "chargeRequestId", label: "번호", options: { sort: false } },
@@ -69,10 +95,10 @@ const Index = (props) => {
 
           return status === "REQUESTED" ? (
             <ButtonBox style={{ display: "flex" }}>
-              <Button colour="var(--navy)" onClick={() => handleApprove(value)}>
+              <Button colour="var(--navy)" onClick={() => { handleApprove(value, bool) }}>
                 승인
               </Button>
-              <Button colour="var(--orange)">거절</Button>
+              <Button colour="var(--orange)" onClick={() => { handleReject(value, !bool) }}>거절</Button>
             </ButtonBox>
           ) : null;
         },
@@ -84,6 +110,7 @@ const Index = (props) => {
   const [selectedCategory, setSelectedCategory] = useState(dropdownValue[0]);
   const handleCategoryChange = (newCategory) => {
     //드롭다운 박스에서 가져온 값으로 카테고리를 설정
+    
     setSelectedCategory(newCategory);
   };
 
@@ -130,10 +157,12 @@ const Index = (props) => {
           <DataTable
             data={props.mileageList}
             columns={columns}
-            onRowClick={() => {}}
-            filterValue={selectedCategory}
+            onRowClick={() => { }}
+            filterValue={CustomMileageStatusNameReverse(selectedCategory)}
             index={"status"}
+            options={options}
             placeholder={dropdownValue[0]}
+            onPageChange={handlePageChange}
           />
         </ListSection>
       </Wrap>

@@ -9,6 +9,7 @@ const DataTable = ({
   filterValue,
   index,
   placeholder,
+  onPageChange, 
 }) => {
   // data 상태 관리
   const [data, setData] = useState(initialData);
@@ -49,6 +50,9 @@ const DataTable = ({
           ...d,
           dataIndex: filteredData[d.dataIndex][columns[0].name],
         })),
+      onChangePage: (page) => {
+        onPageChange(page);
+      }
       };
 
       onRowsDelete(rowsDeletedUpdated);
