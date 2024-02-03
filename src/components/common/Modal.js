@@ -10,24 +10,24 @@ const Modal = ({ setIsModalOpen, value }) => {
   const [askData, setAskData] = useState({
     itemId: value.itemId,
     category: "상품 문의",
-    title: "",
-    content: "",
+    askTitle: "",
+    askContent: "",
     imageUrl: "",
   });
   // 입력필드에 다 안찼으면 등록버튼 비활성화
   useEffect(() => {
-    if (askData.title !== "" && askData.content !== "") {
+    if (askData.askTitle !== "" && askData.askContent !== "") {
       setFormValid(true);
     } else {
       setFormValid(false);
     }
-  }, [askData.title, askData.content]);
+  }, [askData.askTitle, askData.askContent]);
 
   const handleTitleChange = (e) => {
-    setAskData((prev) => ({ ...prev, title: e.target.value }));
+    setAskData((prev) => ({ ...prev, askTitle: e.target.value }));
   };
-  const handleContentChange = (e) => {
-    setAskData((prev) => ({ ...prev, content: e.target.value }));
+  const handleaskContentChange = (e) => {
+    setAskData((prev) => ({ ...prev, askContent: e.target.value }));
   };
   const handleSubmit = () => {
     POST_Question(askData) // 나중에 userId도 넘겨주기
@@ -65,7 +65,7 @@ const Modal = ({ setIsModalOpen, value }) => {
               autoComplete="off"
             >
               <TextField
-                id="title"
+                id="askTitle"
                 onChange={handleTitleChange}
                 variant="outlined"
                 placeholder="제목을 입력해주세요"
@@ -86,8 +86,8 @@ const Modal = ({ setIsModalOpen, value }) => {
               autoComplete="off"
             >
               <TextField
-                id="content"
-                onChange={handleContentChange}
+                id="askContent"
+                onChange={handleaskContentChange}
                 variant="outlined"
                 placeholder="상품문의 작성 전 확인해 주세요.  답변은 영업일 기준 2~3일 소요됩니다. &#13;&#10;해당 게시판의 성격과 다른 글은 사전동의 없이 담당 게시판으로 이동될 수 있습니다. &#13;&#10;배송관련, 주문관련 문의 및 요청은 1:1 문의에 남겨주세요"
                 InputLabelProps={{ shrink: true }}
@@ -137,7 +137,7 @@ const Container = styled.div`
   bottom: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-askcontent: center;
   z-index: 100;
   width: 100%;
   height: 100%;
