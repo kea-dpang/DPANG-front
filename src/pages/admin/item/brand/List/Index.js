@@ -6,11 +6,19 @@ import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Dropdown from "@components/Dropdown";
-import DataTable from "@components/AdminDataTable";
+// import DataTable from "@components/AdminDataTable";
 import { GET_BrandList, DELETE_Brand } from "@api/Brand";
+import DataTable from "./DataTable";
+import { useLocation } from "react-router-dom";
 
 // 상품 등록 관리자 페이지
 const Index = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search); // url에서 searchparameter 저장(페이지)
+  const page = searchParams.get("page") || 0;
+  const navigate = useNavigate();
+  console.log("지금 페이지는 page: ", page);
+
   // 테이블 column
   const columns = [
     { name: "id", label: "판매처 ID", options: { sort: false } },
@@ -22,15 +30,29 @@ const Index = () => {
   ];
   const [dropdownValue, setDropdownValue] = useState(["브랜드를 선택해주세요"]);
   const [brand, setBrand] = useState([]);
+  const [totalData, setTotalData] = useState(0);
+
+  // useEffect(() => {
+  //   GET_BrandList()
+  //     .then((data) => {
+  //       setBrand(data.data.content);
+  //       setTotalData(data.data.totalElements);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
   useEffect(() => {
-    GET_BrandList()
+    console.log("렌더링 렌더링");
+    GET_BrandList(page)
       .then((data) => {
         setBrand(data.data.content);
+        setTotalData(data.data.totalElements);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [page]);
 
   const handleRowsDelete = (rowsDeleted) => {
     const dataIndexArray = rowsDeleted.data.map((item) => item.dataIndex);
@@ -44,14 +66,17 @@ const Index = () => {
     console.log("삭제: ", rowsDeleted);
   };
 
-  useEffect(() => {
-    setDropdownValue([
-      "브랜드를 선택해주세요",
-      ...new Set(brand.map((item) => item.name)),
-    ]);
-  }, [brand]);
-
-  const navigate = useNavigate();
+  // useEffect(() => {
+  //   setDropdownValue([
+  //     "브랜드를 선택해주세요",
+  //     ...new Set(brand.map((item) => item.name)),
+  //   ]);
+  // }, [brand]);
+  // 페이지네이션 버튼 핸들러
+  const handlePagination = (page) => {
+    console.log("지금 페이지네이션 페이지 : ", page);
+    navigate(`?page=${page}`);
+  };
   /* 선택된 행은 상세정보로 이동 */
   const handleRowClick = (row) => {
     navigate(`${row[0]}`);
@@ -71,11 +96,11 @@ const Index = () => {
         <FilterSection>
           <SearchWrap>
             {/* 카테고리 선택 드롭다운*/}
-            <Dropdown
+            {/* <Dropdown
               value={dropdownValue}
               onChange={handleDropChange}
               width={"15rem"}
-            />
+            /> */}
             {/* 검색창 */}
             <Paper
               component="form"
@@ -119,6 +144,8 @@ const Index = () => {
               filterValue={selectedDropValue}
               index={"name"}
               placeholder={dropdownValue[0]}
+              onChangePage={handlePagination}
+              count={totalData}
             />
           )}
         </ListSection>
@@ -148,7 +175,7 @@ const FilterSection = styled.div`
   box-sizing: border-box; // padding까지 합쳐서 width 설정하기
   flex-direction: row;
   align-items: center;
-  gap: 23.9rem;
+  gap: 39.5rem;
 `;
 const SearchWrap = styled.div`
   display: flex;

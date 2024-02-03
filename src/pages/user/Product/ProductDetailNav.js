@@ -11,15 +11,15 @@ const ProductDetailNav = ({
   const [selected, setSelected] = useState("info");
   useEffect(() => {
     const onScroll = () => {
-      const infoOffset = infoRef.current.offsetTop || 0;
-      const reviewOffset = reviewRef.current.offsetTop || 0;
-      const askOffset = askRef.current.offsetTop || 0;
+      const infoOffset = infoRef.current.offsetTop - 10 || 0;
+      const reviewOffset = reviewRef.current.offsetTop - 10 || 0;
+      const askOffset = askRef.current.offsetTop - 10 || 0;
 
-      if (window.scrollY + 50 > askOffset) {
+      if (window.scrollY + 1 > askOffset) {
         setSelected("ask");
-      } else if (window.scrollY + 50 > reviewOffset) {
+      } else if (window.scrollY + 0.5 >= reviewOffset) {
         setSelected("review");
-      } else if (window.scrollY + 50 > infoOffset) {
+      } else if (window.scrollY + 10 > infoOffset) {
         setSelected("info");
       }
     };

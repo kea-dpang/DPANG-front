@@ -28,7 +28,6 @@ import ProductEditPage from "@adminPages/item/product/Edit/Index";
 import AdminOrderDetail from "@adminPages/Order/Detail/Index";
 import Monitoring from "@adminPages/monitoring/Index";
 
-
 const AdminRoutes = () => {
   return (
     <Routes>

@@ -28,14 +28,14 @@ export const POST_Item = async (inputValue) => {
   return res.data;
 };
 // 관리자 - 상품 리스트 조회
-export const GET_ItemList = async () => {
+export const GET_ItemList = async (page) => {
   console.log("get itemlist");
   const res = await axios({
     method: "get",
     url: `${url}/manage/list`,
     params: {
-      page: 0,
-      size: 20,
+      page: page,
+      size: 10,
       sort: "",
     },
   });
