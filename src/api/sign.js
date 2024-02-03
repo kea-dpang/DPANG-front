@@ -68,7 +68,7 @@ export const POST_newPassword = async (data) => {
 /* 토큰 갱신 */
 // TODO: 토큰 갱신 시 accessToken이 아니라 refreshToken을 서버에 보내줘야 하는 것 -> 현재는 accessToken을 보내주는 것으로 되어 있음..
 export const POST_newToken = async (refreshToken) => {
-  console.log(accessToken);
+  // console.log(accessToken);
   const res = await axios({
     method: "post",
     url: `${authUrl}/renew-token`,

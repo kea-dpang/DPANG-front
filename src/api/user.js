@@ -25,13 +25,21 @@ export const GET_UserList = async (categoryValue, searchValue) => {
   console.log("확인2:", searchValue);
   const res = await axios({
     method: "get",
-    url: `${url}/admin/find`,
+    url: `${url}/find`,
     params: {
       category: categoryValue,
       keyword: searchValue,
       page: 0,
       size: 100,
     },
+  });
+  return res.data;
+};
+
+export const GET_UserDetail = async (userId) => {
+  const res = await axios({
+    method: "get",
+    url: `${url}/${userId}/temp`,
   });
   return res.data;
 };
