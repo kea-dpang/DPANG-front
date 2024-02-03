@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import Table from './Table'
 
 function Index(props) {

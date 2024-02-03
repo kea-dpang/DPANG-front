@@ -24,7 +24,7 @@ function ImageShortCut() {
 
   return (
     <ImageButtonBox>
-      <ImageButton src={ship} onClick={()=>{navi("/user/mypage/temp/order")}} />
+      <ImageButton src={ship} onClick={()=>{navi("/user/mypage/order")}} />
       <ImageButton src={heart} onClick={()=>{navi("/user/wishlist")}}/>
       <ImageButton src={cart} onClick={()=>{navi("/user/cart")}} />
     </ImageButtonBox>

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import EnrollReviewBox from "./EnrollReviewBox";
+import EnrollReviewBox from "./EnrollBox";
 
 const Container = styled.div`
   min-height: 100vh;

@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import Table from "./Table";
-import PeriodSelector from "../../../../components/common/PeriodSelector";
-import OrderBox from "../../../../components/common/ProductProgressBox";
+import PeriodSelector from "components/common/PeriodSelector";
+import OrderBox from "components/common/ProductProgressBox";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import MyPageBodyHeader from "../../../../components/common/MyPageBodyHeader";
+import MyPageBodyHeader from "components/common/MyPageBodyHeader";
 
 const Container = styled.div`
   width: 72rem;
@@ -72,7 +72,7 @@ function ReviewBox() {
         <NaviBar
           colour="var(--dark-grey)"
           onClick={() => {
-            navi("/user/mypage/temp/refund");
+            navi("/user/mypage/refund");
           }}
         >
           반품 조회
@@ -80,7 +80,7 @@ function ReviewBox() {
         <NaviBar
           colour="var(--dark-grey)"
           onClick={() => {
-            navi("/user/mypage/temp/cancel");
+            navi("/user/mypage/cancel");
           }}
         >
           취소 조회

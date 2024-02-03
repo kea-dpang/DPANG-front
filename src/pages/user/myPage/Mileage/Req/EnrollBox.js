@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import EnrollTable from "./EnrollTable";
-import MyPageBodyHeader from "../../../../../components/common/MyPageBodyHeader";
+import MyPageBodyHeader from "components/common/MyPageBodyHeader";
 
 const Container = styled.div`
   width: 72rem;

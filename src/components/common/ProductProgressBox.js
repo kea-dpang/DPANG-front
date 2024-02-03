@@ -41,7 +41,7 @@ align-items: center;
 
 const StatusCircle = styled.div`
 
-background-color: var(--dark-grey);
+background-color: var(--semi-light-grey);
 width: 3rem;
 height: 3rem;
 border-radius: 50%;

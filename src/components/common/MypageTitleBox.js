@@ -63,7 +63,7 @@ const MypageTitleBox = () => {
           </Mileboxcontainer>
           <Chargebox
             onClick={() => {
-              navi("/user/mypage/temp/mileage/req");
+              navi("/user/mypage/mileage/req");
             }}
           >
             <Charge>마일리지 충전하기</Charge>

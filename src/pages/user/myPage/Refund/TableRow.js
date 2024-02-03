@@ -91,7 +91,7 @@ function TableRow({ data }) {
             key={k}
             className="cm-SRegular16"
             onClick={() => {
-              navi(`/user/mypage/temp/refund/detail/${a.id}`);
+              navi(`/user/mypage/refund/detail/${a.id}`);
             }}
           >
             <Col width="9rem">

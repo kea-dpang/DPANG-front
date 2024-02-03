@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { GlobalStyle } from "../../../../../styles/GlobalStyled";
+import { GlobalStyle } from "styles/GlobalStyled";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { POST_mileage_request } from "@api/mileage";
@@ -25,7 +25,7 @@ function EnrollTable(props) {
         console.log(error);
       });
 
-    navi("/user/mypage/temp/order");
+    navi("/user/mypage/order");
   };
 
   return (
