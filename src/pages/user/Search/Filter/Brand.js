@@ -54,8 +54,8 @@ const Wrap = styled.div`
   padding-bottom: 1rem;
 `;
 const Item = styled.div`
-  width: 17.5625rem;
-  padding: 0.3rem 3rem;
+  width: 10.5625rem;
+  padding: 0.3rem 0rem;
   box-sizing: border-box;
   cursor: pointer;
   color: ${({ selected }) => (selected ? "var(--orange)" : "var(--black)")};

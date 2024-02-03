@@ -13,7 +13,7 @@ const Price = () => {
   return (
     <Wrap>
       {/* 가격 슬라이더 */}
-      <Box sx={{ width: 230 }}>
+      <Box sx={{ width: 200 }}>
         <Slider
           getAriaLabel={() => "Temperature range"}
           value={value}

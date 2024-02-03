@@ -5,31 +5,33 @@ import { useState, useEffect } from "react";
 import { POST_Question } from "@api/directAsk";
 
 const Modal = ({ setIsModalOpen, value }) => {
+  console.log("문의등록하려고: ", value);
   const [isFormValid, setFormValid] = useState(false); // 입력값 다 입력했는지 판단
-  const [askTitle, setAskTitle] = useState("");
-  const [askContent, setAskContent] = useState("");
+  const [askData, setAskData] = useState({
+    itemId: value.itemId,
+    category: "상품 문의",
+    title: "",
+    content: "",
+    imageUrl: "",
+  });
   // 입력필드에 다 안찼으면 등록버튼 비활성화
   useEffect(() => {
-    if (askTitle !== "" && askContent !== "") {
+    if (askData.title !== "" && askData.content !== "") {
       setFormValid(true);
     } else {
       setFormValid(false);
     }
-  }, [askTitle, askContent]);
+  }, [askData.title, askData.content]);
 
-  const handleTitleChange = (e) => setAskTitle(e.target.value);
-  const handleContentChange = (e) => setAskContent(e.target.value);
+  const handleTitleChange = (e) => {
+    setAskData((prev) => ({ ...prev, title: e.target.value }));
+  };
+  const handleContentChange = (e) => {
+    setAskData((prev) => ({ ...prev, content: e.target.value }));
+  };
   const handleSubmit = () => {
-    const askData = {
-      itemId: value.itemId,
-      category: "상품 문의",
-      askTitle: askTitle,
-      askContent: askContent,
-    };
     POST_Question(askData) // 나중에 userId도 넘겨주기
       .then((data) => {
-        setAskContent("");
-        setAskTitle("");
         setIsModalOpen(false);
         console.log("상품 문의가 성공적으로 등록되었습니다.");
       })

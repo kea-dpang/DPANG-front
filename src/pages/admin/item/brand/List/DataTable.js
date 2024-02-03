@@ -6,11 +6,11 @@ const DataTable = ({
   columns,
   onRowClick,
   onRowsDelete,
+  onChangePage,
   filterValue,
   index,
   placeholder,
-  onPageChange, 
-  checkBoxCheck, // 체크박스 유무
+  count,
 }) => {
   // data 상태 관리
   const [data, setData] = useState(initialData);
@@ -37,10 +37,8 @@ const DataTable = ({
   }, [data, filterValue, index, placeholder]);
 
   const options = {
-    // checkBoxCheck 인자로 안넘겨주면 체크박스 O / false로 넘겨주면 체크박스 X
-    selectableRows:
-      checkBoxCheck === undefined ? "multiple" : !checkBoxCheck && "none",
-
+    selectableRows: "multiple",
+    // 데이터 삭제
     onRowsDelete: (rowsDeleted) => {
       console.log("rowsDeleted: ", rowsDeleted);
       const idsToDelete = rowsDeleted.data.map((d) => data[d.dataIndex].id);
@@ -54,16 +52,24 @@ const DataTable = ({
           ...d,
           dataIndex: filteredData[d.dataIndex][columns[0].name],
         })),
-      onChangePage: (page) => {
-        onPageChange(page);
-      }
       };
 
       onRowsDelete(rowsDeletedUpdated);
       return false; // 기본 삭제 동작 방지
     },
+    // 데이터 클릭 (상세조회)
     onRowClick: (rowData, rowMeta) => {
       onRowClick(rowData); // 클릭된 행의 데이터를 부모 컴포넌트로 전달
+    },
+    //pagination
+    serverSide: true,
+    count: count,
+    rowsPerPage: 10, // 한페이지에 보여주는 데이터 개수
+    rowsPerPageOptions: [10, 20, 25], // 선택 가능 (5,10,15)
+    pagination: true, // 페이지네이션 활성화
+    onChangePage: (currentPage) => {
+      // 페이지네이션 변경 감지
+      onChangePage(currentPage);
     },
   };
 

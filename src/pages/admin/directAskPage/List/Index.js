@@ -81,9 +81,10 @@ const DirectAskPage = () => {
           data={askDataList}
           columns={AskColumns(askDataList)}
           onRowClick={handleRowClick}
+          checkBoxCheck={false}
         />
       )}
-      <button className="Btn_M_Navy">선택 삭제</button>
+      {/* <button className="Btn_M_Navy">선택 삭제</button> */}
     </Wrap>
   );
 };

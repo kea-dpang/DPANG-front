@@ -15,10 +15,12 @@ const ProductEditPage = () => {
   const [itemInfo, setItemInfo] = useState({
     itemName: "",
     itemPrice: "",
-    eventPrice: "",
+    discountRate: "",
     stockQuantity: "",
     itemImage: "",
     images: [],
+    category: "",
+    subCategory: "",
   });
   //   주소에서 가져온 id값과 일치하는 상품조회 데이터 가져오기
   useEffect(() => {
@@ -31,6 +33,9 @@ const ProductEditPage = () => {
           stockQuantity: data.stockQuantity,
           itemImage: data.itemImage,
           images: data.images,
+          discountRate: data.discountRate,
+          category: data.category,
+          subCategory: data.subCategory,
         });
       })
       .catch((error) => {
@@ -44,7 +49,7 @@ const ProductEditPage = () => {
       itemInfo.itemPrice !== "" &&
       itemInfo.stockQuantity !== "" &&
       itemInfo.itemImage !== "" &&
-      itemInfo.images.length > 0
+      itemInfo.images !== ""
     ) {
       setFormValid(true);
     } else {

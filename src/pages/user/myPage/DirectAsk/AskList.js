@@ -14,10 +14,12 @@ const AskList = () => {
   // period 날짜기간 값 가져오기
   const period = useRecoilValue(periodAtom);
 
+  const userId = localStorage.getItem("userId");
+
   /* 서버로부터 원본 리스트 데이터 가져오기 */
   useEffect(() => {
     console.log(period.startDate, period.endDate);
-    GET_QnAList() // 나중에 userId 값 넣어서 보내기
+    GET_QnAList(userId)
       .then((data) => {
         /* 원본 리스트 데이터를 날짜 필터링 하기 */
         let filteredData = data.data.content; //기간 설정 없을 때는 필터링 X

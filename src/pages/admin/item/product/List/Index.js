@@ -42,8 +42,9 @@ const Index = () => {
     ...categoryData.map((item) => item.title),
   ];
   const [item, setItem] = useState([]);
+  const [page, setPage] = useState(0);
   useEffect(() => {
-    GET_ItemList()
+    GET_ItemList(page)
       .then((data) => {
         setItem(data.data);
       })
@@ -51,6 +52,15 @@ const Index = () => {
         console.log(error);
       });
   }, []);
+  // useEffect(() => {
+  //   GET_ItemList(page)
+  //     .then((data) => {
+  //       setItem(data.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
 
   const handleRowsDelete = (rowsDeleted) => {
     const dataIndexArray = rowsDeleted.data.map((item) => item.dataIndex);
@@ -69,6 +79,11 @@ const Index = () => {
   /* 선택된 행은 상세정보로 이동 */
   const handleRowClick = (row) => {
     navigate(`${row[0]}`);
+  };
+  // 페이지네이션 버튼 핸들러
+  const handlePagination = (page) => {
+    console.log("지금 페이지네이션 페이지 : ", page);
+    setPage(page);
   };
   const handleAddBtn = () => {
     navigate("/admin/product/enroll");
@@ -124,7 +139,7 @@ const Index = () => {
         </FilterSection>
         {/* 이벤트 목록 */}
         <ListSection>
-          {item.length > 0 && (
+          {item && (
             <DataTable
               data={item}
               columns={columns}
@@ -133,6 +148,7 @@ const Index = () => {
               filterValue={selectedDropValue}
               index={"category"}
               placeholder={dropdownValue[0]}
+              onChangePage={handlePagination}
             />
           )}
         </ListSection>

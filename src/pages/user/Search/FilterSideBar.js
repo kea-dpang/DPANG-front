@@ -40,7 +40,7 @@ const FilterSideBar = (props) => {
           {openSubMenu.includes("카테고리") && <Category />}
         </>
       )}
-      <MenuWrap
+      {/* <MenuWrap
         $isOpen={openSubMenu.includes("브랜드")}
         onClick={() => handleSubMenuClick("브랜드")}
       >
@@ -52,7 +52,7 @@ const FilterSideBar = (props) => {
         </MenuName>
         <Arrow $isOpen={openSubMenu.includes("브랜드")} />
       </MenuWrap>
-      {openSubMenu.includes("브랜드") && <Brand />}
+      {openSubMenu.includes("브랜드") && <Brand />} */}
 
       <MenuWrap
         $isOpen={openSubMenu.includes("가격대")}
