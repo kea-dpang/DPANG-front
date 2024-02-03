@@ -27,6 +27,8 @@ const AskEnrollPage = () => {
   let params = useParams().askId;
   const [detail, setDetail] = useState();
   const navigate = useNavigate();
+  const userId = localStorage.getItem("userId");
+
   /* detail 값 서버로부터 가져오기 */
   useEffect(() => {
     // 문의 상세 조회
@@ -85,10 +87,11 @@ const AskEnrollPage = () => {
           alert("답변 등록에 실패하였습니다. 다시 시도해 주세요.");
         });
     } else {
-      POST_Question(dataArr) // 나중에 userId도 넘겨주기
+      POST_Question(userId, dataArr) // 나중에 userId도 넘겨주기
         .then((data) => {
           alert("답변이 성공적으로 등록되었습니다.");
-          navigate(`/user/mypage/temp/directAsk`);
+          console.log("답변 등록:", data);
+          navigate(`/user/mypage/directAsk`);
         })
         .catch((error) => {
           alert("답변 등록에 실패하였습니다. 다시 시도해 주세요.");

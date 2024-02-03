@@ -62,7 +62,7 @@ const UserRoutes = () => {
       {/* 주문하기 */}
       <Route path="order" element={<Order />} />
       {/* 마이페이지 */}
-      <Route path="mypage/temp/*" element={<MyPage />}>
+      <Route path="mypage/*" element={<MyPage />}>
         <Route path="directask" element={<DirectAskPage />} />
         <Route path="directask/enroll" element={<AskEnrollPage />} />
         <Route path="directask" element={<DirectAskPage />} />
