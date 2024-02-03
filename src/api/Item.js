@@ -69,7 +69,7 @@ export const GET_ItemInfo = async (id) => {
     method: "get",
     url: `${url}/${id}`,
   });
-  return res.data;
+  return res.data.data;
 };
 // 사용자 - 상품별 리뷰 조회
 export const GET_ItemReview = async (id) => {
@@ -101,12 +101,11 @@ export const PUT_Item = async (id, value) => {
     method: "put",
     url: `${url}/${id}`,
     data: {
-      id: id,
       itemName: value.itemName,
       category: value.category,
       subCategory: value.subCategory,
       itemPrice: value.itemPrice,
-      eventPrice: value.eventPrice,
+      discountRate: value.discountRate,
       stockQuantity: value.stockQuantity,
       itemImage: value.itemImage,
       images: value.images,
