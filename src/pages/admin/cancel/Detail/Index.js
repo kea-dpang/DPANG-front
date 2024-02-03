@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../../../../styles/fonts.css";
 import Table from "pages/admin/cancel/Detail/Table";
 import data from "../../../../assets/data/admin/AdminCancelData";
 import { useParams } from "react-router-dom";
 import RefundDetail from "./RefundDetail";
 import DetailTableTitle from "../../../../components/common/HiddenShowBtn";
+import { GET_cancel_detail } from "@api/cancel";
 
 const Index = () => {
   const { id } = useParams();
@@ -14,6 +15,20 @@ const Index = () => {
   const handleClick = () => {
     setClick(!click);
   };
+
+//서버로부터 특정 ID에 대한 조회를 요청하는 API
+  useEffect(()=>{
+
+    GET_cancel_detail(id)
+    .then((data)=>{
+      console.log("성공했습니다", data);
+    })
+    .catch((error)=>{
+      console.log("실패했습니다", error);
+    })
+
+
+  }, [id])
 
   return (
     <>

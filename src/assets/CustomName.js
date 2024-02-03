@@ -55,6 +55,22 @@ export const customMileageStatusName = (status) => {
   }
 };
 
+export const CustomMileageStatusNameReverse = (status) => {
+  switch (status) {
+    case "요청":
+      return "REQUESTED";
+    case "승인":
+      return "APPROVED";
+    case "반려":
+      return "REJECTED"
+    default:
+      return "전체";
+  }
+
+
+
+}
+
 /* 2024-01-28T02:58:56.773782 -> 2024.01.28 */
 export const customDate = (createdAt) => {
   const date = new Date(createdAt);

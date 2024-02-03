@@ -89,7 +89,7 @@ const UserRoutes = () => {
         {/* 환불 */}
         <Route path="refund" element={<UserRefund />} />
         <Route path="refund/detail/:id" element={<UserRefundDetail />} />
-        <Route path="refund/enroll" element={<ReqRefund />} />
+        <Route path="refund/enroll/:id" element={<ReqRefund />} />
         <Route path="cancel" element={<UserCancel />} />
         <Route path="cancel/detail/:id" element={<UserCancelDetail />} />
         {/* 주문 */}

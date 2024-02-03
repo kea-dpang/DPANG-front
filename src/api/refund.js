@@ -1,10 +1,11 @@
 import axios from "axios";
 
-const url = "api/refund";
+const url = "/api/refund";
 
 //특정 제품에 대한 반품 요청을 날리는 API
 export const POST_refund_order = async (inputValue) => {
   //서버에 전달해줄 값은 어떤 order ID에 대한 것인지와 취소 사유, 취소 관련 남길 말, 그리고 회수시 배송 요청사항이다
+  console.log("서버가 쓸 내용은?", inputValue)
   const res = await axios({
     method: "post",
     url: `${url}/${inputValue.orderId}`,

@@ -93,7 +93,7 @@ function RowData(props) {
                     status={data.status}
                     onClick={(e) => {
                       e.stopPropagation();
-                      navi("/user/mypage/temp/refund/enroll");
+                      navi(`/user/mypage/temp/refund/enroll/${b.id}`);
                     }}
                   >
                     반품
