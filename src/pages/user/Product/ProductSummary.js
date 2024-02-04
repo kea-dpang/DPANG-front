@@ -106,12 +106,12 @@ const ProductSummary = (props) => {
             {/* 장바구니 & 위시리스트 */}
             <div>
               <ButtonWrap className="cm-SBold16">
-                <LikeButton
+                {/* <LikeButton
                   $isLiked={liked}
                   onClick={handleLike}
                   width="30"
                   height="30"
-                />
+                /> */}
                 <Button
                   style={{
                     backgroundColor: "navy",

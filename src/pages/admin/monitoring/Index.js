@@ -11,7 +11,7 @@ const Monitoring = () => {
         <ListSection>
           <iframe
             src="http://61.109.214.239:5601/app/dashboards#/view/19aed4a0-c00d-11ee-9fdf-d562b4d74e6b?embed=true&_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:now-10m,to:now))&_a=(description:'',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!f,title:dpang-dashboard,viewMode:view)&show-query-input=true&show-time-filter=true"
-            height="700"
+            height="900"
             width="100%"
           ></iframe>
         </ListSection>

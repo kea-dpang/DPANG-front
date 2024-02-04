@@ -8,9 +8,9 @@ export const POST_Item = async (inputValue) => {
   if (inputValue.subCategory !== "") {
     inputValue.subCategory = subCategoryFormat(inputValue.subCategory, false);
   } else {
-    inputValue.subCategory = "WOMEN_CLOTHES";
+    inputValue.subCategory = "";
   }
-  console.log("상품 등록");
+  console.log("상품 등록 subcategory: ", inputValue.subcategory);
   const res = await axios({
     method: "post",
     url: url,
@@ -40,7 +40,7 @@ export const GET_ItemList = async (page) => {
     },
   });
   // 카테고리 커스텀
-  res.data.data = res.data.data.map((item) => {
+  res.data.data.content = res.data.data.content.map((item) => {
     item.category = categoryFormat(item.category, false);
     item.subCategory = subCategoryFormat(item.subCategory, false);
     return item;
@@ -85,12 +85,45 @@ export const GET_ItemReview = async (id) => {
   });
   return res.data;
 };
+// 사용자 - 아이템 검색 필터링
+export const GET_ItemFilter = async (
+  category,
+  subCategory,
+  minPrice,
+  maxPrice,
+  keyword
+) => {
+  console.log(
+    "아이템 검색 필터링 합니다요: ",
+    category,
+    subCategory,
+    minPrice,
+    maxPrice,
+    keyword
+  );
+  const res = await axios({
+    method: "get",
+    url: `${url}/filter`,
+    params: {
+      category: category,
+      subCategory: subCategory,
+      minPrice: minPrice,
+      maxPrice: maxPrice,
+      keyword: keyword,
+      page: 0,
+      size: 20,
+      sort: "",
+    },
+  });
+  return res.data;
+};
 // 관리자 - 상품 삭제
 export const DELETE_Item = async (itemId) => {
   console.log("상품 삭제", itemId);
   const response = await axios({
     method: "delete",
-    url: `${url}/${itemId}/list`,
+    url: url,
+    data: itemId,
   });
   return response.data;
 };

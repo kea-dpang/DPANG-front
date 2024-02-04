@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState, React } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as CartImg } from "@images/cart.svg";
 import { ReactComponent as LikeImg } from "assets/images/heart.svg";
 
@@ -17,6 +17,11 @@ const Item = (props) => {
     console.log("islike: ", liked);
     console.log("id: ", props.value.id);
   };
+  const navigate = useNavigate();
+  const handleCartAdd = () => {
+    alert("장바구니로 이동합니다.");
+    navigate(`/user/cart`);
+  };
 
   return (
     <>
@@ -27,10 +32,10 @@ const Item = (props) => {
             to={`/user/products/${props.value.itemId}`}
             $imgurl={props.value.itemImage}
           />
-          <LikeButton $isLiked={liked} onClick={handleLike} />
+          {/* <LikeButton $isLiked={liked} onClick={handleLike} /> */}
         </ItemImgWrap>
         {/* 장바구니 버튼 */}
-        <CartBtnWrap className="cm-SRegular16">
+        <CartBtnWrap className="cm-SRegular16" onClick={handleCartAdd}>
           <CartImg style={{ width: "20px", height: "20px" }} /> 담기
         </CartBtnWrap>
         {/* 상품 상세 - 상품 이름 & 원가, 할인율, 할인가격 */}

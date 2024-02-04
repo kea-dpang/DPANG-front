@@ -2,17 +2,41 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import FilterSideBar from "./FilterSideBar";
 import Item from "@components/ProductCard/Index";
-import { GET_ItemListUser } from "@api/Item";
+import { GET_ItemListUser, GET_ItemFilter } from "@api/Item";
 
 const SearchResult = (props) => {
   console.log("query: ", props);
   // 아이템 리스트
   const [itemList, setItemList] = useState([]);
+  const [filterData, setFilterData] = useState({
+    category: "DIGITAL_ELECTRONICS",
+    subCategory: "",
+    minPrice: 0,
+    maxPrice: 5000000,
+    keyword: props.keyword,
+  });
+  // useEffect(() => {
+  //   GET_ItemListUser()
+  //     .then((data) => {
+  //       setItemList(data.data); // API 응답으로 받은 데이터를 상태에 저장
+  //       console.log("넘겨받은 아이템 리스트 데이터 : ", data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("아이템 리스트 가져오기 실패", error);
+  //     });
+  // }, []);
+
   useEffect(() => {
-    GET_ItemListUser()
+    GET_ItemFilter(
+      filterData.category,
+      filterData.subCategory,
+      filterData.minPrice,
+      filterData.maxPrice,
+      filterData.keyword
+    )
       .then((data) => {
-        setItemList(data.data); // API 응답으로 받은 데이터를 상태에 저장
         console.log("넘겨받은 아이템 리스트 데이터 : ", data);
+        setItemList(data.data.content); // API 응답으로 받은 데이터를 상태에 저장
       })
       .catch((error) => {
         console.error("아이템 리스트 가져오기 실패", error);

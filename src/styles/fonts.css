@@ -46,6 +46,20 @@
     font-size: 1.5rem;
     font-weight: 700;
 }
+.cm-MRegular20 {
+    font-family: Pretendard;
+    font-style: normal;
+    line-height: normal;
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+.cm-MBold20 {
+    font-family: Pretendard;
+    font-style: normal;
+    line-height: normal;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
 .cm-MRegular24 {
     font-family: Pretendard;
     font-style: normal;

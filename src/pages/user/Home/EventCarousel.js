@@ -1,12 +1,24 @@
 import React from "react";
-import bannerImgList from "@data/user/ProductEventDetailData";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import styled from "styled-components";
 import EventSlide from "./EventSlider"; // eventslide 컴포넌트
+import { useState, useEffect } from "react";
+import { GET_EventList } from "@api/event";
 
 function EventCarousel() {
+  const [event, setEvent] = useState([]);
+  useEffect(() => {
+    GET_EventList()
+      .then((data) => {
+        console.log("imageUrl: ", data.data.content);
+        setEvent(data.data.content);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
   var settings = {
     dots: true, // 캐러셀 밑에 ... 을 표시할지
     infinite: true, // 슬라이드가 끝까지 가면 다시 처음으로 반복
@@ -21,7 +33,7 @@ function EventCarousel() {
   return (
     <Wrap>
       <StyledSlider {...settings}>
-        {bannerImgList.map((character, index) => (
+        {event.map((character, index) => (
           <EventSlide key={index} character={character} />
         ))}
       </StyledSlider>

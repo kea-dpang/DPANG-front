@@ -24,6 +24,7 @@ import Cart from "@userPages/Cart/Index";
 import OrderDetail from "@userPages/myPage/Order/Detail/Index";
 import SearchPage from "@userPages/Search/Index";
 import ProductDetail from "@userPages/Product/Index";
+import DetailPage from "@userPages/Product/DetailPage";
 import Order from "@userPages/Order/Index";
 import UserCancel from "@userPages/myPage/Cancel/Index";
 import UserCancelDetail from "@userPages/myPage/Cancel/Detail/Index";
@@ -55,7 +56,9 @@ const UserRoutes = () => {
         <Route path="brand" element={<BrandEventPage />} />
       </Route>
       {/* 상품 상세 페이지 */}
-      <Route path="products/:itemId" element={<ProductDetail />} />
+      <Route path="products/*" element={<ProductDetail />}>
+        <Route path=":itemId" element={<DetailPage />} />
+      </Route>
       {/* 검색 페이지 */}
       <Route path="search" element={<SearchPage />} />
       <Route path="categories/:id" element={<CategorySet />} />

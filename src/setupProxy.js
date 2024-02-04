@@ -89,6 +89,14 @@ module.exports = function (app) {
       changeOrigin: true,
     })
   );
+  /* 회원관리 */
+  app.use(
+    "/api/carts",
+    createProxyMiddleware({
+      target: "http://61.109.214.181:8089",
+      changeOrigin: true,
+    })
+  );
   /* auth */
   app.use(
     "/api/auth",
