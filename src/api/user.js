@@ -6,7 +6,8 @@ import axios from "axios";
 
 const url = "/api/users";
 
-export const GET_User = async (userId) => {
+export const GET_User = async () => {
+  const userId = localStorage.getItem("userId");
   const res = await axios({
     method: "get",
     url: `${url}/${userId}`,
