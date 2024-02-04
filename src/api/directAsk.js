@@ -2,6 +2,7 @@ import {
   customAskCategoryName,
   customDate,
   customStatusName,
+  customStatusNameReverse,
 } from "assets/CustomName";
 import axios from "axios";
 
@@ -9,7 +10,14 @@ const url = "/api/qna";
 
 export const GET_QnAList = async (userId, category, state) => {
   // const accessToken = window.localStorage.getItem("accessToken");
+  // console.log("aaaaa", category, state);
+  // if(category)
+  console.log("aaaaaaa", category, state);
+
+  category = customAskCategoryName(category, true);
+  state = customStatusNameReverse(state, true);
   console.log("gggggg", category, state);
+
   const res = await axios({
     method: "get",
     url: url,
@@ -26,6 +34,7 @@ export const GET_QnAList = async (userId, category, state) => {
       size: 100,
     },
   });
+
   // 커스텀
   res.data.data.content = res.data.data.content.map((item) => {
     item.category = customAskCategoryName(item.category, false);

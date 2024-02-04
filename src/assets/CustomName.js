@@ -16,29 +16,39 @@ export const customStatusName = (status) => {
     case "item":
       return "상품";
     default:
-      return "상태 미정";
+      return;
+  }
+};
+export const customStatusNameReverse = (status) => {
+  switch (status) {
+    case "답변 대기":
+      return "PROCESSING";
+    case "답변 완료":
+      return "COMPLETED";
+    default:
+      return;
   }
 };
 /* [문의] 상품, 회원정보, 상품확인, 배송, 교환/취소, 기타 */
 export const customAskCategoryName = (category, isReverse) => {
   const map = {
-    ITEM_INQUIRY: "상품 문의",
-    MEMBER_INFORMATION: "회원 정보 문의",
-    DELIVERY: "배송 문의",
-    EXCHANGE_CANCELLATION: "교환/취소 문의",
-    ETC: "기타 문의",
+    ITEM_INQUIRY: "상품",
+    MEMBER_INFORMATION: "회원 정보",
+    DELIVERY: "배송",
+    EXCHANGE_CANCELLATION: "교환/취소",
+    ETC: "기타",
   };
 
   const reverseMap = {
-    "상품 문의": "ITEM_INQUIRY",
-    "회원 정보 문의": "MEMBER_INFORMATION",
-    "배송 문의": "DELIVERY",
-    "교환/취소 문의": "EXCHANGE_CANCELLATION",
-    "기타 문의": "ETC",
+    상품: "ITEM_INQUIRY",
+    "회원 정보": "MEMBER_INFORMATION",
+    배송: "DELIVERY",
+    "교환/취소": "EXCHANGE_CANCELLATION",
+    기타: "ETC",
   };
 
   if (isReverse) {
-    return reverseMap[category] || "UNKNOWN_STATUS";
+    return reverseMap[category] || undefined;
   } else {
     return map[category] || "상태 미정";
   }

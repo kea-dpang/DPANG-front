@@ -29,7 +29,7 @@ const DirectAskPage = () => {
 
   /* 서버에서 1:1문의 리스트 가져오기 */
   useEffect(() => {
-    GET_QnAList(categoryValue, stateValue)
+    GET_QnAList(undefined, categoryValue, stateValue)
       .then((data) => {
         console.log("값:", data.data.content);
         setAskDataList(data.data.content);
@@ -58,14 +58,7 @@ const DirectAskPage = () => {
         {/* 드롭박스 */}
         <DropboxStyle
           dropTitle={"문의 유형"}
-          dropItems={[
-            "회원 정보",
-            "상품",
-            "상품 확인",
-            "배송",
-            "교환/취소",
-            "기타",
-          ]}
+          dropItems={["회원 정보", "상품", "배송", "교환/취소", "기타"]}
           methods={methods}
         />
         <DropboxStyle
