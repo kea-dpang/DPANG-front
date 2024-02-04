@@ -34,7 +34,7 @@ function User() {
     const navi = useNavigate();
 
   return (
-    <UserBox onClick={()=>{navi("/user/mypage/temp/order")}}>
+    <UserBox onClick={()=>{navi("/user/mypage/order")}}>
       <UserImg>
         <Image src={UserImage} />
       </UserImg>

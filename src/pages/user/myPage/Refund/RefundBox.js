@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import Table from "./TableRow";
-import PeriodSelector from "../../../../components/common/PeriodSelector";
-import OrderBox from "../../../../components/common/ProductProgressBox";
+import PeriodSelector from "components/common/PeriodSelector";
+import OrderBox from "components/common/ProductProgressBox";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import MyPageBodyHeader from "../../../../components/common/MyPageBodyHeader";
-import TableHeader from "components/common/MypageTableHeader";
-import TempData from "../../../../assets/data/user/UserCancelData";
+import MyPageBodyHeader from "components/common/MyPageBodyHeader";
+import TableHeader from "@components/MypageTableHeader";
+import TempData from "assets/data/user/UserRefundData";
 
 const Container = styled.div`
   width: 72rem;
@@ -55,12 +55,15 @@ function ReviewBox() {
   const navi = useNavigate();
 
   const [amt, setAmt] = useState([0, 1, 2, 0, 3]);
-  const head = [
-    { width: "11rem", text: "날짜/주문번호" },
-    { width: "11rem", text: "상태" },
-    { width: "29rem", text: "상품명" },
-    { width: "11rem", text: "상품 금액 / 수량" },
-    { width: "10rem", text: "환불 예정 금액" },
+
+  const header = [
+    { text: "날짜/주문번호", width: "9rem" },
+    { text: "유형", width: "8rem" },
+    { text: "사유", width: "6rem" },
+    { text: "상태", width: "9rem" },
+    { text: "상품명", width: "22rem" },
+    { text: "상품금액/수량", width: "9rem" },
+    { text: "환불 예정 금액", width: "9rem" },
   ];
 
   return (
@@ -77,24 +80,24 @@ function ReviewBox() {
         <NaviBar
           colour="var(--dark-grey)"
           onClick={() => {
-            navi("/user/mypage/temp/order");
+            navi("/user/mypage/order");
           }}
         >
           주문/배송 조회
         </NaviBar>
+        <NaviBar colour="var(--navy)">반품 조회</NaviBar>
         <NaviBar
           colour="var(--dark-grey)"
           onClick={() => {
-            navi("/user/mypage/temp/refund");
+            navi("/user/mypage/cancel");
           }}
         >
-          반품 조회
+          취소 조회
         </NaviBar>
-        <NaviBar colour="var(--navy)">취소 조회</NaviBar>
       </NavBox>
       <TableBox>
-        <TableHeader head={head} />
-        <Table data={TempData} />
+        <TableHeader head={header}/>
+        <Table data={TempData}/>
       </TableBox>
     </Container>
   );

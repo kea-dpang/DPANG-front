@@ -4,6 +4,8 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { useState, useEffect } from "react";
 import { GET_refund_list } from "@api/refund";
+import { useRecoilValue } from "recoil";
+import { periodAtom } from "recoil/user/PeriodSelectAtom";
 
 const PaginationContainer = styled.div`
   width: 72rem;
@@ -45,28 +47,44 @@ function TableRow({ data }) {
   //pagination에서 현재 페이지
   const [currentPage, setCurrentPage] = useState(1);
   const [refundList, setRefundList] = useState([]);
+
+  const period = useRecoilValue(periodAtom);
+
+
   const userId = 1;
+  const [val, setVal] = useState({
+    userId: userId,
+    startDate: "",
+    endDate: "",
+    reason: "",
+    page: 0,
+    size: 10,
+    sort: "",
+  });
+
 
   useEffect(() => {
-    const val = {
-      userId: userId,
-      startDate: "",
-      endDate: "",
-      reason: "",
-      page: 0,
-      size: 10,
-      sort: "",
-    };
+
 
     GET_refund_list(val)
       .then((data) => {
-        console.log(data);
-        setRefundList(data);
+        console.log(" 조회성공!!", data);
       })
       .catch((error) => {
         console.error("Error fectching mileage data: ", error);
       });
-  }, []);
+  }, [val]);
+
+  useEffect(()=>{
+
+    setVal((prevVal)=>({
+      ...prevVal, 
+      startDate: period.startDate, 
+      endDate: period.endDate,  
+    }))
+
+
+  }, [period])
 
   //page가 변경된 경우
   const handlePageChange = (e, newPage) => {
@@ -91,7 +109,7 @@ function TableRow({ data }) {
             key={k}
             className="cm-SRegular16"
             onClick={() => {
-              navi(`/user/mypage/temp/refund/detail/${a.id}`);
+              navi(`/user/mypage/refund/detail/${a.id}`);
             }}
           >
             <Col width="9rem">

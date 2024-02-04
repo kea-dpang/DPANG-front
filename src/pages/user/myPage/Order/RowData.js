@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
 import { POST_cancel_order } from "@api/cancel";
-import ArrowImg from "../../../../assets/images/UpArrowVector.svg";
+import ArrowImg from "assets/images/UpArrowVector.svg";
 
 function RowData(props) {
   const data = props.data;
@@ -57,7 +57,7 @@ function RowData(props) {
               i={i}
               onClick={(e) => {
                 e.stopPropagation();
-                navi(`/user/mypage/temp/order/detail/${data.id}`);
+                navi(`/user/mypage/order/detail/${data.id}`);
               }}
             >
               <Col width="22rem" height="6">
@@ -93,7 +93,7 @@ function RowData(props) {
                     status={data.status}
                     onClick={(e) => {
                       e.stopPropagation();
-                      navi(`/user/mypage/temp/refund/enroll/${b.id}`);
+                      navi(`/user/mypage/refund/enroll/${b.id}`);
                     }}
                   >
                     반품
@@ -102,7 +102,7 @@ function RowData(props) {
                     status={data.status}
                     onClick={(e) => {
                       e.stopPropagation();
-                      navi(`/user/mypage/temp/review/enroll/${b.id}`);
+                      navi(`/user/mypage/review/enroll/${b.id}`);
                     }}
                   >
                     리뷰작성

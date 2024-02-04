@@ -4,6 +4,8 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { useState, useEffect } from "react";
 import { GET_cancel_list } from "@api/cancel";
+import { useRecoilValue } from "recoil";
+import { periodAtom } from "recoil/user/PeriodSelectAtom";
 
 const PaginationContainer = styled.div`
   width: 72rem;
@@ -43,9 +45,19 @@ const Column = styled.div`
 function TableRow({ data }) {
   const navi = useNavigate();
   //pagination에서 현재 페이지
+
+  const period = useRecoilValue(periodAtom);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [cancelData, setCancelData] = useState([]); //취소 목록울 저장할 STATE
-
+  const [val, setVal] = useState({
+    userId: 1,
+    startDate: "",
+    endDate: "",
+    page: 0,
+    size: 10,
+    sort: "",
+  });
   //page가 변경된 경우
   const handlePageChange = (_, newPage) => {
     //현재 페이지를 새로운 페이지로 변경
@@ -54,14 +66,7 @@ function TableRow({ data }) {
 
   //초기 rendering시 취소 리스트에 대한 정보를 API를 통해 받아온다
   useEffect(() => {
-    const val = {
-      userId: 1,
-      startDate: "",
-      endDate: "",
-      page: 0,
-      size: 10,
-      sort: "",
-    };
+
     //취소 내역 서버로 부터 받아오기
     GET_cancel_list(val)
       .then((data) => {
@@ -71,7 +76,19 @@ function TableRow({ data }) {
       .catch((error) => {
         console.log(error, "실패입니다");
       });
-  }, []);
+  }, [val]);
+
+  //period값 변경되면 새로운 시간으로 업데이트
+  useEffect(()=>{
+
+    setVal((prevVal)=>({
+      ...prevVal, 
+      startDate: period.startDate, 
+      endDate: period.endDate, 
+    }))
+
+
+  }, [period])
 
   //한페이지당 보여줄 아이템의 개수
   const itemPerPage = 5;
@@ -90,7 +107,7 @@ function TableRow({ data }) {
             key={k}
             className="cm-SRegular16"
             onClick={() => {
-              navi(`/user/mypage/temp/cancel/detail/${a.id}`);
+              navi(`/user/mypage/cancel/detail/${a.id}`);
             }}
           >
             <Col width="11rem">

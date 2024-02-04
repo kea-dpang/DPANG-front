@@ -3,9 +3,10 @@ import Rating from "@mui/material/Rating";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { GET_review_list } from "@api/review";
 import { customDate } from "assets/CustomName";
+import { useRecoilValue } from "recoil";
+import { periodAtom } from "recoil/user/PeriodSelectAtom";
 
 const Row = styled.div`
   width: 72rem;
@@ -43,15 +44,24 @@ function trimContent(str) {
 }
 
 function TableRow(props) {
+
+  //기간 값 설정
+  const period = useRecoilValue(periodAtom);
+  const [val, setVal] = useState({
+    reviewerId: 1,
+    page: 0,
+    size: 10,
+    sort: "",
+    startDate: period.startDate, 
+    endDate: period.endDate, 
+
+  })
+
   const [reviewData, setReviewData] = useState([]);
 
+  //val 값이 변경되면 다시 값 가져오기
   useEffect(() => {
-    const val = {
-      reviewerId: 1,
-      page: 0,
-      size: 10,
-      sort: "",
-    };
+
     GET_review_list(val)
       .then((data) => {
         console.log(data);
@@ -60,7 +70,20 @@ function TableRow(props) {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [val]);
+
+
+  //period값이 변경되면 시간 값을 업데이트
+  useEffect(()=>{
+
+    setVal((prevState)=>({
+      ...prevState, 
+      startDate: period.startDate, 
+      endDate: period.endDate, 
+    }))
+
+
+  }, [period]);
 
   const itemPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);

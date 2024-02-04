@@ -1,9 +1,10 @@
 import styled from "styled-components";
-
+import { useRecoilValue } from "recoil";
 import { useEffect, useState } from "react";
 import { GET_mileage_list } from "@api/mileage";
 import { customDate, customMileageStatusName } from "assets/CustomName";
 import UserPagination from "@components/UserPagination";
+import { periodAtom } from "recoil/user/PeriodSelectAtom";
 
 const Row = styled.div`
   width: 72rem;
@@ -34,7 +35,6 @@ const Status = styled.div`
 
 // props의 데이터를 이용하여 데이터에 따라 다른 색을 props로 넘겨줌
 const getColour = (s) => {
-  console.log(s);
 
   if (s === "승인") return "#043277";
   else if (s === "반려") return "#BCBCBC";
@@ -47,11 +47,16 @@ function TableRow() {
   const [mileageList, setMileageList] = useState([]);
   const [numOfElement, setNumOfElement] = useState(0);
 
+  //recoil통해 날짜 기간 값 받아오기
+  const period = useRecoilValue(periodAtom);
+
+  
+
   const [val, setVal] = useState({
     userId: 1,
     status: "",
-    startDate: "",
-    endDate: "",
+    startDate: period.startDate,
+    endDate: period.endDate,
     depositorName: "",
     sortOption: "",
     page: 0,
@@ -68,7 +73,6 @@ function TableRow() {
   //val이 변경될때마다 mileage 리스트를 업데이트 받는다
   useEffect(() => {
 
-
     GET_mileage_list(val)
       .then((data) => {
         console.log(data);
@@ -77,9 +81,21 @@ function TableRow() {
       })
       .catch((error) => {
         console.error("Error fectching mileage data: ", error);
+        //오류가 나는 경우에는 리스트를 빈 값으로 초기화
+        setMileageList([]);
       });
   }, [val]);
 
+//기간 설정 탭에서 조회 일자가 변경되는 경우에는 val 값을 다시 설정시켜준다
+  useEffect(()=>{
+
+    //이전 값 그대로 가져오되 start랑 enddate는 새로 업데이트
+    setVal((prevVal)=>({
+      ...prevVal, 
+      startDate: period.startDate, 
+      endDate: period.endDate,
+    }))
+  }, [period]);
 
 
 

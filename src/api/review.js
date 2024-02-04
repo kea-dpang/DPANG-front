@@ -22,6 +22,9 @@ export const POST_review = async (inputValue) => {
 };
 
 export const GET_review_list = async (inputValue) => {
+
+  console.log("서버로 전달할 데이터", inputValue)
+
   const res = await axios({
     method: "get",
     url: `${url}/${inputValue.reviewerId}/reviewlist`,

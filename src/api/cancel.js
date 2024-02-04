@@ -29,6 +29,9 @@ export const GET_cancel_detail = async (cancelId) => {
 //마이페이지에서 취소 리스트 조회 페이지로 이동하면 로딩 user-mypage-cancel-tablerow
 export const GET_cancel_list = async (inputValue) => {
   //서버에 같이 전달해줄 내용은 유저 아이디와, 시작일, 종료일, 페이지네이션을 위한 정보들이다
+
+  console.log("서버로 전달할 데이터는", inputValue);
+
   const res = await axios({
     method: "get",
     url: `${url}/list`, //url은 나중에 수정해야 함다

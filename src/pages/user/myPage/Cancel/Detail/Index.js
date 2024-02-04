@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import ReviewBox from "./ReviewBox";
+import DetailBox from "./DetailBox";
 import Refund from "./Refund/Index";
 import { useParams } from "react-router-dom";
-import TempData from "../../../../../assets/data/user/UserCancelData";
+import TempData from "assets/data/user/UserCancelData";
 
 const Container = styled.div`
   min-height: 100vh;
@@ -31,7 +31,7 @@ function Index() {
       {/* 주문 상세 정보를 보여줄 table의 component를 호출 */}
       <ContentBox>
         <ReviewContainer>
-          <ReviewBox data={data} />
+          <DetailBox data={data} />
         </ReviewContainer>
       </ContentBox>
 

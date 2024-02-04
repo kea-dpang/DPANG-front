@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import PeriodSelector from "../../../../components/common/PeriodSelector";
+import PeriodSelector from "components/common/PeriodSelector";
 import TableRow from "./TableRow";
-import TableHeader from "../../../../components/common/MypageTableHeader";
-import MyPageBodyHeader from "../../../../components/common/MyPageBodyHeader";
+import TableHeader from "components/common/MypageTableHeader";
+import MyPageBodyHeader from "components/common/MyPageBodyHeader";
 
 const Container = styled.div`
   width: 72rem;
