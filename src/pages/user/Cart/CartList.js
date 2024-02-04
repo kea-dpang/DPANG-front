@@ -1,11 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import data from "../../../assets/data/user/UserCartData";
 import CartItem from "./CartItem";
 import styled from "styled-components";
 import "../../../styles/fonts.css";
+import { GET_CartList } from "@api/cart";
 
 const CartList = () => {
   const [cartItems, setCartItems] = useState(data);
+
+
+  useEffect(() => {
+    list();
+  }, []);
+
+  const list = async () => {
+    try {
+      const cart = await GET_CartList();
+      setCartItems(cart);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   const calculateTotalPrice = () => {
     let totalPrice = 0;
