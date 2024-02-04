@@ -29,7 +29,11 @@ const DirectAskPage = () => {
 
   /* 서버에서 1:1문의 리스트 가져오기 */
   useEffect(() => {
-    GET_QnAList(undefined, categoryValue, stateValue)
+    GET_QnAList({
+      userId: undefined,
+      category: categoryValue,
+      state: stateValue,
+    })
       .then((data) => {
         console.log("값:", data.data.content);
         setAskDataList(data.data.content);

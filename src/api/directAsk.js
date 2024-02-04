@@ -12,14 +12,9 @@ export const GET_QnAList = async ({
   userId,
   category,
   state,
-  period,
-  itemId,
+  itemId = null,
+  period = { startDate: null, endDate: null },
 }) => {
-  // const accessToken = window.localStorage.getItem("accessToken");
-  // console.log("aaaaa", category, state);
-  // if(category)
-  // console.log("aaaaaaa", category, state);
-  // console.log("period,", period.startDate);
   category = customAskCategoryName(category, true);
   state = customStatusNameReverse(state, true);
   console.log(userId, category, state, period, itemId);
@@ -35,10 +30,10 @@ export const GET_QnAList = async ({
       //query
       userId: userId,
       category: category,
-      itemId: itemId || null,
+      itemId: itemId,
       status: state,
-      startDate: period.startDate || null,
-      endDate: period.endDate || null,
+      startDate: period.startDate,
+      endDate: period.endDate,
       page: 0,
       size: 100,
     },
