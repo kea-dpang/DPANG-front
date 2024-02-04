@@ -21,7 +21,7 @@ const NewProductPage = () => {
     <>
       {itemList.length > 0 && (
         <Wrap>
-          <Title className="cm-XLBold36"> 이 주의 신상👀 </Title>
+          <Title className="cm-XLBold36"> 주목할 만한 신상 👀 </Title>
           <ItemWrap>
             {itemList.map((item) => (
               <Item key={item.itemId} value={item} />
@@ -47,7 +47,7 @@ const ItemWrap = styled.div`
   width: 70rem;
   padding-bottom: 5rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   flex-wrap: wrap;
   gap: 3.0625rem;
 `;

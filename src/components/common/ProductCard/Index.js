@@ -27,7 +27,7 @@ const Item = (props) => {
             to={`/user/products/${props.value.itemId}`}
             $imgurl={props.value.itemImage}
           />
-          <LikeButton $isLiked={liked} onClick={handleLike} />
+          {/* <LikeButton $isLiked={liked} onClick={handleLike} /> */}
         </ItemImgWrap>
         {/* 장바구니 버튼 */}
         <CartBtnWrap className="cm-SRegular16">

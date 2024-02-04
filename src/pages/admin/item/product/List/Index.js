@@ -6,12 +6,22 @@ import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Dropdown from "@components/Dropdown";
-import DataTable from "@components/AdminDataTable";
+// import DataTable from "@components/AdminDataTable";
 import categoryData from "@data/user/CategoryData";
-import { GET_ItemList, DELETE_Item, GET_ItemInfo } from "@api/Item";
+import { GET_ItemList, DELETE_Item } from "@api/Item";
+import { useLocation } from "react-router-dom";
+import DataTable from "@adminPages/item/brand/List/DataTable";
 
 // 상품 등록 관리자 페이지
 const Index = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search); // url에서 searchparameter 저장(페이지)
+  const page = searchParams.get("page") || 0;
+  const navigate = useNavigate();
+  const [totalData, setTotalData] = useState(0);
+  const [item, setItem] = useState([]);
+
+  console.log("지금 페이지는 page: ", page);
   // 테이블 column
   const columns = [
     { name: "itemId", label: "상품 ID", options: { sort: false } },
@@ -41,17 +51,19 @@ const Index = () => {
     "카테고리를 선택해주세요",
     ...categoryData.map((item) => item.title),
   ];
-  const [item, setItem] = useState([]);
-  const [page, setPage] = useState(0);
-  useEffect(() => {
+  const handleGetItemList = () => {
     GET_ItemList(page)
       .then((data) => {
-        setItem(data.data);
+        setItem(data.data.content);
+        setTotalData(data.data.totalElements);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  };
+  useEffect(() => {
+    handleGetItemList();
+  }, [page]);
   // useEffect(() => {
   //   GET_ItemList(page)
   //     .then((data) => {
@@ -68,14 +80,13 @@ const Index = () => {
     DELETE_Item(dataIndexArray)
       .then((data) => {
         console.log("상품 삭제");
+        handleGetItemList();
       })
       .catch((error) => {
         console.log(error);
       });
     console.log("item : ", item);
   };
-
-  const navigate = useNavigate();
   /* 선택된 행은 상세정보로 이동 */
   const handleRowClick = (row) => {
     navigate(`${row[0]}`);
@@ -83,7 +94,7 @@ const Index = () => {
   // 페이지네이션 버튼 핸들러
   const handlePagination = (page) => {
     console.log("지금 페이지네이션 페이지 : ", page);
-    setPage(page);
+    navigate(`?page=${page}`);
   };
   const handleAddBtn = () => {
     navigate("/admin/product/enroll");
@@ -149,6 +160,7 @@ const Index = () => {
               index={"category"}
               placeholder={dropdownValue[0]}
               onChangePage={handlePagination}
+              count={totalData}
             />
           )}
         </ListSection>
