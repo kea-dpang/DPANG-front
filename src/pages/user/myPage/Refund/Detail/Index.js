@@ -2,7 +2,8 @@ import styled from "styled-components";
 import RefundBox from "./RefundBox";
 import Refund from "./Refund/Table";
 import { useParams } from "react-router-dom";
-import TempData from "../../../../../assets/data/user/UserRefundData";
+import TempData from "assets/data/user/UserRefundData";
+import { GET_refund_detail } from "@api/refund";
 
 const Container = styled.div`
   min-height: 100vh;
@@ -25,6 +26,14 @@ function Index() {
   const { id } = useParams();
   const refundData = [...TempData];
   const data = refundData[id];
+
+  GET_refund_detail(id)
+  .then((data)=>{
+    console.log("성공성공", data);
+  })
+  .catch((error)=>{
+    console.log("실패실패", error);
+  })
 
   return (
     <Container>

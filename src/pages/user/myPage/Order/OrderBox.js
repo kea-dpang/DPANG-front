@@ -1,10 +1,12 @@
 import styled from "styled-components";
-import Table from "./Table";
 import PeriodSelector from "components/common/PeriodSelector";
 import OrderBox from "components/common/ProductProgressBox";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MyPageBodyHeader from "components/common/MyPageBodyHeader";
+import TableHeader from "@components/MypageTableHeader";
+import TableRow from "./TableRow";
+import UserOrderData from "@data/user/UserOrderData";
 
 const Container = styled.div`
   width: 72rem;
@@ -55,6 +57,15 @@ function ReviewBox() {
 
   const navi = useNavigate();
 
+  const head = [
+    { width: "2rem", text: "" },
+    { width: "11rem", text: "날짜/주문번호" },
+    { width: "11rem", text: "상태" },
+    { width: "22rem", text: "상품명" },
+    { width: "11rem", text: "상품 금액 / 수량" },
+    { width: "15rem", text: "관리" },
+  ];
+
   return (
     <Container>
       <MyPageBodyHeader header="주문·배송 조회" />
@@ -88,7 +99,8 @@ function ReviewBox() {
       </NavBox>
       {/* 정보를 보여줄 table */}
       <TableBox>
-        <Table />
+        <TableHeader head={head} />
+        <TableRow data={UserOrderData}/>
       </TableBox>
     </Container>
   );

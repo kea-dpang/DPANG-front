@@ -184,6 +184,7 @@ const Index = () => {
             onRowClick={handleRowClick}
             filterValue={selectedCategory}
             index={"status"}
+            checkBoxCheck={false}
             placeholder={dropdownValue[0]}
           />
         </ListSection>

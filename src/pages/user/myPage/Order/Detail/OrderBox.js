@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import Table from "./Table";
-import MyPageBodyHeader from "../../../../../components/common/MyPageBodyHeader";
+import Table from "./TableRow";
+import MyPageBodyHeader from "components/common/MyPageBodyHeader";
+import TableHeader from "@components/MypageTableHeader";
 
 const Container = styled.div`
   width: 72rem;
@@ -29,11 +30,20 @@ const DetailHeader = styled.div`
 `;
 
 function ReviewBox(props) {
+
+  const head = [
+    { width: "13rem", text: "날짜/주문번호" },
+    { width: "11rem", text: "상태" },
+    { width: "22rem", text: "상품명" },
+    { width: "11rem", text: "상품 금액 / 수량" },
+    { width: "15rem", text: "관리" },
+  ];
   return (
     <Container>
       <MyPageBodyHeader header="주문 상세 내역" />
       <DetailHeader className="cm-SRegular16">주문 상세 내역</DetailHeader>
       <TableBox>
+      <TableHeader head={head} />
         <Table data={props.data} />
       </TableBox>
     </Container>

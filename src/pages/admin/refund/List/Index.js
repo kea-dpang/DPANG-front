@@ -201,6 +201,7 @@ const Index = () => {
             filterValue={selectedCategory}
             index={"state"}
             placeholder={dropdownValue[0]}
+            checkBoxCheck={false}
           />
         </ListSection>
       </Wrap>
