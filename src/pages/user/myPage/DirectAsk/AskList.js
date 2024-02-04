@@ -19,21 +19,9 @@ const AskList = () => {
   /* 서버로부터 원본 리스트 데이터 가져오기 */
   useEffect(() => {
     console.log(period.startDate, period.endDate);
-    GET_QnAList(userId)
+    GET_QnAList({ userId: userId, period: period })
       .then((data) => {
-        /* 원본 리스트 데이터를 날짜 필터링 하기 */
-        let filteredData = data.data.content; //기간 설정 없을 때는 필터링 X
-        if (period.startDate && period.endDate) {
-          //기간 설정이 있을 때만 필터링 걸기
-          filteredData = data.data.content.filter((item) => {
-            const createdAt = new Date(item.createdAt);
-            const startDate = new Date(period.startDate);
-            const endDate = new Date(period.endDate);
-
-            return startDate <= createdAt && createdAt <= endDate;
-          });
-        }
-        setAskDataList(filteredData);
+        setAskDataList(data.data.content);
       })
       .catch((error) => {
         console.log(error);
