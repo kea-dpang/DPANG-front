@@ -11,11 +11,21 @@ import {
   customDate,
   customStatusName,
 } from "../../../../assets/CustomName";
+import {
+  useConfirmAlert,
+  useErrorAlert,
+  useQuestionAlert,
+} from "@components/SweetAlert";
 
 /* 답변 등록 & 문의 조회 */
 const EnrollPage = () => {
   let params = useParams().askId;
   const [askData, setAskData] = useState();
+
+  /* alert창 */
+  const showErrorAlert = useErrorAlert();
+  const showQuestionAlert = useQuestionAlert();
+  const showConfirmAlert = useConfirmAlert();
 
   useEffect(() => {
     GET_QnA(params)
@@ -37,11 +47,17 @@ const EnrollPage = () => {
   const handleSubmit = () => {
     PUT_Answer(params, answer)
       .then((data) => {
-        alert("답변이 성공적으로 등록되었습니다.");
+        showConfirmAlert({
+          title: "답변이 성공적으로 등록되었습니다.",
+        });
         // window.location.reload();
       })
       .catch((error) => {
         alert("답변 등록에 실패하였습니다. 다시 시도해 주세요.");
+        showErrorAlert({
+          title: "답변 등록에 실패하였습니다.",
+          text: "다시 시도해 주세요.",
+        });
       });
   };
 
