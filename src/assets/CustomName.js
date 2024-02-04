@@ -62,14 +62,11 @@ export const CustomMileageStatusNameReverse = (status) => {
     case "승인":
       return "APPROVED";
     case "반려":
-      return "REJECTED"
+      return "REJECTED";
     default:
       return "전체";
   }
-
-
-
-}
+};
 
 /* 2024-01-28T02:58:56.773782 -> 2024.01.28 */
 export const customDate = (createdAt) => {
@@ -183,5 +180,29 @@ export const subCategoryFormat = (category, isToServer) => {
     return map[category] || category;
   } else {
     return reverseMap[category] || category;
+  }
+};
+
+/* 회원탈퇴 */
+export const customLeaveCategoryName = (category) => {
+  switch (category) {
+    case "고객서비스 불만":
+      return "SERVICE_COMPLAIN";
+    case "배송 불만":
+      return "DELIVERY_COMPLAIN";
+    case "환불정책 불만":
+      return "REFUND_POLICY_COMPLAIN";
+    case "방문빈도 낮음":
+      return "LESS_FREQUENT_VISITS";
+    case "상품가격 불만":
+      return "ITEM_PRICE_COMPLAIN";
+    case "개인정보 유출 우려":
+      return "PRIVACY_LEAKAGE_COMPLAIN";
+    case "신뢰도 불만":
+      return "RELIABILITY_COMPLAIN";
+    case "퇴사":
+      return "COMPANY_LEAVE";
+    default:
+      return "상태 미정";
   }
 };
