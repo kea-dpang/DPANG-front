@@ -15,16 +15,16 @@ export const POST_Cart = async (userId, itemId) => {
 // 장바구니 목록 조회
 export const GET_CartList = async (userId) => {
   console.log("장바구니 목록 조회입니당");
-  const response = await axios({
+  const res = await axios({
     method: "get",
     url: `${url}/${userId}`,
   });
   return res.data;
 };
 // 장바구니 상품 삭제
-export const DELETE_CartItem = async (userId) => {
+export const DELETE_CartItem = async (userId, itemId) => {
   console.log("장바구니 상품 삭제합니당");
-  const response = await axios({
+  const res = await axios({
     method: "delete",
     url: `${url}/${userId}/${itemId}`,
   });
