@@ -100,6 +100,7 @@ export default BrandEventPage;
 const Wrap = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-direction: column;
 `;
 const ProductBrandTab = styled.div`
@@ -111,7 +112,8 @@ const ProductBrandTab = styled.div`
 `;
 const Nav = styled.div`
   display: flex;
-  padding: 1.5rem 13.375rem;
+  width: 32.5rem;
+  padding: 1.5rem 0rem;
   justify-content: center;
   align-items: center;
   border-radius: 0.9375rem 0.9375rem 0rem 0rem;
@@ -121,21 +123,25 @@ const Nav = styled.div`
   cursor: pointer;
 `;
 const StatusTitle = styled.div`
-  padding: 0rem 23rem;
+  width: 5rem;
+  padding-right: 57rem;
+  justify-content: start;
 `;
 const PlaceholderWrap = styled.div`
-  padding: 2rem 23rem;
+  width: 63rem;
+  padding: 5rem 15rem;
   box-sizing: border-box;
   margin: 1rem 0rem;
-  // background-color: var(--light-grey);
+  background-color: var(--light-grey);
 `;
 const ListSection = styled.div`
   display: flex;
   box-sizing: border-box;
-  padding: 0rem 20.45rem 3rem 20.45rem;
+  width: 67.2rem;
+  // padding: 0rem 20.45rem 3rem 20.45rem;
   flex-direction: row; // 가로로 배치
-  flex-wrap: wrap; // 너비 초과 시 아래로 내려감    align-items: center;
+  flex-wrap: wrap; // 너비 초과 시 아래로 내려감
   justify-content: start;
-  gap: 1.19rem;
   align-items: center;
+  gap: 1.19rem;
 `;

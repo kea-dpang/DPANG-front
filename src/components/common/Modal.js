@@ -30,7 +30,7 @@ const Modal = ({ setIsModalOpen, value }) => {
     setAskData((prev) => ({ ...prev, askContent: e.target.value }));
   };
   const handleSubmit = () => {
-    POST_Question(askData) // 나중에 userId도 넘겨주기
+    POST_Question(3, askData) // 나중에 userId도 넘겨주기
       .then((data) => {
         setIsModalOpen(false);
         console.log("상품 문의가 성공적으로 등록되었습니다.");

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { GET_QnAList } from "@api/directAsk";
+import { customDate, customStatusName } from "assets/CustomName";
 
 const ProductAskList = () => {
   const tableTitles = ["제목", "작성자", "작성일", "상태"];
@@ -48,10 +49,10 @@ const ProductAskList = () => {
                 {item.userName}
               </Item>
               <Item width={colWidths[2]} $state="not">
-                {item.createdAt}
+                {customDate(item.createdAt)}
               </Item>
               <Item width={colWidths[3]} $state={item.askState}>
-                {item.status}
+                {customStatusName(item.status)}
               </Item>
             </Row>
             {selectedRow === index && (
