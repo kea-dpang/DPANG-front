@@ -7,6 +7,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { DirectAskData } from "assets/data/user/DirectAskData";
 import { FormProvider, useForm } from "react-hook-form";
 import { GET_QnA, POST_Question, PUT_Question } from "@api/directAsk";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import { Controller } from "react-hook-form";
 
 const AskEnrollPage = () => {
   //////////////////////////////////
@@ -107,24 +110,38 @@ const AskEnrollPage = () => {
       <form>
         <FormProvider {...methods}>
           <Item>
-            <p>유형</p>
+            <h2>유형</h2>
             <Category control={control} detail={detail} />
           </Item>
 
           <Item>
-            <p>제목</p>
+            <h2>제목</h2>
             <AskTitle control={control} detail={detail} />
           </Item>
 
+          {detail && detail.category == "상품" && (
+            <Item>
+              <h2>상품명</h2>
+              <textarea
+                cols="30"
+                rows="10"
+                className="cm-SRegular16"
+                disabled={true}
+                value={detail.itemName}
+                style={{ height: "3.5rem" }}
+              ></textarea>
+            </Item>
+          )}
+
           <Item>
-            <p>내용</p>
+            <h2>내용</h2>
             <AskContent control={control} detail={detail} />
           </Item>
 
           {/* 답변 */}
           {detail && detail.status === "답변 완료" && (
             <Item>
-              <p>답변</p>
+              <h2>답변</h2>
               <textarea
                 cols="50"
                 rows="10"
@@ -197,6 +214,10 @@ const Item = styled.div`
   gap: 6.44rem;
 
   position: relative;
+
+  & h2 {
+    width: 3rem;
+  }
   & textarea {
     width: 61rem;
     min-height: 3rem;

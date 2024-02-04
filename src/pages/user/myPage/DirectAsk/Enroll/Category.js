@@ -22,10 +22,13 @@ const Category = ({ control, detail }) => {
               variant="outlined"
               InputLabelProps={{
                 shrink: true,
-                style: { visibility: "hidden" }, // 레이블을 숨깁니다.
+                style: { visibility: "hidden" }, // 레이블 숨기기
               }}
               SelectProps={{
-                disabled: detail && detail.status == "답변 완료", // 드롭박스 비활성화
+                // 드롭박스 비활성화
+                disabled:
+                  detail &&
+                  (detail.status === "답변 완료" || detail.category === "상품"),
                 displayEmpty: true,
                 renderValue: (selectedValue) =>
                   selectedValue ? selectedValue : "문의 유형을 선택해주세요", // 드롭다운 메뉴에서 선택한 항목
@@ -35,11 +38,14 @@ const Category = ({ control, detail }) => {
               <MenuItem value="" disabled>
                 문의 유형을 선택해주세요
               </MenuItem>
-              <MenuItem value="상품 문의">상품 문의</MenuItem>
-              <MenuItem value="회원 정보 문의">회원 정보 문의</MenuItem>
-              <MenuItem value="배송 문의">배송 문의</MenuItem>
-              <MenuItem value="교환/취소 문의">교환/취소 문의</MenuItem>
-              <MenuItem value="기타 문의">기타 문의</MenuItem>
+              {/* <MenuItem value="상품">상품</MenuItem> */}
+              {detail && detail.category === "상품" && (
+                <MenuItem value="상품">상품</MenuItem>
+              )}
+              <MenuItem value="회원 정보">회원 정보</MenuItem>
+              <MenuItem value="배송">배송</MenuItem>
+              <MenuItem value="교환/취소">교환/취소</MenuItem>
+              <MenuItem value="기타">기타</MenuItem>
             </TextField>
           )}
         />

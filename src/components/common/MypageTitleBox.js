@@ -7,6 +7,7 @@ import membermileImg from "../../assets/images/membermile.png";
 import chargemileImg from "../../assets/images/chargemile.png";
 import ProfileImg from "../../assets/images/profileImg.png";
 import { GET_mileage } from "@api/mileage";
+import { ReactComponent as MyPageProfile } from "@images/myPageProfile.svg";
 
 const MypageTitleBox = () => {
   const navi = useNavigate();
@@ -33,13 +34,34 @@ const MypageTitleBox = () => {
       });
   }, []);
 
+  const handleLogout = () => {
+    navi("/login");
+    // 로컬 스토리지 정보 삭제
+    localStorage.clear();
+    // 쿠키 정보 삭제
+    document.cookie.split(";").forEach((c) => {
+      document.cookie = c
+        .replace(/^ +/, "")
+        .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    });
+  };
+
   return (
     <Mainbox>
       <MypageWrap>
         <Profilebox to="userInfo">
-          <ProfileIcon src={ProfileImg} />
-          <Nickname>김디팡님</Nickname>
+          <MyPageProfile />
+          <Wrap2>
+            <Nickname>김디팡님</Nickname>
+            <button
+              style={{ color: "var(--dark-grey)", background: "none" }}
+              onClick={handleLogout}
+            >
+              로그아웃 &gt;
+            </button>
+          </Wrap2>
         </Profilebox>
+
         <MileContainer>
           <Mileboxcontainer>
             <Membermilebox to="">
@@ -107,7 +129,7 @@ const MypageWrap = styled.div`
 const Profilebox = styled.div`
   display: flex;
   padding: 3.25rem 5.625rem;
-  align-items: flex-start;
+  align-items: center;
   align-content: flex-start;
   gap: 0.625rem var(--hi, 0.625rem);
   flex-wrap: wrap;
@@ -248,4 +270,10 @@ const StyledArrowStrokeVector = styled(ArrowStrokeVector)`
   width: 0.4125rem;
   height: 0.6875rem;
   fill: var(--navy, #043277);
+`;
+
+const Wrap2 = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 `;

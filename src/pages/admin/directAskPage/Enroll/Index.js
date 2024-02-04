@@ -60,12 +60,18 @@ const EnrollPage = () => {
           <p>[{askData?.category}]</p>
           <p>{askData?.title}</p>
         </Option>
+        {askData && askData.category == "상품" && (
+          <Option>
+            <p>상품명</p>
+            <p>{askData?.itemName} </p>
+          </Option>
+        )}
         <Option2>
           <p>{askData?.createdAt} </p>
           <p>|</p>
-          <p>글 작성한 사용자 name</p>
+          <p>{askData?.user.name}</p>
           <p>|</p>
-          <p>글 작성한 사용자 email</p>
+          <p>{askData?.user.email}</p>
         </Option2>
         <Item>
           <p className="cm-XLBold36 col-Navy">Q.</p>
