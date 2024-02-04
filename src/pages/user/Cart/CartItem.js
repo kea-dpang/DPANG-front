@@ -6,6 +6,8 @@ import { useState,useEffect } from 'react';
 import '../../../styles/fonts.css';
 import styled from 'styled-components';
 import Checkbox from '@mui/material/Checkbox';
+import { DELETE_CartItem } from '@api/cart';
+
 
 const CartItem = ({ item, updateQuantity, updateChecked, deleteItem  }) => {
   const [quantity, setQuantity] = useState(item.quantity);
@@ -24,7 +26,9 @@ const CartItem = ({ item, updateQuantity, updateChecked, deleteItem  }) => {
 
   useEffect(() => {
     updateQuantity(item.id, quantity);
-  }, [quantity, item.id, updateQuantity]);
+  }, [item.id, quantity]);
+  
+  
 
   const handleIncrease = () => {
     setQuantity(quantity + 1);
@@ -39,7 +43,16 @@ const CartItem = ({ item, updateQuantity, updateChecked, deleteItem  }) => {
   };
 
   const handleDelete = () => {
-    deleteItem(item.id);
+    DELETE_CartItem(item.id) // API 요청을 통해 상품 삭제
+      .then((response) => {
+        // 삭제 성공 시 deleteItem 함수 호출하여 UI 업데이트
+        if (response.success) {
+          deleteItem(item.id);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   
@@ -72,7 +85,7 @@ const CartItem = ({ item, updateQuantity, updateChecked, deleteItem  }) => {
                 <AddIcon fontSize='small' />
               </Button>
             </ButtonGroup>
-            <p className="cm-SBold16 col-Black">{item.price * quantity}마일</p>
+            <p className="cm-SBold16 col-Black">{item.price * quantity}원</p>
           </ItemState>
         </ItemInfo>
     </Content>
