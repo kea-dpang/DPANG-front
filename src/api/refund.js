@@ -31,6 +31,8 @@ export const GET_refund_detail = async (refundId) => {
 //환불에 대한 목록을 조회하기 위한 API
 export const GET_refund_list = async (inputValue) => {
   //서버에게 전달해줄 값은 어떤 user인지, 조회 시작 기간, 조회 종료 기간, 환불 사유, 페이지 네이션 관련 내용들이다
+  console.log("서버로 전달할 데이터는", inputValue);
+  
   const res = await axios({
     method: "get",
     url: `${url}/list`,

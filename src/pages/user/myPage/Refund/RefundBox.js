@@ -1,10 +1,12 @@
 import styled from "styled-components";
-import Table from "./Table";
+import Table from "./TableRow";
 import PeriodSelector from "components/common/PeriodSelector";
 import OrderBox from "components/common/ProductProgressBox";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MyPageBodyHeader from "components/common/MyPageBodyHeader";
+import TableHeader from "@components/MypageTableHeader";
+import TempData from "assets/data/user/UserRefundData";
 
 const Container = styled.div`
   width: 72rem;
@@ -54,6 +56,16 @@ function ReviewBox() {
 
   const [amt, setAmt] = useState([0, 1, 2, 0, 3]);
 
+  const header = [
+    { text: "날짜/주문번호", width: "9rem" },
+    { text: "유형", width: "8rem" },
+    { text: "사유", width: "6rem" },
+    { text: "상태", width: "9rem" },
+    { text: "상품명", width: "22rem" },
+    { text: "상품금액/수량", width: "9rem" },
+    { text: "환불 예정 금액", width: "9rem" },
+  ];
+
   return (
     <Container>
       <MyPageBodyHeader header="취소·환불 관리" />
@@ -84,7 +96,8 @@ function ReviewBox() {
         </NaviBar>
       </NavBox>
       <TableBox>
-        <Table />
+        <TableHeader head={header}/>
+        <Table data={TempData}/>
       </TableBox>
     </Container>
   );

@@ -4,7 +4,9 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { useState, useEffect } from "react";
 import RowData from "./RowData";
-import { GET_OrderList } from "@api/order";
+import { GET_orderlist } from "@api/order";
+import { useRecoilValue } from "recoil";
+import { periodAtom } from "recoil/user/PeriodSelectAtom";
 
 const PaginationContainer = styled.div`
   width: 72rem;
@@ -20,6 +22,18 @@ function TableRow({ data }) {
   const [orderList, setOrderList] = useState([]);
   const userId = 1; //userId는 나중에 바꿀 수 있어야 한다
 
+  const period = useRecoilValue(periodAtom);
+
+  const [val, setVal] = useState({
+    userrId: 1,
+    page: 0,
+    size: 10,
+    sort: "",
+    startDate: period.startDate, 
+    endDate: period.endDate, 
+
+  })
+
   //page가 변경된 경우
   const handlePageChange = (_, newPage) => {
     //현재 페이지를 새로운 페이지로 변경
@@ -28,14 +42,26 @@ function TableRow({ data }) {
 
   //order리스트를 가져올 API를 호출
   useEffect(() => {
-    GET_OrderList(userId)
+    GET_orderlist(val)
       .then((data) => {
         console.log("성공적!!", data);
       })
       .catch((error) => {
         console.log("오류 발생", error);
       });
-  }, []);
+  }, [val]);
+
+    //period값이 변경되면 시간 값을 업데이트
+    useEffect(()=>{
+
+      setVal((prevState)=>({
+        ...prevState, 
+        startDate: period.startDate, 
+        endDate: period.endDate, 
+      }))
+  
+  
+    }, [period]);
 
   //한페이지당 보여줄 아이템의 개수
   const itemPerPage = 5;

@@ -36,6 +36,7 @@ export const POST_OrderInfo = async (inputValue) => {
 
 
 export const GET_Order = async (id) => {
+  
     console.log("get orderlist");
     const res = await axios({
       method: "get",
@@ -81,4 +82,25 @@ export const GET_Order = async (id) => {
     })
   }
 
-  
+  export const GET_orderlist = async (inputValue) =>{
+
+    console.log("서버로 전달할 데이터는", inputValue)
+
+    const res = await axios({
+      method: 'get', 
+      url: `${url}/list`, 
+      data: {
+        startDate: inputValue.startDate || undefined, 
+        endDate: inputValue.endDate || undefined,
+        orderStatus: inputValue.status || undefined, 
+        page: inputValue.page || undefined, 
+        size: inputValue.size || undefined, 
+        sort: inputValue.sort || undefined,  
+
+      }
+
+    })
+
+    return res.data;
+
+  }
