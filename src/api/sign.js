@@ -73,7 +73,7 @@ export const POST_newToken = async (refreshToken) => {
     method: "post",
     url: `${authUrl}/renew-token`,
     data: {
-      accessToken: refreshToken,
+      refreshToken: refreshToken,
     },
   });
 

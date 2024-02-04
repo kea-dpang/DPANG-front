@@ -2,14 +2,28 @@ import {
   customAskCategoryName,
   customDate,
   customStatusName,
+  customStatusNameReverse,
 } from "assets/CustomName";
 import axios from "axios";
 
 const url = "/api/qna";
 
-export const GET_QnAList = async (userId, category, state) => {
+export const GET_QnAList = async ({
+  userId,
+  category,
+  state,
+  period,
+  itemId,
+}) => {
   // const accessToken = window.localStorage.getItem("accessToken");
-  console.log("gggggg", category, state);
+  // console.log("aaaaa", category, state);
+  // if(category)
+  // console.log("aaaaaaa", category, state);
+  // console.log("period,", period.startDate);
+  category = customAskCategoryName(category, true);
+  state = customStatusNameReverse(state, true);
+  console.log(userId, category, state, period, itemId);
+
   const res = await axios({
     method: "get",
     url: url,
@@ -19,13 +33,17 @@ export const GET_QnAList = async (userId, category, state) => {
 
     params: {
       //query
-      category: category,
-      status: state,
       userId: userId,
+      category: category,
+      itemId: itemId || null,
+      status: state,
+      startDate: period.startDate || null,
+      endDate: period.endDate || null,
       page: 0,
       size: 100,
     },
   });
+
   // 커스텀
   res.data.data.content = res.data.data.content.map((item) => {
     item.category = customAskCategoryName(item.category, false);
@@ -75,10 +93,10 @@ export const POST_Question = async (userId, data) => {
     data: {
       userId: userId,
       category: data.category,
-      itemId: data.itemId || "",
+      itemId: data.itemId || null,
       title: data.askTitle,
       content: data.askContent,
-      imageUrl: "",
+      imageUrl: null,
     },
   });
   return res.data;

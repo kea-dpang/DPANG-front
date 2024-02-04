@@ -6,16 +6,7 @@ import TextField from "@mui/material/TextField";
 import { useNavigate, useParams } from "react-router-dom";
 import { askManageData } from "../../../../assets/data/admin/AdminAskData";
 import { GET_QnA, PUT_Answer } from "@api/directAsk";
-import {
-  customAskCategoryName,
-  customDate,
-  customStatusName,
-} from "../../../../assets/CustomName";
-import {
-  useConfirmAlert,
-  useErrorAlert,
-  useQuestionAlert,
-} from "@components/SweetAlert";
+import { useConfirmAlert, useErrorAlert } from "@components/SweetAlert";
 
 /* 답변 등록 & 문의 조회 */
 const EnrollPage = () => {
@@ -24,7 +15,6 @@ const EnrollPage = () => {
 
   /* alert창 */
   const showErrorAlert = useErrorAlert();
-  const showQuestionAlert = useQuestionAlert();
   const showConfirmAlert = useConfirmAlert();
 
   useEffect(() => {

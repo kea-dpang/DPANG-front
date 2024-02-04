@@ -3,29 +3,41 @@ import styled from "styled-components";
 import Checkbox from "@mui/material/Checkbox";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import { DELETE_UserLeave } from "@api/user";
+import { useQuestionAlert } from "@components/SweetAlert";
+import { useNavigate } from "react-router-dom";
+import { removeCookie } from "@utils/cookie";
 
-// const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+const leaveReasons = [
+  "고객서비스 불만",
+  "배송 불만",
+  "환불정책 불만",
+  "방문빈도 낮음",
+  "상품가격 불만",
+  "개인정보 유출 우려",
+  "신뢰도 불만",
+  "퇴사",
+];
 
 const Leave = () => {
-  const leaveReasons = [
-    "고객서비스 불만",
-    "배송 불만",
-    "환불정책 불만",
-    "방문빈도 낮음",
-    "상품가격 불만",
-    "개인정보 유출 우려",
-    "신뢰도 불만",
-    "퇴사",
-  ];
   const [checkedState, setCheckedState] = useState(
     leaveReasons.reduce((initial, item) => ({ ...initial, [item]: false }), {}) // leaveReasons 배열의 각 항목을 키로, 그 값으로 false를 가지는 객체를 생성
   );
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState();
   const [note, setNote] = useState("");
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
+
+  const showQuestionAlert = useQuestionAlert();
 
   const handleCheckboxChange = (e) => {
+    const isChecked = e.target.checked;
     // 체크박스가 클릭될 때마다 호출되는 handleCheckboxChange 함수. 이 함수는 체크박스의 onChange 이벤트 핸들러로 사용.
-    setCheckedState({ ...checkedState, [e.target.name]: e.target.checked }); // 클릭된 체크박스의 name 속성과 checked 상태를 사용하여 checkedState를 업데이트
+    setCheckedState({ ...checkedState, [e.target.name]: isChecked }); // 클릭된 체크박스의 name 속성과 checked 상태를 사용하여 checkedState를 업데이트
+
+    /* 버튼 활성화 or 비활성화 로직 */
+    // 체크박스가 클릭되었을 때, 하나라도 체크되었는지 확인
+    const newState = { ...checkedState, [e.target.name]: isChecked };
+    setIsCheckboxChecked(Object.values(newState).some((value) => value)); // newState의 모든 값 중 하나라도 true이면 setIsCheckboxChecked에 true를 전달하고, 그렇지 않다면 false를 전달
   };
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
@@ -34,10 +46,26 @@ const Leave = () => {
   const handleNoteChange = (e) => {
     setNote(e.target.value);
   };
+
   const handleSubmit = () => {
-    console.log("비밀번호: ", password);
-    console.log("탈퇴 사유: ", checkedState);
-    console.log("남기실 말씀: ", note);
+    DELETE_UserLeave(password, checkedState, note)
+      .then((data) => {
+        showQuestionAlert({
+          title: "정말 탈퇴하시겠습니까?",
+          text: "확인 클릭 시 고객님의 정보는 모두 삭제됩니다.",
+          saveText: "회원탈퇴에 성공하셨습니다. 로그인페이지로 이동합니다.",
+          navi: "/login",
+        });
+
+        /* 회원 정보 모두 삭제 */
+        localStorage.clear();
+        removeCookie("accessToken");
+        removeCookie("refreshToken");
+      })
+      .catch((error) => {
+        alert("회원탈퇴에 실패하셨습니다. 다시 한번 시도해주세요.");
+        console.log(error);
+      });
   };
 
   return (
@@ -102,12 +130,13 @@ const Leave = () => {
                 {leaveReasons.map((reason, index) => (
                   <div key={index}>
                     <Checkbox
+                      id={`checkbox-${index}`}
                       name={reason}
                       checked={checkedState[reason]} // 체크박스의 상태를 결정
                       onChange={handleCheckboxChange} // 체크박스가 클릭될 때 호출되는 함수를 지정
                       size="small"
                     />
-                    <label>{reason}</label>
+                    <label htmlFor={`checkbox-${index}`}>{reason}</label>
                   </div>
                 ))}
               </GridContainer>
@@ -137,9 +166,14 @@ const Leave = () => {
         </Table>
       </Main>
       <Submit>
-        <button type="submit" className="Btn_M_Navy" onClick={handleSubmit}>
+        <SubmitBtn
+          type="submit"
+          className="Btn_M_Navy"
+          onClick={handleSubmit}
+          disabled={password === undefined || !isCheckboxChecked}
+        >
           회원 탈퇴
-        </button>
+        </SubmitBtn>
       </Submit>
     </Wrap>
   );
@@ -209,4 +243,9 @@ const Submit = styled.div`
   padding-top: 4rem;
   display: flex;
   justify-content: flex-end;
+`;
+const SubmitBtn = styled.button`
+  background-color: ${({ disabled }) =>
+    disabled ? "var(--semi-light-grey)" : "var(--navy)"};
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
 `;

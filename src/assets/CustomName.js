@@ -16,29 +16,39 @@ export const customStatusName = (status) => {
     case "item":
       return "상품";
     default:
-      return "상태 미정";
+      return;
+  }
+};
+export const customStatusNameReverse = (status) => {
+  switch (status) {
+    case "답변 대기":
+      return "PROCESSING";
+    case "답변 완료":
+      return "COMPLETED";
+    default:
+      return;
   }
 };
 /* [문의] 상품, 회원정보, 상품확인, 배송, 교환/취소, 기타 */
 export const customAskCategoryName = (category, isReverse) => {
   const map = {
-    ITEM_INQUIRY: "상품 문의",
-    MEMBER_INFORMATION: "회원 정보 문의",
-    DELIVERY: "배송 문의",
-    EXCHANGE_CANCELLATION: "교환/취소 문의",
-    ETC: "기타 문의",
+    ITEM_INQUIRY: "상품",
+    MEMBER_INFORMATION: "회원 정보",
+    DELIVERY: "배송",
+    EXCHANGE_CANCELLATION: "교환/취소",
+    ETC: "기타",
   };
 
   const reverseMap = {
-    "상품 문의": "ITEM_INQUIRY",
-    "회원 정보 문의": "MEMBER_INFORMATION",
-    "배송 문의": "DELIVERY",
-    "교환/취소 문의": "EXCHANGE_CANCELLATION",
-    "기타 문의": "ETC",
+    상품: "ITEM_INQUIRY",
+    "회원 정보": "MEMBER_INFORMATION",
+    배송: "DELIVERY",
+    "교환/취소": "EXCHANGE_CANCELLATION",
+    기타: "ETC",
   };
 
   if (isReverse) {
-    return reverseMap[category] || "UNKNOWN_STATUS";
+    return reverseMap[category] || undefined;
   } else {
     return map[category] || "상태 미정";
   }
@@ -62,14 +72,11 @@ export const CustomMileageStatusNameReverse = (status) => {
     case "승인":
       return "APPROVED";
     case "반려":
-      return "REJECTED"
+      return "REJECTED";
     default:
       return "전체";
   }
-
-
-
-}
+};
 
 /* 2024-01-28T02:58:56.773782 -> 2024.01.28 */
 export const customDate = (createdAt) => {
@@ -183,5 +190,29 @@ export const subCategoryFormat = (category, isToServer) => {
     return map[category] || category;
   } else {
     return reverseMap[category] || category;
+  }
+};
+
+/* 회원탈퇴 */
+export const customLeaveCategoryName = (category) => {
+  switch (category) {
+    case "고객서비스 불만":
+      return "SERVICE_COMPLAIN";
+    case "배송 불만":
+      return "DELIVERY_COMPLAIN";
+    case "환불정책 불만":
+      return "REFUND_POLICY_COMPLAIN";
+    case "방문빈도 낮음":
+      return "LESS_FREQUENT_VISITS";
+    case "상품가격 불만":
+      return "ITEM_PRICE_COMPLAIN";
+    case "개인정보 유출 우려":
+      return "PRIVACY_LEAKAGE_COMPLAIN";
+    case "신뢰도 불만":
+      return "RELIABILITY_COMPLAIN";
+    case "퇴사":
+      return "COMPANY_LEAVE";
+    default:
+      return "상태 미정";
   }
 };
