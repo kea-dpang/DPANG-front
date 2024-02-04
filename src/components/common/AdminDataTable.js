@@ -9,6 +9,7 @@ const DataTable = ({
   filterValue,
   index,
   placeholder,
+  onPageChange, 
   checkBoxCheck, // 체크박스 유무
 }) => {
   // data 상태 관리
@@ -53,6 +54,9 @@ const DataTable = ({
           ...d,
           dataIndex: filteredData[d.dataIndex][columns[0].name],
         })),
+      onChangePage: (page) => {
+        onPageChange(page);
+      }
       };
 
       onRowsDelete(rowsDeletedUpdated);

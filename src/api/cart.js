@@ -21,8 +21,8 @@ export const GET_CartList = async (userId) => {
   });
   return res.data;
 };
-// 장바구니 목록 조회
-export const DELETE_Cart = async (userId) => {
+// 장바구니 상품 삭제
+export const DELETE_CartItem = async (userId) => {
   console.log("장바구니 상품 삭제합니당");
   const response = await axios({
     method: "delete",

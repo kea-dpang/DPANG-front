@@ -44,7 +44,7 @@ function TableRow({ data }) {
   const navi = useNavigate();
   //pagination에서 현재 페이지
   const [currentPage, setCurrentPage] = useState(1);
-  const [cancelData, setCancelData] = useState([]);
+  const [cancelData, setCancelData] = useState([]); //취소 목록울 저장할 STATE
 
   //page가 변경된 경우
   const handlePageChange = (_, newPage) => {

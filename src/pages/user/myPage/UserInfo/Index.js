@@ -9,7 +9,7 @@ const UserInfoPage = () => {
   const [infoData, setInfoData] = useState();
 
   useEffect(() => {
-    GET_User(1)
+    GET_User()
       .then((data) => {
         console.log("일단 확인해보자.", data.data);
         setInfoData(data.data);

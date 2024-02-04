@@ -7,15 +7,45 @@ import SearchIcon from "@mui/icons-material/Search";
 import Dropdown from "components/common/Dropdown";
 import DataTable from "components/common/AdminDataTable";
 import data from "assets/data/admin/AdminCancelData";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect  } from "react";
+import { useNavigate} from "react-router-dom";
+import { GET_cancel_list } from "@api/cancel";
 
 const Index = () => {
   const navigate = useNavigate();
   //  상태 저장 : 예정, 진행, 종료
   const [index, setIndex] = React.useState("");
+  //서버로부터 받아올 값을 저장해놓을 리스트
+  const [cancelList, setCancelList] = useState([]);
   //필터링을 해줄 dropdown 박스의 값. 첫 값은 이름, 뒤에 두 값은 필터링에 들어갈 value
   const dropdownValue = ["취소 상태", "취소요청", "취소승인"];
+
+  const [val, setVal] = useState({
+
+    userId: "",
+    startDate: "",
+    endDate: "",
+    page: 0,
+    size: 10,
+    sort: "",
+
+  });
+
+  //서버로부터 데이터 리스트를 가져올 API 호출
+  useEffect(()=>{
+
+    GET_cancel_list(val)
+    .then((data)=>{
+      console.log(data, "성공했다!!")
+    })
+    .catch((error)=>{
+      console.log(error, "비사앙아아아앙")
+    })
+
+
+
+  }, [val])
+
   const columns = [
     { name: "id", label: "번호", options: { sort: false } },
     {

@@ -1,3 +1,4 @@
+import { POST_refund_order } from '@api/refund'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
@@ -68,7 +69,7 @@ align-items: end;
 const TextArea = styled.textarea`
 
 width: 55rem;
-height: 10rem;
+height:${(props)=>props.height};
 resize: none;
 outline: none;
 padding: 10px;
@@ -115,6 +116,28 @@ function RequestTable() {
     const navi = useNavigate();
     const [category, setCategory] = useState("");
     const [text, setText] = useState("");
+    const [message, setMessage] = useState("");
+
+    const handleSubmit = () =>{
+
+        const val = {
+            orderId: 0, 
+            refundCategory: category, 
+            refundMessage: text, 
+            refundShipmentMessage: message, 
+
+        }
+
+        POST_refund_order(val)
+        .then((data)=>{
+            console.log("성공~", data);
+        })
+        .catch((error)=>{
+            console.log("실패실패", error)
+        })
+
+
+    }
 
     return (
         <Wrapper>
@@ -143,7 +166,15 @@ function RequestTable() {
                     <Row height="15rem" className="cm-SRegular16">
                         <ColHeader height="15rem" className="cm-SBold16">비고</ColHeader>
                         <Col width="62rem" height="15rem">
-                            <TextArea className="cm-SRegular16" onChange={(e)=>{setText(e.target.value)}}/>
+                            <TextArea height = "10rem" className="cm-SRegular16" onChange={(e)=>{setText(e.target.value)}}/>
+                        </Col>
+                    </Row>
+                    <Border />
+
+                    <Row height="10rem" className="cm-SRegular16">
+                        <ColHeader height="10rem" className="cm-SBold16">회수 메시지</ColHeader>
+                        <Col width="62rem" height="10rem">
+                            <TextArea height="6rem" className="cm-SRegular16" onChange={(e)=>{setMessage(e.target.value)}}/>
                         </Col>
                     </Row>
                     <Border />
@@ -152,7 +183,7 @@ function RequestTable() {
 
             </Container>
             <ButtonBox>
-                <Button className="cm-SBold16" onClick={() => { console.log(category + "\\" + text); navi('/user/mypage/temp/order'); }}>반품 신청</Button>
+                <Button className="cm-SBold16" onClick={() => { handleSubmit(); navi('/user/mypage/temp/order'); }}>반품 신청</Button>
             </ButtonBox>
 
 
