@@ -1,27 +1,41 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { GET_QnAList } from "@api/directAsk";
-import { customDate, customStatusName } from "assets/CustomName";
+import { GET_QnAList, GET_QnA } from "@api/directAsk";
+import { customDate } from "assets/CustomName";
 
-const ProductAskList = () => {
+const ProductAskList = (value) => {
   const tableTitles = ["제목", "작성자", "작성일", "상태"];
   const colWidths = ["50%", "15%", "15%", "20%"];
-
   const [askLists, setAskLists] = useState([]);
+  const [detail, setDetail] = useState([]);
 
   const [selectedRow, setSelectedRow] = useState(null);
-  const handleRowClick = (index) => {
+  const handleRowClick = (index, id) => {
     if (selectedRow === index) {
       setSelectedRow(null);
     } else {
-      setSelectedRow(index);
+      GET_QnA(id)
+        .then((data) => {
+          setDetail(data.data);
+          setSelectedRow(index);
+          console.log("답변 상세조회 ", data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   };
 
   useEffect(() => {
-    GET_QnAList(0)
+    GET_QnAList({
+      userId: undefined,
+      category: "상품",
+      status: undefined,
+      itemId: value.value.itemId,
+    })
       .then((data) => {
         setAskLists(data.data.content);
+        console.log("askLists: ", data.data.content);
       })
       .catch((error) => {
         console.log(error);
@@ -41,30 +55,30 @@ const ProductAskList = () => {
       <Main>
         {askLists.map((item, index) => (
           <React.Fragment key={item.qnaId}>
-            <Row onClick={() => handleRowClick(index)}>
+            <Row onClick={() => handleRowClick(index, item.qnaId)}>
               <Item width={colWidths[0]} $state="not">
                 {item.title}
               </Item>
-              <Item width={colWidths[1]} $state="not">
-                {item.userName}
+              <Item className="col-DarkGrey" width={colWidths[1]} $state="not">
+                {item.user.name}
               </Item>
-              <Item width={colWidths[2]} $state="not">
+              <Item className="col-DarkGrey" width={colWidths[2]} $state="not">
                 {customDate(item.createdAt)}
               </Item>
-              <Item width={colWidths[3]} $state={item.askState}>
-                {customStatusName(item.status)}
+              <Item width={colWidths[3]} $state={item.status}>
+                {item.status}
               </Item>
             </Row>
             {selectedRow === index && (
               <FoldItem>
                 <FoldItemContent>
-                  <h1 className="cm-SBold18">Q.&nbsp; </h1>
-                  <p className="cm-SRegular18">{item.content}</p>
+                  <h1 className="cm-SBold16">Q.&nbsp; </h1>
+                  <p className="cm-SRegular16">{detail.contents}</p>
                 </FoldItemContent>
-                {item.answer && (
+                {detail.answer && (
                   <FoldItemContent>
-                    <h1 className="cm-SBold18 col-Orange">A.&nbsp; </h1>
-                    <p className="cm-SRegular18">{item.answer}</p>
+                    <h1 className="cm-SBold16 col-Orange">A.&nbsp; </h1>
+                    <p className="cm-SRegular16">{detail.answer}</p>
                   </FoldItemContent>
                 )}
               </FoldItem>
@@ -82,6 +96,8 @@ const Table = styled.div`
   padding: 0rem 8rem 4rem 8rem;
 `;
 const TableHeader = styled.div`
+  padding-left: 3rem;
+  box-sizing: border-box;
   background-color: var(--white);
   color: var(--black);
   border-top: 2px solid var(--black);
@@ -89,7 +105,7 @@ const TableHeader = styled.div`
   height: 4rem;
   width: 100%;
   display: flex;
-  text-align: center;
+  text-align: start;
   align-items: center;
 `;
 const Col = styled.div`
@@ -101,12 +117,13 @@ const Main = styled.div`
   flex-direction: column;
 `;
 const Row = styled.button`
+  padding-left: 3rem;
   border-top: 1px solid var(--semi-light-grey);
   background-color: white;
   width: 100%;
   height: 3.7535rem;
   display: flex;
-  text-align: center;
+  text-align: start;
   align-items: center;
   color: inherit;
 `;

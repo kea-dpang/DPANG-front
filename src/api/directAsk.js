@@ -17,7 +17,7 @@ export const GET_QnAList = async ({
 }) => {
   category = customAskCategoryName(category, true);
   state = customStatusNameReverse(state, true);
-  console.log(userId, category, state, period, itemId);
+  console.log("문의조회합니다요: ", userId, category, state, period, itemId);
 
   const res = await axios({
     method: "get",
