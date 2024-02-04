@@ -104,3 +104,20 @@ export const GET_Order = async (id) => {
     return res.data;
 
   }
+
+  export const GET_order_detail = async(orderId) =>{
+
+    console.log("서버로 전달할 데이터는", orderId);
+
+    const res = await axios({
+      method: 'get', 
+      url: `${url}/${orderId}`
+
+
+    })
+
+    return res.data;
+
+
+
+  }

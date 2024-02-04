@@ -38,6 +38,8 @@ const ItemImg = styled.img`
 const ItemName = styled.div`
   width: 11rem;
 `;
+
+//문자열이 너무 길어지면 잘라주기
 function trimContent(str) {
   if (str.length > 30) return str.slice(0, 30) + ".......";
   else return str;
@@ -45,10 +47,12 @@ function trimContent(str) {
 
 function TableRow(props) {
 
+  const id = parseInt(localStorage.getItem('userId'), 10);
+
   //기간 값 설정
   const period = useRecoilValue(periodAtom);
   const [val, setVal] = useState({
-    reviewerId: 1,
+    reviewerId: id,
     page: 0,
     size: 10,
     sort: "",

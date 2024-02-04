@@ -190,6 +190,7 @@ return (
           options={options}
           placeholder={dropdownValue[0]}
           onPageChange={handlePageChange}
+          checkBoxCheck={false}
         />
       </ListSection>
     </Wrap>

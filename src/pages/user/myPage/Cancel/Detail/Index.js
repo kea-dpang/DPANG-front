@@ -3,6 +3,7 @@ import DetailBox from "./DetailBox";
 import Refund from "./Refund/Index";
 import { useParams } from "react-router-dom";
 import TempData from "assets/data/user/UserCancelData";
+import { GET_cancel_detail } from "@api/cancel";
 
 const Container = styled.div`
   min-height: 100vh;
@@ -25,6 +26,14 @@ function Index() {
   const { id } = useParams();
   const refundData = [...TempData];
   const data = refundData[id];
+
+  GET_cancel_detail(id)
+  .then((data)=>{
+    console.log("성공성공", data);
+  })
+  .catch((error)=>{
+    console.log("실패실패", error);
+  })
 
   return (
     <Container>

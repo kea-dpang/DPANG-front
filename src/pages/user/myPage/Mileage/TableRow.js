@@ -42,18 +42,19 @@ const getColour = (s) => {
 };
 
 function TableRow() {
-  //pagination에서 현재 페이지
+  //local storage에서 ID 값 가져오기
+  const id = parseInt(localStorage.getItem('userId'), 10)
 
   const [mileageList, setMileageList] = useState([]);
   const [numOfElement, setNumOfElement] = useState(0);
 
+
+
   //recoil통해 날짜 기간 값 받아오기
   const period = useRecoilValue(periodAtom);
 
-  
-
   const [val, setVal] = useState({
-    userId: 1,
+    userId: id,
     status: "",
     startDate: period.startDate,
     endDate: period.endDate,

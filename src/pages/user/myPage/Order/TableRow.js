@@ -20,12 +20,12 @@ function TableRow({ data }) {
   //pagination에서 현재 페이지
   const [currentPage, setCurrentPage] = useState(1);
   const [orderList, setOrderList] = useState([]);
-  const userId = 1; //userId는 나중에 바꿀 수 있어야 한다
 
   const period = useRecoilValue(periodAtom);
+  const userId = localStorage.getItem("userId");
 
   const [val, setVal] = useState({
-    userrId: 1,
+    userrId: userId,
     page: 0,
     size: 10,
     sort: "",
@@ -37,7 +37,7 @@ function TableRow({ data }) {
   //page가 변경된 경우
   const handlePageChange = (_, newPage) => {
     //현재 페이지를 새로운 페이지로 변경
-    setCurrentPage(newPage);
+    setCurrentPage(newPage); 
   };
 
   //order리스트를 가져올 API를 호출

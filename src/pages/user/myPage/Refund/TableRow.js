@@ -47,11 +47,11 @@ function TableRow({ data }) {
   //pagination에서 현재 페이지
   const [currentPage, setCurrentPage] = useState(1);
   const [refundList, setRefundList] = useState([]);
+  const userId = parseInt(localStorage.getItem('userId'));
 
   const period = useRecoilValue(periodAtom);
 
 
-  const userId = 1;
   const [val, setVal] = useState({
     userId: userId,
     startDate: "",
@@ -64,7 +64,6 @@ function TableRow({ data }) {
 
 
   useEffect(() => {
-
 
     GET_refund_list(val)
       .then((data) => {
