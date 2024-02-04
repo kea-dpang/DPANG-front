@@ -11,15 +11,15 @@ function ProductCodeInput({ onAddProduct }) {
   };
 
   const handleCodeChange = (e) => {
-    let check = /[~!@#$%^&*()_+|<>?:{}.,/;='"ㄱ-ㅎ | ㅏ-ㅣ |가-힣]/;
-    const isRight = check.test(e.target.value);
-    setIsRight(isRight);
-    console.log("isRight: ", isRight);
+    // let check = /[~!@#$%^&*()_+|<>?:{}.,/;='"ㄱ-ㅎ | ㅏ-ㅣ |가-힣]/;
+    // const isRight = check.test(e.target.value);
+    // setIsRight(isRight);
+    // console.log("isRight: ", isRight);
     setCode(e.target.value);
   };
 
   const onKeyPress = (e) => {
-    if (e.key === "Enter" && isRight) {
+    if (e.key === "Enter") {
       e.preventDefault();
       onAddProduct(code);
       setCode("");

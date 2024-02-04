@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Carousel from "./Carousel";
 
-const ItemSection = (props) => {
+const BestItemSection = (props) => {
   console.log(props.title);
   console.log(props.filter);
   return (
@@ -11,7 +11,7 @@ const ItemSection = (props) => {
       <Wrap>
         <Title
           className="cm-XLBold36"
-          to={`/user/collections/${props.filter}`}
+          to={`/user/collections/best`}
           state={{ title: props.title }}
         >
           {props.title}
@@ -22,7 +22,7 @@ const ItemSection = (props) => {
   );
 };
 
-export default ItemSection;
+export default BestItemSection;
 
 const Wrap = styled.div`
   display: flex;

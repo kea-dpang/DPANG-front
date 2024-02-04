@@ -4,13 +4,30 @@ import "@styles/fonts.css";
 import dayjs from "dayjs";
 import EventDate from "./EventDate";
 import EventImage from "./EventImage";
-import EventBrandName from "./EventBrandName";
 import InputText from "@adminPages/item/product/Enroll/InputText";
 import { POST_Image } from "@api/image";
 import { useNavigate } from "react-router-dom";
 import { POST_BrandEvent } from "@api/event";
+import SearchDropdown from "@components/SearchDropdown";
+import { GET_BrandList } from "@api/Brand";
 
 const Index = () => {
+  const [brand, setBrand] = useState([]);
+  useEffect(() => {
+    GET_BrandList()
+      .then((data) => {
+        console.log("brand : ", data.data.content);
+        const brandData = data.data.content.map((item) => ({
+          id: item.id,
+          name: item.name,
+        }));
+        setBrand(brandData);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   const navi = useNavigate();
   const [isFormValid, setFormValid] = useState(false); // 입력값 다 입력했는지 판단
   const [inputValue, setInputValue] = useState({
@@ -56,8 +73,8 @@ const Index = () => {
     setInputValue({ ...inputValue, endDate: date });
   };
   // 브랜드이름 변경 감지
-  const handleBrandChange = (e, changedValue) => {
-    setInputValue({ ...inputValue, sellerId: changedValue });
+  const handleBrandChange = (e) => {
+    setInputValue({ ...inputValue, sellerId: e });
   };
   // 이벤트 할인율 변경 감지
   const handlePercentChange = (e) => {
@@ -126,7 +143,12 @@ const Index = () => {
           {/* 브랜드 이름 */}
           <Row>
             <p className="cm-SBold16 col-Black">브랜드 이름</p>
-            <EventBrandName onChange={handleBrandChange} />
+            <SearchDropdown
+              id="brand"
+              options={brand}
+              width={"100%"}
+              onChange={handleBrandChange}
+            />
           </Row>
           {/* 이벤트 할인율 */}
           <Row>
@@ -204,10 +226,6 @@ const Row = styled.div`
     justify-content: center;
     text-align: center;
   }
-`;
-const Content = styled.div`
-  width: 100%;
-  margin: 1rem;
 `;
 const Submit = styled.div`
   padding-top: 3rem;
