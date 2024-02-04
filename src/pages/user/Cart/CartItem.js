@@ -24,7 +24,9 @@ const CartItem = ({ item, updateQuantity, updateChecked, deleteItem  }) => {
 
   useEffect(() => {
     updateQuantity(item.id, quantity);
-  }, [quantity, item.id, updateQuantity]);
+  }, [item.id, quantity]);
+  
+  
 
   const handleIncrease = () => {
     setQuantity(quantity + 1);
@@ -72,7 +74,7 @@ const CartItem = ({ item, updateQuantity, updateChecked, deleteItem  }) => {
                 <AddIcon fontSize='small' />
               </Button>
             </ButtonGroup>
-            <p className="cm-SBold16 col-Black">{item.price * quantity}마일</p>
+            <p className="cm-SBold16 col-Black">{item.price * quantity}원</p>
           </ItemState>
         </ItemInfo>
     </Content>
