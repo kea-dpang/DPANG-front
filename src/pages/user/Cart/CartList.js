@@ -8,7 +8,6 @@ import { GET_CartList } from "@api/cart";
 const CartList = () => {
   const [cartItems, setCartItems] = useState(data);
 
-
   useEffect(() => {
     list();
   }, []);
@@ -16,12 +15,11 @@ const CartList = () => {
   const list = async () => {
     try {
       const cart = await GET_CartList();
-      setCartItems(cart);
+      // setCartItems(cart);
     } catch (error) {
       console.log(error);
     }
   };
-
 
   const calculateTotalPrice = () => {
     let totalPrice = 0;
@@ -55,35 +53,39 @@ const CartList = () => {
     );
   };
 
-  
-
   const deleteItem = (itemId) => {
     setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
   };
 
   return (
     <Wrap>
-    <Container>
-    {cartItems.map((item) => (
-        <CartItem
-          key={item.id}
-          item={item}
-          updateQuantity={updateQuantity}
-          updateChecked={updateChecked}
-          deleteItem={deleteItem}
-        />
-      ))}
-      <TotalPrice>
-        <p className="cm-SBold16 col-Black">총 가격: {calculateTotalPrice()}원</p>
-      </TotalPrice>
-    </Container>
-    <PriceBox>
-      <p className="cm-SBold16 col-Navy">상품금액 {calculateTotalPrice()}원</p>
-      <p className="cm-SBold16 col-Navy">+</p>
-      <p className="cm-SBold16 col-Navy">배송비 3000원</p>
-      <p className="cm-SBold16 col-Navy">=</p>
-      <p className="cm-SBold16 col-Navy">주문 예상 금액 {calculateTotalPrice() + 3000}원</p>
-    </PriceBox>
+      <Container>
+        {cartItems.map((item) => (
+          <CartItem
+            key={item.id}
+            item={item}
+            updateQuantity={updateQuantity}
+            updateChecked={updateChecked}
+            deleteItem={deleteItem}
+          />
+        ))}
+        <TotalPrice>
+          <p className="cm-SBold16 col-Black">
+            총 가격: {calculateTotalPrice()}원
+          </p>
+        </TotalPrice>
+      </Container>
+      <PriceBox>
+        <p className="cm-SBold16 col-Navy">
+          상품금액 {calculateTotalPrice()}원
+        </p>
+        <p className="cm-SBold16 col-Navy">+</p>
+        <p className="cm-SBold16 col-Navy">배송비 3000원</p>
+        <p className="cm-SBold16 col-Navy">=</p>
+        <p className="cm-SBold16 col-Navy">
+          주문 예상 금액 {calculateTotalPrice() + 3000}원
+        </p>
+      </PriceBox>
     </Wrap>
   );
 };
@@ -100,7 +102,7 @@ const Wrap = styled.div`
 
 const Container = styled.div`
   width: 74.8125rem;
-  background: var(--light-grey, #F4F4F4);
+  background: var(--light-grey, #f4f4f4);
   display: flex;
   flex-direction: column;
   justify-content: center;

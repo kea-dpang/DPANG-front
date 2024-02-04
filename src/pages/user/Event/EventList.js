@@ -2,10 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 const EventList = ({ data }) => {
+  console.log("impagePath: ", encodeURI(data.imagePath));
   return (
     <>
       <Wrap>
-        <EventImg $imgUrl={data.imagePath} />
+        <EventImg $imgUrl={encodeURI(data.imagePath)} />
         <TestWrap>
           <div className="cm-SBold18">{data.eventName}</div>
           <div className="cm-SRegular16">
