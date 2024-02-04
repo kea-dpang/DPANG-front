@@ -3,6 +3,8 @@ import { useState, React } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as CartImg } from "@images/cart.svg";
 import { ReactComponent as LikeImg } from "assets/images/heart.svg";
+import { POST_Cart } from "@api/cart";
+import { useQuestionAlert } from "@components/SweetAlert";
 
 // 상품 미리보기 (카드)
 const Item = (props) => {
@@ -10,17 +12,33 @@ const Item = (props) => {
   const saleprice =
     props.value.itemPrice -
     (props.value.itemPrice * props.value.discountRate) / 100;
-  // TODO: liked 상태 props에서 가져오기. 지금은 undefined라서 못 가져옴
-  const [liked, setLiked] = useState(false);
-  const handleLike = () => {
-    setLiked(!liked);
-    console.log("islike: ", liked);
-    console.log("id: ", props.value.id);
-  };
+  // liked 상태 props에서 가져오기. 지금은 undefined라서 못 가져옴
+  // const [liked, setLiked] = useState(false);
+  // const handleLike = () => {
+  //   setLiked(!liked);
+  //   console.log("islike: ", liked);
+  //   console.log("id: ", props.value.id);
+  // };
+
   const navigate = useNavigate();
+  const showQuestionAlert = useQuestionAlert();
+
   const handleCartAdd = () => {
-    alert("장바구니로 이동합니다.");
-    navigate(`/user/cart`);
+    showQuestionAlert({
+      title: "장바구니에 상품이 추가되었습니다.",
+      text: "장바구니 페이지로 이동하시겠습니까?",
+      saveText: "",
+      navi: "",
+      onConfirm: async () => {
+        try {
+          const data = await POST_Cart(props.value.itemId, 1);
+          console.log("장바구니 등록 성공 야호!", data.data);
+          navigate(`/user/cart`);
+        } catch (error) {
+          console.log("장바구니 등록에 실패했습니다 ㅠㅠㅠ", error);
+        }
+      },
+    });
   };
 
   return (

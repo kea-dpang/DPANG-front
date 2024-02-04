@@ -48,12 +48,42 @@ export const useConfirmAlert = () => {
   return showConfirmAlert;
 };
 
+// /* 한번 더 물어보는 alert */
+// export const useQuestionAlert = () => {
+//   const navigate = useNavigate();
+
+//   const showQuestionAlert = useCallback(
+//     ({ title, text, saveText, navi }) => {
+//       Swal.fire({
+//         icon: "question",
+//         title: title,
+//         text: text,
+//         showCancelButton: true,
+//         confirmButtonText: "확인",
+//         cancelButtonText: "취소",
+//       }).then((result) => {
+//         if (result.isConfirmed) {
+//           if (saveText != "") {
+//             Swal.fire(saveText, "", "success");
+//           }
+//           if (navi !== "") {
+//             navigate(navi);
+//           }
+//         }
+//       });
+//     },
+//     [navigate]
+//   );
+
+//   return showQuestionAlert;
+// };
+
 /* 한번 더 물어보는 alert */
 export const useQuestionAlert = () => {
   const navigate = useNavigate();
 
   const showQuestionAlert = useCallback(
-    ({ title, text, saveText, navi }) => {
+    ({ title, text, saveText, navi, onConfirm }) => {
       Swal.fire({
         icon: "question",
         title: title,
@@ -63,9 +93,16 @@ export const useQuestionAlert = () => {
         cancelButtonText: "취소",
       }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire(saveText, "", "success");
-          if (navi !== "") {
-            navigate(navi);
+          if (saveText != "") {
+            Swal.fire(saveText, "", "success");
+          }
+          // '확인' 버튼을 눌렀을 때 실행되어야 할 함수 호출
+          if (typeof onConfirm === "function") {
+            onConfirm().then(() => {
+              if (navi !== "") {
+                navigate(navi);
+              }
+            });
           }
         }
       });
