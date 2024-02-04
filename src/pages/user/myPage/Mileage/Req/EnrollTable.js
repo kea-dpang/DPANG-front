@@ -3,29 +3,51 @@ import { GlobalStyle } from "styles/GlobalStyled";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { POST_mileage_request } from "@api/mileage";
+import { useQuestionAlert } from "@components/SweetAlert";
+import Swal from "sweetalert2";
 
 function EnrollTable(props) {
+
+//alert창을 커스텀해서 보내준다
+  const showQuestionAlert = (options) => {
+    return Swal.fire({
+      title: "마일리지를 신청하시겠습니까?",
+      text: "확인을 누르면 신청됩니다",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText:"확인", 
+      cancelButtonText: "취소", 
+    });
+  }
   const [money, setMoney] = useState(0);
   const user = props.userData;
   const [name, setName] = useState(user.name);
   const navi = useNavigate();
 
+
+
+
   const handleClick = () => {
-    const XID = 1;
-    const userId = 1;
-
-    const data = { XID: XID, userId: userId, amount: money, depositor: name };
-    console.log(data);
-
-    POST_mileage_request(data)
-      .then((data) => {
-        console.log("등록", data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    navi("/user/mypage/order");
+    showQuestionAlert()
+    .then((result) => {
+      if (result.isConfirmed) {
+        const XID = 1;
+        const userId = 1;
+  
+        const data = { XID: XID, userId: userId, amount: money, depositor: name };
+        console.log(data);
+    
+        POST_mileage_request(data)
+          .then((data) => {
+            console.log("등록", data.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    
+        navi("/user/mypage/order");
+      }
+    });
   };
 
   return (
@@ -149,7 +171,7 @@ const InputBox = styled.div`
   box-sizing: border-box;
 `;
 
-const TextArea = styled.textarea`
+const TextArea = styled.input`
   width: 18rem;
   height: 1.2rem;
   resize: none;

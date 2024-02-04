@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import { POST_charge_req } from "@api/mileage";
 import { useNavigate } from "react-router-dom";
 import { customDate, customMileageStatusName, CustomMileageStatusNameReverse } from "assets/CustomName";
+import Swal from "sweetalert2";
 
 const Index = (props) => {
   const navigate = useNavigate();
@@ -23,151 +24,177 @@ const Index = (props) => {
     pagination: false,
   }
 
+  //alert창을 커스텀해서 보내준다
+  const showQuestionAlert = (options) => {
+    return Swal.fire({
+      title: options.title,
+      text: options.text,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: "확인",
+      cancelButtonText: "취소",
+    });
+  }
+
+
   const handlePageChange = async (newPage) => {
 
 
   }
 
+  //승인 버튼을 누를 경우에 handling
   const handleApprove = (val) => {
     // 확인 창을 띄움
-    const userConfirmed = window.confirm("충전을 승인하시겠습니까?");
-
-    // 사용자가 확인을 누른 경우에만 POST_charge_req를 호출
-    if (userConfirmed) {
-      POST_charge_req(val);
-      alert("충전이 완료되었습니다.");
-      window.location.reload();
-    }
-  };
-
-  const handleReject = (val) => {
-
-    const userReject = window.confirm("충전을 거절하시겠습니까?")
-
-    if (userReject) {
-
-      POST_charge_req(val);
-      alert("충전 신청이 거절되었습니다. ");
-      window.location.reload();
-
-
-    }
-
+    showQuestionAlert({
+      title: "신청을 승인하시겠습니까?",
+      text: "신청 승인하기"
+    })
+      .then((result) => {
+        if(result.isConfirmed){
+        POST_charge_req(val, bool);
+        window.location.reload();}
+        else{
+          console.log("거절")
+        }
+      })
   }
 
+//거절 버튼을 누를 경우에 handling
+const handleReject = (val) => {
+
+  showQuestionAlert({
+    title: "신청을 반려하시겠습니까?",
+    text: "신청 반려하기",
+
+  })
+  .then((result)=>{
+    if(result.isConfirmed){
+      POST_charge_req(val, !bool);
+      window.location.reload();
+    }
+    else{
+      console.log("취소");
+    }
+
+  })
 
 
-  const columns = [
-    { name: "chargeRequestId", label: "번호", options: { sort: false } },
-    {
-      name: "requestDate",
-      label: "요청일자",
-      options: {
-        customBodyRender: (value) => {
-          return customDate(value);
-        },
+
+}
+
+
+
+const columns = [
+  { name: "chargeRequestId", label: "번호", options: { sort: false } },
+  {
+    name: "requestDate",
+    label: "요청일자",
+    options: {
+      customBodyRender: (value) => {
+        return customDate(value);
       },
     },
-    {
-      name: "status",
-      label: "처리 상태",
-      options: {
-        customBodyRender: (value) => {
-          return customMileageStatusName(value);
-        },
+  },
+  {
+    name: "status",
+    label: "처리 상태",
+    options: {
+      customBodyRender: (value) => {
+        return customMileageStatusName(value);
       },
     },
-    { name: "name", label: "이름" },
-    { name: "depositorName", label: "입금자명" },
-    { name: "requestedMileage", label: "충전 희망 금액" },
-    {
-      name: "chargeRequestId",
-      label: "충전 상태 관리",
-      options: {
-        customBodyRender: (value, tableMeta) => {
-          //ID를 기준으로 데이터 찾기
-          const rowData = props.mileageList.find(
-            (row) => row.chargeRequestId === value
-          );
+  },
+  { name: "name", label: "이름" },
+  { name: "depositorName", label: "입금자명" },
+  { name: "requestedMileage", label: "충전 희망 금액" },
+  {
+    name: "chargeRequestId",
+    label: "충전 상태 관리",
+    options: {
+      customBodyRender: (value, tableMeta) => {
+        //ID를 기준으로 데이터 찾기
+        const rowData = props.mileageList.find(
+          (row) => row.chargeRequestId === value
+        );
 
-          //주문 상태를 가져옴
-          const status = rowData["status"];
+        //주문 상태를 가져옴
+        const status = rowData["status"];
 
-          return status === "REQUESTED" ? (
-            <ButtonBox style={{ display: "flex" }}>
-              <Button colour="var(--navy)" onClick={() => { handleApprove(value, bool) }}>
-                승인
-              </Button>
-              <Button colour="var(--orange)" onClick={() => { handleReject(value, !bool) }}>거절</Button>
-            </ButtonBox>
-          ) : null;
-        },
+        return status === "REQUESTED" ? (
+          <ButtonBox style={{ display: "flex" }}>
+            <Button colour="var(--navy)" onClick={() => { handleApprove(value, bool) }}>
+              승인
+            </Button>
+            <Button colour="var(--orange)" onClick={() => { handleReject(value, !bool) }}>거절</Button>
+          </ButtonBox>
+        ) : null;
       },
     },
-  ];
+  },
+];
 
-  //선택한 드롭 박스의 값을 저장하기 위한 state 변수
-  const [selectedCategory, setSelectedCategory] = useState(dropdownValue[0]);
-  const handleCategoryChange = (newCategory) => {
-    //드롭다운 박스에서 가져온 값으로 카테고리를 설정
-    
-    setSelectedCategory(newCategory);
-  };
+//선택한 드롭 박스의 값을 저장하기 위한 state 변수
+const [selectedCategory, setSelectedCategory] = useState(dropdownValue[0]);
+const handleCategoryChange = (newCategory) => {
+  //드롭다운 박스에서 가져온 값으로 카테고리를 설정
 
-  return (
-    <>
-      <Wrap>
-        <PageName className="cm-LBold30 col-Black"> 마일리지 관리</PageName>
-        {/* 검색창, 취소 상태 필터링 박스 */}
-        <FilterSection>
-          {/* 취소 상태 드롭다운, 검색창*/}
-          <SearchWrap>
-            {/* 카테고리 선택 드롭다운*/}
-            <Dropdown
-              value={dropdownValue}
-              width={"10rem"}
-              onChange={handleCategoryChange}
-            />
-            {/* 검색창 */}
-            <Paper
-              component="form"
-              sx={{
-                p: "0rem 1rem",
-                display: "flex",
-                alignItems: "center",
-                width: "25rem",
-                height: "3rem",
-              }}
-            >
-              {/* 검색어 입력창 */}
-              <InputBase
-                sx={{ ml: 1, flex: 1, height: "100%" }}
-                placeholder="검색어를 입력해주세요"
-                inputProps={{ "aria-label": "검색어를 입력해주세요" }}
-              />
-              {/* 검색 버튼 (돋보기) */}
-              <IconButton type="button" aria-label="search">
-                <SearchIcon />
-              </IconButton>
-            </Paper>
-          </SearchWrap>
-        </FilterSection>
-        <ListSection>
-          {/* 공용 컴포넌트 호출 */}
-          <DataTable
-            data={props.mileageList}
-            columns={columns}
-            onRowClick={() => { }}
-            filterValue={CustomMileageStatusNameReverse(selectedCategory)}
-            index={"status"}
-            options={options}
-            placeholder={dropdownValue[0]}
-            onPageChange={handlePageChange}
+  setSelectedCategory(newCategory);
+};
+
+return (
+  <>
+    <Wrap>
+      <PageName className="cm-LBold30 col-Black"> 마일리지 관리</PageName>
+      {/* 검색창, 취소 상태 필터링 박스 */}
+      <FilterSection>
+        {/* 취소 상태 드롭다운, 검색창*/}
+        <SearchWrap>
+          {/* 카테고리 선택 드롭다운*/}
+          <Dropdown
+            value={dropdownValue}
+            width={"10rem"}
+            onChange={handleCategoryChange}
           />
-        </ListSection>
-      </Wrap>
-    </>
-  );
+          {/* 검색창 */}
+          <Paper
+            component="form"
+            sx={{
+              p: "0rem 1rem",
+              display: "flex",
+              alignItems: "center",
+              width: "25rem",
+              height: "3rem",
+            }}
+          >
+            {/* 검색어 입력창 */}
+            <InputBase
+              sx={{ ml: 1, flex: 1, height: "100%" }}
+              placeholder="검색어를 입력해주세요"
+              inputProps={{ "aria-label": "검색어를 입력해주세요" }}
+            />
+            {/* 검색 버튼 (돋보기) */}
+            <IconButton type="button" aria-label="search">
+              <SearchIcon />
+            </IconButton>
+          </Paper>
+        </SearchWrap>
+      </FilterSection>
+      <ListSection>
+        {/* 공용 컴포넌트 호출 */}
+        <DataTable
+          data={props.mileageList}
+          columns={columns}
+          onRowClick={() => { }}
+          filterValue={CustomMileageStatusNameReverse(selectedCategory)}
+          index={"status"}
+          options={options}
+          placeholder={dropdownValue[0]}
+          onPageChange={handlePageChange}
+        />
+      </ListSection>
+    </Wrap>
+  </>
+);
 };
 
 export default Index;

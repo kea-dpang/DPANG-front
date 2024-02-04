@@ -81,6 +81,8 @@ function TableRow() {
       })
       .catch((error) => {
         console.error("Error fectching mileage data: ", error);
+        //오류가 나는 경우에는 리스트를 빈 값으로 초기화
+        setMileageList([]);
       });
   }, [val]);
 
