@@ -13,11 +13,12 @@ const MypageTitleBox = () => {
   const navi = useNavigate();
   const [mileage, setMileage] = useState(0);
   const [personalChargedMileage, setPersonalChargedMileage] = useState(0);
+  const userName = localStorage.getItem("userId");
+  const userId = localStorage.getItem("userId");
 
   //처음에 페이지 로딩시 사용자의 회사 지급 마일리지, 개인 충전 마일리지를 return
   useEffect(() => {
     //초기 userID와 X-DPANG-CLIENT-ID 값을 넣어줌
-    const userId = 1;
     const clientId = 1;
 
     GET_mileage(userId, clientId)
