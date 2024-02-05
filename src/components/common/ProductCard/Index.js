@@ -32,7 +32,7 @@ const Item = (props) => {
       onConfirm: async () => {
         try {
           const data = await POST_Cart(props.value.itemId, 1);
-          console.log("장바구니 등록 성공 야호!", data.data);
+          console.log("장바구니 등록 성공 야호!", data);
           navigate(`/user/cart`);
         } catch (error) {
           console.log("장바구니 등록에 실패했습니다 ㅠㅠㅠ", error);
