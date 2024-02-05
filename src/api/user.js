@@ -15,19 +15,21 @@ export const GET_User = async () => {
   return res.data;
 };
 
-export const GET_UserList = async (categoryValue, searchValue) => {
+export const GET_UserList = async (categoryValue, searchValue, pageNum) => {
   categoryValue = customUserCategoryName(categoryValue, true);
 
   console.log("확인:", categoryValue);
   console.log("확인2:", searchValue);
+  console.log("확인3:", pageNum);
+
   const res = await axios({
     method: "get",
     url: `${url}/find`,
     params: {
       category: categoryValue,
       keyword: searchValue,
-      page: 0,
-      size: 100,
+      page: pageNum,
+      size: 10,
     },
   });
   return res.data;
