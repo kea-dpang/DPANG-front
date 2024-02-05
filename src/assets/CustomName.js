@@ -74,7 +74,7 @@ export const CustomMileageStatusNameReverse = (status) => {
     case "반려":
       return "REJECTED";
     default:
-      return "전체";
+      return undefined;
   }
 };
 
