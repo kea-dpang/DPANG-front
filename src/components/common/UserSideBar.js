@@ -3,7 +3,7 @@ import styled from "styled-components";
 // import '../../styles/fontStyle.scss';
 import { ReactComponent as ArrowStroke } from "../../assets/images/arrowStroke.svg";
 import { Link } from "react-router-dom";
-
+import { NavLink } from "react-router-dom";
 const UserSideBar = () => {
   return (
     <Wrap>
@@ -68,7 +68,14 @@ const NavWrap = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const Nav = styled(Link)`
+
+const StyledArrowStroke = styled(ArrowStroke)`
+  transform: rotate(-90deg);
+  color: var(--dark-grey);
+`;
+
+// const Nav = styled(Link)`
+const Nav = styled(NavLink)`
   padding: 1.19rem;
   display: flex;
   justify-content: space-between;
@@ -82,12 +89,14 @@ const Nav = styled(Link)`
       color: var(--navy);
     }
   }
-`;
-const StyledArrowStroke = styled(ArrowStroke)`
-  transform: rotate(-90deg);
-  color: var(--dark-grey);
-
-  ${Nav}:hover & {
-    color: var(--navy); // 화살표 색상을 변경하는 부분
+  &.active {
+    // 이 부분에 선택된 링크의 스타일을 추가합니다.
+    background: var(--navy, #f4f4f4);
+    p {
+      color: var(--white);
+    }
+    ${StyledArrowStroke} {
+      color: var(--white); // 화살표 색상을 변경하는 부분
+    }
   }
 `;
