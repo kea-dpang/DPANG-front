@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { POST_Code, POST_newPassword } from "@api/sign";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
+import { useConfirmAlert, useErrorAlert } from "@components/SweetAlert";
 
 const FindPasswordPage = () => {
   const methods = useForm();
@@ -19,6 +20,10 @@ const FindPasswordPage = () => {
   const emailValue = watch("email");
   const navigate = useNavigate();
 
+  // alert
+  const showErrorAlert = useErrorAlert();
+  const showConfirmAlert = useConfirmAlert();
+
   /*  특정 필드의 유효성 검사를 수동으로 실행 */
   const handleCodeBtn = async (e) => {
     // 이메일 필드의 유효성 검사 실행
@@ -27,16 +32,16 @@ const FindPasswordPage = () => {
     if (isValid) {
       POST_Code(emailValue)
         .then((data) => {
-          alert(
-            "해당 이메일로 인증번호가 전송되었습니다. 메일을 확인해주세요."
-          );
+          showConfirmAlert({
+            title: "이메일로 인증번호가 전송되었습니다.",
+            text: "메일을 확인해 주세요.",
+          });
         })
         .catch((error) => {
-          if (error.response.status === 404) {
-            alert("인증코드가 틀립니다. 다시 시도해주세요.");
-          } else {
-            alert("비밀번호 재설정에 실패하였습니다. 다시 시도해 주세요.");
-          }
+          // showErrorAlert({
+          //   title: "인증번호 전송에 실패하였습니다.",
+          //   text: "잠시 후 다시 시도해 주세요.",
+          // });
           console.log(error);
         });
     }
@@ -47,11 +52,24 @@ const FindPasswordPage = () => {
     // console.log(data);
     POST_newPassword(data)
       .then((data) => {
-        alert("비밀번호가 재설정되었습니다. 로그인 페이지로 이동합니다.");
-        navigate("/login");
-        console.log(data);
+        showConfirmAlert({
+          title: "비밀번호가 재설정되었습니다.",
+          text: "로그인 페이지로 이동합니다.",
+          navi: "/login",
+        });
       })
       .catch((error) => {
+        if (error.response.status === 404) {
+          showErrorAlert({
+            title: "인증코드가 틀립니다.",
+            text: "다시 시도해 주세요.",
+          });
+        } else {
+          showErrorAlert({
+            title: "비밀번호 재설정에 실패하였습니다.",
+            text: "잠시 후 다시 시도해 주세요.",
+          });
+        }
         console.log(error);
       });
   };
@@ -185,8 +203,9 @@ const FindPasswordPage = () => {
 export default FindPasswordPage;
 
 const Wrap = styled.div`
+  border: 1px solid black;
   width: 100vw;
-  /* height: 100vh; */
+  height: 100vh;
   min-height: 60rem;
   max-width: 100%;
   box-sizing: border-box;

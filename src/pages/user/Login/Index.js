@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { POST_Login } from "@api/sign";
 import { setCookie } from "@utils/cookie";
+import { useErrorAlert } from "@components/SweetAlert";
 
 const LoginPage = () => {
   const methods = useForm();
@@ -17,8 +18,10 @@ const LoginPage = () => {
     isSubmitting,
     formState: { errors },
   } = methods;
-  const navigate = useNavigate();
+  // alert
+  const showErrorAlert = useErrorAlert();
 
+  const navigate = useNavigate();
   const handleNavClick = () => {
     navigate("/login/admin");
   };
@@ -26,7 +29,6 @@ const LoginPage = () => {
   const onSubmit = (userData) => {
     POST_Login(userData)
       .then((data) => {
-        alert("로그인되었습니다. 메인페이지로 이동합니다.");
         navigate("/user/mainpage");
 
         // accessToken, refreshToken은 쿠키에 저장
@@ -44,7 +46,10 @@ const LoginPage = () => {
         localStorage.setItem("role", data.data.token.role);
       })
       .catch((error) => {
-        alert("로그인에 실패하였습니다. 다시 시도해주세요.");
+        showErrorAlert({
+          title: "로그인에 실패하였습니다.",
+          text: "잠시 후 다시 시도해 주세요.",
+        });
         console.log(error);
       });
   };

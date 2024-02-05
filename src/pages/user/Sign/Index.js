@@ -7,6 +7,7 @@ import TextField from "@mui/material/TextField";
 import { TermsData } from "../../../assets/data/user/UserTermsData";
 import { useNavigate } from "react-router-dom";
 import { POST_User } from "@api/sign";
+import { useConfirmAlert, useErrorAlert } from "@components/SweetAlert";
 
 const SignPage = () => {
   const methods = useForm({
@@ -28,20 +29,33 @@ const SignPage = () => {
   } = methods;
   const navigate = useNavigate();
 
+  // alert
+  const showErrorAlert = useErrorAlert();
+  const showConfirmAlert = useConfirmAlert();
+
   const onSubmit = (data) => {
     POST_User(data)
       .then((data) => {
-        alert("회원가입이 완료되었습니다.");
+        showConfirmAlert({
+          title: "회원가입에 성공하였습니다.",
+          text: "로그인 페이지로 이동합니다.",
+          navi: "/login",
+        });
         console.log(data);
-        navigate(`/login`);
       })
       .catch((error) => {
         // 요청이 실패했을 때의 처리
         if (error.response.status === 400) {
-          alert("이미 존재하는 이메일입니다. 로그인 페이지로 이동합니다.");
-          navigate(`/login`);
+          showErrorAlert({
+            title: "이미 존재하는 이메일입니다.",
+            text: "로그인 페이지로 이동합니다.",
+            navi: "/login",
+          });
         } else {
-          alert("회원가입에 실패하였습니다. 다시 시도해 주세요.");
+          showErrorAlert({
+            title: "회원가입에 실패하였습니다.",
+            text: "잠시 후 다시 시도해 주세요.",
+          });
         }
       });
     // alert(JSON.stringify(data));

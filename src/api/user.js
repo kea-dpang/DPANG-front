@@ -32,6 +32,7 @@ export const GET_UserList = async (categoryValue, searchValue, pageNum) => {
       size: 10,
     },
   });
+  console.log("확인좀 해봅시다요용요요요여ㅛ용ㅇ", res.data);
   return res.data;
 };
 

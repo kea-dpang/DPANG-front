@@ -41,8 +41,9 @@ const UserListPage = () => {
   const handleGetUserList = (categoryValue, searchValue) => {
     GET_UserList(categoryValue, searchValue, page)
       .then((data) => {
-        setAskDataList(data.data);
-        console.log("확인좀하자:", data.data);
+        console.log("확인좀하자:", data.data.content);
+
+        setAskDataList(data.data.content);
         setTotalData(data.data.totalElements);
       })
       .catch((error) => {
