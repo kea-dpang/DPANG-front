@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { POST_Login } from "@api/sign";
 import { setCookie } from "@utils/cookie";
+import { useErrorAlert } from "@components/SweetAlert";
 
 const AdminLoginPage = () => {
   const methods = useForm();
@@ -17,23 +18,25 @@ const AdminLoginPage = () => {
     isSubmitting,
     formState: { errors },
   } = methods;
-  const navigate = useNavigate();
 
+  // alert
+  const showErrorAlert = useErrorAlert();
+
+  const navigate = useNavigate();
   const handleNavClick = () => {
-    // navigate("/admin/event/enrollbrand");
     navigate("/login");
   };
 
   const onSubmit = (userData) => {
     POST_Login(userData)
       .then((data) => {
+        // 서버로부터 받은 role 값이 ADMIN일 때만
         if (data.data.token.role === "ADMIN") {
           // userId, email, role은 로컬스토리지에 저장
           localStorage.setItem("userId", data.data.userIdx);
           localStorage.setItem("email", userData.email);
           localStorage.setItem("role", "ADMIN");
 
-          alert("관리자로 로그인되었습니다. 메인페이지로 이동합니다.");
           navigate("/admin/user");
 
           // accessToken, refreshToken은 쿠키에 저장
@@ -46,11 +49,16 @@ const AdminLoginPage = () => {
             path: "/",
           });
         } else {
-          alert("관리자 권한이 없습니다.");
+          showErrorAlert({
+            title: "관리자 권한이 없습니다.",
+          });
         }
       })
       .catch((error) => {
-        alert("관리자 로그인에 실패하였습니다. 다시 시도해주세요.");
+        showErrorAlert({
+          title: "관리자 로그인에 실패하였습니다.",
+          text: "잠시 후 다시 시도해 주세요.",
+        });
         console.log(error);
       });
   };
