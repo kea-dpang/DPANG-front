@@ -51,7 +51,7 @@ export const useQuestionAlert = () => {
         title: title,
         text: text,
         icon: "warning",
-        buttons: true,
+        buttons: ["취소", "확인"],
         dangerMode: true,
       }).then((isConfirmed) => {
         if (isConfirmed) {
