@@ -31,7 +31,7 @@ const ProductReview = (props) => {
         </Button>
       </ButtonWrap>
       {/* 문의 리스트 */}
-      <ProductAskList />
+      <ProductAskList value={props.item} />
       {/* 문의 팝업창 */}
       {isModalOpen && (
         <Modal setIsModalOpen={setIsModalOpen} value={props.item} />

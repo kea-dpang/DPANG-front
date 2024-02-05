@@ -8,7 +8,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import Dropdown from "@components/Dropdown";
 // import DataTable from "@components/AdminDataTable";
 import { GET_BrandList, DELETE_Brand } from "@api/Brand";
-import DataTable from "./DataTable";
+import DataTable from "../../../../../components/common/DataTable";
 import { useLocation } from "react-router-dom";
 
 // 상품 등록 관리자 페이지

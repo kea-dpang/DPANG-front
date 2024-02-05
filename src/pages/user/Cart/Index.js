@@ -1,15 +1,13 @@
 import styled from "styled-components";
 import React, { useState } from "react";
 import CartList from "./CartList";
-import Header from "../../../components/common/UserHeaderBar/Index";
-import "../../../styles/fonts.css";
+import Header from "@components/UserHeaderBar/Index";
 import { useNavigate } from "react-router-dom";
 
 const Index = () => {
-
   const navigate = useNavigate();
   const handleOrderSave = () => {
-    navigate(`/user/order`)
+    navigate(`/user/order`);
   };
 
   return (
@@ -21,8 +19,7 @@ const Index = () => {
         <InputSection>
           <CartList />
         </InputSection>
-        <OrderButton
-        onClick={handleOrderSave}>
+        <OrderButton onClick={handleOrderSave}>
           <p className="cm-SBold16 col-White">주문하기</p>
         </OrderButton>
       </Wrap>

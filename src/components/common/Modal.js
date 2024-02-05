@@ -9,7 +9,7 @@ const Modal = ({ setIsModalOpen, value }) => {
   const [isFormValid, setFormValid] = useState(false); // 입력값 다 입력했는지 판단
   const [askData, setAskData] = useState({
     itemId: value.itemId,
-    category: "상품 문의",
+    category: "상품",
     askTitle: "",
     askContent: "",
     imageUrl: "",

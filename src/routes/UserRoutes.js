@@ -48,7 +48,7 @@ const UserRoutes = () => {
       {/* 베스트, 이벤트 */}
       <Route path="collections/*" element={<ProductListPage />}>
         <Route path="best" element={<BestProductPage />} />
-        <Route path="event" element={<EventProductPage />} />
+        <Route path="event/:id" element={<EventProductPage />} />
         <Route path="new" element={<NewProductPage />} />
       </Route>
       <Route path="event/*" element={<EventPage />}>

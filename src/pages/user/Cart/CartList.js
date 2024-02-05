@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from "react";
-import data from "../../../assets/data/user/UserCartData";
+import data from "@data/user/UserCartData";
 import CartItem from "./CartItem";
 import styled from "styled-components";
-import "../../../styles/fonts.css";
 import { GET_CartList } from "@api/cart";
 
 const CartList = () => {
   const [cartItems, setCartItems] = useState(data);
 
-  useEffect(() => {
-    list();
-  }, []);
-
-  const list = async () => {
-    try {
-      const cart = await GET_CartList();
-      // setCartItems(cart);
-    } catch (error) {
-      console.log(error);
-    }
+  const getItemList = () => {
+    GET_CartList()
+      .then((data) => {
+        console.log("cartItem data: ", data.data);
+        setCartItems(data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
+
+  useEffect(() => {
+    getItemList();
+  }, []);
 
   const calculateTotalPrice = () => {
     let totalPrice = 0;
@@ -48,6 +49,7 @@ const CartList = () => {
             checked: checked,
           };
         }
+        console.log("장바구니 상품 선택:", cartItems);
         return prevItem;
       })
     );
@@ -62,7 +64,7 @@ const CartList = () => {
       <Container>
         {cartItems.map((item) => (
           <CartItem
-            key={item.id}
+            key={item.itemId}
             item={item}
             updateQuantity={updateQuantity}
             updateChecked={updateChecked}

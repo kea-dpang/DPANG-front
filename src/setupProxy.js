@@ -65,11 +65,19 @@ module.exports = function (app) {
       changeOrigin: true,
     })
   );
+  // /* 이미지 업로드 */
+  // app.use(
+  //   "/api/image",
+  //   createProxyMiddleware({
+  //     target: "http://61.109.214.181:8087",
+  //     changeOrigin: true,
+  //   })
+  // );
   /* 이미지 업로드 */
   app.use(
     "/api/image",
     createProxyMiddleware({
-      target: "http://61.109.214.181:8087",
+      target: "http://61.109.214.38",
       changeOrigin: true,
     })
   );

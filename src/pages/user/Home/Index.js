@@ -1,11 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "@components/UserHeaderBar/Index";
-import ItemSection from "./ItemSection";
+import EventItemSection from "./EventItemSection";
+import BestItemSection from "./BestItemSection";
 import Footer from "@components/UserFooter/Index";
 import EventCarousel from "./EventCarousel";
+import { GET_BrandEventListUser } from "@api/event";
 
 const MyPage = () => {
+  const [eventData, setEventData] = useState([]);
+
+  useEffect(() => {
+    GET_BrandEventListUser()
+      .then((data) => {
+        setEventData(data.content);
+        console.log("이벤트 리스트 불러왔당 : ", data.content);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   return (
     <>
       <Wrap>
@@ -15,8 +30,18 @@ const MyPage = () => {
         <EventCarousel />
         {/* 상품 슬라이더 모음 */}
         <Section>
-          <ItemSection title="지금 가장 핫한 상품🔥" filter="best" />
-          <ItemSection title="록시땅 원데이 찬스✨" filter="event" />
+          <BestItemSection title="지금 가장 핫한 상품🔥" filter="best" />
+          {eventData
+            .filter((event) => event.eventStatus === "PROCEEDING")
+            .map((event, index) => (
+              <EventItemSection
+                key={index}
+                sellerId={event.sellerId}
+                title={event.eventName}
+                filter="event"
+                id={event.id}
+              />
+            ))}
         </Section>
         <Footer />
       </Wrap>

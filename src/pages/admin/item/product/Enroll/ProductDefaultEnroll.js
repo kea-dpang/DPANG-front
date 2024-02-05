@@ -83,14 +83,12 @@ const ProductDefaultEnroll = ({ productInfo, setProductInfo }) => {
           {/* 브랜드 등록 */}
           <Row>
             <p className="cm-SBold16 col-Black">브랜드</p>
-            <ContentBox>
-              <SearchDropdown
-                id="brand"
-                options={brand}
-                width={"100%"}
-                onChange={handleBrandChange}
-              />
-            </ContentBox>
+            <SearchDropdown
+              id="brand"
+              options={brand}
+              width={"100%"}
+              onChange={handleBrandChange}
+            />
           </Row>
           {/* 카테고리 등록 : '패션' 카테고리일 때만 세부카테고리가 보여지게 */}
           <Row>
