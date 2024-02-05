@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import UserImage from "../../../assets/images/adminuser.svg";
+import UserImage from "assets/images/adminuser.svg";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +16,6 @@ const Image = styled.img`
   width: 1.3rem;
   height: 1.3rem;
   border-radius: 50%;
-  
 `;
 
 const UserName = styled.div`
@@ -25,20 +24,23 @@ const UserName = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
 `;
 
 function User() {
-
-    const [user, setUser] = useState('김디팡');
-    const navi = useNavigate();
+  //user name을 받아오기
+  const userName = localStorage.getItem("userId");
+  const navi = useNavigate();
 
   return (
-    <UserBox onClick={()=>{navi("/user/mypage/order")}}>
+    <UserBox
+      onClick={() => {
+        navi("/user/mypage/order");
+      }}
+    >
       <UserImg>
         <Image src={UserImage} />
       </UserImg>
-      <UserName>{user}</UserName>
+      <UserName>{userName}</UserName>
     </UserBox>
   );
 }
