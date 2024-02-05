@@ -53,7 +53,7 @@ const Leave = () => {
     showQuestionAlert({
       title: "정말 탈퇴하시겠습니까?",
       text: "확인 클릭 시 탈퇴됩니다.",
-      saveText: "회원탈퇴에 성공하셨습니다. 로그인페이지로 이동합니다.",
+      saveText: "회원탈퇴에 성공하였습니다.",
       // navi: "/login",
       onConfirm: () =>
         DELETE_UserLeave(password, checkedState, note)
