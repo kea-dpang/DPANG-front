@@ -11,12 +11,12 @@ const DataTable = ({
   index,
   placeholder,
   count,
+  checkBoxCheck, // 체크박스 유무
 }) => {
   // data 상태 관리
   const [data, setData] = useState(initialData);
   const [filteredData, setFilteredData] = useState(data);
   const [resetCheckBox, setResetCheckBox] = useState(false); // 체크박스 리셋
-  const [newData, setNewData] = useState("");
 
   // data가 바뀔 때마다 렌더링
   useEffect(() => {
@@ -37,7 +37,9 @@ const DataTable = ({
   }, [data, filterValue, index, placeholder]);
 
   const options = {
-    selectableRows: "multiple",
+    // checkBoxCheck 인자로 안넘겨주면 체크박스 O / false로 넘겨주면 체크박스 X
+    selectableRows:
+      checkBoxCheck === undefined ? "multiple" : !checkBoxCheck && "none",
     // 데이터 삭제
     onRowsDelete: (rowsDeleted) => {
       console.log("rowsDeleted: ", rowsDeleted);

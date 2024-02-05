@@ -5,7 +5,6 @@ import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
-import DataTable from "../../../../components/common/AdminDataTable";
 import { userListData } from "../../../../assets/data/admin/AdminUserData";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +12,8 @@ import DropboxStyle from "@adminPages/directAskPage/List/DropBox.styled";
 import { useForm } from "react-hook-form";
 import { GET_UserList } from "@api/user";
 import { useState } from "react";
+import DataTable from "@components/DataTable";
+import { useLocation } from "react-router-dom";
 
 const columns = [
   { name: "userId", label: "번호", options: { sort: true } },
@@ -30,27 +31,44 @@ const UserListPage = () => {
 
   const navigate = useNavigate();
   const [askDataList, setAskDataList] = useState();
+  // 페이지네이션
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search); // url에서 searchparameter 저장(페이지)
+  const [page, setPage] = useState(searchParams.get("page") || 0);
+  const [totalData, setTotalData] = useState(0);
 
   /* 서버에서 회원 리스트 가져오기 */
   const handleGetUserList = (categoryValue, searchValue) => {
-    GET_UserList(categoryValue, searchValue)
+    GET_UserList(categoryValue, searchValue, page)
       .then((data) => {
         setAskDataList(data.data);
         console.log("확인좀하자:", data.data);
+        setTotalData(data.data.totalElements);
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  /* 처음에 회원 리스트 가져오기 */
+  /* 처음에 회원 리스트 가져오기*/
   useEffect(() => {
-    handleGetUserList("ALL", "");
-  }, []);
+    handleGetUserList("ALL", "", page);
+  }, [page]);
+
+  // 체크용 나중에 지우자
+  useEffect(() => {
+    console.log("ddafasdfasfdasdd", totalData);
+  }, [totalData]);
 
   /* 서치바 검색하기 버튼 클릭 시 필터링 걸어주기 */
   const onSubmit = (data) => {
-    handleGetUserList(data["분류"], data.searchValue);
+    handleGetUserList(data["분류"], data.searchValue, page);
+  };
+
+  /* 페이지네이션 버튼 핸들러 */
+  const handlePagination = (page) => {
+    console.log("지금 페이지네이션 페이지 : ", page);
+    setPage(page);
   };
 
   /* 선택된 행은 상세정보로 이동 */
@@ -112,6 +130,8 @@ const UserListPage = () => {
               columns={columns}
               onRowClick={handleRowClick}
               checkBoxCheck={false}
+              onChangePage={handlePagination}
+              count={totalData}
             />
           )}
         </ListSection>

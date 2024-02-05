@@ -14,10 +14,12 @@ export const GET_QnAList = async ({
   state,
   itemId = null,
   period = { startDate: null, endDate: null },
+  pageNum,
 }) => {
   category = customAskCategoryName(category, true);
   state = customStatusNameReverse(state, true);
   console.log("문의조회합니다요: ", userId, category, state, period, itemId);
+  console.log("페이지: ", pageNum);
 
   const res = await axios({
     method: "get",
@@ -34,8 +36,8 @@ export const GET_QnAList = async ({
       status: state,
       startDate: period.startDate,
       endDate: period.endDate,
-      page: 0,
-      size: 100,
+      page: pageNum,
+      size: 10,
     },
   });
 
