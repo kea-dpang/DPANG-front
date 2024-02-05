@@ -10,7 +10,7 @@ import Dropdown from "@components/Dropdown";
 import categoryData from "@data/user/CategoryData";
 import { GET_ItemList, DELETE_Item } from "@api/Item";
 import { useLocation } from "react-router-dom";
-import DataTable from "@adminPages/item/brand/List/DataTable";
+import DataTable from "@components/DataTable";
 
 // 상품 등록 관리자 페이지
 const Index = () => {
