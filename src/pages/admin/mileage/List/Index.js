@@ -4,6 +4,7 @@ import { GET_admin_mileage_list } from "@api/mileage";
 import styled from "styled-components";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useLocation, useNavigate } from "react-router-dom";
+import { CustomMileageStatusNameReverse } from "assets/CustomName";
 
 function Index() {
   const [mileageList, setMileageList] = useState([]);
@@ -13,11 +14,23 @@ function Index() {
   const page = searchParams.get("page") || 0;
   const [totalItems, setTotalItems] = useState(0);
   const navi = useNavigate();
+
   const handlePagination = (page) => {
     console.log("지금 페이지네이션 페이지 : ", page);
     navi(`?page=${page}`);
   };
-  const handleCategoryChange = () => {};
+  const handleCategoryChange = (val) => {
+    setVal((prevState) => ({
+      ...prevState,
+      status: CustomMileageStatusNameReverse(val),
+    }));
+  };
+  const handleSearch = (val) => {
+    setVal((prev) => ({
+      ...prev,
+      depositorName: val,
+    }));
+  };
 
   //서버로 보낼 parameter값
   const [val, setVal] = useState({
@@ -78,12 +91,14 @@ function Index() {
     );
   }
 
+  console.log("ddddd", mileageList);
   return (
     <TableRow
       mileageList={mileageList}
       handlePagination={handlePagination}
       totalItems={totalItems}
       handleCategoryChange={handleCategoryChange}
+      handleSearch={handleSearch}
     />
   );
 }

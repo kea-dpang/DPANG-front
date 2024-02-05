@@ -17,17 +17,13 @@ import {
 import Swal from "sweetalert2";
 
 const Index = (props) => {
-  console.log(props.totalItems);
+  const [searchData, setSearchData] = useState("");
   const navigate = useNavigate();
   //  상태 저장 : 예정, 진행, 종료
   const [index, setIndex] = React.useState("");
   const [bool, setBool] = useState(true);
   //필터링을 해줄 dropdown 박스의 값. 첫 값은 이름, 뒤에 두 값은 필터링에 들어갈 value
   const dropdownValue = ["처리 상태", "전체", "요청", "승인", "반려"];
-
-  const options = {
-    pagination: false,
-  };
 
   //alert창을 커스텀해서 보내준다
   const showQuestionAlert = (options) => {
@@ -140,7 +136,7 @@ const Index = (props) => {
   const handleCategoryChange = (newCategory) => {
     //드롭다운 박스에서 가져온 값으로 카테고리를 설정
     setSelectedCategory(newCategory);
-    console.log(newCategory);
+    props.handleCategoryChange(newCategory);
   };
 
   return (
@@ -171,11 +167,20 @@ const Index = (props) => {
               {/* 검색어 입력창 */}
               <InputBase
                 sx={{ ml: 1, flex: 1, height: "100%" }}
-                placeholder="검색어를 입력해주세요"
-                inputProps={{ "aria-label": "검색어를 입력해주세요" }}
+                placeholder="입금자명을 입력해주세요"
+                inputProps={{ "aria-label": "입금자명을 입력해주세요" }}
+                onChange={(e) => {
+                  setSearchData(e.target.value);
+                }}
               />
               {/* 검색 버튼 (돋보기) */}
-              <IconButton type="button" aria-label="search">
+              <IconButton
+                type="button"
+                aria-label="search"
+                onClick={() => {
+                  props.handleSearch(searchData);
+                }}
+              >
                 <SearchIcon />
               </IconButton>
             </Paper>
@@ -189,8 +194,6 @@ const Index = (props) => {
             onRowClick={() => {}}
             filterValue={CustomMileageStatusNameReverse(selectedCategory)}
             index={"status"}
-            options={options}
-            placeholder={dropdownValue[0]}
             onChangePage={props.handlePagination}
             count={props.totalItems}
             checkBoxCheck={false}
