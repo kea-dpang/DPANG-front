@@ -1,9 +1,12 @@
+import instance from "@utils/apiInterceptor";
+import { getCookie } from "@utils/cookie";
 import {
   customAskCategoryName,
   customDate,
   customFAQCategoryName,
 } from "assets/CustomName";
 import axios from "axios";
+
 const url = "/api/faq";
 
 export const GET_FAQList = async (category) => {
@@ -15,9 +18,12 @@ export const GET_FAQList = async (category) => {
   }
   console.log("abc:", category);
 
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${url}/category`,
+    // headers: {
+    //   Authorization: `Bearer ${getCookie("accessToken")}`,
+    // },
     params: {
       category: category,
       page: 0,
@@ -43,10 +49,10 @@ export const POST_Faq = async (data) => {
   const res = await axios({
     method: "post",
     url: url,
-    headers: {
-      // 'Authorization': `Bearer ${accessToken}`
-      "X-DPANG-CLIENT-ID": 1,
-    },
+    // headers: {
+    //   // 'Authorization': `Bearer ${accessToken}`
+    //   "X-DPANG-CLIENT-ID": 1,
+    // },
     data: {
       category: data.category,
       question: data.question,
@@ -77,10 +83,10 @@ export const PUT_FAQ = async (faqId, data) => {
 
   const res = await axios({
     method: "put",
-    headers: {
-      // 'Authorization': `Bearer ${accessToken}`
-      "X-DPANG-CLIENT-ID": 1,
-    },
+    // headers: {
+    //   // 'Authorization': `Bearer ${accessToken}`
+    //   "X-DPANG-CLIENT-ID": 1,
+    // },
     url: `${url}/${faqId}`,
     data: {
       category: data.category,
