@@ -3,10 +3,21 @@ import TableRow from "./TableRow";
 import { GET_admin_mileage_list } from "@api/mileage";
 import styled from "styled-components";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Index() {
   const [mileageList, setMileageList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const page = searchParams.get("page") || 0;
+  const [totalItems, setTotalItems] = useState(0);
+  const navi = useNavigate();
+  const handlePagination = (page) => {
+    console.log("지금 페이지네이션 페이지 : ", page);
+    navi(`?page=${page}`);
+  };
+  const handleCategoryChange = () => {};
 
   //서버로 보낼 parameter값
   const [val, setVal] = useState({
@@ -17,7 +28,7 @@ function Index() {
     depositorName: "",
     sortOption: "",
     page: 0,
-    size: 100,
+    size: 10,
     XID: 1,
   });
 
@@ -33,7 +44,9 @@ function Index() {
       }
       //데이터가 비어있지 않은 경우에는 그냥 값 그대로 넣어준다
       else {
+        console.log(data);
         setMileageList(data.data.content);
+        setTotalItems(data.data.totalElements);
         setLoading(false);
       }
       //실패하면
@@ -48,6 +61,13 @@ function Index() {
     fetchData();
   }, [val]);
 
+  useEffect(() => {
+    setVal((prevState) => ({
+      ...prevState,
+      page: page,
+    }));
+  }, [page]);
+
   if (loading) {
     return (
       <PageName className="cm-MBold24">
@@ -58,7 +78,14 @@ function Index() {
     );
   }
 
-  return <TableRow mileageList={mileageList} />;
+  return (
+    <TableRow
+      mileageList={mileageList}
+      handlePagination={handlePagination}
+      totalItems={totalItems}
+      handleCategoryChange={handleCategoryChange}
+    />
+  );
 }
 
 const PageName = styled.div`
