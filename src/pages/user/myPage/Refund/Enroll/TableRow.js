@@ -1,4 +1,7 @@
-import { useNavigate } from "react-router-dom";
+import { GET_order_item_detail } from "@api/order";
+import { customOrderStatus } from "assets/CustomName";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const Row = styled.div`
@@ -23,7 +26,6 @@ const ItemName = styled.div`
   width: 11rem;
 `;
 const Column = styled.div`
-  width: 10rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -37,51 +39,63 @@ const ItemColBox = styled.div`
 const ItemCol = styled.div`
   height: 6rem;
   display: flex;
-  ${(props)=>setBorder(props.i)};
+  ${(props) => setBorder(props.i)};
   
 `;
 
-const setBorder = (i) =>{
+const setBorder = (i) => {
 
-  if(i!=0)
-  return {borderTop: "1px solid black"}
+  if (i != 0)
+    return { borderTop: "1px solid black" }
   else
-  return {border: 0}
-  
-  }
+    return { border: 0 }
+
+}
 
 
 function TableRow(props) {
   const navi = useNavigate();
+  const { id, orderId } = useParams();
+  const [orderData, setOrderData] = useState();
 
-  const data = props.data[2];
+  console.log(id, orderId);
+
+  useEffect(() => {
+
+    GET_order_item_detail(id, orderId)
+      .then((data) => {
+        console.log("성공", data);
+        setOrderData(data.data)
+      })
+      .catch((error) => {
+        console.log("실패", error)
+      })
+
+
+  }, [])
+
+
+  if (!orderData) {
+    return <></>
+  }
 
   return (
     <Row className="cm-SRegular16">
-      <Col width="13rem">
+      <Col width="14rem">
         <Column>
-          <p>{data.date}</p>
-          <p>{data.ordernum}</p>
+          <p>{customOrderStatus(orderData.orderStatus)}</p>
         </Column>
       </Col>
-      <ItemColBox>
-        {data.item.map((b, i) => {
-          return (
-            <ItemCol i = {i} key = {i}>
-              <Col width="22rem">
-                <ItemImg src={b.img} />
-                <ItemName>{b.name}</ItemName>
-              </Col>
-              <Col width="11rem">
-                {b.money} / {b.amt}
-              </Col>
-              <Col width="15rem">{b.money - 3000}</Col>
-            </ItemCol>
-          );
-        })}
-      </ItemColBox>
-      
-      <Col width="11rem">{data.status}</Col>
+
+      <Col width="26rem">
+        <ItemImg src={orderData.productInfoDto.image} />
+        <ItemName>{orderData.productInfoDto.name}</ItemName>
+      </Col>
+      <Col width="18rem">
+        {orderData.productInfoDto.price} / {orderData.productQuantity}
+      </Col>
+      <Col width="14rem">{orderData.productInfoDto.price - 3000}</Col>
+
     </Row>
   );
 }

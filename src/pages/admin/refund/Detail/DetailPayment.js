@@ -9,21 +9,15 @@ function DetailPayment({ data }) {
                 <Col height="5rem">
                     <ColHead>상품 금액</ColHead>
                     <BlankDiv />
-                    <Content width="28rem">{data.itemMoney}</Content>
+                    <Content width="28rem">{data.refundInfo.productPaymentAmount}</Content>
 
                     <ColHead>환불 예정액</ColHead>
                     <BlankDiv />
-                    <Content width="28rem">{data.refund}</Content>
+                    <Content width="28rem">{data.refundInfo.expectedRefundAmount}</Content>
                 </Col>
                 <Border />
 
-                <Col height="5rem">
-                    <ColHead>환불 상태</ColHead>
-                    <BlankDiv />
-                    <Content width="64.9375rem">{data.state}</Content>
-                </Col>
             </Table>
-            <Border />
             <Blank />
         </>
 

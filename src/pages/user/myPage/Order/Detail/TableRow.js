@@ -134,7 +134,7 @@ function TableRow(props) {
                 <ItemName>{b.productInfoDto.name}</ItemName>
               </Col>
               <Col width="11rem">
-                {b.productInfoDto.price * b.productQuantity} /
+                {(b.productInfoDto.price * b.productQuantity).toLocaleString()} /
                 {b.productQuantity}
               </Col>
 
@@ -148,7 +148,7 @@ function TableRow(props) {
                     status={customOrderStatus(b.orderStatus)}
                     onClick={(e) => {
                       e.stopPropagation();
-                      navi("/user/mypage/temp/refund/enroll");
+                      navi(`/user/mypage/refund/enroll/${b.orderDetailId}`);
                     }}
                   >
                     반품
@@ -157,7 +157,7 @@ function TableRow(props) {
                     status={customOrderStatus(b.orderStatus)}
                     onClick={(e) => {
                       e.stopPropagation();
-                      navi("/user/mypage/temp/review/enroll");
+                      navi(`/user/mypage/review/enroll/${b.productInfoDto.itemId}`);
                     }}
                   >
                     리뷰작성

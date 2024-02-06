@@ -1,12 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
 import { useState, useEffect } from "react";
 import { GET_cancel_list } from "@api/cancel";
 import { useRecoilValue } from "recoil";
 import { periodAtom } from "recoil/user/PeriodSelectAtom";
 import { customOrderStatus } from "assets/CustomName";
+import UserPagination from "@components/UserPagination";
 
 const PaginationContainer = styled.div`
   width: 72rem;
@@ -49,7 +48,8 @@ function TableRow({ data }) {
 
   const userId = localStorage.getItem("userId");
 
-  const period = parseInt(useRecoilValue(periodAtom), 10);
+  const period = useRecoilValue(periodAtom);
+  const [numOfElement, setNumOfElement] = useState(0);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [cancelData, setCancelData] = useState([]); //취소 목록울 저장할 STATE
@@ -61,10 +61,12 @@ function TableRow({ data }) {
     size: 10,
     sort: "",
   });
-  //page가 변경된 경우
-  const handlePageChange = (_, newPage) => {
-    //현재 페이지를 새로운 페이지로 변경
-    setCurrentPage(newPage);
+  //하위 component에서 전달받은 새로운 val 값으로 업데이트 해준다
+  const handleValChange = (page) => {
+    setVal((prevVal) => ({
+      ...prevVal,
+      page: page - 1,
+    }));
   };
 
   //초기 rendering시 취소 리스트에 대한 정보를 API를 통해 받아온다
@@ -73,6 +75,7 @@ function TableRow({ data }) {
     GET_cancel_list(val)
       .then((data) => {
         console.log(data, "API 연동 성공입니다");
+        setNumOfElement(data.data.totalElements);
         setCancelData(data.data.content); //여기는 바꿔야 됩니다
         console.log("fpofkpkrepgjper", cancelData);
       })
@@ -90,14 +93,6 @@ function TableRow({ data }) {
     }));
   }, [period]);
 
-  //한페이지당 보여줄 아이템의 개수
-  const itemPerPage = 5;
-  //시작 index는 현재 페이지의 첫번째 원소부터
-  const start = (currentPage - 1) * itemPerPage;
-  //끝 index는 start부터 보여주어야할 아이템의 개수 만큼
-  const end = start + itemPerPage;
-  //전체 데이터에서 시작 ~ 끝만 가져옴
-  const currentData = data.slice(start, end);
 
   return (
     <>
@@ -110,41 +105,30 @@ function TableRow({ data }) {
               navi(`/user/mypage/cancel/detail/${a.cancelId}`);
             }}
           >
-            <Col width="11rem">
+            <Col width="15rem">
               <Column>
                 <p>{a.orderDate}</p>
                 <p>{a.orderId}</p>
               </Column>
             </Col>
-            <Col width="11rem">{customOrderStatus(a.product.orderStatus)}</Col>
-            <Col width="29rem">
+            <Col width="25rem">
               <ItemImg src={a.product.productInfoDto.image} />
               <ItemName>{a.product.productInfoDto.name}</ItemName>
             </Col>
-            <Col width="11rem">
+            <Col width="15rem">
               {(
                 a.product.productInfoDto.price * a.product.productQuantity
               ).toLocaleString()}
               /{a.product.productQuantity}
             </Col>
-            <Col width="10rem">{a.expectedRefundAmount}</Col>
+            <Col width="17rem">{a.expectedRefundAmount.toLocaleString()}</Col>
           </Row>
         );
       })}
-
-      <PaginationContainer>
-        <Stack spacing={10}>
-          {/* MUI 페이지 네이션 라이브러리 이용 */}
-          <Pagination
-            //페이지당 아이템 개수에 따른 전체 페이지수 계산
-            count={Math.ceil(data.length / itemPerPage)}
-            //페이지는 현재 페이지
-            page={currentPage}
-            onChange={handlePageChange}
-            color="primary"
-          />
-        </Stack>
-      </PaginationContainer>
+      <UserPagination
+        numOfElement={numOfElement}
+        handleValChange={handleValChange}
+      />
     </>
   );
 }

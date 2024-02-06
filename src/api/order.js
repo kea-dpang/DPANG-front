@@ -83,3 +83,15 @@ export const GET_order_detail = async (orderId) => {
 
   return res.data;
 };
+
+export const GET_order_item_detail = async (id, orderId)=>{
+
+
+  const res = await axios({
+    method: "get", 
+    url: `${url}/${orderId}/detail/${id}`
+  }) 
+
+return res.data;
+
+}

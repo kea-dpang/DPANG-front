@@ -1,11 +1,12 @@
+import { customRefundReason, customRefundStatus } from "assets/CustomName";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
 const Row = styled.div`
   width: 73.9375rem;
   border-bottom: 1px black solid;
   display: flex;
   font-size: 14px;
+  height: 6rem;
 `;
 
 const Col = styled.div`
@@ -34,28 +35,26 @@ const Column = styled.div`
 
 function TableRow(props) {
 
-  console.log(props.id)
-
   const data = props.data
 
   return (
     <Row className="cm-SRegular16">
       <Col width="10.9375rem">
         <Column>
-          <p>{data.date}</p>
-          <p>{data.ordernum}</p>
+          <p>{data.orderDate}</p>
+          <p>{data.orderId}</p>
         </Column>
       </Col>
-      <Col width="9rem">{data.type} / {data.category}</Col>
-      <Col width="10rem">{data.state}</Col>
+      <Col width="9rem">{customRefundReason(data.refundReason)}</Col>
+      <Col width="10rem">{customRefundStatus(data.refundStatus)}</Col>
       <Col width="24rem">
-        <ItemImg src={data.itemImg} />
-        <ItemName>{data.itemName}</ItemName>
+        <ItemImg src={data.product.productInfoDto.image} />
+        <ItemName>{data.product.productInfoDto.name}</ItemName>
       </Col>
       <Col width="10rem">
-        {data.itemMoney} / {data.amt}
+        {(data.product.productInfoDto.price * data.product.productQuantity).toLocaleString()} / {data.product.productQuantity}
       </Col>
-      <Col width="10rem">{data.refund}</Col>
+      <Col width="10rem">{data.expectedRefundAmount.toLocaleString()}</Col>
 
 
     </Row>

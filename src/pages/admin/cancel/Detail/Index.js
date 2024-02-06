@@ -10,7 +10,7 @@ import { GET_cancel_detail } from "@api/cancel";
 
 const Index = () => {
   const { id } = useParams();
-  const [click, setClick] = useState(false);
+  const [click, setClick] = useState(true);
   const [cancelDetail, setCancelDetail] = useState();
 
   const handleClick = () => {

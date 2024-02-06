@@ -69,7 +69,7 @@ function RowData(props) {
                 <ItemName>{b.productInfoDto.name}</ItemName>
               </Col>
               <Col width="11rem" height="6">
-                {b.productInfoDto.price * b.productQuantity} /
+                {(b.productInfoDto.price * b.productQuantity).toLocaleString()} /
                 {b.productQuantity}
               </Col>
 
@@ -83,6 +83,7 @@ function RowData(props) {
                       POST_cancel_order(b.orderDetailId)
                         .then((data) => {
                           console.log("성공함", data);
+                          window.location.reload();
                         })
                         .catch((error) => {
                           console.log("실패함", error);
@@ -97,7 +98,8 @@ function RowData(props) {
                     status={customOrderStatus(b.orderStatus)}
                     onClick={(e) => {
                       e.stopPropagation();
-                      navi(`/user/mypage/refund/enroll/${b.orderDetailId}`);
+                      navi(`/user/mypage/refund/enroll/${b.orderDetailId}/${data.orderId}`);
+
                     }}
                   >
                     반품

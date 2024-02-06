@@ -6,9 +6,9 @@ import DetailPayment from "./DetailPayment";
 import { useState } from "react";
 
 function RefundDetail(props) {
-  const [refundClick, setRefundClick] = useState(false);
-  const [shipClick, setShipclick] = useState(false);
-  const [payClick, setPayClick] = useState(false);
+  const [refundClick, setRefundClick] = useState(true);
+  const [shipClick, setShipclick] = useState(true);
+  const [payClick, setPayClick] = useState(true);
 
   const handleRefundClick = () => {
     setRefundClick(!refundClick);

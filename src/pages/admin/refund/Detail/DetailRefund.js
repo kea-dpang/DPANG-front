@@ -1,3 +1,4 @@
+import { customRefundReason } from 'assets/CustomName';
 import styled from 'styled-components'
 
 function DetailRefund({data}){
@@ -9,24 +10,24 @@ return(
       <Col height="5rem">
         <ColHead>성명</ColHead>
         <BlankDiv />
-        <Content width="28rem">{data.name}</Content>
+        <Content width="28rem">{data.userName}</Content>
 
-        <ColHead>신청자</ColHead>
+        <ColHead>유저 ID</ColHead>
         <BlankDiv />
-        <Content width="28rem">{data.user}</Content>
+        <Content width="28rem">{data.userId}</Content>
       </Col>
       <Border />
       <Col height="5rem">
-        <ColHead>반품 상세 사유</ColHead>
+        <ColHead>반품 사유</ColHead>
         <BlankDiv />
-        <Content width="64.9375rem">{data.category}</Content>
+        <Content width="64.9375rem">{customRefundReason(data.reason)}</Content>
       </Col>
       <Border />
 
       <Col height="20rem">
         <ColHead>비고</ColHead>
         <BlankDiv />
-        <Content width="64.9375rem">{data.content}</Content>
+        <Content width="64.9375rem">{data.returnInfo.note}</Content>
       </Col>
     </Table>
 

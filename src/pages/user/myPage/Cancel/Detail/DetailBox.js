@@ -30,12 +30,10 @@ const DetailHeader = styled.div`
 
 function ReviewBox(props) {
   const head = [
-    { width: "10rem", text: "날짜/주문번호" },
-    { width: "9rem", text: "유형" },
-    { width: "10rem", text: "상태" },
-    { width: "23rem", text: "상품명" },
-    { width: "10rem", text: "상품 금액 / 수량" },
-    { width: "10rem", text: "환불 예정 금액" },
+    { width: "15rem", text: "날짜/주문번호" },
+    { width: "25rem", text: "상품명" },
+    { width: "15rem", text: "상품 금액 / 수량" },
+    { width: "17rem", text: "환불 예정 금액" },
   ];
 
   return (

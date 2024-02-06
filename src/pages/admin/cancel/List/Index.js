@@ -5,19 +5,39 @@ import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Dropdown from "components/common/Dropdown";
-import DataTable from "components/common/AdminDataTable";
+import DataTable from "components/common/DataTable";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { GET_cancel_list } from "@api/cancel";
+
 
 const Index = () => {
   const navigate = useNavigate();
-  //  상태 저장 : 예정, 진행, 종료
-  const [index, setIndex] = useState("");
   //서버로부터 받아올 값을 저장해놓을 리스트
   const [cancelList, setCancelList] = useState();
   //필터링을 해줄 dropdown 박스의 값. 첫 값은 이름, 뒤에 두 값은 필터링에 들어갈 value
   const dropdownValue = ["취소 상태", "취소요청", "취소승인"];
+  const [searchData, setSearchData] = useState("");
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const page = searchParams.get("page") || 0;
+  const [totalItems, setTotalItems] = useState(0);
+
+  const handlePagination = (page) => {
+    console.log("지금 페이지네이션 페이지 : ", page);
+    navigate(`?page=${page}`);
+  };
+
+
+  const handleSearch = () => {
+
+  
+    setVal((prev) => ({
+      ...prev,
+      userId: searchData,
+    }))
+
+  }
 
   const [val, setVal] = useState({
     userId: "",
@@ -32,13 +52,21 @@ const Index = () => {
   useEffect(() => {
     GET_cancel_list(val)
       .then((data) => {
-        console.log(data.data.content, "성공했다!!");
+        console.log(data.data, "성공했다!!");
+        setTotalItems(data.data.totalElements)
         setCancelList(data.data.content);
       })
       .catch((error) => {
         console.log(error, "비사앙아아아앙");
       });
   }, [val]);
+
+  useEffect(() => {
+    setVal((prevState) => ({
+      ...prevState,
+      page: page,
+    }));
+  }, [page]);
 
   const columns = [
     { name: "cancelId", label: "취소 승인 번호", options: { sort: false } },
@@ -49,18 +77,18 @@ const Index = () => {
       options: {
         sort: false,
         customBodyRender: (value, tableMeta) => {
+          //   console.log(value)
           //ID를 기준으로 데이터 찾기
           const rowData = cancelList.find((row) => row.cancelId === value);
-          //날짜와 주문 번호를 가져옴
-          const date = rowData["orderDate"];
-          const ordernum = rowData["orderId"];
+          if (rowData != null) {
 
-          return (
-            <div>
-              <p>{date}</p>
-              <p>{ordernum}</p>
-            </div>
-          );
+            return (
+              <div>
+                <p>{rowData.orderDate}</p>
+                <p>{rowData.orderId}</p>
+              </div>
+            )
+          }
         },
       },
     },
@@ -73,19 +101,20 @@ const Index = () => {
         customBodyRender: (value, tableMeta) => {
           //ID를 기준으로 데이터 가져옴
           const rowData = cancelList.find((row) => row.cancelId === value);
-          console.log(rowData);
-          const img = rowData.product.productInfoDto.image;
-          const name = rowData.product.productInfoDto.name;
+          if (rowData != null) {
+            const img = rowData.product.productInfoDto.image;
+            const name = rowData.product.productInfoDto.name;
 
-          return (
-            //이미지와 상품명 표시
-            <div
-              style={{ display: "flex", height: "6rem", alignItems: "center" }}
-            >
-              <img style={{ width: "5rem" }} src={img} />
-              <p>{name}</p>
-            </div>
-          );
+            return (
+              //이미지와 상품명 표시
+              <div
+                style={{ display: "flex", height: "6rem", alignItems: "center" }}
+              >
+                <img style={{ width: "5rem" }} src={img} />
+                <p>{name}</p>
+              </div>
+            );
+          }
         },
       },
     },
@@ -97,16 +126,19 @@ const Index = () => {
         customBodyRender: (value) => {
           //ID를 기준으로 데이터 가져옴
           const rowData = cancelList.find((row) => row.cancelId === value);
-          const quantity = rowData.product.productInfoDto.price;
-          const name = rowData.product.productQuantity;
+          if (rowData != null) {
+            const quantity = rowData.product.productInfoDto.price;
+            const name = rowData.product.productQuantity;
 
-          return (
-            //이미지와 상품명 표시
-            <p>
-              {quantity} / {name}
-            </p>
-          );
+            return (
+              //이미지와 상품명 표시
+              <p>
+                {quantity} / {name}
+              </p>
+            );
+          }
         },
+
       },
     },
   ];
@@ -115,12 +147,18 @@ const Index = () => {
     navigate(`/admin/cancel/${rowData[0]}`);
   };
 
+ 
+
   //선택한 드롭 박스의 값을 저장하기 위한 state 변수
   const [selectedCategory, setSelectedCategory] = useState(dropdownValue[0]);
   const handleCategoryChange = (newCategory) => {
     //드롭다운 박스에서 가져온 값으로 카테고리를 설정
     setSelectedCategory(newCategory);
   };
+
+  if (!cancelList) {
+    return <></>
+  }
 
   return (
     <>
@@ -131,11 +169,6 @@ const Index = () => {
           {/* 취소 상태 드롭다운, 검색창*/}
           <SearchWrap>
             {/* 카테고리 선택 드롭다운*/}
-            <Dropdown
-              value={dropdownValue}
-              width={"10rem"}
-              onChange={handleCategoryChange}
-            />
             {/* 검색창 */}
             <Paper
               component="form"
@@ -150,11 +183,17 @@ const Index = () => {
               {/* 검색어 입력창 */}
               <InputBase
                 sx={{ ml: 1, flex: 1, height: "100%" }}
-                placeholder="검색어를 입력해주세요"
+                placeholder="유저 ID로 검색하기"
                 inputProps={{ "aria-label": "검색어를 입력해주세요" }}
+                onChange={(e) => {
+                  setSearchData(e.target.value);
+                }}
               />
               {/* 검색 버튼 (돋보기) */}
-              <IconButton type="button" aria-label="search">
+              <IconButton type="button" aria-label="search"
+                onClick={() => {
+                  handleSearch();
+                }}>
                 <SearchIcon />
               </IconButton>
             </Paper>
@@ -170,6 +209,8 @@ const Index = () => {
             index={"status"}
             checkBoxCheck={false}
             placeholder={dropdownValue[0]}
+            onChangePage={handlePagination}
+            count={totalItems}
           />
         </ListSection>
       </Wrap>

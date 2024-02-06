@@ -5,28 +5,75 @@ import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Dropdown from "components/common/Dropdown";
-import DataTable from "components/common/AdminDataTable";
+import DataTable from "components/common/DataTable";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { GET_refund_list, PUT_update_status } from "@api/refund";
-import { customRefundReason, customRefundStatus } from "assets/CustomName";
+import { customRefundReason, customRefundStatus, customRefundReasonReverse } from "assets/CustomName";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Index = () => {
   const navigate = useNavigate();
   //  상태 저장 : 예정, 진행, 종료
   const [index, setIndex] = React.useState("");
   //필터링을 해줄 dropdown 박스의 값. 첫 값은 이름, 뒤에 두 값은 필터링에 들어갈 value
-  const dropdownValue = ["반품 상태", "반품요청", "회수중", "반품완료"];
+  const dropdownValue = ["반품 상태", "전체", "사이즈 안맞음", "단순변심", "상품불만", "배송지연", "제품 오배송", "기타"];
   const [refundList, setRefundList] = useState();
   const refundState = ["REFUND_REQUEST", "COLLECTING", "REFUND_COMPLETE"];
+  const [searchVal, setSearchVal] = useState();
+
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const page = searchParams.get("page") || 0;
+  const [totalItems, setTotalItems] = useState(0);
+
+  const handlePagination = (page) => {
+    console.log("지금 페이지네이션 페이지 : ", page);
+    navigate(`?page=${page}`);
+  };
+  const handleRowClick = (rowData) => {
+    //ID값 전달 위해 url에 ID값 추가
+    navigate(`/admin/refund/${rowData[0]}`);
+  };
+
+  //선택한 드롭 박스의 값을 저장하기 위한 state 변수
+  const [selectedCategory, setSelectedCategory] = useState(dropdownValue[0]);
+  const handleCategoryChange = (newCategory) => {
+    //드롭다운 박스에서 가져온 값으로 카테고리를 설정
+    setVal((prev) => ({
+      ...prev,
+      refundReason: customRefundReasonReverse(newCategory),
+    }))
+
+  };
+
+  const handleSearch = () => {
+
+  
+    setVal((prev) => ({
+      ...prev,
+      userId: searchVal,
+    }))
+
+  }
+
+
+
   const [val, setVal] = useState({
     userId: "",
+    refundReason: "",
     startDate: "",
     endDate: "",
     page: 0,
     size: 10,
     sort: "",
   });
+
+  useEffect(() => {
+    setVal((prevState) => ({
+      ...prevState,
+      page: page,
+    }));
+  }, [page]);
 
   const handleNextButton = (id, state) => {
     const currentStateIndex = refundState.indexOf(state);
@@ -46,6 +93,7 @@ const Index = () => {
       .then((data) => {
         console.log("성공성공", data);
         setRefundList(data.data.content);
+        setTotalItems(data.data.totalElements)
         console.log(refundList);
       })
       .catch((error) => {
@@ -55,6 +103,7 @@ const Index = () => {
 
   const columns = [
     { name: "refundId", label: "환불 승인 번호", options: { sort: false } },
+    { name: "userId", label: "유저 ID", options: { sort: false } },
     {
       name: "refundId",
       label: "결제일 | 주문번호",
@@ -64,15 +113,17 @@ const Index = () => {
           //ID를 기준으로 데이터 찾기
           const rowData = refundList.find((row) => row.refundId === value);
           //날짜와 주문 번호를 가져옴
-          const date = rowData.orderDate;
-          const ordernum = rowData.orderId;
+          if (rowData != null) {
+            const date = rowData.orderDate;
+            const ordernum = rowData.orderId;
 
-          return (
-            <div>
-              <p>{date}</p>
-              <p>{ordernum}</p>
-            </div>
-          );
+            return (
+              <div>
+                <p>{date}</p>
+                <p>{ordernum}</p>
+              </div>
+            );
+          }
         },
       },
     },
@@ -120,38 +171,30 @@ const Index = () => {
         sort: false,
         customBodyRender: (value) => {
           const rowData = refundList.find((row) => row.refundId === value);
-          const state = rowData.refundStatus;
-          const orderId = rowData.product.orderDetailId;
+          if (rowData != null) {
+            const state = rowData.refundStatus;
+            const orderId = rowData.product.orderDetailId;
 
-          return (
-            <ButtonContainer>
-              {state !== "REFUND_COMPLETE" ? (
-                <Button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleNextButton(orderId, state);
-                  }}
-                >
-                  다음 단계
-                </Button>
-              ) : null}
-            </ButtonContainer>
-          );
+            return (
+              <ButtonContainer>
+                {state !== "REFUND_COMPLETE" ? (
+                  <Button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleNextButton(orderId, state);
+                    }}
+                  >
+                    다음 단계
+                  </Button>
+                ) : null}
+              </ButtonContainer>
+            );
+          }
         },
       },
     },
   ];
-  const handleRowClick = (rowData) => {
-    //ID값 전달 위해 url에 ID값 추가
-    navigate(`/admin/refund/${rowData[0]}`);
-  };
 
-  //선택한 드롭 박스의 값을 저장하기 위한 state 변수
-  const [selectedCategory, setSelectedCategory] = useState(dropdownValue[0]);
-  const handleCategoryChange = (newCategory) => {
-    //드롭다운 박스에서 가져온 값으로 카테고리를 설정
-    setSelectedCategory(newCategory);
-  };
 
   if (!refundList) {
     return <div />;
@@ -185,11 +228,14 @@ const Index = () => {
               {/* 검색어 입력창 */}
               <InputBase
                 sx={{ ml: 1, flex: 1, height: "100%" }}
-                placeholder="검색어를 입력해주세요"
+                placeholder="사용자 ID를 입력해주세요"
                 inputProps={{ "aria-label": "검색어를 입력해주세요" }}
+                onChange={(e)=>{setSearchVal(e.target.value)}}
               />
               {/* 검색 버튼 (돋보기) */}
-              <IconButton type="button" aria-label="search">
+              <IconButton type="button" aria-label="search" onClick={() => {
+                  handleSearch();
+                }}>
                 <SearchIcon />
               </IconButton>
             </Paper>
@@ -205,6 +251,8 @@ const Index = () => {
             index={"state"}
             placeholder={dropdownValue[0]}
             checkBoxCheck={false}
+            onChangePage={handlePagination}
+            count={totalItems}
           />
         </ListSection>
       </Wrap>

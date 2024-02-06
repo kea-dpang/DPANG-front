@@ -14,7 +14,7 @@ const Blank = styled.div`
 `;
 
 function Table(props) {
-  const [clickState, setClickState] = useState(false);
+  const [clickState, setClickState] = useState(true);
 
   const handleclick = () => {
     setClickState(!clickState);

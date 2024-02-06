@@ -8,34 +8,29 @@ function RefundDetail(props) {
       <Border />
       <Table className="cm-SRegular16 ">
         <Col height="5rem">
-          <ColHead>성명</ColHead>
+          <ColHead>유저 ID</ColHead>
           <BlankDiv />
-          <Content width="28rem">{data.name}</Content>
+          <Content width="28rem">{data.userId}</Content>
 
           <ColHead>사용자</ColHead>
           <BlankDiv />
-          <Content width="28rem">{data.user}</Content>
+          <Content width="28rem">{data.userName}</Content>
         </Col>
         <Border />
 
         <Col height="5rem">
-          <ColHead>상품가</ColHead>
+          <ColHead>총 결제 금액</ColHead>
           <BlankDiv />
-          <Content width="28rem">{data.itemMoney}마일</Content>
+          <Content width="28rem">{data.totalAmount}마일</Content>
 
-          <ColHead>환불액</ColHead>
+          <ColHead>환불 예상액</ColHead>
           <BlankDiv />
-          <Content width="28rem">{data.refund}마일</Content>
+          <Content width="28rem">{data.expectedRefundAmount}마일</Content>
         </Col>
         <Border />
 
-        <Col height="5rem">
-          <ColHead>환불 상태</ColHead>
-          <BlankDiv />
-          <Content width="64.9375rem">{data.status}</Content>
-        </Col>
       </Table>
-      <Border />
+
     </Container>
   );
 }

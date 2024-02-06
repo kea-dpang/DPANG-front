@@ -94,21 +94,10 @@ function Index() {
       mileageList={mileageList}
       handlePagination={handlePagination}
       totalItems={totalItems}
-      handleCategoryChange={handleCategoryChange}
+      onChangePage ={handleCategoryChange}
       handleSearch={handleSearch}
     />
   );
 }
-
-const PageName = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 88.9375rem;
-  height: 50rem;
-  box-sizing: border-box; // padding까지 합쳐서 width 설정하기
-  padding: 2.125rem 0rem 0.9375rem 7.5rem;
-  align-items: center;
-  justify-content: center;
-`;
 
 export default Index;
