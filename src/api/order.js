@@ -7,27 +7,19 @@ export const POST_OrderInfo = async (inputValue) => {
   const res = await axios({
     method: "post",
     url: url,
-    headers: {
-      "X-DPANG-CLIENT-ID": 1,
-    },
     data: {
       deliveryInfo: {
-        name: inputValue.name,
-        phoneNumber: inputValue.phoneNumber,
-        zipCode: inputValue.zipCode,
-        address: inputValue.address,
-        detailAddress: inputValue.detailAddress,
+        name: inputValue.name || undefined,
+        phoneNumber: inputValue.phoneNumber || undefined,
+        zipCode: inputValue.zipCode || undefined,
+        address: inputValue.address || undefined,
+        detailAddress: inputValue.detailAddress || undefined,
       },
-      deliveryRequest:inputValue.deliveryRequest,
+      deliveryRequest:inputValue.deliveryRequest || undefined,
       orderIteminfo: {
         itemId: inputValue.itemId,
         quantity: inputValue.quantity,
       },
-      productInfoDto: {
-        image: inputValue.image,
-        name: inputValue.name,
-        price: inputValue.price,
-      }
     }
   });
   return res.data;
@@ -35,7 +27,7 @@ export const POST_OrderInfo = async (inputValue) => {
 
 
 
-export const GET_Order = async (id) => {
+export const GET_Order = async () => {
   
     console.log("get orderlist");
     const res = await axios({
@@ -52,35 +44,14 @@ export const GET_Order = async (id) => {
   };
 
 
-  export const PUT_Order = async (orderId, inputValue) => {
-    console.log("주문상태 수정");
-    const response = await axios({
+  export const PUT_change_status = async (orderId, inputValue) => {
+    const res = await axios({
       method: "put",
       url: `${url}/${orderId}`,
-      data: {
-        orderId: orderId,
-        orderDate: inputValue.orderDate,
-        imgUrl: inputValue.imgUrl,
-        name: inputValue.name,
-        price: inputValue.price,
-        productQuantity: inputValue.productQuantity,
-        orderer: inputValue.orderer,
-        orderStatus: "ORDER_RECEIVED",
-    },
     });
-    return response.data;
+    return res.data;
   };
 
-  export const GET_OrderList = async (orderId, inputValue) => {
-    console.log("주문상세조회");
-    const response = await axios({
-      method: "get",
-      url: `${url}/${orderId}`,
-      data: {
-        
-      }
-    })
-  }
 
   export const GET_orderlist = async (inputValue) =>{
 
@@ -107,17 +78,13 @@ export const GET_Order = async (id) => {
 
   export const GET_order_detail = async(orderId) =>{
 
-    console.log("서버로 전달할 데이터는", orderId);
 
     const res = await axios({
       method: 'get', 
       url: `${url}/${orderId}`
 
-
     })
 
     return res.data;
-
-
 
   }

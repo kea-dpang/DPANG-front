@@ -5,7 +5,7 @@ import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import DataTable from "@components/AdminDataTable";
-import { GET_Order, PUT_Order } from "@api/order";
+import { GET_Order, PUT_change_status } from "@api/order";
 import Dropdown from "@components/Dropdown";
 import data from "@data/admin/AdminOrderData";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,19 @@ import { useNavigate } from "react-router-dom";
 
 const Index = () => {
   const navigate = useNavigate();
+
+
+  const handleNextButton = (id) => {
+
+    PUT_change_status(id)
+    .then((data)=>{
+      console.log("성공", data)
+    })
+    .catch((error)=>{
+      console.log("실패", error)
+    })
+
+  }
 
   // 테이블 column
   const columns = [
@@ -65,15 +78,20 @@ const Index = () => {
     {name: "orderer", label: "주문 아이디", sort: false},
     {name: "orderStatus", label: "상태", sort: false},
     {
-      name: "orderStatus",
+      name: "id",
       label: "상태 처리",
       options: {
         sort: false,
         customBodyRender: (value) => {
+          const rowData = data.find(row => row.id === value);
+          const orderStatus = rowData['orderStatus']
 
           return(<ButtonContainer>
 
-            {value !== '배송 완료' ? <Button>다음 단계</Button>: null}
+            {orderStatus !== '배송 완료' ? <Button onClick= {(e) => {
+              e.stopPropagation();
+              handleNextButton(value);
+            }}>다음 단계</Button>: null}
           </ButtonContainer>
           )
         }
@@ -81,14 +99,16 @@ const Index = () => {
     },
   ];
 
+  
+
   const [order, setOrder] = useState([]);
   useEffect(() => {
     GET_Order()
       .then((data) => {
-        setOrder(data.data.content);
+        console.log("주문목록조회 성공", data);
       })
       .catch((error) => {
-        console.log(error);
+        console.log("실패했어용", error);
       });
   }, []);
 
@@ -123,7 +143,7 @@ const Index = () => {
         </PageName>
 
         <FilterSection>
-
+          <SearchWrap>
             <Dropdown
               value = {dropdownValue}
               onChange = {handleStatusChange}
@@ -151,6 +171,7 @@ const Index = () => {
                 <SearchIcon />
               </IconButton>
             </Paper>
+            </SearchWrap>
         </FilterSection>
 
         <ListSection>
@@ -161,6 +182,7 @@ const Index = () => {
             filterValue={selectedDropValue}
             index={"orderStatus"}
             placeholder={dropdownValue[0]}
+            checkBoxCheck={false}
           />
         </ListSection>
       </Wrap>
@@ -197,7 +219,13 @@ const FilterSection = styled.div`
   box-sizing: border-box; // padding까지 합쳐서 width 설정하기
   flex-direction: row;
   align-items: between;
-  gap: 47.93rem;
+  gap: 28.9rem;
+`;
+
+const SearchWrap = styled.div`
+  display: flex;
+  gap: 0.875rem;
+  align-items: center;
 `;
 
 const ListSection = styled.div`
