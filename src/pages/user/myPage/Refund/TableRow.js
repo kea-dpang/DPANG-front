@@ -6,6 +6,8 @@ import { useState, useEffect } from "react";
 import { GET_refund_list } from "@api/refund";
 import { useRecoilValue } from "recoil";
 import { periodAtom } from "recoil/user/PeriodSelectAtom";
+import { customRefundReason, customRefundStatus } from "assets/CustomName";
+import UserPagination from "@components/UserPagination";
 
 const PaginationContainer = styled.div`
   width: 72rem;
@@ -47,6 +49,7 @@ function TableRow({ data }) {
   //pagination에서 현재 페이지
   const [currentPage, setCurrentPage] = useState(1);
   const [refundList, setRefundList] = useState([]);
+  const [numOfElement, setNumOfElement] = useState(0);
   const userId = parseInt(localStorage.getItem("userId"));
 
   const period = useRecoilValue(periodAtom);
@@ -61,10 +64,20 @@ function TableRow({ data }) {
     sort: "",
   });
 
+    //하위 component에서 전달받은 새로운 val 값으로 업데이트 해준다
+    const handleValChange = (page) => {
+      setVal((prevVal) => ({
+        ...prevVal,
+        page: page - 1,
+      }));
+    };
+  
+
   useEffect(() => {
     GET_refund_list(val)
       .then((data) => {
         console.log(" 조회성공!!", data.data.content);
+        setNumOfElement(data.data.totalElements);
         setRefundList(data.data.content);
         console.log(refundList);
       })
@@ -80,21 +93,6 @@ function TableRow({ data }) {
       endDate: period.endDate,
     }));
   }, [period]);
-
-  //page가 변경된 경우
-  const handlePageChange = (e, newPage) => {
-    //현재 페이지를 새로운 페이지로 변경
-    setCurrentPage(newPage);
-  };
-
-  //한페이지당 보여줄 아이템의 개수
-  const itemPerPage = 5;
-  //시작 index는 현재 페이지의 첫번째 원소부터
-  const start = (currentPage - 1) * itemPerPage;
-  //끝 index는 start부터 보여주어야할 아이템의 개수 만큼
-  const end = start + itemPerPage;
-  //전체 데이터에서 시작 ~ 끝만 가져옴
-  const currentData = data.slice(start, end);
 
   return (
     <>
@@ -113,8 +111,8 @@ function TableRow({ data }) {
                 <p>{a.orderId}</p>
               </Column>
             </Col>
-            <Col width="6rem">{a.category}</Col>
-            <Col width="10rem">{a.state}</Col>
+            <Col width="6rem">{customRefundReason(a.refundReason)}</Col>
+            <Col width="10rem">{customRefundStatus(a.refundStatus)}</Col>
             <Col width="28rem">
               <ItemImg src={a.product.productInfoDto.image} />
               <ItemName>{a.product.productInfoDto.name}</ItemName>
@@ -130,19 +128,11 @@ function TableRow({ data }) {
         );
       })}
 
-      <PaginationContainer>
-        <Stack spacing={10}>
-          {/* MUI 페이지 네이션 라이브러리 이용 */}
-          <Pagination
-            //페이지당 아이템 개수에 따른 전체 페이지수 계산
-            count={Math.ceil(data.length / itemPerPage)}
-            //페이지는 현재 페이지
-            page={currentPage}
-            onChange={handlePageChange}
-            color="primary"
-          />
-        </Stack>
-      </PaginationContainer>
+      {/* pagination component에 리스트에서 원소의 개수, 전달해줄 value값, 그리고 값이 변경되었을때, state를 업데이트 시켜줄 함수를 props로 보낸다 */}
+      <UserPagination
+        numOfElement={numOfElement}
+        handleValChange={handleValChange}
+      />
     </>
   );
 }

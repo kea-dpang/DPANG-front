@@ -7,17 +7,11 @@ function DetailRefund(props) {
       <TableBox className="cm-SRegular16">
         <Row height="6rem">
           <ColHeader>상품 합계 금액</ColHeader>
-          <Col width="26rem">{props.data.itemMoney}</Col>
+          <Col width="26rem"><DataBox>{props.data.totalAmount.toLocaleString()}</DataBox></Col>
           <ColHeader>환불 예정 금액</ColHeader>
-          <Col width="26rem">{props.data.refund}</Col>
+          <Col width="26rem"><DataBox>{props.data.expectedRefundAmount.toLocaleString()}</DataBox></Col>
         </Row>
 
-        <Border />
-
-        <Row height="6rem">
-          <ColHeader>환불 상태</ColHeader>
-          <Col width="62rem">{props.data.state}</Col>
-        </Row>
         <Border />
       </TableBox>
     </Container>
@@ -56,6 +50,11 @@ const Col = styled.div`
   width: ${(props) => props.width};
   display: flex;
   align-items: center;
+  justify-content: end;
 `;
+const DataBox = styled.div`
 
+width: 24rem;
+
+`
 export default DetailRefund;
