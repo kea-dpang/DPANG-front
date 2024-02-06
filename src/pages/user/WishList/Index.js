@@ -2,8 +2,6 @@ import styled from "styled-components";
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import data from "assets/data/user/UserWishData";
-import Checkbox from '@mui/material/Checkbox';
-import carticon from "assets/images/carticon.png";
 import '../../../styles/fonts.css';
 import List from './List';
 import Header from '../../../components/common/UserHeaderBar/Index';
@@ -12,6 +10,8 @@ import Header from '../../../components/common/UserHeaderBar/Index';
 
 
 const Index = () => {
+  const [wishItems, setWishItems] = useState(data);
+
 
   
 
@@ -21,7 +21,12 @@ const Index = () => {
             <Header/>
             <Title className="cm-LBold30 col-DarkNavy">❤️ 내가 찜한 상품</Title>
             <InputSection>
-                <List/>
+            {wishItems.map((item)=> (
+                <List
+                key={item.id}
+                item={item}
+                />
+            ))}
             </InputSection>
         </Wrap>
     );

@@ -1,19 +1,18 @@
 import styled from "styled-components";
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
-import Tempdata from "assets/data/user/UserWishData";
 import Checkbox from '@mui/material/Checkbox';
 import carticon from "assets/images/carticon.png";
 import '../../../styles/fonts.css';
 
 
-const List = () => {
+const List = ({item}) => {
     const [checked, setChecked] = useState({});
     const [disprice, setDisprice] = useState({});
     
 
     const updatePrice = () => {
-        setDisprice(Tempdata.price() - (Tempdata.price() * (Tempdata.discount()/100)));
+        setDisprice(item.price - (item.price * (item.discount/100)));
     };
 
     const handleChange = (selected) => {
@@ -29,18 +28,18 @@ const List = () => {
             <Content>
             <Checkbox checked={checked} onChange={(e) => handleChange(e.target.checked)} />
             <div>
-                <Itemimg src={Tempdata.imgUrl} alt={Tempdata.name} />
+                <Itemimg src={item.imgUrl} alt={item.name} />
             </div>
             <ItemInfo>
                 <ItemName>
-                    <p className="cm-SRegular16 col-Black">{Tempdata.name}</p>
+                    <p className="cm-SRegular16 col-Black">{item.name}</p>
                 </ItemName>
                 <ItemPrice>
                         <p className="cm-SRegular14 col-SemiLightGrey"
                         sx = {{  lineheight: "1.25rem", /* 142.857% */
-                        textdecoration: "line-through"}}>{Tempdata.price}원</p>
-                        <p className="cm-SBold16 col-Orange">{Tempdata.discount}%</p>
-                        <p className="cm-SBold16 col-Black">{updatePrice}원</p>
+                        textdecoration: "line-through" }}>{item.price}원</p>
+                        <p className="cm-SBold16 col-Orange">{item.discount}%</p>
+                        <p className="cm-SBold16 col-Black">{item.price - (item.price)*(item.discount/100)}원</p>
                 </ItemPrice>
             </ItemInfo>
             </Content>
@@ -68,7 +67,7 @@ const Wrap = styled.div`
     justify-content: center;
     align-items: flex-start;
     padding: 1.25rem 0rem;
-    width: 71.9375rem;
+    width: 78rem;
     gap: 45.0625rem;
 
 `;
@@ -112,11 +111,12 @@ const ItemInfo = styled.div`
 
 const ItemName = styled.div`
     diplay: flex;
+    width: 
 `;
 
 const ItemPrice = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: raw;
     gap: 0.8125rem;
 `;
 

@@ -8,17 +8,16 @@ import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
 import ListItemButton from "@mui/material/ListItemButton";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import Button from '@mui/material/Button';
 import { POST_OrderInfo } from "@api/order";
 import Dropdown from "@components/Dropdown";
 import CartList from "@userPages/Cart/CartList";
 
-
 const Index = () => {
   const [open, setOpen] = React.useState(true);
-  const [orederItems, setOrderItems] = useState([CartList]);
+  const [orderItems, setOrderItems] = useState([CartList]);
 
   const handleClick = () => {
     setOpen(!open);
@@ -34,8 +33,8 @@ const Index = () => {
     address:"",
     detailaddress:"",
     deliveryRequest:"",
-    itemId:0,
-    quantity:0
+    itemId: orderItems.id,
+    quantity: orderItems.quantity,
   });
 
   useEffect(() => {
@@ -320,10 +319,10 @@ const Index = () => {
             >
 
               <OrderContainer>
-                {orederItems.map((item) => (
+                {orderItems.map((item) => (
                 <CartList 
                 key={item.itemId}
-                quantity={item.updateQuantity} />
+                quantity={item.quantity} />
                 ))}
               </OrderContainer>
             </ListItemButton>

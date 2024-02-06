@@ -7,28 +7,21 @@ export const POST_OrderInfo = async (inputValue) => {
   const res = await axios({
     method: "post",
     url: url,
-    headers: {
-      "X-DPANG-CLIENT-ID": 1,
-    },
     data: {
-      deliveryInfo: {
-        name: inputValue.name,
-        phoneNumber: inputValue.phoneNumber,
-        zipCode: inputValue.zipCode,
-        address: inputValue.address,
-        detailAddress: inputValue.detailAddress,
-      },
+      name: inputValue.name,
+      phoneNumber: inputValue.phoneNumber,
+      zipCode: inputValue.zipCode,
+      address: inputValue.address,
+      detailAddress: inputValue.detailAddress,
       deliveryRequest: inputValue.deliveryRequest,
-      orderIteminfo: {
-        itemId: inputValue.itemId,
-        quantity: inputValue.quantity,
-      },
+      itemId: inputValue.itemId,
+      quantity: inputValue.quantity,
     },
   });
   return res.data;
 };
 
-export const GET_Order = async (id) => {
+export const GET_Order = async () => {
   console.log("get orderlist");
   const res = await axios({
     method: "get",
