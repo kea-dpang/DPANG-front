@@ -5,7 +5,6 @@ import {
   customStatusNameReverse,
 } from "assets/CustomName";
 import axios from "axios";
-
 const url = "/api/qna";
 
 export const GET_QnAList = async ({
@@ -101,6 +100,8 @@ export const POST_Question = async (userId, data) => {
 
 export const PUT_Question = async (qnaId, data) => {
   data.category = customAskCategoryName(data.category, true);
+  console.log("data입니다요!: ", data);
+
   const res = await axios({
     method: "put",
     url: `${url}/${qnaId}`,
@@ -108,8 +109,19 @@ export const PUT_Question = async (qnaId, data) => {
       itemId: 0,
       title: data.askTitle,
       category: data.category,
-      question: data.askCotent,
+      question: data.askContent,
       attachmentUrl: "",
+    },
+  });
+  return res.data;
+};
+
+export const DELETE_QnA = async (qnaId) => {
+  const res = await axios({
+    method: "delete",
+    url: `${url}`,
+    data: {
+      deleteIds: [qnaId],
     },
   });
   return res.data;

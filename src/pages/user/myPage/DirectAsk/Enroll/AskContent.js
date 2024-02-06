@@ -54,7 +54,8 @@ const AskTitle = ({ control, detail }) => {
               rows="10"
               className="cm-SRegular16"
               disabled={detail ? detail.status === "답변 완료" : false}
-              value={field.value}
+              // value={field.value}
+              value={field.value || ""}
               onChange={field.onChange}
             ></textarea>
           </>

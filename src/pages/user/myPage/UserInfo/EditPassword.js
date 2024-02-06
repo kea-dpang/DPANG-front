@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { POST_changePassword } from "@api/sign";
 import { useNavigate } from "react-router-dom";
+import { useConfirmAlert, useErrorAlert } from "@components/SweetAlert";
 
 const EditPassword = () => {
   const methods = useForm();
@@ -15,18 +16,30 @@ const EditPassword = () => {
     getValues,
   } = methods;
   const navigete = useNavigate();
+
+  // alert
+  const showErrorAlert = useErrorAlert();
+  const showConfirmAlert = useConfirmAlert();
+
   const onSubmit = (data) => {
     // alert(JSON.stringify(data));
     POST_changePassword(data)
       .then((data) => {
-        alert("비밀번호 재설정에 성공하였습니다.");
-        navigete("/user/mypage/temp/userinfo");
+        showConfirmAlert({
+          title: "비밀번호 재설정에 성공하였습니다.",
+          navi: "/user/mypage/userinfo",
+        });
       })
       .catch((error) => {
         if (error.response.status === 400) {
-          alert("비밀번호가 일치하지 않습니다.");
+          showErrorAlert({
+            title: "비밀번호가 일치하지 않습니다.",
+          });
         } else {
-          alert("비밀번호 재설정에 실패하였습니다. 다시 시도해주세요.");
+          showErrorAlert({
+            title: "비밀번호 재설정에 실패하였습니다.",
+            text: "잠시 후 다시 시도해 주세요.",
+          });
           console.log(error);
         }
       });
@@ -55,6 +68,7 @@ const EditPassword = () => {
               id="current-pass"
               label="현재 비밀번호"
               variant="outlined"
+              type="password"
               error={!!errors.current}
               helperText={errors.current && errors.current.message}
               {...register("current", {
@@ -65,6 +79,7 @@ const EditPassword = () => {
               id="new-pass"
               label="신규 비밀번호"
               variant="outlined"
+              type="password"
               error={!!errors.new}
               helperText={errors.new && errors.new.message}
               {...register("new", {

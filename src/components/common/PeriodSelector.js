@@ -74,7 +74,11 @@ const PeriodSelector = () => {
         ))}
       </Period>
 
-      <Calender>
+      <Calender
+        onChange={(e) => {
+          setPeriodBtn(null);
+        }}
+      >
         <input
           className="cm-SRegular16"
           type="date"

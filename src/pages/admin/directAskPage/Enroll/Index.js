@@ -39,8 +39,10 @@ const EnrollPage = () => {
       .then((data) => {
         showConfirmAlert({
           title: "답변이 성공적으로 등록되었습니다.",
+          // navi: `/admin/directask/${params}`,
+          navi: "/admin/directask",
         });
-        // window.location.reload();
+        // .then(() => window.location.reload()); // 페이지 새로고침
       })
       .catch((error) => {
         alert("답변 등록에 실패하였습니다. 다시 시도해 주세요.");

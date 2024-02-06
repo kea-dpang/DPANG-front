@@ -3,10 +3,10 @@ import styled from "styled-components";
 import Checkbox from "@mui/material/Checkbox";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { DELETE_UserLeave } from "@api/user";
-import { useQuestionAlert } from "@components/SweetAlert";
+import { useErrorAlert, useQuestionConfirmAlert } from "@components/SweetAlert";
 import { useNavigate } from "react-router-dom";
 import { removeCookie } from "@utils/cookie";
+import { DELETE_UserLeave } from "@api/sign";
 
 const leaveReasons = [
   "고객서비스 불만",
@@ -27,7 +27,11 @@ const Leave = () => {
   const [note, setNote] = useState("");
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
 
-  const showQuestionAlert = useQuestionAlert();
+  const navigate = useNavigate();
+
+  // alert
+  const showQuestionConfirmAlert = useQuestionConfirmAlert();
+  const showErrorAlert = useErrorAlert();
 
   const handleCheckboxChange = (e) => {
     const isChecked = e.target.checked;
@@ -48,24 +52,34 @@ const Leave = () => {
   };
 
   const handleSubmit = () => {
-    DELETE_UserLeave(password, checkedState, note)
-      .then((data) => {
-        showQuestionAlert({
-          title: "정말 탈퇴하시겠습니까?",
-          text: "확인 클릭 시 고객님의 정보는 모두 삭제됩니다.",
-          saveText: "회원탈퇴에 성공하셨습니다. 로그인페이지로 이동합니다.",
-          navi: "/login",
-        });
-
-        /* 회원 정보 모두 삭제 */
-        localStorage.clear();
-        removeCookie("accessToken");
-        removeCookie("refreshToken");
-      })
-      .catch((error) => {
-        alert("회원탈퇴에 실패하셨습니다. 다시 한번 시도해주세요.");
-        console.log(error);
-      });
+    showQuestionConfirmAlert({
+      title: "정말 탈퇴하시겠습니까?",
+      text: "확인 클릭 시 탈퇴됩니다.",
+      saveText: "회원탈퇴에 성공하였습니다.",
+      navi: "/login",
+      onConfirm: () =>
+        DELETE_UserLeave(password, checkedState, note)
+          .then((data) => {
+            /* 회원 정보 모두 삭제 */
+            localStorage.clear();
+            removeCookie("accessToken");
+            removeCookie("refreshToken");
+          })
+          .catch((error) => {
+            if (error.response.status === 400) {
+              showErrorAlert({
+                title: "비밀번호가 틀립니다.",
+                text: "다시 시도해 주세요.",
+              });
+            } else {
+              showErrorAlert({
+                title: "회원탈퇴에 실패하셨습니다.",
+                text: "잠시 후 다시 시도해 주세요.",
+              });
+            }
+            console.log(error);
+          }),
+    });
   };
 
   return (

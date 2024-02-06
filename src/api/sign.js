@@ -1,4 +1,5 @@
 import { setCookie } from "@utils/cookie";
+import { customLeaveCategoryName } from "assets/CustomName";
 import axios from "axios";
 const url = "/api/users/register";
 const authUrl = "/api/auth";
@@ -100,6 +101,31 @@ export const POST_changePassword = async (data) => {
       email: emailValue,
       oldPassword: data.current,
       newPassword: data.new,
+    },
+  });
+  return res.data;
+};
+
+/* 회원탈퇴 */
+export const DELETE_UserLeave = async (password, checkedState, note) => {
+  const userId = localStorage.getItem("userId");
+  console.log(checkedState);
+  //속성 값이 true인 경우에만 checkedArr 배열에 추가
+  let checkedArr = Object.entries(checkedState)
+    .filter(([key, value]) => value) // value가 true인 경우만 선택
+    .map(([key]) => key); // 속성명만 선택
+
+  // 카테고리명 배열 커스텀
+  checkedArr = checkedArr.map(customLeaveCategoryName);
+  console.log(checkedArr);
+
+  const res = await axios({
+    method: "delete",
+    url: `${authUrl}/users/${userId}`,
+    data: {
+      password: password,
+      reason: checkedArr,
+      message: note,
     },
   });
   return res.data;

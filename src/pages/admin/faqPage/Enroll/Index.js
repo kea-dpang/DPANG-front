@@ -5,6 +5,7 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import { useForm } from "react-hook-form";
 import { POST_Faq } from "@api/faq";
+import { useConfirmAlert } from "@components/SweetAlert";
 
 const EnrollPage = () => {
   //////////////////////////////////
@@ -23,10 +24,16 @@ const EnrollPage = () => {
 
   const watchAllFields = watch();
 
+  // alert
+  const showConfirmAlert = useConfirmAlert();
+
   const onSubmit = (data) => {
     POST_Faq(data)
       .then((data) => {
-        alert("FAQ가 성공적으로 등록되었습니다.");
+        showConfirmAlert({
+          title: "FAQ가 성공적으로 등록되었습니다.",
+          navi: "/admin/faq",
+        });
       })
       .catch((error) => {
         alert("FAQ 등록에 실패하였습니다. 다시 시도해 주세요.");
@@ -78,9 +85,9 @@ const EnrollPage = () => {
             </TextField>
           </FormControl>
         </Option>
-        <Option>
+        {/* <Option>
           <p>admin1</p>
-        </Option>
+        </Option> */}
         <Item>
           <p className="cm-XLBold36 col-Navy">Q.</p>
           <textarea
@@ -88,7 +95,7 @@ const EnrollPage = () => {
             cols="50"
             rows="10"
             className="cm-SRegular16"
-            placeholder="수령한 상품을 반품하고 싶어요."
+            placeholder="FAQ 질문을 작성해주세요."
             style={{ padding: "2rem" }}
           ></textarea>
         </Item>
@@ -99,9 +106,7 @@ const EnrollPage = () => {
             cols="50"
             rows="10"
             className="cm-SRegular16"
-            placeholder={
-              "수령한 상품을 반품하고 싶어요.\n\n 반품 접수 방법 \n -마이페이지 > 주문배송 > 상품선택 > 반품요청 \n -구매자의 사유로 반품 시 반품 배송비는 구매자 부담입니다. \n -판매자별 반품 배송비 지불 방법에 맞게 배송비가 지불되지 않은 경우 반품/승인이 보류되어 지연될 수 있습니다."
-            }
+            placeholder={"FAQ 답변을 작성해주세요."}
             style={{ padding: "2rem" }}
           ></textarea>
         </Item>

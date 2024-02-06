@@ -8,7 +8,7 @@ export const useErrorAlert = () => {
   const navigate = useNavigate();
 
   const showErrorAlert = useCallback(
-    ({ title, text, navi }) => {
+    ({ title, text = "", navi }) => {
       swal(title, text, "error").then((isConfirmed) => {
         if (isConfirmed) {
           if (navi) {
@@ -27,7 +27,7 @@ export const useConfirmAlert = () => {
   const navigate = useNavigate();
 
   const showConfirmAlert = useCallback(
-    ({ title, text, navi }) => {
+    ({ title, text = "", navi }) => {
       swal(title, text, "success").then((isConfirmed) => {
         if (isConfirmed) {
           if (navi) {
@@ -51,11 +51,12 @@ export const useQuestionAlert = () => {
         title: title,
         text: text,
         icon: "warning",
-        buttons: true,
+        buttons: ["취소", "확인"],
         dangerMode: true,
       }).then((isConfirmed) => {
         if (isConfirmed) {
           if (saveText != "") {
+            // saveText(다음 확인 단계)가 있을 때
             swal(saveText, "", "success");
           }
           // '확인' 버튼을 눌렀을 때 실행되어야 할 함수 호출
@@ -73,6 +74,42 @@ export const useQuestionAlert = () => {
   );
 
   return showQuestionAlert;
+};
+
+/* 한번 더 물어보고, 확인 alert창 또 뜨는 alert */
+// ex) 회원탈퇴
+export const useQuestionConfirmAlert = () => {
+  const navigate = useNavigate();
+
+  const showQuestionConfirmAlert = useCallback(
+    ({ title, text, saveText, navi, onConfirm }) => {
+      swal({
+        title: title,
+        text: text,
+        icon: "warning",
+        buttons: ["취소", "확인"],
+        dangerMode: true,
+      }).then((isConfirmed) => {
+        // if (isConfirmed) {
+        // '확인' 버튼을 눌렀을 때 실행되어야 할 함수 호출
+        if (typeof onConfirm === "function") {
+          onConfirm().then(() => {
+            swal(saveText, "", "success").then((isConfirmed) => {
+              if (isConfirmed) {
+                if (navi) {
+                  navigate(navi);
+                }
+              }
+            });
+          });
+        }
+        // }
+      });
+    },
+    [navigate]
+  );
+
+  return showQuestionConfirmAlert;
 };
 
 ///////////sweetAlert 2////////////////

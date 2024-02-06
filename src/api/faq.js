@@ -46,7 +46,7 @@ export const POST_Faq = async (data) => {
   // const accessToken = window.localStorage.getItem("accessToken");
   data.category = customFAQCategoryName(data.category, true);
 
-  const res = await axios({
+  const res = await instance({
     method: "post",
     url: url,
     // headers: {
@@ -65,7 +65,7 @@ export const POST_Faq = async (data) => {
 
 export const GET_FAQ = async (faqId) => {
   console.log("faqId:", faqId);
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${url}/${faqId}`,
   });
@@ -81,7 +81,7 @@ export const GET_FAQ = async (faqId) => {
 export const PUT_FAQ = async (faqId, data) => {
   data.category = customFAQCategoryName(data.category, true);
 
-  const res = await axios({
+  const res = await instance({
     method: "put",
     // headers: {
     //   // 'Authorization': `Bearer ${accessToken}`
@@ -101,7 +101,7 @@ export const PUT_FAQ = async (faqId, data) => {
 export const DELETE_FAQ = async (faqIdArr) => {
   console.log("delete 값", faqIdArr);
 
-  const res = await axios({
+  const res = await instance({
     method: "delete",
     url: `${url}/list`,
     data: {

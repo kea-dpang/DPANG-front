@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { faqManageData } from "../../../../assets/data/admin/AdminFaqData";
 import { useForm } from "react-hook-form";
 import { GET_FAQ, PUT_FAQ } from "@api/faq";
+import { useConfirmAlert } from "@components/SweetAlert";
 
 const EditPage = () => {
   let params = useParams().faqId;
@@ -28,6 +29,9 @@ const EditPage = () => {
 
   const watchAllFields = watch();
 
+  // alert
+  const showConfirmAlert = useConfirmAlert();
+
   useEffect(() => {
     GET_FAQ(params)
       .then((data) => {
@@ -45,8 +49,11 @@ const EditPage = () => {
   const onSubmit = (data) => {
     PUT_FAQ(params, data)
       .then((data) => {
-        alert("FAQ가 성공적으로 수정되었습니다.");
-        window.location.reload();
+        showConfirmAlert({
+          title: "FAQ가 성공적으로 수정되었습니다.",
+          navi: "/admin/faq",
+        });
+        // window.location.reload();
       })
       .catch((error) => {
         console.log(error);
@@ -98,9 +105,9 @@ const EditPage = () => {
             </TextField>
           </FormControl>
         </Option>
-        <Option>
+        {/* <Option>
           <p>admin1</p>
-        </Option>
+        </Option> */}
         <Item>
           <p className="cm-XLBold36 col-Navy">Q.</p>
           <textarea
