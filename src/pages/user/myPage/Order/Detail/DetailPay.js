@@ -1,23 +1,25 @@
 import styled from "styled-components";
 
-function DetailPay() {
+function DetailPay(props) {
+  const data = props.data;
+
   return (
     <Container>
       <Border />
       <TableBox className="cm-SRegular16">
         <Row>
           <ColHeader>상품 합계 금액</ColHeader>
-          <Col width="26rem"></Col>
+          <Col width="26rem">
+            <DataBox width="24rem">
+              {data.paymentInfo.productTotalPrice}
+            </DataBox>
+          </Col>
           <ColHeader>배송비</ColHeader>
-          <Col width="26rem"></Col>
+          <Col width="26rem">
+            <DataBox width="24rem">{data.paymentInfo.deliveryFee}</DataBox>
+          </Col>
         </Row>
 
-        <Border />
-
-        <Row>
-          <ColHeader>결제 상태</ColHeader>
-          <Col width="62rem"></Col>
-        </Row>
         <Border />
       </TableBox>
     </Container>
@@ -54,6 +56,15 @@ const ColHeader = styled.div`
 const Col = styled.div`
   height: 6rem;
   width: ${(props) => props.width};
+  display: flex;
+  justify-content: end;
+`;
+
+const DataBox = styled.div`
+  height: 100%;
+  width: ${(props) => props.width};
+  display: flex;
+  align-items: center;
 `;
 
 export default DetailPay;
