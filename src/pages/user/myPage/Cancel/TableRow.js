@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { GET_cancel_list } from "@api/cancel";
 import { useRecoilValue } from "recoil";
 import { periodAtom } from "recoil/user/PeriodSelectAtom";
+import { customOrderStatus } from "assets/CustomName";
 
 const PaginationContainer = styled.div`
   width: 72rem;
@@ -46,8 +47,7 @@ function TableRow({ data }) {
   const navi = useNavigate();
   //pagination에서 현재 페이지
 
-  const userId = localStorage.getItem('userId');
-
+  const userId = localStorage.getItem("userId");
 
   const period = parseInt(useRecoilValue(periodAtom), 10);
 
@@ -69,12 +69,12 @@ function TableRow({ data }) {
 
   //초기 rendering시 취소 리스트에 대한 정보를 API를 통해 받아온다
   useEffect(() => {
-
     //취소 내역 서버로 부터 받아오기
     GET_cancel_list(val)
       .then((data) => {
         console.log(data, "API 연동 성공입니다");
-        setCancelData(data); //여기는 바꿔야 됩니다
+        setCancelData(data.data.content); //여기는 바꿔야 됩니다
+        console.log("fpofkpkrepgjper", cancelData);
       })
       .catch((error) => {
         console.log(error, "실패입니다");
@@ -82,16 +82,13 @@ function TableRow({ data }) {
   }, [val]);
 
   //period값 변경되면 새로운 시간으로 업데이트
-  useEffect(()=>{
-
-    setVal((prevVal)=>({
-      ...prevVal, 
-      startDate: period.startDate, 
-      endDate: period.endDate, 
-    }))
-
-
-  }, [period])
+  useEffect(() => {
+    setVal((prevVal) => ({
+      ...prevVal,
+      startDate: period.startDate,
+      endDate: period.endDate,
+    }));
+  }, [period]);
 
   //한페이지당 보여줄 아이템의 개수
   const itemPerPage = 5;
@@ -104,30 +101,31 @@ function TableRow({ data }) {
 
   return (
     <>
-      {currentData.map((a, k) => {
+      {cancelData.map((a, k) => {
         return (
           <Row
             key={k}
             className="cm-SRegular16"
             onClick={() => {
-              navi(`/user/mypage/cancel/detail/${a.id}`);
+              navi(`/user/mypage/cancel/detail/${a.cancelId}`);
             }}
           >
             <Col width="11rem">
               <Column>
-                <p>{a.date}</p>
-                <p>{a.ordernum}</p>
+                <p>{a.orderDate}</p>
+                <p>{a.orderId}</p>
               </Column>
             </Col>
-            <Col width="11rem">{a.state}</Col>
+            <Col width="11rem">{customOrderStatus(a.product.orderStatus)}</Col>
             <Col width="29rem">
-              <ItemImg src={a.itemImg} />
-              <ItemName>{a.itemName}</ItemName>
+              <ItemImg src={a.product.productInfoDto.image} />
+              <ItemName>{a.product.productInfoDto.name}</ItemName>
             </Col>
             <Col width="11rem">
-              {a.itemMoney} / {a.amt}
+              {a.product.productInfoDto.price * a.product.productQuantity} /
+              {a.product.productQuantity}
             </Col>
-            <Col width="10rem">{a.refund}</Col>
+            <Col width="10rem">{a.expectedRefundAmount}</Col>
           </Row>
         );
       })}

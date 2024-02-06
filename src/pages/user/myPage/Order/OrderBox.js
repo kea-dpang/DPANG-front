@@ -19,7 +19,6 @@ const CalenderBox = styled.div`
   background-color: white;
 `;
 const TableBox = styled.div`
-  height: 43rem;
   background-color: white;
 `;
 const DetailHeader = styled.div`
@@ -100,7 +99,7 @@ function ReviewBox() {
       {/* 정보를 보여줄 table */}
       <TableBox>
         <TableHeader head={head} />
-        <TableRow data={UserOrderData}/>
+        <TableRow data={UserOrderData} />
       </TableBox>
     </Container>
   );

@@ -46,8 +46,7 @@ function trimContent(str) {
 }
 
 function TableRow(props) {
-
-  const id = parseInt(localStorage.getItem('userId'), 10);
+  const id = parseInt(localStorage.getItem("userId"), 10);
 
   //기간 값 설정
   const period = useRecoilValue(periodAtom);
@@ -56,16 +55,14 @@ function TableRow(props) {
     page: 0,
     size: 10,
     sort: "",
-    startDate: period.startDate, 
-    endDate: period.endDate, 
-
-  })
+    startDate: period.startDate,
+    endDate: period.endDate,
+  });
 
   const [reviewData, setReviewData] = useState([]);
 
   //val 값이 변경되면 다시 값 가져오기
   useEffect(() => {
-
     GET_review_list(val)
       .then((data) => {
         console.log(data);
@@ -76,17 +73,13 @@ function TableRow(props) {
       });
   }, [val]);
 
-
   //period값이 변경되면 시간 값을 업데이트
-  useEffect(()=>{
-
-    setVal((prevState)=>({
-      ...prevState, 
-      startDate: period.startDate, 
-      endDate: period.endDate, 
-    }))
-
-
+  useEffect(() => {
+    setVal((prevState) => ({
+      ...prevState,
+      startDate: period.startDate,
+      endDate: period.endDate,
+    }));
   }, [period]);
 
   const itemPerPage = 10;

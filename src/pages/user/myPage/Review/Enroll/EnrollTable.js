@@ -10,11 +10,12 @@ function EnrollTable(props) {
   const [text, setText] = useState("");
   const navi = useNavigate();
   const id = parseInt(props.id, 10);
+  const userId = parseInt(localStorage.getItem("userId", 10));
 
   const handleClick = () => {
     //서버로 보내줄 데이터
     const newReview = {
-      reviewerId: 1,
+      reviewerId: userId,
       itemId: id,
       rating: value,
       content: text,
@@ -28,7 +29,7 @@ function EnrollTable(props) {
         console.log("실패!!!", error);
       });
 
-    navi("/user/mypage/temp/order");
+    navi("/user/mypage/order");
   };
 
   return (
