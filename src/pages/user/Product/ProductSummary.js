@@ -7,6 +7,9 @@ import Button from "@mui/material/Button";
 import { ReactComponent as CartImg } from "@images/cart.svg";
 import { ReactComponent as LikeImg } from "@images/heart.svg";
 import { categoryFormat, subCategoryFormat } from "assets/CustomName";
+import { POST_Cart } from "@api/cart";
+import { useQuestionAlert } from "@components/SweetAlert";
+import { useNavigate } from "react-router-dom";
 
 const ProductSummary = (props) => {
   console.log("summary: ", props);
@@ -24,6 +27,25 @@ const ProductSummary = (props) => {
   const [liked, setLiked] = useState(false);
   const handleLike = () => {
     setLiked(!liked);
+  };
+  const navigate = useNavigate();
+  const showQuestionAlert = useQuestionAlert();
+  const handleAddCart = () => {
+    showQuestionAlert({
+      title: "장바구니에 상품이 추가되었습니다.",
+      text: "장바구니 페이지로 이동하시겠습니까?",
+      saveText: "",
+      navi: "",
+      onConfirm: async () => {
+        try {
+          const data = await POST_Cart(props.item.id, count);
+          console.log("장바구니 등록 성공 야호!", data);
+          navigate(`/user/cart`);
+        } catch (error) {
+          console.log("장바구니 등록에 실패했습니다 ㅠㅠㅠ", error);
+        }
+      },
+    });
   };
   return (
     <>
@@ -115,6 +137,7 @@ const ProductSummary = (props) => {
                     color: "white",
                     padding: "10px 20px",
                   }}
+                  onClick={handleAddCart}
                 >
                   <CartImg fill="var(--white)" /> &nbsp; 장바구니에 추가
                 </Button>

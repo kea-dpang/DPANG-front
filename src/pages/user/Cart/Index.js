@@ -5,8 +5,10 @@ import Header from "@components/UserHeaderBar/Index";
 import { useNavigate } from "react-router-dom";
 
 const Index = () => {
+  const [selectedItems, setSelectedItems] = useState([]);
   const navigate = useNavigate();
   const handleOrderSave = () => {
+    console.log("주문 넘길게요 selectedItems: ", selectedItems);
     navigate(`/user/order`);
   };
 
@@ -15,9 +17,8 @@ const Index = () => {
       <Wrap>
         <Header />
         <Title className="cm-LBold30 col-DarkNavy">장바구니</Title>
-
         <InputSection>
-          <CartList />
+          <CartList setSelectedItems={setSelectedItems} />
         </InputSection>
         <OrderButton onClick={handleOrderSave}>
           <p className="cm-SBold16 col-White">주문하기</p>
@@ -42,10 +43,8 @@ const Title = styled.div`
   align-items: center;
   padding: 2.25rem 15.9375rem 2.25em 15.9375rem;
 `;
-
 const InputSection = styled.div`
   display: flex;
-  width: 66.25rem;
   min-height: calc(100vh - 30rem);
   box-sizing: border-box; // padding까지 합쳐서 width 설정하기
   flex-direction: column;
@@ -54,24 +53,6 @@ const InputSection = styled.div`
   justify-content: center;
   padding: 2.25rem 15.9375rem 2.25em 15.9375rem;
 `;
-
-const SubContainer = styled.div`
-  width: 74.8125rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 6.38rem;
-`;
-
-const TotalPriceBox = styled.div`
-  width: 74.8125rem;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  gap: 14.8125rem;
-`;
-
 const OrderButton = styled.button`
   display: flex;
   width: 74.625rem;

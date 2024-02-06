@@ -9,7 +9,7 @@ const ReviewBox = (props) => {
   return (
     <Wrap className="cm-SRegular18">
       <UserWrap>
-        <Name> {props.value.reviewerId} </Name>
+        <Name> {props.value.reviewerName} </Name>
         <Rating name="read-only" value={props.value.rating} readOnly />
       </UserWrap>
       <ContextWrap>

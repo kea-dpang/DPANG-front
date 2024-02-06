@@ -7,7 +7,8 @@ import styled from "styled-components";
 import Checkbox from "@mui/material/Checkbox";
 import { DELETE_CartItem } from "@api/cart";
 
-const CartItem = ({ item, updateQuantity, updateChecked, deleteItem }) => {
+const CartItem = ({ item, updateQuantity, updateChecked }) => {
+  console.log("item itme itme: ", item);
   const [quantity, setQuantity] = useState(item.quantity);
   const [totalPrice, setTotalPrice] = useState({});
   const [checked, setChecked] = useState(false);
@@ -24,7 +25,7 @@ const CartItem = ({ item, updateQuantity, updateChecked, deleteItem }) => {
 
   useEffect(() => {
     updateQuantity(item.id, quantity);
-  }, [item.id, quantity]);
+  }, [quantity]);
 
   const handleIncrease = () => {
     setQuantity(quantity + 1);
@@ -39,7 +40,7 @@ const CartItem = ({ item, updateQuantity, updateChecked, deleteItem }) => {
   };
 
   const handleDelete = () => {
-    DELETE_CartItem()
+    DELETE_CartItem(item.itemId)
       .then((data) => {
         console.log("상품삭제했당: ", data.data);
       })
@@ -50,22 +51,17 @@ const CartItem = ({ item, updateQuantity, updateChecked, deleteItem }) => {
 
   return (
     <Content>
-      <Checkbox
-        checked={checked}
-        onChange={(e) => handleCheckboxChange(e.target.checked)}
-      />
+      <Checkbox checked={checked} onChange={() => handleCheckboxChange()} />
       <div>
         <ItemImg src={item.image} alt={item.name} />
       </div>
       <ItemInfo>
-        <ItemName>
-          <ItemBox>
-            <p className="cm-SBold16 col-Black">{item.name}</p>
-          </ItemBox>
+        <ItemBox>
+          <p className="cm-SBold16 col-Black">{item.name}</p>
           <DeleteButton onClick={handleDelete}>
             <p className="cm-SRegular16 col-Black">삭제</p>
           </DeleteButton>
-        </ItemName>
+        </ItemBox>
         <ItemState>
           <ButtonGroup>
             <Button onClick={handleDecrease}>
@@ -88,7 +84,9 @@ const CartItem = ({ item, updateQuantity, updateChecked, deleteItem }) => {
 export default CartItem;
 
 const Content = styled.div`
-  width: 66.25rem;
+  // width: 66.25rem;
+  box-sizing: border-box;
+  padding: 2rem 2rem;
   background: var(--light-grey, #f4f4f4);
   display: flex;
   align-items: center;
@@ -97,9 +95,9 @@ const Content = styled.div`
 `;
 
 const ItemImg = styled.img`
-  width: 6.875rem;
-  height: 8.6875rem;
-  border-radius: 0.9375rem;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 0.5rem;
 `;
 
 const ItemInfo = styled.div`
@@ -111,16 +109,15 @@ const ItemInfo = styled.div`
 
 const ItemName = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
-  gap: 45rem;
-  flex-direction: row;
 `;
 
 const ItemBox = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: flex-start;
-  gap: 1.25rem;
+  gap: 20rem;
+  flex-direction: row;
 `;
 
 const ItemState = styled.div`
