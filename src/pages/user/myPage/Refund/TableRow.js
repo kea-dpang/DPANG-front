@@ -120,10 +120,12 @@ function TableRow({ data }) {
               <ItemName>{a.product.productInfoDto.name}</ItemName>
             </Col>
             <Col width="9rem">
-              {a.product.productInfoDto.price * a.product.productQuantity} /
-              {a.product.productQuantity}
+              {(
+                a.product.productInfoDto.price * a.product.productQuantity
+              ).toLocaleString()}
+              /{a.product.productQuantity}
             </Col>
-            <Col width="9rem">{a.expectedRefundAmount}</Col>
+            <Col width="9rem">{a.expectedRefundAmount.toLocaleString()}</Col>
           </Row>
         );
       })}
