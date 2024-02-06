@@ -13,8 +13,8 @@ import TextField from "@mui/material/TextField";
 import Button from '@mui/material/Button';
 import { POST_OrderInfo } from "@api/order";
 import Dropdown from "@components/Dropdown";
-import CartList from "@userPages/Cart/CartList";
-
+import data from "@data/user/UserCartData";
+import DataTable from "@components/AdminDataTable";
 
 const Index = () => {
   const [open, setOpen] = React.useState(true);
@@ -33,8 +33,6 @@ const Index = () => {
     address:"",
     detailaddress:"",
     deliveryRequest:"",
-    itemId: 0,
-    quantity: 0,
 
   });
 
@@ -42,11 +40,9 @@ const Index = () => {
     if (
       inputValue.name !== "" &&
       inputValue.phoneNumber !== "" &&
+      inputValue.zipCode !== "" &&
       inputValue.address !== "" &&
-      inputValue.detailaddress !== "" &&
-      inputValue.deliveryRequest !== "" &&
-      inputValue.itemId  !== "" &&
-      inputValue.quantity !== ""
+      inputValue.deliveryRequest !== ""
     ) {
       setFormValid(true);
     } else {
@@ -55,11 +51,10 @@ const Index = () => {
   }, [
     inputValue.name,
     inputValue.phoneNumber,
+    inputValue.zipCode,
     inputValue.address,
     inputValue.detailaddress,
     inputValue.deliveryRequest,
-    inputValue.itemId,
-    inputValue.quantity,
 
   ]);
 
@@ -112,24 +107,52 @@ const Index = () => {
     inputValue.address=inputValue.address;
     inputValue.detailaddress=inputValue.detailaddress;
     inputValue.deliveryRequest=inputValue.deliveryRequest;
-    inputValue.itemId = inputValue.itemId;
-    inputValue.quantity = inputValue.quantity;
+
 
     setIsEditing(false);
   }
+
+
+  const columns = [
+    {name: "id", label: "번호", options: {sort: false}},
+    {name: "id", label: "상품 정보", options: {sort: false, customBodyRender: (value, tableMeta)=> {
+      const rowData = data.find(row => row.id == value);
+      const img = rowData['imgUrl'];
+      const name = rowData['name'];
+
+      return (
+
+        <div style={{display:"flex", height: "6rem", alignItems: "center"}}>
+          <img style={{width: "5rem"}} src = {img} />
+          <P>{name}</P>
+        </div>
+      )
+    }}},
+    {name: "id", label: "상품금액 / 수량", options: {sort: false, customBodyRender: (value, tableMeta)=> {
+      const rowData =data.find(row => row.id == value);
+      const price = rowData['price'];
+      const quantity = rowData['quantity'];
+
+      return (
+        <div>
+          <p>{price} / {quantity}</p>
+        </div>
+      )
+    }}},
+  ]
 
   const handleSubmit = () => {
     console.log("등록할게: ", inputValue);
     POST_OrderInfo(inputValue)
       .then((data) => {
-        console.log("주문 등록");
-        navi(`/order/{orderId}`);
+        console.log("주문 등록", data);
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
+  
   return (
     <Wrap>
       <List
@@ -321,7 +344,10 @@ const Index = () => {
             >
 
               <OrderContainer>
-                  <CartList/>
+              <DataTable
+                data={data}
+                columns={columns}
+            />
               </OrderContainer>
             </ListItemButton>
           </List>
@@ -400,4 +426,8 @@ const OrderContainer = styled.div`
   gap: 1.375rem;
   justify-Content: center;
   align-Items: center;
+`;
+
+const P = styled.div`
+  width: 25rem;
 `;

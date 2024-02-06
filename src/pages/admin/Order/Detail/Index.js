@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import * as React from "react";
 import DetailOrder from "./DetailOrder";
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import { useParams } from "react-router-dom";
 import Data from "@data/admin/AdminOrderData";
 import DetailTable from "./DetailTable";
+import { GET_order_detail } from "@api/order";
 
 const Index = () => {
 
@@ -16,13 +17,23 @@ const Index = () => {
     
     });
 
+    useEffect(()=> {
+      GET_order_detail(parseInt(id, 10))
+      .then((data)=> {
+        console.log("상세조회 성공", data)
+      })
+      .catch((error)=> {
+        console.log("상세조회 실패", error)
+      })
+    }, [])
+
     
     return (
 
         <>
         <Wrap>
-            <PageName className="cm-Bold30 col-Black"> 주문 관리</PageName>
-            <PageSubName className="cm-Mbold24 col-Navy">
+            <PageName className="cm-LBold30 col-Black"> 주문 관리</PageName>
+            <PageSubName className="cm-MBold24 col-Navy">
             {" "}
             주문 내역 상세 조회
             </PageSubName>
@@ -62,7 +73,7 @@ const InputSection = styled.div`
   display: flex;
   width: 88.9375rem;
   box-sizing: border-box; // padding까지 합쳐서 width 설정하기
-  padding: 0rem 7.5rem 6.25rem 7.5rem;
+  padding: 2rem 7.5rem 6.25rem 7.5rem;
   flex-direction: column;
   align-items: center;
 `;
