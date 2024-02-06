@@ -44,6 +44,7 @@ const Index = () => {
   // }, []);
   useEffect(() => {
     navigate(`?page=${page}`);
+
     console.log("렌더링 렌더링");
     GET_BrandList(page)
       .then((data) => {
