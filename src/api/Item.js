@@ -8,7 +8,7 @@ export const POST_Item = async (inputValue) => {
   if (inputValue.subCategory !== "") {
     inputValue.subCategory = subCategoryFormat(inputValue.subCategory, false);
   } else {
-    inputValue.subCategory = "";
+    inputValue.subCategory = null;
   }
   console.log("상품 등록 subcategory: ", inputValue.subcategory);
   const res = await axios({
@@ -67,7 +67,7 @@ export const GET_ItemInfo = async (id) => {
   console.log("아이템 상세정보 조회");
   const res = await axios({
     method: "get",
-    url: `${url}/${id}`,
+    url: `${url}/${id}/detail`,
   });
   return res.data.data;
 };
