@@ -17,7 +17,7 @@ const ItemSection = (props) => {
         >
           {props.title}
         </Title>
-        <Carousel />
+        <Carousel sellerId={props.sellerId} filter="event" />
       </Wrap>
     </>
   );

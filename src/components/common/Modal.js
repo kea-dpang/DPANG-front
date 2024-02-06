@@ -8,7 +8,7 @@ const Modal = ({ setIsModalOpen, value }) => {
   console.log("문의등록하려고: ", value);
   const [isFormValid, setFormValid] = useState(false); // 입력값 다 입력했는지 판단
   const [askData, setAskData] = useState({
-    itemId: value.itemId,
+    itemId: value.id,
     category: "상품",
     askTitle: "",
     askContent: "",
@@ -54,8 +54,8 @@ const Modal = ({ setIsModalOpen, value }) => {
             </QuitButton>
           </TitleWrap>
           <ProductWrap>
-            <ProductImg $imgUrl={value.itemImage} />
-            <div className="cm-SBold18 col-Black">{value.itemName}</div>
+            <ProductImg $imgUrl={value.thumbnailImage} />
+            <div className="cm-SBold18 col-Black">{value.name}</div>
           </ProductWrap>
           <ContextWrap>
             <div className="cm-SBold16">제목</div>

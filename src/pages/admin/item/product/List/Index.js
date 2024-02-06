@@ -8,11 +8,11 @@ import SearchIcon from "@mui/icons-material/Search";
 import Dropdown from "@components/Dropdown";
 // import DataTable from "@components/AdminDataTable";
 import categoryData from "@data/user/CategoryData";
-import { GET_ItemList, DELETE_Item } from "@api/Item";
+import { GET_ItemList, GET_ItemFilterListUser, DELETE_Item } from "@api/Item";
 import { useLocation } from "react-router-dom";
 import DataTable from "@components/DataTable";
 
-// 상품 등록 관리자 페이지
+// 상품 리스트 관리자 페이지
 const Index = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search); // url에서 searchparameter 저장(페이지)
@@ -24,9 +24,9 @@ const Index = () => {
   console.log("지금 페이지는 page: ", page);
   // 테이블 column
   const columns = [
-    { name: "itemId", label: "상품 ID", options: { sort: false } },
+    { name: "id", label: "상품 ID", options: { sort: false } },
     {
-      name: "itemImage",
+      name: "thumbnailImage",
       label: "대표 이미지",
       options: {
         sort: false,
@@ -42,7 +42,7 @@ const Index = () => {
         },
       },
     },
-    { name: "itemName", label: "상품명", sort: false },
+    { name: "name", label: "상품명", sort: false },
     { name: "category", label: "카테고리" },
     { name: "subCategory", label: "상세 카테고리" },
     { name: "stockQuantity", label: "재고량" },
@@ -52,7 +52,16 @@ const Index = () => {
     ...categoryData.map((item) => item.title),
   ];
   const handleGetItemList = () => {
-    GET_ItemList(page)
+    GET_ItemFilterListUser(
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      parseInt(page),
+      10
+    )
       .then((data) => {
         setItem(data.data.content);
         setTotalData(data.data.totalElements);
@@ -64,15 +73,6 @@ const Index = () => {
   useEffect(() => {
     handleGetItemList();
   }, [page]);
-  // useEffect(() => {
-  //   GET_ItemList(page)
-  //     .then((data) => {
-  //       setItem(data.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, []);
 
   const handleRowsDelete = (rowsDeleted) => {
     const dataIndexArray = rowsDeleted.data.map((item) => item.dataIndex);

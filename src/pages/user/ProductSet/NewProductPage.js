@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Item from "@components/ProductCard/Index";
-import { GET_ItemListUser } from "@api/Item";
+import { GET_ItemFilterListUser } from "@api/Item";
 
 const NewProductPage = () => {
   // 아이템 리스트
   const [itemList, setItemList] = useState([]);
   useEffect(() => {
-    GET_ItemListUser()
+    GET_ItemFilterListUser()
       .then((data) => {
         setItemList(data.data); // API 응답으로 받은 데이터를 상태에 저장
         console.log("넘겨받은 아이템 리스트 데이터 : ", data);

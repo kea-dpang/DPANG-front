@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import data from "@data/user/UserCartData";
 import CartItem from "./CartItem";
 import styled from "styled-components";
 import { GET_CartList } from "@api/cart";
 
-const CartList = () => {
-  const [cartItems, setCartItems] = useState(data);
+const CartList = (setSelectedItems) => {
+  const [cartItems, setCartItems] = useState([]);
 
   const getItemList = () => {
     GET_CartList()
@@ -43,6 +42,7 @@ const CartList = () => {
   const updateChecked = (itemId, checked) => {
     setCartItems((prevItems) =>
       prevItems.map((prevItem) => {
+        console.log("preveItem: ", prevItem);
         if (prevItem.id === itemId) {
           return {
             ...prevItem,
@@ -55,10 +55,6 @@ const CartList = () => {
     );
   };
 
-  const deleteItem = (itemId) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
-  };
-
   return (
     <Wrap>
       <Container>
@@ -68,7 +64,6 @@ const CartList = () => {
             item={item}
             updateQuantity={updateQuantity}
             updateChecked={updateChecked}
-            deleteItem={deleteItem}
           />
         ))}
         <TotalPrice>
@@ -103,18 +98,16 @@ const Wrap = styled.div`
 `;
 
 const Container = styled.div`
-  width: 74.8125rem;
   background: var(--light-grey, #f4f4f4);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 2rem;
-  padding: 4rem 0rem 4rem 0rem;
 `;
 
 const TotalPrice = styled.div`
-  width: 74.8125rem;
+  padding: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -122,7 +115,7 @@ const TotalPrice = styled.div`
 `;
 
 const PriceBox = styled.div`
-  width: 74.8125rem;
+  padding: 0rem 2rem;
   display: flex;
   justify-content: center;
   align-items: center;

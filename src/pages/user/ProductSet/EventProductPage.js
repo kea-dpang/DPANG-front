@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Item from "@components/ProductCard/Index";
-import { GET_ItemListUser } from "@api/Item";
+import { GET_ItemFilterListUser } from "@api/Item";
 import { useLocation } from "react-router-dom";
 
-const EventProductPage = (props) => {
+const EventProductPage = () => {
   const [itemList, setItemList] = useState([]);
   let location = useLocation();
   console.log("location:", location);
@@ -13,9 +13,18 @@ const EventProductPage = (props) => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
 
-    GET_ItemListUser()
+    GET_ItemFilterListUser(
+      null,
+      null,
+      null,
+      null,
+      location.state.sellerId,
+      null,
+      0,
+      20
+    )
       .then((data) => {
-        setItemList(data.data); // API 응답으로 받은 데이터를 상태에 저장
+        setItemList(data.data.content); // API 응답으로 받은 데이터를 상태에 저장
         console.log("넘겨받은 아이템 리스트 데이터 : ", data);
       })
       .catch((error) => {
@@ -26,11 +35,13 @@ const EventProductPage = (props) => {
     <>
       <Wrap>
         <Title className="cm-XLBold36">{title}</Title>
-        <ItemWrap>
-          {itemList.map((item) => (
-            <Item key={item.itemId} value={item} />
-          ))}
-        </ItemWrap>
+        {itemList && (
+          <ItemWrap>
+            {itemList.map((item) => (
+              <Item key={item.itemId} value={item} />
+            ))}
+          </ItemWrap>
+        )}
       </Wrap>
     </>
   );

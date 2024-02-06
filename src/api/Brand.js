@@ -1,14 +1,14 @@
 import axios from "axios";
 const url = `/api/seller`;
 // 관리자 - 판매처 리스트 조회
-export const GET_BrandList = async (page) => {
+export const GET_BrandList = async (page, size) => {
   console.log("get brandlist");
   const res = await axios({
     method: "get",
     url: url,
     params: {
       page: page,
-      size: 10,
+      size: size,
     },
   });
   console.log("판매처 목록 result : ", res.data);
