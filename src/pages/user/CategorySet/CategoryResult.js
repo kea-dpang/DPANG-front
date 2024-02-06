@@ -10,13 +10,12 @@ const CategoryResult = (props) => {
   // 아이템 리스트
   const [itemList, setItemList] = useState([]);
   useEffect(() => {
-    GET_ItemFilterListUser()
+    GET_ItemFilterListUser(props.category, null, null, null, null, null, 0, 10)
       .then((data) => {
-        setItemList(data.data); // API 응답으로 받은 데이터를 상태에 저장
-        console.log("넘겨받은 아이템 리스트 데이터 : ", data);
+        setItemList(data.data.content);
       })
       .catch((error) => {
-        console.error("아이템 리스트 가져오기 실패", error);
+        console.log(error);
       });
   }, []);
 
@@ -42,7 +41,7 @@ const CategoryResult = (props) => {
               </Section>
               <ListSection>
                 {itemList.map((item) => (
-                  <Item key={item.itemId} value={item} />
+                  <Item key={item.id} value={item} />
                 ))}
               </ListSection>
             </Right>

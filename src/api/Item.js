@@ -110,7 +110,11 @@ export const GET_ItemFilterListUser = async (
   page,
   size
 ) => {
-  console.log("사용자 아이템 검색 필터링 합니다요: ", keyword, typeof keyword);
+  console.log(
+    "사용자 아이템 검색 필터링 합니다요: ",
+    category,
+    typeof category
+  );
   const res = await axios({
     method: "get",
     url: url,
