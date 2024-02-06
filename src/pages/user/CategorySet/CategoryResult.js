@@ -7,17 +7,42 @@ import { categoryFormat } from "assets/CustomName";
 
 const CategoryResult = (props) => {
   console.log("query: ", props);
-  // 아이템 리스트
+  const [filterData, setFilterData] = useState({
+    minPrice: null,
+    maxPrice: null,
+  }); // 아이템 리스트
   const [itemList, setItemList] = useState([]);
-  useEffect(() => {
-    GET_ItemFilterListUser(props.category, null, null, null, null, null, 0, 10)
+  const getItemList = () => {
+    GET_ItemFilterListUser(
+      props.category,
+      null,
+      filterData.minPrice,
+      filterData.maxPrice,
+      null,
+      null,
+      0,
+      10
+    )
       .then((data) => {
         setItemList(data.data.content);
       })
       .catch((error) => {
         console.log(error);
       });
+  };
+  const handlePriceChange = (newPrice) => {
+    setFilterData((prevState) => ({
+      ...prevState,
+      minPrice: newPrice[0],
+      maxPrice: newPrice[1],
+    }));
+  };
+  useEffect(() => {
+    getItemList();
   }, []);
+  useEffect(() => {
+    getItemList();
+  }, [filterData]);
 
   return (
     <Wrap>
@@ -29,7 +54,7 @@ const CategoryResult = (props) => {
             </div>
           </Title>
           <Content>
-            <FilterSideBar />
+            <FilterSideBar onPriceChange={handlePriceChange} />
             <Right>
               {/* 검색 결과 개수 + 추천순, 최신순 등 정렬 */}
               <Section className="cm-XsRegular14">

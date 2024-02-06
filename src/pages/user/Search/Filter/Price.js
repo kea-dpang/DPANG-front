@@ -3,8 +3,8 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 
-const Price = () => {
-  const [value, setValue] = React.useState([0, 37]);
+const Price = ({ value, setValue }) => {
+  // const [value, setValue] = React.useState([0, 0]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -19,6 +19,8 @@ const Price = () => {
           value={value}
           onChange={handleChange}
           valueLabelDisplay="auto"
+          step={1000}
+          max={1000000}
           sx={{
             "& .MuiSlider-thumb": {
               width: 20, // thumb(슬라이더 조절하는 원형 부분)의 크기
@@ -41,12 +43,12 @@ const Price = () => {
       <MinMaxPrice>
         <PriceBox className="cm-XsBold14">
           <div className="col-Navy"> 최저요금 </div>
-          <div className="col-Black"> ₩ {value[0]}</div>
+          <div className="col-Black"> ₩ {value[0].toLocaleString()}</div>
         </PriceBox>
         <div className="col-SemiLightGrey"> - </div>
         <PriceBox className="cm-XsBold14">
           <div className="col-Navy"> 최대요금 </div>
-          <div className="col-Black"> ₩ {value[1]}</div>
+          <div className="col-Black"> ₩ {value[1].toLocaleString()}</div>
         </PriceBox>
       </MinMaxPrice>
     </Wrap>
@@ -62,8 +64,9 @@ const Wrap = styled.div`
   padding-bottom: 1rem;
 `;
 const MinMaxPrice = styled.div`
+  padding: 1rem;
   display: flex;
-  width: 14.5rem;
+  // width: 14.5rem;
   align-items: center;
   gap: 0.375rem;
   justify-content: center;

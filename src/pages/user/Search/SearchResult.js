@@ -16,18 +16,8 @@ const SearchResult = (props) => {
     sellerId: null,
     keyword: props.keyword,
   });
-  // useEffect(() => {
-  //   GET_ItemFilterListUser()
-  //     .then((data) => {
-  //       setItemList(data.data); // API 응답으로 받은 데이터를 상태에 저장
-  //       console.log("넘겨받은 아이템 리스트 데이터 : ", data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("아이템 리스트 가져오기 실패", error);
-  //     });
-  // }, []);
 
-  useEffect(() => {
+  const getItemList = () => {
     GET_ItemFilterListUser(
       filterData.category,
       filterData.subCategory,
@@ -43,9 +33,23 @@ const SearchResult = (props) => {
         setItemList(data.data.content); // API 응답으로 받은 데이터를 상태에 저장
       })
       .catch((error) => {
-        // console.error("아이템 리스트 가져오기 실패", error);
+        console.error("아이템 리스트 가져오기 실패", error);
       });
+  };
+  const handlePriceChange = (newPrice) => {
+    setFilterData((prevState) => ({
+      ...prevState,
+      minPrice: newPrice[0],
+      maxPrice: newPrice[1],
+    }));
+  };
+
+  useEffect(() => {
+    getItemList();
   }, []);
+  useEffect(() => {
+    getItemList();
+  }, [filterData]);
 
   return (
     <Wrap>
@@ -56,14 +60,15 @@ const SearchResult = (props) => {
             <div className="cm-LRegular30"> &nbsp; 에 대한 검색 결과</div>
           </Title>
           <Content>
-            <FilterSideBar value={"search"} />
+            <FilterSideBar onPriceChange={handlePriceChange} />
+            {/* <FilterSideBar value={"search"} /> */}
             <Right>
               {/* 검색 결과 개수 + 추천순, 최신순 등 정렬 */}
               <Section className="cm-XsRegular14">
                 <div> 총 {itemList.length} 건</div>
                 <OrderWrap>
-                  <div> 추천순 </div>
-                  <div> 판매순 </div>
+                  <div> </div>
+                  <div> </div>
                 </OrderWrap>
               </Section>
               <ListSection>
