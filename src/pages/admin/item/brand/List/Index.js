@@ -15,7 +15,7 @@ import { useLocation } from "react-router-dom";
 const Index = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search); // url에서 searchparameter 저장(페이지)
-  const page = searchParams.get("page") || 0;
+  const [page, setPage] = useState(searchParams.get("page") || 0);
   const navigate = useNavigate();
   console.log("지금 페이지는 page: ", page);
 
@@ -43,6 +43,8 @@ const Index = () => {
   //     });
   // }, []);
   useEffect(() => {
+    navigate(`?page=${page}`);
+
     console.log("렌더링 렌더링");
     GET_BrandList(page)
       .then((data) => {
@@ -75,7 +77,8 @@ const Index = () => {
   // 페이지네이션 버튼 핸들러
   const handlePagination = (page) => {
     console.log("지금 페이지네이션 페이지 : ", page);
-    navigate(`?page=${page}`);
+    setPage(page);
+    // navigate(`?page=${page}`);
   };
   /* 선택된 행은 상세정보로 이동 */
   const handleRowClick = (row) => {
