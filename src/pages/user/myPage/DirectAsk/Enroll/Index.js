@@ -10,6 +10,7 @@ import { GET_QnA, POST_Question, PUT_Question } from "@api/directAsk";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Controller } from "react-hook-form";
+import { useConfirmAlert } from "@components/SweetAlert";
 
 const AskEnrollPage = () => {
   //////////////////////////////////
@@ -31,6 +32,9 @@ const AskEnrollPage = () => {
   const [detail, setDetail] = useState();
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
+
+  // alert
+  const showConfirmAlert = useConfirmAlert();
 
   /* detail 값 서버로부터 가져오기 */
   useEffect(() => {
@@ -57,7 +61,7 @@ const AskEnrollPage = () => {
       reset({
         category: detail.category, // (form)detail 객체의 category 속성을 초기 값으로 설정
         askTitle: detail.title,
-        askContent: detail.content,
+        askContent: detail.contents,
       });
     } else {
       // 문의 등록 시 값 초기화
@@ -83,21 +87,25 @@ const AskEnrollPage = () => {
     if (btnName === "edit") {
       PUT_Question(detail.qnaId, dataArr)
         .then((data) => {
-          alert("답변이 성공적으로 등록되었습니다.");
-          window.location.reload();
+          showConfirmAlert({
+            title: "문의가 성공적으로 수정되었습니다.",
+          });
+          // window.location.reload();
         })
         .catch((error) => {
-          alert("답변 등록에 실패하였습니다. 다시 시도해 주세요.");
+          alert("문의 수정이 실패하였습니다. 다시 시도해 주세요.");
         });
     } else {
       POST_Question(userId, dataArr) // 나중에 userId도 넘겨주기
         .then((data) => {
-          alert("답변이 성공적으로 등록되었습니다.");
           console.log("답변 등록:", data);
-          navigate(`/user/mypage/directAsk`);
+          showConfirmAlert({
+            title: "문의가 성공적으로 등록되었습니다.",
+            navi: "/user/mypage/directAsk",
+          });
         })
         .catch((error) => {
-          alert("답변 등록에 실패하였습니다. 다시 시도해 주세요.");
+          console.log(error);
         });
     }
   };

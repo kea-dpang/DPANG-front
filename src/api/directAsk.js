@@ -101,6 +101,8 @@ export const POST_Question = async (userId, data) => {
 
 export const PUT_Question = async (qnaId, data) => {
   data.category = customAskCategoryName(data.category, true);
+  console.log("data입니다요!: ", data);
+
   const res = await axios({
     method: "put",
     url: `${url}/${qnaId}`,
@@ -108,7 +110,7 @@ export const PUT_Question = async (qnaId, data) => {
       itemId: 0,
       title: data.askTitle,
       category: data.category,
-      question: data.askCotent,
+      question: data.askContent,
       attachmentUrl: "",
     },
   });
