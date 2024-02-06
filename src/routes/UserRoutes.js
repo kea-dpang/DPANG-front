@@ -9,7 +9,7 @@ import UserRefund from "@userPages/myPage/Refund/Index";
 import UserOrder from "@userPages/myPage/Order/Index";
 import EditPassword from "@userPages/myPage/UserInfo/EditPassword";
 import Leave from "@userPages/myPage/UserInfo/Leave";
-import WishList from "@userPages/WishList/WishList";
+import WishList from "@userPages/WishList/Index";
 import UserRefundDetail from "@userPages/myPage/Refund/Detail/Index";
 import ReqRefund from "@userPages/myPage/Refund/Enroll/Index";
 import AskEnrollPage from "@userPages/myPage/DirectAsk/Enroll/Index";
