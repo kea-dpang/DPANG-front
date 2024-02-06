@@ -94,7 +94,7 @@ const Index = () => {
       label: "상품 가격 / 수량",
       options: {
         sort: false,
-        customBodyRender: (value, tableMeta) => {
+        customBodyRender: (value) => {
           //ID를 기준으로 데이터 가져옴
           const rowData = cancelList.find((row) => row.cancelId === value);
           const quantity = rowData.product.productInfoDto.price;

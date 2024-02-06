@@ -102,7 +102,7 @@ function TableRow() {
           <Row className="cm-SRegular16" key={i}>
             <Col width="18rem">{customDate(a.requestDate)}</Col>
             <Col width="18rem">{a.depositorName}</Col>
-            <Col width="18rem">{a.requestedMileage} 마일</Col>
+            <Col width="18rem">{a.requestedMileage.toLocaleString()} 마일</Col>
             {/* 마일리지 충전 상태에 따라 다른 상태 표시를 위하여 props로 상태 정보 넘겨줌 */}
             <Col width="18rem">
               <Status status={customMileageStatusName(a.status)}>
