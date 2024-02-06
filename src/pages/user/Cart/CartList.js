@@ -128,4 +128,5 @@ const PriceBox = styled.div`
   align-items: center;
   gap: 11rem;
   margin-top: 2rem;
+  margin-bottom: 2rem;
 `;

@@ -23,11 +23,6 @@ export const POST_OrderInfo = async (inputValue) => {
         itemId: inputValue.itemId,
         quantity: inputValue.quantity,
       },
-      productInfoDto: {
-        image: inputValue.image,
-        name: inputValue.name,
-        price: inputValue.price,
-      },
     },
   });
   return res.data;
@@ -48,24 +43,13 @@ export const GET_Order = async (id) => {
   return res.data;
 };
 
-export const PUT_Order = async (orderId, inputValue) => {
-  console.log("주문상태 수정");
-  const response = await axios({
-    method: "put",
-    url: `${url}/${orderId}`,
-    data: {
-      orderId: orderId,
-      orderDate: inputValue.orderDate,
-      imgUrl: inputValue.imgUrl,
-      name: inputValue.name,
-      price: inputValue.price,
-      productQuantity: inputValue.productQuantity,
-      orderer: inputValue.orderer,
-      orderStatus: "ORDER_RECEIVED",
-    },
-  });
-  return response.data;
-};
+  export const PUT_change_status = async (orderId, inputValue) => {
+    const res = await axios({
+      method: "put",
+      url: `${url}/${orderId}`,
+    });
+    return res.data;
+  };
 
 // export const GET_OrderList = async (orderId, inputValue) => {
 //   console.log("주문상세조회");
