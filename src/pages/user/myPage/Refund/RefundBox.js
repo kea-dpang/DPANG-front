@@ -57,11 +57,10 @@ function ReviewBox() {
   const [amt, setAmt] = useState([0, 1, 2, 0, 3]);
 
   const header = [
-    { text: "날짜/주문번호", width: "9rem" },
-    { text: "유형", width: "8rem" },
+    { text: "날짜/주문번호", width: "10rem" },
     { text: "사유", width: "6rem" },
-    { text: "상태", width: "9rem" },
-    { text: "상품명", width: "22rem" },
+    { text: "상태", width: "10rem" },
+    { text: "상품명", width: "28rem" },
     { text: "상품금액/수량", width: "9rem" },
     { text: "환불 예정 금액", width: "9rem" },
   ];
@@ -96,8 +95,8 @@ function ReviewBox() {
         </NaviBar>
       </NavBox>
       <TableBox>
-        <TableHeader head={header}/>
-        <Table data={TempData}/>
+        <TableHeader head={header} />
+        <Table data={TempData} />
       </TableBox>
     </Container>
   );

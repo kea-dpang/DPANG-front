@@ -3,7 +3,6 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import "../../../../styles/fonts.css";
 import Table from "pages/admin/cancel/Detail/Table";
-import data from "../../../../assets/data/admin/AdminCancelData";
 import { useParams } from "react-router-dom";
 import RefundDetail from "./RefundDetail";
 import DetailTableTitle from "../../../../components/common/HiddenShowBtn";
@@ -12,23 +11,28 @@ import { GET_cancel_detail } from "@api/cancel";
 const Index = () => {
   const { id } = useParams();
   const [click, setClick] = useState(false);
+  const [cancelDetail, setCancelDetail] = useState();
+
   const handleClick = () => {
     setClick(!click);
   };
 
-//서버로부터 특정 ID에 대한 조회를 요청하는 API
-  useEffect(()=>{
-
+  //서버로부터 특정 ID에 대한 조회를 요청하는 API
+  useEffect(() => {
     GET_cancel_detail(id)
-    .then((data)=>{
-      console.log("성공했습니다", data);
-    })
-    .catch((error)=>{
-      console.log("실패했습니다", error);
-    })
+      .then((data) => {
+        console.log("성공했습니다", data.data);
+        console.log(data.data);
+        setCancelDetail(data.data);
+      })
+      .catch((error) => {
+        console.log("실패했습니다", error);
+      });
+  }, []);
 
-
-  }, [id])
+  if (!cancelDetail) {
+    return <div />;
+  }
 
   return (
     <>
@@ -40,7 +44,7 @@ const Index = () => {
         </PageSubName>
 
         <InputSection>
-          <Table data={data} id={id} />
+          <Table data={cancelDetail} />
 
           <DetailTableTitle
             text="취소 상세 정보"
@@ -48,7 +52,7 @@ const Index = () => {
             handleclick={handleClick}
           />
 
-          {click && <RefundDetail data={data} id={id} />}
+          {click && <RefundDetail data={cancelDetail} />}
         </InputSection>
       </Wrap>
     </>

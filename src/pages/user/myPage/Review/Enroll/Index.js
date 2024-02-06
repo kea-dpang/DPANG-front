@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Header from "../../../../../components/common/UserHeaderBar/Index";
 import EnrollReviewBox from "./EnrollReviewBox";
-import DetailTable from "./DetailTable";
+import MyPageBodyHeader from "components/common/MyPageBodyHeader";
 import { useParams } from "react-router-dom";
 
 const Container = styled.div`
@@ -28,9 +28,9 @@ function Index() {
   return (
     <Container>
       <ContentBox>
-        <DetailTable itemID={id} />
+        <MyPageBodyHeader header="리뷰 등록" />
         <ReviewContainer>
-          <EnrollReviewBox itemID={id}/>
+          <EnrollReviewBox itemID={id} />
         </ReviewContainer>
       </ContentBox>
     </Container>

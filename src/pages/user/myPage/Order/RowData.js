@@ -106,7 +106,9 @@ function RowData(props) {
                     status={customOrderStatus(b.orderStatus)}
                     onClick={(e) => {
                       e.stopPropagation();
-                      navi(`/user/mypage/review/enroll/${b.orderDetailId}`);
+                      navi(
+                        `/user/mypage/review/enroll/${b.productInfoDto.itemId}`
+                      );
                     }}
                   >
                     리뷰작성

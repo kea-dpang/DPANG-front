@@ -6,10 +6,10 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Dropdown from "components/common/Dropdown";
 import DataTable from "components/common/AdminDataTable";
-import data from "assets/data/admin/AdminRefundData";
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { GET_refund_list, PUT_update_status } from "@api/refund";
+import { customRefundReason, customRefundStatus } from "assets/CustomName";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -17,6 +17,8 @@ const Index = () => {
   const [index, setIndex] = React.useState("");
   //필터링을 해줄 dropdown 박스의 값. 첫 값은 이름, 뒤에 두 값은 필터링에 들어갈 value
   const dropdownValue = ["반품 상태", "반품요청", "회수중", "반품완료"];
+  const [refundList, setRefundList] = useState();
+  const refundState = ["REFUND_REQUEST", "COLLECTING", "REFUND_COMPLETE"];
   const [val, setVal] = useState({
     userId: "",
     startDate: "",
@@ -24,59 +26,46 @@ const Index = () => {
     page: 0,
     size: 10,
     sort: "",
+  });
 
-
-  })
-
-
-  const handleNextButton = (id) => {
-
-    PUT_update_status(id)
-    .then((data)=>{
-      console.log("성공성공", data)
-    })
-    .catch((error)=>{
-      console.log("실패실패", error)
-    })
-
-    
-
-  }
-
-  const [refundList, setRefundList] = useState([]);
+  const handleNextButton = (id, state) => {
+    const currentStateIndex = refundState.indexOf(state);
+    const nextState = refundState[currentStateIndex + 1];
+    PUT_update_status(id, nextState)
+      .then((data) => {
+        console.log("성공-성공", data);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log("실패-실패", error);
+      });
+  };
 
   useEffect(() => {
-
     GET_refund_list(val)
       .then((data) => {
         console.log("성공성공", data);
+        setRefundList(data.data.content);
+        console.log(refundList);
       })
       .catch((error) => {
         console.log("실패실패", error);
-      })
-
-
-
-
-  }, [val])
-
-
+      });
+  }, [val]);
 
   const columns = [
-
-    { name: "id", label: "번호", options: { sort: false } },
+    { name: "refundId", label: "환불 승인 번호", options: { sort: false } },
     {
-      name: "id",
+      name: "refundId",
       label: "결제일 | 주문번호",
       options: {
         sort: false,
         customBodyRender: (value, tableMeta) => {
-
           //ID를 기준으로 데이터 찾기
-          const rowData = data.find(row => row.id === value);
+          const rowData = refundList.find((row) => row.refundId === value);
           //날짜와 주문 번호를 가져옴
-          const date = rowData['date'];
-          const ordernum = rowData['ordernum'];
+          const date = rowData.orderDate;
+          const ordernum = rowData.orderId;
 
           return (
             <div>
@@ -87,67 +76,74 @@ const Index = () => {
         },
       },
     },
-    { name: "name", label: "이름" },
-    { name: "category", label: "상세사유" },
-    { name: "state", label: "상태", options: { sort: false } },
     {
-      name: "id", label: "상품 정보", options: {
-        sort: false, customBodyRender: (value, tableMeta) => {
-
-
-          //ID를 기준으로 데이터 가져옴
-          const rowData = data.find(row => row.id === value);
-          const img = rowData['itemImg'];
-          const name = rowData['itemName'];
-
-          return (
-
-            //이미지와 상품명 표시
-            <div style={{ display: "flex", height: "6rem", alignItems: "center" }}>
-              <img style={{ width: "5rem" }} src={img} />
-              <P>{name}</P>
-
-
-            </div>
-
-
-          )
-
-
-
-        }
-      }
+      name: "refundReason",
+      label: "상세사유",
+      options: {
+        customBodyRender: (value) => {
+          return customRefundReason(value);
+        },
+      },
     },
     {
-      name: "id",
+      name: "refundStatus",
+      label: "처리상태",
+      options: {
+        sort: false,
+        customBodyRender: (value) => {
+          return customRefundStatus(value);
+        },
+      },
+    },
+    {
+      name: "product",
+      label: "상품 정보",
+      options: {
+        sort: false,
+        customBodyRender: (value, tableMeta) => {
+          return (
+            //이미지와 상품명 표시
+            <div
+              style={{ display: "flex", height: "6rem", alignItems: "center" }}
+            >
+              <img style={{ width: "5rem" }} src={value.productInfoDto.image} />
+              <P>{value.productInfoDto.name}</P>
+            </div>
+          );
+        },
+      },
+    },
+    {
+      name: "refundId",
       label: "상태 처리",
       options: {
         sort: false,
         customBodyRender: (value) => {
-          const rowData = data.find(row => row.id === value);
-          const state = rowData['state'];
+          const rowData = refundList.find((row) => row.refundId === value);
+          const state = rowData.refundStatus;
+          const orderId = rowData.product.orderDetailId;
 
-          return (<ButtonContainer>
-
-            {state !== '반품완료' ? <Button onClick={(e) => {
-              e.stopPropagation();
-              handleNextButton(value);
-            }}>다음 단계</Button> : null}
-          </ButtonContainer>
-          )
-        }
-
+          return (
+            <ButtonContainer>
+              {state !== "REFUND_COMPLETE" ? (
+                <Button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleNextButton(orderId, state);
+                  }}
+                >
+                  다음 단계
+                </Button>
+              ) : null}
+            </ButtonContainer>
+          );
+        },
       },
     },
-
-
-
   ];
   const handleRowClick = (rowData) => {
-
     //ID값 전달 위해 url에 ID값 추가
-    navigate(`/admin/refund/${rowData[0]}`)
-
+    navigate(`/admin/refund/${rowData[0]}`);
   };
 
   //선택한 드롭 박스의 값을 저장하기 위한 state 변수
@@ -157,6 +153,9 @@ const Index = () => {
     setSelectedCategory(newCategory);
   };
 
+  if (!refundList) {
+    return <div />;
+  }
 
   return (
     <>
@@ -167,7 +166,11 @@ const Index = () => {
           {/* 취소 상태 드롭다운, 검색창*/}
           <SearchWrap>
             {/* 카테고리 선택 드롭다운*/}
-            <Dropdown value={dropdownValue} width={"10rem"} onChange={handleCategoryChange} />
+            <Dropdown
+              value={dropdownValue}
+              width={"10rem"}
+              onChange={handleCategoryChange}
+            />
             {/* 검색창 */}
             <Paper
               component="form"
@@ -195,7 +198,7 @@ const Index = () => {
         <ListSection>
           {/* 공용 컴포넌트 호출 */}
           <DataTable
-            data={data}
+            data={refundList}
             columns={columns}
             onRowClick={handleRowClick}
             filterValue={selectedCategory}
@@ -257,16 +260,9 @@ const Button = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-
-
-width: 5.2rem;
-
-
-`
+  width: 5.2rem;
+`;
 
 const P = styled.div`
-
-width: 15rem;
-
-
-`
+  width: 15rem;
+`;

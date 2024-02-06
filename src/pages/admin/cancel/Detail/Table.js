@@ -8,14 +8,13 @@ const Index = (props) => {
     <Wrap>
       <TableBox>
         <Table className="cm-SRegular16">
-          <Col width="11.9375rem">날짜/주문번호</Col>
-          <Col width="5rem">구분</Col>
+          <Col width="16.9375rem">날짜/주문번호</Col>
           <Col width="11rem">상태</Col>
           <Col width="26rem">상품명</Col>
           <Col width="10rem">상품금액/수량</Col>
           <Col width="10rem">예상 환불액</Col>
         </Table>
-        <TableRow data={props.data} id={props.id} />
+        <TableRow data={props.data} />
       </TableBox>
     </Wrap>
   );

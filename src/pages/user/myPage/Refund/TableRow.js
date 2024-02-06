@@ -47,10 +47,9 @@ function TableRow({ data }) {
   //pagination에서 현재 페이지
   const [currentPage, setCurrentPage] = useState(1);
   const [refundList, setRefundList] = useState([]);
-  const userId = parseInt(localStorage.getItem('userId'));
+  const userId = parseInt(localStorage.getItem("userId"));
 
   const period = useRecoilValue(periodAtom);
-
 
   const [val, setVal] = useState({
     userId: userId,
@@ -62,28 +61,25 @@ function TableRow({ data }) {
     sort: "",
   });
 
-
   useEffect(() => {
-
     GET_refund_list(val)
       .then((data) => {
-        console.log(" 조회성공!!", data);
+        console.log(" 조회성공!!", data.data.content);
+        setRefundList(data.data.content);
+        console.log(refundList);
       })
       .catch((error) => {
         console.error("Error fectching mileage data: ", error);
       });
   }, [val]);
 
-  useEffect(()=>{
-
-    setVal((prevVal)=>({
-      ...prevVal, 
-      startDate: period.startDate, 
-      endDate: period.endDate,  
-    }))
-
-
-  }, [period])
+  useEffect(() => {
+    setVal((prevVal) => ({
+      ...prevVal,
+      startDate: period.startDate,
+      endDate: period.endDate,
+    }));
+  }, [period]);
 
   //page가 변경된 경우
   const handlePageChange = (e, newPage) => {
@@ -102,32 +98,32 @@ function TableRow({ data }) {
 
   return (
     <>
-      {currentData.map((a, k) => {
+      {refundList.map((a, k) => {
         return (
           <Row
             key={k}
             className="cm-SRegular16"
             onClick={() => {
-              navi(`/user/mypage/refund/detail/${a.id}`);
+              navi(`/user/mypage/refund/detail/${a.refundId}`);
             }}
           >
-            <Col width="9rem">
+            <Col width="10rem">
               <Column>
-                <p>{a.date}</p>
-                <p>{a.ordernum}</p>
+                <p>{a.orderDate}</p>
+                <p>{a.orderId}</p>
               </Column>
             </Col>
-            <Col width="8rem">{a.type}</Col>
             <Col width="6rem">{a.category}</Col>
-            <Col width="9rem">{a.state}</Col>
-            <Col width="22rem">
-              <ItemImg src={a.itemImg} />
-              <ItemName>{a.itemName}</ItemName>
+            <Col width="10rem">{a.state}</Col>
+            <Col width="28rem">
+              <ItemImg src={a.product.productInfoDto.image} />
+              <ItemName>{a.product.productInfoDto.name}</ItemName>
             </Col>
             <Col width="9rem">
-              {a.itemMoney} / {a.amt}
+              {a.product.productInfoDto.price * a.product.productQuantity} /
+              {a.product.productQuantity}
             </Col>
-            <Col width="9rem">{a.refund}</Col>
+            <Col width="9rem">{a.expectedRefundAmount}</Col>
           </Row>
         );
       })}

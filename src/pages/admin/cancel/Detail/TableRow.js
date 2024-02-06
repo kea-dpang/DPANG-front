@@ -1,3 +1,4 @@
+import { customOrderStatus } from "assets/CustomName";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -30,39 +31,29 @@ const Column = styled.div`
   justify-content: center;
 `;
 
-
 function TableRow(props) {
+  //ID를 기준으로 데이터 찾기
+  console.log("data:", props.data);
 
-//ID를 기준으로 데이터 찾기
-  const data = props.data.find(item => {
-
-    return parseInt(props.id, 10) === item.id;
-
-  });
-
-  console.log("data:", data);
-
+  const data = props.data;
 
   return (
     <Row className="cm-SRegular16">
-      <Col width="11.9375rem">
+      <Col width="16.9375rem">
         <Column>
-          <p>{data.date}</p>
-          <p>{data.ordernum}</p>
+          <p>{data.orderDate}</p>
+          <p>{data.orderID}</p>
         </Column>
       </Col>
-      <Col width="5rem">{data.type}</Col>
-      <Col width="11rem">{data.status}</Col>
+      <Col width="11rem">{customOrderStatus(data.product.orderStatus)}</Col>
       <Col width="26rem">
-        <ItemImg src={data.itemImg} />
-        <ItemName>{data.itemName}</ItemName>
+        <ItemImg src={data.product.productInfoDto.image} />
+        <ItemName>{data.product.productInfoDto.name}</ItemName>
       </Col>
       <Col width="10rem">
-        {data.itemMoney} / {data.amt}
+        {data.product.productInfoDto.price} / {data.product.productQuantity}
       </Col>
-      <Col width="10rem">{data.refund}</Col>
-
-
+      <Col width="10rem">{data.expectedRefundAmount}</Col>
     </Row>
   );
 }

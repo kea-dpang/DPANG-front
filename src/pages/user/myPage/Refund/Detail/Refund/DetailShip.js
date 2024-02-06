@@ -1,25 +1,35 @@
 import styled from "styled-components";
 
 function DetailShip(props) {
+  const data = props.data.recallInfo;
+
   return (
     <Container>
       <Border />
       <TableBox className="cm-SRegular16">
         <Row height="6rem">
           <ColHeader>회수자명</ColHeader>
-          <Col width="26rem">{props.data.username}</Col>
+          <Col width="26rem">
+            <DataBox width="24rem">{data.retrieverName}</DataBox>
+          </Col>
           <ColHeader>배송자 연락처</ColHeader>
-          <Col width="26rem">{props.data.userphone}</Col>
+          <Col width="26rem">
+            <DataBox width="24rem">{data.retrieverContact}</DataBox>
+          </Col>
         </Row>
         <Border />
         <Row height="6rem">
           <ColHeader>회수처 주소</ColHeader>
-          <Col width="62rem">{props.data.useradd}</Col>
+          <Col width="62rem">
+            <DataBox width="60rem">{data.retrievalAddress}</DataBox>
+          </Col>
         </Row>
         <Border />
         <Row height="6rem">
           <ColHeader>회수 메시지</ColHeader>
-          <Col width="62rem">{props.data.usermessage}</Col>
+          <Col width="62rem">
+            <DataBox width="60rem">{data.retrievalMessage}</DataBox>
+          </Col>
         </Row>
         <Border />
       </TableBox>
@@ -57,6 +67,13 @@ const ColHeader = styled.div`
 const Col = styled.div`
   height: 100%;
   width: ${(props) => props.width};
+  display: flex;
+  align-items: center;
+  justify-content: end;
+`;
+const DataBox = styled.div`
+  width: ${(props) => props.width};
+  height: 100%;
   display: flex;
   align-items: center;
 `;

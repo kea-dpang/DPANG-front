@@ -1,6 +1,9 @@
+import { customRefundReason } from "assets/CustomName";
 import styled from "styled-components";
 
 function DetailCancel(props) {
+  const data = props.data.returnInfo;
+
   return (
     <>
       <Container>
@@ -8,14 +11,18 @@ function DetailCancel(props) {
         <TableBox className="cm-SRegular16">
           <Row height="6rem">
             <ColHeader>취소 사유</ColHeader>
-            <Col width="62rem">{props.data.category}</Col>
+            <Col width="62rem">
+              <DataBox width="60rem">{customRefundReason(data.reason)}</DataBox>
+            </Col>
           </Row>
 
           <Border />
 
           <Row height="15rem">
             <ColHeader>비고</ColHeader>
-            <Col width="62rem">{props.data.refundmessage}</Col>
+            <Col width="62rem">
+              <DataBox width="60rem">{data.note}</DataBox>
+            </Col>
           </Row>
           <Border />
         </TableBox>
@@ -54,6 +61,13 @@ const ColHeader = styled.div`
 const Col = styled.div`
   height: 100%;
   width: ${(props) => props.width};
+  display: flex;
+  align-items: center;
+  justify-content: end;
+`;
+const DataBox = styled.div`
+  width: ${(props) => props.width};
+  height: 100%;
   display: flex;
   align-items: center;
 `;
