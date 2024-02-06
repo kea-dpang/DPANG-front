@@ -8,7 +8,7 @@ export const useErrorAlert = () => {
   const navigate = useNavigate();
 
   const showErrorAlert = useCallback(
-    ({ title, text, navi }) => {
+    ({ title, text = "", navi }) => {
       swal(title, text, "error").then((isConfirmed) => {
         if (isConfirmed) {
           if (navi) {
@@ -27,7 +27,7 @@ export const useConfirmAlert = () => {
   const navigate = useNavigate();
 
   const showConfirmAlert = useCallback(
-    ({ title, text, navi }) => {
+    ({ title, text = "", navi }) => {
       swal(title, text, "success").then((isConfirmed) => {
         if (isConfirmed) {
           if (navi) {
