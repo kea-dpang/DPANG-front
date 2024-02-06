@@ -7,19 +7,18 @@ export const POST_OrderInfo = async (inputValue) => {
   const res = await axios({
     method: "post",
     url: url,
+
     data: {
-      deliveryInfo: {
+
         name: inputValue.name || undefined,
         phoneNumber: inputValue.phoneNumber || undefined,
         zipCode: inputValue.zipCode || undefined,
         address: inputValue.address || undefined,
         detailAddress: inputValue.detailAddress || undefined,
-      },
-      deliveryRequest:inputValue.deliveryRequest || undefined,
-      orderIteminfo: {
+        deliveryRequest:inputValue.deliveryRequest || undefined,
         itemId: inputValue.itemId,
         quantity: inputValue.quantity,
-      },
+
     }
   });
   return res.data;
@@ -59,7 +58,8 @@ export const GET_Order = async () => {
 
     const res = await axios({
       method: 'get', 
-      url: `${url}/list`, 
+      url: `${url}/list`,
+      
       data: {
         startDate: inputValue.startDate || undefined, 
         endDate: inputValue.endDate || undefined,

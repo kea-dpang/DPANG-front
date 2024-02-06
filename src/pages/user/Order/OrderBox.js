@@ -13,11 +13,12 @@ import TextField from "@mui/material/TextField";
 import Button from '@mui/material/Button';
 import { POST_OrderInfo } from "@api/order";
 import Dropdown from "@components/Dropdown";
-import data from "@data/user/UserCartData";
-import DataTable from "@components/AdminDataTable";
+import CartList from "@userPages/Cart/CartList";
+
 
 const Index = () => {
   const [open, setOpen] = React.useState(true);
+  const [orederItems, setOrderItems] = useState([CartList]);
 
   const handleClick = () => {
     setOpen(!open);
@@ -33,7 +34,8 @@ const Index = () => {
     address:"",
     detailaddress:"",
     deliveryRequest:"",
-
+    itemId:0,
+    quantity:0
   });
 
   useEffect(() => {
@@ -108,38 +110,9 @@ const Index = () => {
     inputValue.detailaddress=inputValue.detailaddress;
     inputValue.deliveryRequest=inputValue.deliveryRequest;
 
-
     setIsEditing(false);
   }
 
-
-  const columns = [
-    {name: "id", label: "번호", options: {sort: false}},
-    {name: "id", label: "상품 정보", options: {sort: false, customBodyRender: (value, tableMeta)=> {
-      const rowData = data.find(row => row.id == value);
-      const img = rowData['imgUrl'];
-      const name = rowData['name'];
-
-      return (
-
-        <div style={{display:"flex", height: "6rem", alignItems: "center"}}>
-          <img style={{width: "5rem"}} src = {img} />
-          <P>{name}</P>
-        </div>
-      )
-    }}},
-    {name: "id", label: "상품금액 / 수량", options: {sort: false, customBodyRender: (value, tableMeta)=> {
-      const rowData =data.find(row => row.id == value);
-      const price = rowData['price'];
-      const quantity = rowData['quantity'];
-
-      return (
-        <div>
-          <p>{price} / {quantity}</p>
-        </div>
-      )
-    }}},
-  ]
 
   const handleSubmit = () => {
     console.log("등록할게: ", inputValue);
@@ -151,6 +124,8 @@ const Index = () => {
         console.log(error);
       });
   };
+
+  
 
   
   return (
@@ -303,6 +278,7 @@ const Index = () => {
                       value={dropdownValue}
                       onChange={handleDeliveryRequestChange}
                     />
+                    
                   </Box>
               </AddressBox>
             </ListItemButton>
@@ -344,30 +320,36 @@ const Index = () => {
             >
 
               <OrderContainer>
-              <DataTable
-                data={data}
-                columns={columns}
-            />
+                {orederItems.map((item) => (
+                <CartList 
+                key={item.itemId}
+                quantity={item.updateQuantity} />
+                ))}
               </OrderContainer>
             </ListItemButton>
           </List>
         </Collapse>
       </List>
+      
       <Button
             onClick={handleSubmit}
             type="submit"
             className="Btn_S_Navy"
             disabled={!isFormValid}
-            style={
-              !isFormValid
+            style={{
+              width: "74.625rem",
+              height: "4.1875rem",
+              gap: "0.3125rem",
+              ...(!isFormValid
                 ? {
                     backgroundColor: "var(--semi-light-grey)",
                     cursor: "not-allowed",
                   }
                 : {}
-            }
+              )
+            }}
           >
-            주문하기
+            <p className="cm-SBold16">주문하기</p>
           </Button>
     </Wrap>
   );
@@ -431,3 +413,4 @@ const OrderContainer = styled.div`
 const P = styled.div`
   width: 25rem;
 `;
+
