@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-function DetailShip({ data }) {
+function DetailShip(props) {
+  const data = props.data;
+
   return (
     <Container>
       <Border />
@@ -8,25 +10,28 @@ function DetailShip({ data }) {
         <Row height="5rem">
           <ColHeader>수신자명</ColHeader>
           <Col width="26rem">
-            <DataBox width="24rem">{data.name}</DataBox>
+            <DataBox width="24rem">{data.deliveryInfo.name}</DataBox>
           </Col>
           <ColHeader>수신자 연락처</ColHeader>
           <Col width="26rem">
-            <DataBox width="24rem">{data.phone}</DataBox>
+            <DataBox width="24rem">{data.deliveryInfo.phoneNumber}</DataBox>
           </Col>
         </Row>
         <Border />
         <Row height="5rem">
           <ColHeader>수신자 주소</ColHeader>
           <Col width="62rem">
-            <DataBox width="60rem">{data.address}</DataBox>
+            <DataBox width="60rem">
+              [{data.deliveryInfo.zipCode}] {data.deliveryInfo.address}
+              {data.deliveryInfo.detailAddress}
+            </DataBox>
           </Col>
         </Row>
         <Border />
         <Row height="5rem">
           <ColHeader>배송 메시지</ColHeader>
           <Col width="62rem">
-            <DataBox width="60rem">{data.shipmessage}</DataBox>
+            <DataBox width="60rem">{data.deliveryRequest}</DataBox>
           </Col>
         </Row>
         <Border />

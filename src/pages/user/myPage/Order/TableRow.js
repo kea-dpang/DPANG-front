@@ -4,7 +4,7 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { useState, useEffect } from "react";
 import RowData from "./RowData";
-import { GET_orderlist } from "@api/order";
+import { GET_order_list } from "@api/order";
 import { useRecoilValue } from "recoil";
 import { periodAtom } from "recoil/user/PeriodSelectAtom";
 
@@ -23,45 +23,42 @@ function TableRow({ data }) {
 
   const period = useRecoilValue(periodAtom);
   const userId = localStorage.getItem("userId");
+  console.log(userId);
 
   const [val, setVal] = useState({
-    userrId: userId,
+    userId: parseInt(userId, 10),
     page: 0,
     size: 10,
     sort: "",
-    startDate: period.startDate, 
-    endDate: period.endDate, 
-
-  })
+    startDate: period.startDate,
+    endDate: period.endDate,
+  });
 
   //page가 변경된 경우
   const handlePageChange = (_, newPage) => {
     //현재 페이지를 새로운 페이지로 변경
-    setCurrentPage(newPage); 
+    setCurrentPage(newPage);
   };
 
   //order리스트를 가져올 API를 호출
   useEffect(() => {
-    GET_orderlist(val)
+    GET_order_list(val)
       .then((data) => {
-        console.log("성공적!!", data);
+        setOrderList(data.data.content);
       })
       .catch((error) => {
-        console.log("오류 발생", error);
+        console.log("데이터 조회 실패!", error);
       });
   }, [val]);
 
-    //period값이 변경되면 시간 값을 업데이트
-    useEffect(()=>{
-
-      setVal((prevState)=>({
-        ...prevState, 
-        startDate: period.startDate, 
-        endDate: period.endDate, 
-      }))
-  
-  
-    }, [period]);
+  //period값이 변경되면 시간 값을 업데이트
+  useEffect(() => {
+    setVal((prevState) => ({
+      ...prevState,
+      startDate: period.startDate,
+      endDate: period.endDate,
+    }));
+  }, [period]);
 
   //한페이지당 보여줄 아이템의 개수
   const itemPerPage = 5;
@@ -75,9 +72,10 @@ function TableRow({ data }) {
   return (
     <>
       {/* 페이지  */}
-      {currentData.map((a, i) => {
-        return <RowData data={a} key={i} />;
-      })}
+      {orderList != null &&
+        orderList.map((a, i) => {
+          return <RowData data={a} key={i} />;
+        })}
 
       <PaginationContainer>
         <Stack spacing={10}>

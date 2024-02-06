@@ -30,7 +30,6 @@ const DetailHeader = styled.div`
 `;
 
 function ReviewBox(props) {
-
   const head = [
     { width: "13rem", text: "날짜/주문번호" },
     { width: "11rem", text: "상태" },
@@ -43,7 +42,7 @@ function ReviewBox(props) {
       <MyPageBodyHeader header="주문 상세 내역" />
       <DetailHeader className="cm-SRegular16">주문 상세 내역</DetailHeader>
       <TableBox>
-      <TableHeader head={head} />
+        <TableHeader head={head} />
         <Table data={props.data} />
       </TableBox>
     </Container>

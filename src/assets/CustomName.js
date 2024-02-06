@@ -216,3 +216,22 @@ export const customLeaveCategoryName = (category) => {
       return "상태 미정";
   }
 };
+
+export const customOrderStatus = (status) => {
+  switch (status) {
+    case "ORDER_RECIEVED":
+      return "주문승인";
+    case "PAYMENT_COMPLETED":
+      return "결제완료";
+    case "DELIVERY_REQUESTED":
+      return "배송요청";
+    case "PREPARING_FOR_DELIVERY":
+      return "배송준비";
+    case "IN_DELIVERY":
+      return "배송중";
+    case "CANCELLED":
+      return "취소";
+    default:
+      return "배송완료";
+  }
+};
