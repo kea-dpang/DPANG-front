@@ -1,13 +1,8 @@
 import styled from "styled-components";
 
 function RefundDetail(props) {
+  const data = props.data;
 
-  //데이터의 ID를 기준으로 전달받은 ID를 가지는 item의 ID 값을 찾고, 해당 아이템을 보여준다
-  const data = props.data.find(item => {
-
-    return parseInt(props.id, 10) === item.id;
-    
-  });
   return (
     <Container>
       <Border />
@@ -41,7 +36,6 @@ function RefundDetail(props) {
         </Col>
       </Table>
       <Border />
-
     </Container>
   );
 }
@@ -62,8 +56,6 @@ const Border = styled.div`
 const Col = styled.div`
   height: ${(props) => props.height};
   display: flex;
-
-  
 `;
 const ColHead = styled.div`
   height: 100%;
@@ -78,15 +70,12 @@ const Content = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
-
 `;
 const Blank = styled.div`
   height: 10rem;
 `;
 const BlankDiv = styled.div`
-
-width: 2rem;
-`
-
+  width: 2rem;
+`;
 
 export default RefundDetail;

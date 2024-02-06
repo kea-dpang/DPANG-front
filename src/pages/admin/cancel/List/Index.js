@@ -6,7 +6,6 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Dropdown from "components/common/Dropdown";
 import DataTable from "components/common/AdminDataTable";
-import data from "assets/data/admin/AdminCancelData";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { GET_cancel_list } from "@api/cancel";
@@ -16,7 +15,7 @@ const Index = () => {
   //  상태 저장 : 예정, 진행, 종료
   const [index, setIndex] = useState("");
   //서버로부터 받아올 값을 저장해놓을 리스트
-  const [cancelList, setCancelList] = useState([]);
+  const [cancelList, setCancelList] = useState();
   //필터링을 해줄 dropdown 박스의 값. 첫 값은 이름, 뒤에 두 값은 필터링에 들어갈 value
   const dropdownValue = ["취소 상태", "취소요청", "취소승인"];
 
@@ -33,7 +32,8 @@ const Index = () => {
   useEffect(() => {
     GET_cancel_list(val)
       .then((data) => {
-        console.log(data, "성공했다!!");
+        console.log(data.data.content, "성공했다!!");
+        setCancelList(data.data.content);
       })
       .catch((error) => {
         console.log(error, "비사앙아아아앙");
@@ -41,18 +41,19 @@ const Index = () => {
   }, [val]);
 
   const columns = [
-    { name: "id", label: "번호", options: { sort: false } },
+    { name: "cancelId", label: "취소 승인 번호", options: { sort: false } },
+    { name: "userId", label: "유저 ID", options: { sort: false } },
     {
-      name: "id",
+      name: "cancelId",
       label: "결제일 | 주문번호",
       options: {
         sort: false,
         customBodyRender: (value, tableMeta) => {
           //ID를 기준으로 데이터 찾기
-          const rowData = data.find((row) => row.id === value);
+          const rowData = cancelList.find((row) => row.cancelId === value);
           //날짜와 주문 번호를 가져옴
-          const date = rowData["date"];
-          const ordernum = rowData["ordernum"];
+          const date = rowData["orderDate"];
+          const ordernum = rowData["orderId"];
 
           return (
             <div>
@@ -63,17 +64,18 @@ const Index = () => {
         },
       },
     },
-    { name: "name", label: "이름" },
+    // { name: "name", label: "이름" },
     {
-      name: "id",
+      name: "cancelId",
       label: "상품 정보",
       options: {
         sort: false,
         customBodyRender: (value, tableMeta) => {
           //ID를 기준으로 데이터 가져옴
-          const rowData = data.find((row) => row.id === value);
-          const img = rowData["itemImg"];
-          const name = rowData["itemName"];
+          const rowData = cancelList.find((row) => row.cancelId === value);
+          console.log(rowData);
+          const img = rowData.product.productInfoDto.image;
+          const name = rowData.product.productInfoDto.name;
 
           return (
             //이미지와 상품명 표시
@@ -88,34 +90,22 @@ const Index = () => {
       },
     },
     {
-      name: "status",
-      label: "취소 상태",
+      name: "cancelId",
+      label: "상품 가격 / 수량",
       options: {
         sort: false,
-        customBodyRender: (value) => {
-          //상태에 따라 다른 색
-          let color;
-          if (value === "취소승인") {
-            color = "var(--navy)";
-          } else {
-            color = "var(--yellow)";
-          }
-
-          return <div style={{ color: color }}>{value}</div>;
-        },
-      },
-    },
-
-    {
-      name: "id",
-      label: "상태 관리하기",
-      options: {
         customBodyRender: (value, tableMeta) => {
-          const rowData = data.find((row) => row.id === value);
-          const val = rowData["status"];
+          //ID를 기준으로 데이터 가져옴
+          const rowData = cancelList.find((row) => row.cancelId === value);
+          const quantity = rowData.product.productInfoDto.price;
+          const name = rowData.product.productQuantity;
 
-          //취소 요청인 경우에만 버튼 보여준다
-          return val === "취소요청" ? <Button>승인</Button> : null;
+          return (
+            //이미지와 상품명 표시
+            <p>
+              {quantity} / {name}
+            </p>
+          );
         },
       },
     },
@@ -173,7 +163,7 @@ const Index = () => {
         <ListSection>
           {/* 공용 컴포넌트 호출 */}
           <DataTable
-            data={data}
+            data={cancelList}
             columns={columns}
             onRowClick={handleRowClick}
             filterValue={selectedCategory}
@@ -222,14 +212,4 @@ const ListSection = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-`;
-const Button = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--navy);
-  width: 3rem;
-  height: 2rem;
-  color: white;
-  border-radius: 3px;
 `;
