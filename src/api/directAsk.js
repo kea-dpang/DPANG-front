@@ -116,3 +116,14 @@ export const PUT_Question = async (qnaId, data) => {
   });
   return res.data;
 };
+
+export const DELETE_QnA = async (qnaId) => {
+  const res = await axios({
+    method: "delete",
+    url: `${url}`,
+    data: {
+      deleteIds: [qnaId],
+    },
+  });
+  return res.data;
+};

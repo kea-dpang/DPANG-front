@@ -6,7 +6,12 @@ import AskContent from "./AskContent";
 import { useNavigate, useParams } from "react-router-dom";
 import { DirectAskData } from "assets/data/user/DirectAskData";
 import { FormProvider, useForm } from "react-hook-form";
-import { GET_QnA, POST_Question, PUT_Question } from "@api/directAsk";
+import {
+  DELETE_QnA,
+  GET_QnA,
+  POST_Question,
+  PUT_Question,
+} from "@api/directAsk";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Controller } from "react-hook-form";
@@ -110,11 +115,32 @@ const AskEnrollPage = () => {
     }
   };
 
+  const handleDeleteBtn = () => {
+    DELETE_QnA(params)
+      .then((data) => {
+        showConfirmAlert({
+          title: "문의가 성공적으로 삭제되었습니다.",
+          navi: "/user/mypage/directAsk",
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <Wrap>
       <Title>
         <h1 className="cm-LBold30">1:1 문의</h1>
       </Title>
+      {/* 답변 */}
+      {detail && detail.status !== "답변 완료" && (
+        <DeleteWrap>
+          <DeleteBtn className="cm-SBold18" onClick={handleDeleteBtn}>
+            문의 삭제
+          </DeleteBtn>
+        </DeleteWrap>
+      )}
       <form>
         <FormProvider {...methods}>
           <Item>
@@ -253,4 +279,14 @@ const SubmitBtn = styled.button`
   background-color: ${({ disabled }) =>
     disabled ? "var(--semi-light-grey)" : "var(--navy)"};
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+`;
+const DeleteWrap = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 1rem;
+`;
+const DeleteBtn = styled.button`
+  background: none;
+  color: var(--dark-grey);
 `;
