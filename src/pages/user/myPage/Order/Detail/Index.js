@@ -2,10 +2,8 @@ import styled from "styled-components";
 import OrderBox from "./OrderBox";
 import DetailBox from "./DetailTable";
 import { useParams } from "react-router-dom";
-import TempData from "assets/data/user/UserOrderData";
 import { GET_order_detail } from "@api/order";
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
 
 const Container = styled.div`
   min-height: 100vh;
@@ -26,31 +24,34 @@ const ReviewContainer = styled.div`
 
 function Index() {
   const { id } = useParams();
-  const orderData = [...TempData];
-  const data = orderData[id];
-  const [orderList, setOrderList] = useState([]); 
+  const [orderInfo, setInfo] = useState();
 
-  //id를 기준으로 값 가져오기
-  GET_order_detail(id)
-  .then((data)=>{
-    console.log("성공성공", data);
-  })
-  .catch((error)=>{
-    console.log("실패실패", error);
-  })
+  useEffect(() => {
+    GET_order_detail(id)
+      .then((data) => {
+        setInfo(data.data);
+        console.log(data.data);
+      })
+      .catch((error) => {
+        console.log("실패실패", error);
+      });
+  }, []);
 
+  if (!orderInfo) {
+    return <div></div>; // 데이터가 로드되는 동안 표시될 컴포넌트
+  }
 
   return (
     <Container>
       {/* 주문 상세 정보를 보여줄 table의 component를 호출 */}
       <ContentBox>
         <ReviewContainer>
-          <OrderBox data={data} />
+          <OrderBox data={orderInfo} />
         </ReviewContainer>
       </ContentBox>
 
       {/* Detail을 보여줄 테이블 */}
-      <DetailBox data={data} />
+      <DetailBox data={orderInfo} />
     </Container>
   );
 }

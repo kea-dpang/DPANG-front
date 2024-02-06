@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useState } from "react";
 import { POST_cancel_order } from "@api/cancel";
+import { customOrderStatus } from "assets/CustomName";
 import ArrowImg from "assets/images/UpArrowVector.svg";
 
 function RowData(props) {
@@ -23,7 +24,7 @@ function RowData(props) {
       setRotate(rotate + 180);
       setClick(!click);
     } else {
-      setRowHeight(data.item.length * 6);
+      setRowHeight(data.productList.length * 6);
       setRotate(rotate + 180);
       setClick(!click);
     }
@@ -38,45 +39,48 @@ function RowData(props) {
           handleClick(e);
         }}
       >
-        {data.item.length > 1 && <Arrow src={ArrowImg} rotate={rotate} />}
+        {data.productList.length > 1 && (
+          <Arrow src={ArrowImg} rotate={rotate} />
+        )}
       </Col>
       <Col width="11rem" height={rowHeight}>
         <Column>
-          <p>{data.date}</p>
-          <p>{data.ordernum}</p>
+          <p>{data.orderDate}</p>
+          <p>{data.orderId}</p>
         </Column>
       </Col>
-      <Col width="11rem" height={rowHeight}>
-        {data.status}
-      </Col>
+
       <ItemColBox>
-        {data.item.map((b, i) => {
+        {data.productList.map((b, i) => {
           return (
             <ItemCol
               key={i}
               i={i}
               onClick={(e) => {
                 e.stopPropagation();
-                navi(`/user/mypage/order/detail/${data.id}`);
+                navi(`/user/mypage/order/detail/${data.orderId}`);
               }}
             >
+              <Col width="11rem" height="6">
+                {customOrderStatus(b.orderStatus)}
+              </Col>
               <Col width="22rem" height="6">
-                <ItemImg src={b.img} />
-                <ItemName>{b.name}</ItemName>
+                <ItemImg src={b.productInfoDto.image} />
+                <ItemName>{b.productInfoDto.name}</ItemName>
               </Col>
               <Col width="11rem" height="6">
-                {b.money} / {b.amt}
+                {b.productInfoDto.price * b.productQuantity} /
+                {b.productQuantity}
               </Col>
 
               <Col width="15rem" height="6">
                 <ButtonBox>
                   {/* 버튼을 누르면 주문의 항목에 대한 ID를 넘겨서 취소 요청을 보낸다 */}
                   <Button
-                    status={data.status}
+                    status={customOrderStatus(b.orderStatus)}
                     onClick={(e) => {
                       e.stopPropagation();
-                      console.log(b.orderId);
-                      POST_cancel_order(b.orderId)
+                      POST_cancel_order(b.orderDetailId)
                         .then((data) => {
                           console.log("성공함", data);
                         })
@@ -90,19 +94,19 @@ function RowData(props) {
                   {/* 버튼을 클릭하더라도 상위 요소에 대하 이벤트 버블링 발생하지 않도록 함 */}
                   {/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!여기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
                   <Button1
-                    status={data.status}
+                    status={customOrderStatus(b.orderStatus)}
                     onClick={(e) => {
                       e.stopPropagation();
-                      navi(`/user/mypage/refund/enroll/${b.id}`);
+                      navi(`/user/mypage/refund/enroll/${b.orderDetailId}`);
                     }}
                   >
                     반품
                   </Button1>
                   <Button2
-                    status={data.status}
+                    status={customOrderStatus(b.orderStatus)}
                     onClick={(e) => {
                       e.stopPropagation();
-                      navi(`/user/mypage/review/enroll/${b.id}`);
+                      navi(`/user/mypage/review/enroll/${b.orderDetailId}`);
                     }}
                   >
                     리뷰작성

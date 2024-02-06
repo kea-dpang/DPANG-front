@@ -70,8 +70,15 @@ function Index() {
 
   //컴포넌트가 호출되는 경우에 바로 실행
   useEffect(() => {
-    // 컴포넌트 마운트 시 데이터 로딩 시작
-    fetchData();
+    GET_admin_mileage_list(val)
+      .then((data) => {
+        console.log(data);
+        setMileageList(data.data.content);
+        setTotalItems(data.data.totalElements);
+      })
+      .catch((error) => {
+        console.error("Error fetching mileage data: ", error);
+      });
   }, [val]);
 
   useEffect(() => {
@@ -80,16 +87,6 @@ function Index() {
       page: page,
     }));
   }, [page]);
-
-  if (loading) {
-    return (
-      <PageName className="cm-MBold24">
-        <p>로딩중.......</p>
-        <br />
-        <CircularProgress />
-      </PageName>
-    );
-  }
 
   console.log("ddddd", mileageList);
   return (
