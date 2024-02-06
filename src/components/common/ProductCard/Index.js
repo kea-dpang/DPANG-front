@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState, React } from "react";
+import { React } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as CartImg } from "@images/cart.svg";
 import { ReactComponent as LikeImg } from "assets/images/heart.svg";
@@ -10,15 +10,7 @@ import { useQuestionAlert } from "@components/SweetAlert";
 const Item = (props) => {
   console.log("상품 카드 가져온 정보 props : ", props);
   const saleprice =
-    props.value.itemPrice -
-    (props.value.itemPrice * props.value.discountRate) / 100;
-  // liked 상태 props에서 가져오기. 지금은 undefined라서 못 가져옴
-  // const [liked, setLiked] = useState(false);
-  // const handleLike = () => {
-  //   setLiked(!liked);
-  //   console.log("islike: ", liked);
-  //   console.log("id: ", props.value.id);
-  // };
+    props.value.price - (props.value.price * props.value.discountRate) / 100;
 
   const navigate = useNavigate();
   const showQuestionAlert = useQuestionAlert();
@@ -31,7 +23,7 @@ const Item = (props) => {
       navi: "",
       onConfirm: async () => {
         try {
-          const data = await POST_Cart(props.value.itemId, 1);
+          const data = await POST_Cart(props.value.id, 1);
           console.log("장바구니 등록 성공 야호!", data);
           navigate(`/user/cart`);
         } catch (error) {
@@ -47,8 +39,8 @@ const Item = (props) => {
         {/* 상품 사진 * 위시리스트 버튼 */}
         <ItemImgWrap>
           <ItemImg
-            to={`/user/products/${props.value.itemId}`}
-            $imgurl={props.value.itemImage}
+            to={`/user/products/${props.value.id}`}
+            $imgurl={props.value.thumbnailImage}
           />
           {/* <LikeButton $isLiked={liked} onClick={handleLike} /> */}
         </ItemImgWrap>
@@ -58,11 +50,11 @@ const Item = (props) => {
         </CartBtnWrap>
         {/* 상품 상세 - 상품 이름 & 원가, 할인율, 할인가격 */}
         <ProductInfoWrap
-          to={`/user/products/${props.value.itemId}`}
+          to={`/user/products/${props.value.id}`}
           $imgurl={props.value.imgUrl}
         >
           {/* 상품 이름 */}
-          <div className="cm-SRegular16">{props.value.itemName}</div>
+          <div className="cm-SRegular16">{props.value.name}</div>
           {/* 가격 */}
           <PriceWrap>
             {props.value.discountRate !== 0 ? (
@@ -73,7 +65,7 @@ const Item = (props) => {
                   style={{ textDecoration: "line-through" }}
                 >
                   {" "}
-                  {props.value.itemPrice}원
+                  {props.value.price}원
                 </div>
                 {/* 할인율 & 현재 판매가격 */}
                 <SaleWrap className="cm-SBold16">
@@ -84,7 +76,7 @@ const Item = (props) => {
             ) : (
               // 할인율이 0일 때는 원가만 보여줌
               <SaleWrap className="cm-SBold16">
-                <div> {props.value.itemPrice.toLocaleString()}원</div>
+                <div> {props.value.price.toLocaleString()}원</div>
               </SaleWrap>
             )}
           </PriceWrap>

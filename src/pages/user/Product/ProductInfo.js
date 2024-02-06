@@ -1,13 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import ItemDetailData from "../../../assets/data/user/ItemDetailData";
 
 // 상품 상세정보 section
 const ProductInfo = (props) => {
   return (
     <Wrap>
       <ImgDiv>
-        <Image src={props.item.images} alt="상품 상세설명" />
+        <Image src={props.item.informationImages} alt="상품 상세설명" />
       </ImgDiv>
     </Wrap>
   );

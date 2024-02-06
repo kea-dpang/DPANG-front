@@ -140,7 +140,7 @@ export const PUT_BrandEvent = async (id, value) => {
       startDate: value.startDate,
       endDate: value.endDate,
       imagePath: value.imagePath,
-      sellerId: "9",
+      sellerId: value.sellerId,
       eventStatus: "WAITING",
     },
   });

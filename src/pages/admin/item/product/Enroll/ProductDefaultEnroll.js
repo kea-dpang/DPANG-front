@@ -9,7 +9,7 @@ import SearchDropdown from "@components/SearchDropdown";
 const ProductDefaultEnroll = ({ productInfo, setProductInfo }) => {
   const [brand, setBrand] = useState([]);
   useEffect(() => {
-    GET_BrandList()
+    GET_BrandList(0, 30)
       .then((data) => {
         console.log("brand : ", data.data.content);
         const brandData = data.data.content.map((item) => ({
@@ -61,7 +61,7 @@ const ProductDefaultEnroll = ({ productInfo, setProductInfo }) => {
     setProductInfo((prev) => ({ ...prev, sellerId: e }));
   };
   return (
-    brand.length > 0 && (
+    brand && (
       <Wrap>
         <div className="cm-SBold18 col-Navy">상품 기본 정보</div>
         {/* 상품 정보 입력 칸 */}

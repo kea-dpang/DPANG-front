@@ -2,21 +2,22 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import FilterSideBar from "./FilterSideBar";
 import Item from "@components/ProductCard/Index";
-import { GET_ItemListUser, GET_ItemFilter } from "@api/Item";
+import { GET_ItemFilterListUser } from "@api/Item";
 
 const SearchResult = (props) => {
   console.log("query: ", props);
   // 아이템 리스트
   const [itemList, setItemList] = useState([]);
   const [filterData, setFilterData] = useState({
-    category: "DIGITAL_ELECTRONICS",
-    subCategory: "",
-    minPrice: 0,
-    maxPrice: 5000000,
+    category: null,
+    subCategory: null,
+    minPrice: null,
+    maxPrice: null,
+    sellerId: null,
     keyword: props.keyword,
   });
   // useEffect(() => {
-  //   GET_ItemListUser()
+  //   GET_ItemFilterListUser()
   //     .then((data) => {
   //       setItemList(data.data); // API 응답으로 받은 데이터를 상태에 저장
   //       console.log("넘겨받은 아이템 리스트 데이터 : ", data);
@@ -27,25 +28,28 @@ const SearchResult = (props) => {
   // }, []);
 
   useEffect(() => {
-    GET_ItemFilter(
+    GET_ItemFilterListUser(
       filterData.category,
       filterData.subCategory,
       filterData.minPrice,
       filterData.maxPrice,
-      filterData.keyword
+      null,
+      filterData.keyword,
+      0,
+      20
     )
       .then((data) => {
-        console.log("넘겨받은 아이템 리스트 데이터 : ", data);
+        console.log("넘겨받은 아이템 리스트 데이터 : ", data.data.content);
         setItemList(data.data.content); // API 응답으로 받은 데이터를 상태에 저장
       })
       .catch((error) => {
-        console.error("아이템 리스트 가져오기 실패", error);
+        // console.error("아이템 리스트 가져오기 실패", error);
       });
   }, []);
 
   return (
     <Wrap>
-      {itemList && (
+      {itemList.length > 0 && (
         <>
           <Title className="cm-LBold30">
             <div className="col-Navy">'{props.keyword}'</div>
@@ -64,7 +68,7 @@ const SearchResult = (props) => {
               </Section>
               <ListSection>
                 {itemList.map((item) => (
-                  <Item key={item.itemId} value={item} />
+                  <Item key={item.id} value={item} />
                 ))}
               </ListSection>
             </Right>

@@ -44,7 +44,7 @@ const Index = ({ eventId }) => {
     if (
       inputValue.discountRate !== "" &&
       inputValue.eventName !== "" &&
-      inputValue.sellerId !== "" &&
+      // inputValue.sellerId !== "" &&
       inputValue.imagePath !== "" &&
       inputValue.startDate !== "" &&
       inputValue.endDate !== ""
@@ -57,7 +57,7 @@ const Index = ({ eventId }) => {
     inputValue.discountRate,
     inputValue.eventName,
     inputValue.imagePath,
-    inputValue.sellerId,
+    // inputValue.sellerId,
     inputValue.startDate,
     inputValue.endDate,
   ]);
@@ -143,7 +143,7 @@ const Index = ({ eventId }) => {
               />
             </Row>
             {/* 브랜드 이름 */}
-            <Row>
+            {/* <Row>
               <p className="cm-SBold16 col-Black">브랜드 이름</p>
               <InputEdit
                 value={inputValue.sellerId}
@@ -151,7 +151,7 @@ const Index = ({ eventId }) => {
                 placeholder={"브랜드 이름을 입력해주세요"}
                 onChange={handleBrandChange}
               />
-            </Row>
+            </Row> */}
             {/* 이벤트 할인율 */}
             <Row>
               <p className="cm-SBold16 col-Black">이벤트 할인율</p>

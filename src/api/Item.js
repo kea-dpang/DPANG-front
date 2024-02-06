@@ -32,7 +32,7 @@ export const GET_ItemList = async (page) => {
   console.log("get itemlist");
   const res = await axios({
     method: "get",
-    url: `${url}/manage/list`,
+    url: url,
     params: {
       page: page,
       size: 10,
@@ -85,33 +85,44 @@ export const GET_ItemReview = async (id) => {
   });
   return res.data;
 };
+// 사용자 - 인기상품 조회
+export const GET_HotItemList = async () => {
+  console.log("인기상품 조회");
+  const res = await axios({
+    method: "get",
+    url: `${url}/popular/list`,
+    params: {
+      page: 0,
+      size: 20,
+      sort: "",
+    },
+  });
+  return res.data;
+};
 // 사용자 - 아이템 검색 필터링
-export const GET_ItemFilter = async (
+export const GET_ItemFilterListUser = async (
   category,
   subCategory,
   minPrice,
   maxPrice,
-  keyword
+  sellerId,
+  keyword,
+  page,
+  size
 ) => {
-  console.log(
-    "아이템 검색 필터링 합니다요: ",
-    category,
-    subCategory,
-    minPrice,
-    maxPrice,
-    keyword
-  );
+  console.log("사용자 아이템 검색 필터링 합니다요: ", keyword, typeof keyword);
   const res = await axios({
     method: "get",
-    url: `${url}/filter`,
+    url: url,
     params: {
       category: category,
       subCategory: subCategory,
       minPrice: minPrice,
       maxPrice: maxPrice,
+      sellerId: sellerId,
       keyword: keyword,
-      page: 0,
-      size: 20,
+      page: page,
+      size: size,
       sort: "",
     },
   });
@@ -123,7 +134,7 @@ export const DELETE_Item = async (itemId) => {
   const response = await axios({
     method: "delete",
     url: url,
-    data: itemId,
+    data: { itemIds: itemId },
   });
   return response.data;
 };

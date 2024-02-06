@@ -9,17 +9,21 @@ const ProductReview = (props) => {
   const [sortedReviews, setSortedReviews] = useState([]);
 
   useEffect(() => {
-    GET_ItemReview(props.itemId)
+    GET_ItemReview(props.item.id)
       .then((data) => {
-        console.log("리뷰 Data:", data);
-        setReviewData(data);
-        setSortedReviews(data);
+        console.log("리뷰 Data:", data.data);
+        setReviewData(data.data);
+        setSortedReviews(data.data);
       })
       .catch((error) => {
         // API 요청 실패
         console.error("리뷰데이터 가져오기 실패", error);
       });
   }, []);
+
+  useEffect(() => {
+    console.log("reviewData: ", reviewData);
+  }, [reviewData]);
   return (
     <Wrap>
       <PageName className="cm-MBold24 col-Black"> 상품 후기 </PageName>
@@ -34,12 +38,14 @@ const ProductReview = (props) => {
         /> */}
       </TotalSortWrap>
 
-      {/* 리뷰 내용 리스트 */}
-      <ReviewWrap>
-        {sortedReviews.map((review, index) => (
-          <ReviewBox key={index} value={review} />
-        ))}
-      </ReviewWrap>
+      {reviewData && (
+        // {/* 리뷰 내용 리스트 */}
+        <ReviewWrap>
+          {reviewData.map((review, index) => (
+            <ReviewBox key={index} value={review} />
+          ))}
+        </ReviewWrap>
+      )}
     </Wrap>
   );
 };

@@ -11,6 +11,7 @@ const ProductAskList = (value) => {
 
   const [selectedRow, setSelectedRow] = useState(null);
   const handleRowClick = (index, id) => {
+    console.log("문의내용 펼쳐져라: ", id);
     if (selectedRow === index) {
       setSelectedRow(null);
     } else {
@@ -28,10 +29,9 @@ const ProductAskList = (value) => {
 
   useEffect(() => {
     GET_QnAList({
-      userId: undefined,
       category: "상품",
-      status: undefined,
-      itemId: value.value.itemId,
+      itemId: value.value.id,
+      pageNum: 0,
     })
       .then((data) => {
         setAskLists(data.data.content);

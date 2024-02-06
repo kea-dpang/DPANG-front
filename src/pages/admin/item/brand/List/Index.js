@@ -46,7 +46,7 @@ const Index = () => {
     navigate(`?page=${page}`);
 
     console.log("렌더링 렌더링");
-    GET_BrandList(page)
+    GET_BrandList(page, 10)
       .then((data) => {
         setBrand(data.data.content);
         setTotalData(data.data.totalElements);

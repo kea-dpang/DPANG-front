@@ -12,8 +12,7 @@ const ProductSummary = (props) => {
   console.log("summary: ", props);
   // 세일가격
   const saleprice =
-    props.item.itemPrice -
-    (props.item.itemPrice * props.item.discountRate) / 100;
+    props.item.price - (props.item.price * props.item.discountRate) / 100;
   // 선택 개수
   const [count, setCount] = useState(1);
   // 총 가격
@@ -34,17 +33,24 @@ const ProductSummary = (props) => {
           {/* 카테고리 */}
           <CategoryWrap>
             <Nav to=""> {categoryFormat(props.item.category, false)} </Nav>
-            <div> {">"}</div>
-            <Nav to=""> {subCategoryFormat(props.item.subCategory, false)}</Nav>
+            {props.item.subCategory && (
+              <>
+                <div> {">"}</div>
+                <Nav to="">
+                  {" "}
+                  {subCategoryFormat(props.item.subCategory, false)}
+                </Nav>
+              </>
+            )}
           </CategoryWrap>
           {/* 상품 사진 */}
-          <ProductImg $imgUrl={props.item.itemImage} />
+          <ProductImg $imgUrl={props.item.thumbnailImage} />
         </ImgWrap>
 
         {/* 상품 이름 / 가격 / 판매자 / 상품선택 / 좋아요 / 장바구니 */}
         <ContextWrap>
           {/* 상품 이름 */}
-          <div className="cm-XLBold36 col-Black"> {props.item.itemName}</div>
+          <div className="cm-XLBold36 col-Black"> {props.item.name}</div>
           {/* 상품 별점 및 리뷰 수 */}
           <ReviewWrap>
             <Rating
@@ -67,12 +73,12 @@ const ProductSummary = (props) => {
                 className="cm-SBold16 col-SemiLightGrey"
                 style={{ textDecoration: "line-through" }}
               >
-                {props.item.itemPrice}
+                {props.item.price}
               </div>
             </PriceWrap>
           ) : (
             <DiscountWrap style={{ paddingTop: "1rem" }} className="cm-SBold18">
-              <div className="col-Black"> {props.item.itemPrice} </div>
+              <div className="col-Black"> {props.item.price} </div>
             </DiscountWrap>
           )}
           {/* 판매자 */}
@@ -88,10 +94,7 @@ const ProductSummary = (props) => {
                 상품선택
               </div>
               <AmountBox>
-                <div className="cm-SBold16 col-Navy">
-                  {" "}
-                  {props.item.itemName}{" "}
-                </div>
+                <div className="cm-SBold16 col-Navy"> {props.item.name} </div>
                 <SelectPriceWrap>
                   {/* 수량 선택 */}
                   <NumberBadge count={count} setCount={setCount} />
@@ -106,12 +109,6 @@ const ProductSummary = (props) => {
             {/* 장바구니 & 위시리스트 */}
             <div>
               <ButtonWrap className="cm-SBold16">
-                {/* <LikeButton
-                  $isLiked={liked}
-                  onClick={handleLike}
-                  width="30"
-                  height="30"
-                /> */}
                 <Button
                   style={{
                     backgroundColor: "navy",
