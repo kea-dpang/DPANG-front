@@ -100,7 +100,7 @@ function TableRow(props) {
           <Row className="cm-SRegular16" key={i}>
             <Col width="10rem">{customDate(a.createdTime)}</Col>
             <Col width="22rem">
-              <ItemImg src={a.img} />
+              <ItemImg src={a.itemImage} />
               <ItemName>{a.name}</ItemName>
             </Col>
             <Col width="25rem">{trimContent(a.content)}</Col>

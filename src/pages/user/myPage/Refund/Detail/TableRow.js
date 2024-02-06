@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { customRefundReason, customRefundStatus } from "assets/CustomName";
 
 const Row = styled.div`
-height: 7rem;
+  height: 7rem;
   width: 72rem;
   border-bottom: 1px black solid;
   display: flex;
@@ -31,33 +32,29 @@ const Column = styled.div`
   justify-content: center;
 `;
 
-
 function TableRow(props) {
-
   const data = props.data;
-
 
   return (
     <Row className="cm-SRegular16">
-      <Col width="9rem">
+      <Col width="10rem">
         <Column>
-          <p>{data.date}</p>
-          <p>{data.ordernum}</p>
+          <p>{data.orderDate}</p>
+          <p>{data.orderId}</p>
         </Column>
       </Col>
-      <Col width="8rem">{data.type}</Col>
-      <Col width="6rem">{data.category}</Col>
-      <Col width="9rem">{data.state}</Col>
-      <Col width="22rem">
-        <ItemImg src={data.itemImg} />
-        <ItemName>{data.itemName}</ItemName>
+      <Col width="8rem">{customRefundReason(data.returnInfo.reason)}</Col>
+      <Col width="8rem">{customRefundStatus(data.refundStatus)}</Col>
+      <Col width="28rem">
+        <ItemImg src={data.product.productInfoDto.image} />
+        <ItemName>{data.product.productInfoDto.name}</ItemName>
       </Col>
-      <Col width="9rem">{data.itemMoney} / {data.amt}</Col>
-      <Col width="9rem">{data.refund}</Col>
-
+      <Col width="9rem">
+        {data.product.productInfoDto.price} / {data.product.productQuantity}
+      </Col>
+      <Col width="9rem">{data.refundInfo.expectedRefundAmount}</Col>
     </Row>
   );
-
 }
 
 export default TableRow;

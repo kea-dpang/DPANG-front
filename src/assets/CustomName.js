@@ -235,3 +235,27 @@ export const customOrderStatus = (status) => {
       return "배송완료";
   }
 };
+
+export const customRefundStatus = (status) => {
+  switch (status) {
+    case "REFUND_REQUEST":
+      return "환불 요청";
+  }
+};
+
+export const customRefundReason = (status) => {
+  switch (status) {
+    case "SIZE_NOT_MATCH":
+      return "사이즈 안맞음";
+    case "SIMPLE_CHANGE":
+      return "단순변심";
+    case "PRODUCT_DISCONTENT":
+      return "상품불만";
+    case "DELIVERY_DELAY":
+      return "배송지연";
+    case "WRONG_DELIVERY":
+      return "제품 오배송";
+    default:
+      return "기타";
+  }
+};
