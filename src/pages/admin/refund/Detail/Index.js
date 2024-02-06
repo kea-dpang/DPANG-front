@@ -10,14 +10,7 @@ import { GET_refund_detail } from "@api/refund";
 
 const Index = () => {
   const { id } = useParams();
-
-
-  //ID를 기준으로 표시해야 될 데이터를 찾는다
-  const data = Data.find(item => {
-
-    return parseInt(id, 10) === item.id;
-    
-  });
+const [refundDetail, setRefundDetail] = useState();
 
 
   useEffect(()=>{
@@ -25,6 +18,7 @@ const Index = () => {
     GET_refund_detail(parseInt(id, 10))
     .then((data)=>{
       console.log("성공성공", data)
+      setRefundDetail(data.data)
     })
     .catch((error)=>{
       console.log("실패실패", error)
@@ -33,19 +27,21 @@ const Index = () => {
 
   }, [])
 
+  if(!refundDetail){
+    return <></>
+  }
 
   return (
     <>
       <Wrap>
         <PageName className="cm-LBold30 col-Black"> 환불 관리</PageName>
         <PageSubName className="cm-MBold24 col-Navy">
-          {" "}
           환불 내역 상세조회
         </PageSubName>
 
         <InputSection>
-          <Table data={data} />
-          <RefundDetail data={data} />
+          <Table data={refundDetail} />
+          <RefundDetail data={refundDetail} />
         </InputSection>
       </Wrap>
     </>

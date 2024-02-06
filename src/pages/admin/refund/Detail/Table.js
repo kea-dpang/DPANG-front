@@ -10,7 +10,7 @@ const Index = (props) => {
       <TableBox>
         <Table className="cm-SRegular16">
           <Col width="10.9375rem">날짜/주문번호</Col>
-          <Col width="9rem">구분/사유</Col>
+          <Col width="9rem">사유</Col>
           <Col width="10rem">상태</Col>
           <Col width="24rem">상품명</Col>
           <Col width="10rem">상품금액/수량</Col>

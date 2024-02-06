@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 function DetailShip({data}){
 
+
     return(
         <>
         <Border />
@@ -9,24 +10,24 @@ function DetailShip({data}){
           <Col height="5rem">
             <ColHead>회수자명</ColHead>
             <BlankDiv />
-            <Content width="28rem">{data.username}</Content>
+            <Content width="28rem">{data.recallInfo.retrieverName}</Content>
   
             <ColHead>회수자 연락처</ColHead>
             <BlankDiv />
-            <Content width="28rem">{data.userphone}</Content>
+            <Content width="28rem">{data.recallInfo.retrieverContact}</Content>
           </Col>
           <Border />
   
           <Col height="7rem">
             <ColHead>회수주소</ColHead>
             <BlankDiv />
-            <Content width="64.9375rem">{data.useradd}</Content>
+            <Content width="64.9375rem">{data.recallInfo.retrievalAddress}</Content>
           </Col>
           <Border />
           <Col height="15rem">
             <ColHead>회수메시지</ColHead>
             <BlankDiv />
-            <Content width="64.9375rem">{data.refundmessage}</Content>
+            <Content width="64.9375rem">{data.recallInfo.retrievalMessage}</Content>
           </Col>
         </Table>
         <Border />
