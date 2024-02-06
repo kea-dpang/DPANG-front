@@ -240,6 +240,10 @@ export const customRefundStatus = (status) => {
   switch (status) {
     case "REFUND_REQUEST":
       return "환불 요청";
+    case "COLLECTING":
+      return "회수중";
+    default:
+      return "환불 완료";
   }
 };
 
