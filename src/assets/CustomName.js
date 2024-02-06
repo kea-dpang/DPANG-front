@@ -247,6 +247,21 @@ export const customRefundStatus = (status) => {
   }
 };
 
+// export const customRefundStatusReverse = (status) =>{
+// switch(status){
+//   case "환불 요청":
+//     return "REFUND_REQUEST";
+//   case "회수중":
+//     return "COLLECTING";
+//   case "환불 완료":
+//     return ""
+// }
+
+
+
+// }
+
+
 export const customRefundReason = (status) => {
   switch (status) {
     case "SIZE_NOT_MATCH":
@@ -261,5 +276,24 @@ export const customRefundReason = (status) => {
       return "제품 오배송";
     default:
       return "기타";
+  }
+};
+
+export const customRefundReasonReverse = (status) => {
+  switch (status) {
+    case "사이즈 안맞음":
+      return "SIZE_NOT_MATCH";
+    case "단순변심":
+      return "SIMPLE_CHANGE";
+    case "상품불만":
+      return "PRODUCT_DISCONTENT";
+    case "배송지연":
+      return "DELIVERY_DELAY";
+    case "제품 오배송":
+      return "WRONG_DELIVERY";
+    case "기타":
+      return "OTHERS"
+    default:
+      return undefined;
   }
 };

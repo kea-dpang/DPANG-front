@@ -13,8 +13,6 @@ import { GET_cancel_list } from "@api/cancel";
 
 const Index = () => {
   const navigate = useNavigate();
-  //  상태 저장 : 예정, 진행, 종료
-  const [index, setIndex] = useState("");
   //서버로부터 받아올 값을 저장해놓을 리스트
   const [cancelList, setCancelList] = useState();
   //필터링을 해줄 dropdown 박스의 값. 첫 값은 이름, 뒤에 두 값은 필터링에 들어갈 value
