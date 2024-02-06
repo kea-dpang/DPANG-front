@@ -3,13 +3,13 @@ import { customDate, customStatusName } from "assets/CustomName";
 const url = "/api/events";
 
 // 관리자 - 이벤트리스트 조회
-export const GET_EventList = async () => {
+export const GET_EventList = async (page) => {
   const res = await axios({
     method: "get",
     url: `${url}/admin`,
     params: {
-      page: 0,
-      size: 20,
+      page: page,
+      size: 10,
       sort: "",
     },
   });

@@ -5,12 +5,20 @@ import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Dropdown from "@components/Dropdown";
-import DataTable from "@components/AdminDataTable";
+// import DataTable from "@components/AdminDataTable";
+import DataTable from "@components/DataTable";
 import { useNavigate } from "react-router-dom";
 import { GET_EventList, DELETE_Event } from "@api/event";
+import { useLocation } from "react-router-dom";
 
 // 이벤트 리스트 페이지
 const Index = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search); // url에서 searchparameter 저장(페이지)
+  const [page, setPage] = useState(searchParams.get("page") || 0);
+  const [totalData, setTotalData] = useState(0);
+  console.log("지금 페이지는 page: ", page);
+
   const navigate = useNavigate();
   const dropdownValue = ["이벤트 상태", "대기", "진행", "종료"];
   const columns = [
@@ -66,15 +74,32 @@ const Index = () => {
     setSelectedDropValue(newDropValue);
   };
   const [event, setEvent] = useState([]);
+  // useEffect(() => {
+  //   GET_EventList()
+  //     .then((data) => {
+  //       setEvent(data.data.content);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
   useEffect(() => {
-    GET_EventList()
+    navigate(`?page=${page}`);
+    console.log("렌더링 렌더링");
+    GET_EventList(page)
       .then((data) => {
         setEvent(data.data.content);
+        setTotalData(data.data.totalElements);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [page]);
+  // 페이지네이션 버튼 핸들러
+  const handlePagination = (page) => {
+    console.log("지금 페이지네이션 페이지 : ", page);
+    setPage(page);
+  };
   const handleRowsDelete = (rowsDeleted) => {
     const dataIndexArray = rowsDeleted.data.map((item) => item.dataIndex);
     DELETE_Event(dataIndexArray)
@@ -153,6 +178,8 @@ const Index = () => {
               filterValue={selectedDropValue}
               index={"eventStatus"}
               placeholder={dropdownValue[0]}
+              onChangePage={handlePagination}
+              count={totalData}
             />
           )}
         </ListSection>

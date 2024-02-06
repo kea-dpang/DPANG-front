@@ -30,7 +30,7 @@ const ProductSummary = (props) => {
     <>
       <Wrap>
         {/* 상품 사진 & 카테고리 */}
-        <ImgWrwap className="cm-SRegular16 col-Black">
+        <ImgWrap className="cm-SRegular16 col-Black">
           {/* 카테고리 */}
           <CategoryWrap>
             <Nav to=""> {categoryFormat(props.item.category, false)} </Nav>
@@ -39,7 +39,7 @@ const ProductSummary = (props) => {
           </CategoryWrap>
           {/* 상품 사진 */}
           <ProductImg $imgUrl={props.item.itemImage} />
-        </ImgWrwap>
+        </ImgWrap>
 
         {/* 상품 이름 / 가격 / 판매자 / 상품선택 / 좋아요 / 장바구니 */}
         <ContextWrap>
@@ -144,7 +144,7 @@ const CategoryWrap = styled.div`
   flex-direction: row;
   gap: 0.8rem;
 `;
-const ImgWrwap = styled.div`
+const ImgWrap = styled.div`
   padding-top: 1rem;
   display: flex;
   flex-direction: column;
