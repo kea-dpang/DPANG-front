@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { userListData } from "../../../../assets/data/admin/AdminUserData";
 import { DELETE_Users, GET_UserDetail } from "@api/user";
+import { useQuestionConfirmAlert } from "@components/SweetAlert";
 
 const title = ["No.", "사원번호", "이름", "이메일", "입사일", "주소"];
 
@@ -10,6 +11,9 @@ const EditPage = () => {
   let params = useParams().memberId;
   const [userData, setUserData] = useState();
   const navigate = useNavigate();
+
+  // alert
+  const showQuestionConfirmAlert = useQuestionConfirmAlert();
 
   useEffect(() => {
     GET_UserDetail(params)
@@ -23,15 +27,20 @@ const EditPage = () => {
   }, []);
 
   const handleDelete = () => {
-    DELETE_Users(params)
-      .then((data) => {
-        alert("해당 회원이 삭제되었습니다.");
-        navigate("/admin/user");
-        console.log(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    showQuestionConfirmAlert({
+      title: "해당 회원을 삭제하시겠습니까?",
+      text: "확인 클릭 시 삭제됩니다.",
+      saveText: "회원 삭제에 성공하였습니다.",
+      navi: "/admin/user",
+      onConfirm: () =>
+        DELETE_Users(params)
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((error) => {
+            console.log(error);
+          }),
+    });
   };
 
   return (

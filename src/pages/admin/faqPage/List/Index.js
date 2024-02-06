@@ -16,7 +16,7 @@ const columns = [
   { name: "postId", label: "번호", options: { sort: true } },
   { name: "category", label: "카테고리", options: { sort: true } },
   { name: "question", label: "제목", options: { sort: true } },
-  { name: "authorId", label: "작성자", options: { sort: true } },
+  // { name: "authorId", label: "작성자", options: { sort: true } },
 ];
 
 const FaqListPage = () => {

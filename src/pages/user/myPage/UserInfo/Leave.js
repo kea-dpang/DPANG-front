@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Checkbox from "@mui/material/Checkbox";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { useErrorAlert, useQuestionAlert } from "@components/SweetAlert";
+import { useErrorAlert, useQuestionConfirmAlert } from "@components/SweetAlert";
 import { useNavigate } from "react-router-dom";
 import { removeCookie } from "@utils/cookie";
 import { DELETE_UserLeave } from "@api/sign";
@@ -28,7 +28,9 @@ const Leave = () => {
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
 
   const navigate = useNavigate();
-  const showQuestionAlert = useQuestionAlert();
+
+  // alert
+  const showQuestionConfirmAlert = useQuestionConfirmAlert();
   const showErrorAlert = useErrorAlert();
 
   const handleCheckboxChange = (e) => {
@@ -50,11 +52,11 @@ const Leave = () => {
   };
 
   const handleSubmit = () => {
-    showQuestionAlert({
+    showQuestionConfirmAlert({
       title: "정말 탈퇴하시겠습니까?",
       text: "확인 클릭 시 탈퇴됩니다.",
       saveText: "회원탈퇴에 성공하였습니다.",
-      // navi: "/login",
+      navi: "/login",
       onConfirm: () =>
         DELETE_UserLeave(password, checkedState, note)
           .then((data) => {
@@ -62,7 +64,6 @@ const Leave = () => {
             localStorage.clear();
             removeCookie("accessToken");
             removeCookie("refreshToken");
-            navigate("/login");
           })
           .catch((error) => {
             if (error.response.status === 400) {
@@ -70,11 +71,12 @@ const Leave = () => {
                 title: "비밀번호가 틀립니다.",
                 text: "다시 시도해 주세요.",
               });
+            } else {
+              showErrorAlert({
+                title: "회원탈퇴에 실패하셨습니다.",
+                text: "잠시 후 다시 시도해 주세요.",
+              });
             }
-            showErrorAlert({
-              title: "회원탈퇴에 실패하셨습니다.",
-              text: "잠시 후 다시 시도해 주세요.",
-            });
             console.log(error);
           }),
     });

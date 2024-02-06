@@ -5,7 +5,6 @@ import {
   customStatusNameReverse,
 } from "assets/CustomName";
 import axios from "axios";
-
 const url = "/api/qna";
 
 export const GET_QnAList = async ({
