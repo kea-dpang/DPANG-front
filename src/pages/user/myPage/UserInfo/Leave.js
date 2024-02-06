@@ -71,10 +71,10 @@ const Leave = () => {
                 text: "다시 시도해 주세요.",
               });
             }
-            // showErrorAlert({
-            //   title: "회원탈퇴에 실패하셨습니다.",
-            //   text: "잠시 후 다시 시도해 주세요.",
-            // });
+            showErrorAlert({
+              title: "회원탈퇴에 실패하셨습니다.",
+              text: "잠시 후 다시 시도해 주세요.",
+            });
             console.log(error);
           }),
     });
