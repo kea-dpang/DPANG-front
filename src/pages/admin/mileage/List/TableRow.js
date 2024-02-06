@@ -15,8 +15,11 @@ import {
   CustomMileageStatusNameReverse,
 } from "assets/CustomName";
 import Swal from "sweetalert2";
+import { useQuestionAlert } from "@components/SweetAlert";
 
 const Index = (props) => {
+
+  const showQuestionAlert = useQuestionAlert();
   const [searchData, setSearchData] = useState("");
   const navigate = useNavigate();
   //  상태 저장 : 예정, 진행, 종료
@@ -25,48 +28,55 @@ const Index = (props) => {
   //필터링을 해줄 dropdown 박스의 값. 첫 값은 이름, 뒤에 두 값은 필터링에 들어갈 value
   const dropdownValue = ["처리 상태", "전체", "요청", "승인", "반려"];
 
-  //alert창을 커스텀해서 보내준다
-  const showQuestionAlert = (options) => {
-    return Swal.fire({
-      title: options.title,
-      text: options.text,
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonText: "확인",
-      cancelButtonText: "취소",
-    });
+  const handleConfirm = (val) => {
+    return POST_charge_req(val, bool)
+      .then((data) => {
+        console.log(data);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log("실패");
+        throw error; // 오류를 다시 던져서 오류 처리 가능
+      });
   };
+
+  const handleRefuse = (val) => {
+    return POST_charge_req(val, !bool)
+      .then((data) => {
+        console.log(data);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log("실패");
+        throw error; // 오류를 다시 던져서 오류 처리 가능
+      });
+  };
+
+
 
   //승인 버튼을 누를 경우에 handling
   const handleApprove = (val) => {
     // 확인 창을 띄움
     showQuestionAlert({
       title: "신청을 승인하시겠습니까?",
-      text: "신청 승인하기",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        POST_charge_req(val, bool);
-        window.location.reload();
-      } else {
-        console.log("거절");
-      }
+      text: "확인 클릭 시 승인 됩니다.",
+      saveText: "신청 승인 되었습니다.",
+      onConfirm: ()=> handleConfirm(val),  
     });
   };
 
-  //거절 버튼을 누를 경우에 handling
-  const handleReject = (val) => {
+  const handleReject = (val)=>{
     showQuestionAlert({
       title: "신청을 반려하시겠습니까?",
-      text: "신청 반려하기",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        POST_charge_req(val, !bool);
-        window.location.reload();
-      } else {
-        console.log("취소");
-      }
+      text: "확인 클릭 시 반려 됩니다.",
+      saveText: "신청 반려 되었습니다.",
+      onConfirm: ()=> handleRefuse(val),  
     });
-  };
+
+
+
+
+  }
 
   const columns = [
     { name: "chargeRequestId", label: "번호", options: { sort: false } },
