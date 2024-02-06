@@ -15,8 +15,8 @@ const Blank = styled.div`
 `;
 
 function Table(props) {
-  const [shipClick, setShipClick] = useState(false);
-  const [payClick, setPayClick] = useState(false);
+  const [shipClick, setShipClick] = useState(true);
+  const [payClick, setPayClick] = useState(true);
 
   const handleShipClick = () => {
     setShipClick(!shipClick);

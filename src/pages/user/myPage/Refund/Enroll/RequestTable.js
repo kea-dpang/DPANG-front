@@ -1,6 +1,6 @@
 import { POST_refund_order } from '@api/refund'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
@@ -112,6 +112,8 @@ align-items: end;
 `
 
 function RequestTable() {
+    const { id } = useParams();
+    console.log(id);
 
     const navi = useNavigate();
     const [category, setCategory] = useState("");
@@ -120,8 +122,10 @@ function RequestTable() {
 
     const handleSubmit = () =>{
 
+        console.log(category)
+
         const val = {
-            orderId: 0, 
+            orderId: id, 
             refundCategory: category, 
             refundMessage: text, 
             refundShipmentMessage: message, 
@@ -150,11 +154,12 @@ function RequestTable() {
                         <Col width="62rem" height="6rem">
                             <FormBox>
                                 <Form onChange={(e)=>{setCategory(e.target.value)}}>
-                                    <option value="단순 변심">단순변심</option>
-                                    <option value="사이즈 안맞음">사이즈 안맞음</option>
-                                    <option value="제품 불만족">제품 불만족</option>
-                                    <option value="제품 오배송">제품 오배송</option>
-                                    <option value="기타">기타</option>
+                                    <option value="SIMPLE_CHANGE">단순변심</option>
+                                    <option value="SIZE_NOT_MATCH">사이즈 안맞음</option>
+                                    <option value="PRODUCT_DISCONTENT">상품 불만족</option>
+                                    <option value="WRONG_DELIVERY">제품 오배송</option>
+                                    <option value="DELIVERY_DELAY">배송지연</option>
+                                    <option value="OTHERS">기타</option>
 
                                 </Form>
                             </FormBox>
@@ -166,7 +171,9 @@ function RequestTable() {
                     <Row height="15rem" className="cm-SRegular16">
                         <ColHeader height="15rem" className="cm-SBold16">비고</ColHeader>
                         <Col width="62rem" height="15rem">
+                            <FormBox>
                             <TextArea height = "10rem" className="cm-SRegular16" onChange={(e)=>{setText(e.target.value)}}/>
+                        </FormBox>
                         </Col>
                     </Row>
                     <Border />
@@ -174,7 +181,9 @@ function RequestTable() {
                     <Row height="10rem" className="cm-SRegular16">
                         <ColHeader height="10rem" className="cm-SBold16">회수 메시지</ColHeader>
                         <Col width="62rem" height="10rem">
+                        <FormBox>
                             <TextArea height="6rem" className="cm-SRegular16" onChange={(e)=>{setMessage(e.target.value)}}/>
+                            </FormBox>
                         </Col>
                     </Row>
                     <Border />
@@ -183,7 +192,7 @@ function RequestTable() {
 
             </Container>
             <ButtonBox>
-                <Button className="cm-SBold16" onClick={() => { handleSubmit(); navi('/user/mypage/temp/order'); }}>반품 신청</Button>
+                <Button className="cm-SBold16" onClick={() => { handleSubmit(); navi('/user/mypage/order'); }}>반품 신청</Button>
             </ButtonBox>
 
 

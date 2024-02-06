@@ -21,7 +21,7 @@ const ArrowImage = styled.img`
 `;
 
 function DetailTableTitle(props) {
-  const [rotate, setRotate] = useState(180);
+  const [rotate, setRotate] = useState(0);
 
   return (
     <DetailHeader

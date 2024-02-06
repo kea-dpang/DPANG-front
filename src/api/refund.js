@@ -10,9 +10,9 @@ export const POST_refund_order = async (inputValue) => {
     method: "post",
     url: `${url}/${inputValue.orderId}`,
     data: {
-      refundCategory: inputValue.refundCategory,
-      refundMessage: inputValue.refudMessage || undefined,
-      refundShipmentMessage: inputValue.refundShipmentMessage,
+      refundReason: inputValue.refundCategory,
+      remark: inputValue.refudMessage || undefined,
+      retrievalMessage: inputValue.refundShipmentMessage,
     },
   });
   return res.data;

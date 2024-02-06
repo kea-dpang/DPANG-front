@@ -229,10 +229,10 @@ export const customOrderStatus = (status) => {
       return "배송준비";
     case "IN_DELIVERY":
       return "배송중";
-    case "CANCELLED":
-      return "취소";
-    default:
+    case "DELIVERY_COMPLETED":
       return "배송완료";
+    default:
+      return "취소/환불";
   }
 };
 
