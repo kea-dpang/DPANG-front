@@ -4,6 +4,7 @@ import { Box, Chip, Stack } from "@mui/material";
 import styled from "styled-components";
 
 function ProductList({ productList, onProductDelete }) {
+  console.log("productList: ", productList);
   return (
     <Wrap>
       <Box
@@ -21,8 +22,8 @@ function ProductList({ productList, onProductDelete }) {
           {productList.map((product, index) => (
             <Chip
               key={index}
-              label={product}
-              onDelete={() => onProductDelete(product)}
+              label={product.itemName} // 혹은 itemId
+              onDelete={() => onProductDelete(product.itemId)}
             />
           ))}
         </Stack>

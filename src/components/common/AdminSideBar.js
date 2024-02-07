@@ -36,7 +36,7 @@ const AdminSideBar = () => {
             alt="logo"
             style={{ transform: "rotate(-6.386deg)" }}
           />
-          <Menu style={{ color: "var(--white)" }} />
+          {/* <Menu style={{ color: "var(--white)" }} /> */}
         </LogoBar>
 
         {/* 회원관리, 상품관리, 이벤트 관리 ... 메뉴 리스트 */}
@@ -91,7 +91,7 @@ const AdminSideBar = () => {
             <OpenMenuWrap>
               <Nav to="brand"> - 판매처 관리 </Nav>
               <Nav to="product"> - 상품 관리 </Nav>
-              <Nav> - 판매 모니터링 </Nav>
+              <Nav to="monitoring"> - 판매 모니터링 </Nav>
             </OpenMenuWrap>
           )}
           {/* 이벤트관리 */}
@@ -125,7 +125,7 @@ const AdminSideBar = () => {
           )}
           {/* 재고관리 */}
           {/* 상위메뉴 */}
-          <SubMenuWrap
+          {/* <SubMenuWrap
             $isOpen={openSubMenu === "재고관리"}
             onClick={() => handleSubMenuClick("재고관리")}
           >
@@ -141,15 +141,15 @@ const AdminSideBar = () => {
               <MenuName $isOpen={openSubMenu === "재고관리"}>재고관리</MenuName>
             </Left>
             <Arrow $isOpen={openSubMenu === "재고관리"} />
-          </SubMenuWrap>
+          </SubMenuWrap> */}
           {/* 클릭하면 열리는 상세메뉴 */}
-          {openSubMenu === "재고관리" && (
+          {/* {openSubMenu === "재고관리" && (
             <OpenMenuWrap>
               <Nav> - 재고 모니터링 </Nav>
               <Nav> - 재고 검수 </Nav>
               <Nav> - 재고 주문/입고 </Nav>
             </OpenMenuWrap>
-          )}
+          )} */}
           {/* 주문관리 */}
           {/* 상위메뉴 */}
           <SubMenuWrap
@@ -261,7 +261,7 @@ const AdminSideBar = () => {
           {/* 모니터링 */}
           {/* 상위메뉴 */}
           <SubMenuWrap
-            style={{ gap: "6.8rem" }}
+            style={{ gap: "7.54rem" }}
             $isOpen={openSubMenu === "모니터링"}
             onClick={() => handleSubMenuClick("모니터링")}
           >

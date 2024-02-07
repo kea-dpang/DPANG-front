@@ -39,7 +39,7 @@ const ProductDetailEnroll = ({ productInfo, setProductInfo }) => {
         console.log("사진 등록", data.data.uploadedFileUrl);
         setProductInfo({
           ...productInfo,
-          thumbnailImage: data.data.uploadedFileUrl,
+          informationImages: data.data.uploadedFileUrl,
         });
       })
       .catch((error) => {

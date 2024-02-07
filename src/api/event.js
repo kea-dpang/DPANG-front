@@ -160,8 +160,6 @@ export const PUT_ItemEvent = async (id, value) => {
       startDate: value.startDate,
       endDate: value.endDate,
       imagePath: value.imagePath,
-      sellerId: "9",
-      eventStatus: "WAITING",
     },
   });
   return response.data;

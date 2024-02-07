@@ -7,8 +7,11 @@ import EventImage from "../Enroll/EventImage";
 import { GET_BrandEventInfo, PUT_BrandEvent } from "@api/event";
 import { useNavigate } from "react-router-dom";
 import { POST_Image } from "@api/image";
+import { useConfirmAlert } from "@components/SweetAlert";
 
 const Index = ({ eventId }) => {
+  const showConfirmAlert = useConfirmAlert();
+
   const dayjs = require("dayjs");
   const [storeData, setStoreData] = useState([]);
   const [inputValue, setInputValue] = useState({
@@ -101,7 +104,10 @@ const Index = ({ eventId }) => {
     console.log("수정할게: ", inputValue);
     PUT_BrandEvent(eventId, inputValue)
       .then((data) => {
-        navi(`/admin/event`);
+        showConfirmAlert({
+          title: "브랜드 이벤트가 수정되었습니다.",
+          navi: "/admin/event",
+        });
       })
       .catch((error) => {
         console.log(error);
