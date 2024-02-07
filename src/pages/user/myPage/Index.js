@@ -7,6 +7,7 @@ import media from "../../../styles/responsive";
 import Header from "../../../components/common/UserHeaderBar/Index";
 import MypageTitleBox from "../../../components/common/MypageTitleBox";
 import Footer from "../../../components/common/UserFooter/Index";
+import withAuth from "@utils/hoc/withAuth";
 
 const MyPage = () => {
   return (
@@ -30,7 +31,7 @@ const MyPage = () => {
   );
 };
 
-export default MyPage;
+export default withAuth(MyPage);
 
 const Wrap = styled.div`
   /* padding: 0rem 12rem; */

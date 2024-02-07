@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const withAuth = (WrappedComponent) => {
   return (props) => {
+    console.log("Ddddd");
     const navigate = useNavigate();
     const accessToken = getCookie("accessToken");
     const userId = localStorage.getItem("userId");
