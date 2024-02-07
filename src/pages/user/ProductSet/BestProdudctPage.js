@@ -31,7 +31,7 @@ const BestProductPage = () => {
           <Title className="cm-XLBold36"> {title} </Title>
           <ItemWrap>
             {itemList.map((item) => (
-              <Item key={item.itemId} value={item} />
+              <Item key={item.id} value={item} />
             ))}
           </ItemWrap>
         </Wrap>

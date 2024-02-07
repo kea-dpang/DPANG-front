@@ -2,33 +2,41 @@ import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import "@styles/fonts.css";
 import InputEdit from "@adminPages/item/brand/Edit/InputEdit";
-import { GET_ItemEventInfo } from "@api/event";
+import { GET_ItemEventInfo, PUT_ItemEvent } from "@api/event";
 import EventImage from "../Enroll/EventImage";
 import { POST_Image } from "@api/image";
 import EventDate from "../Enroll/EventDate";
 import ProductList from "../Enroll/ProductList";
 import ProductCodeInput from "../Enroll/ProductCodeInput";
+import { useConfirmAlert } from "@components/SweetAlert";
 
 const Index = ({ eventId }) => {
+  const showConfirmAlert = useConfirmAlert();
+
   console.log("이벤트아이디: ", eventId);
   const dayjs = require("dayjs");
+  const [storeData, setStoreData] = useState([]);
   const [inputValue, setInputValue] = useState({
     discountRate: "",
     eventName: "",
     startDate: dayjs(),
     endDate: dayjs(),
     imagePath: "",
+    discountRate: "",
+    targetItems: [],
   });
   useEffect(() => {
     GET_ItemEventInfo(eventId)
       .then((data) => {
-        console.log("상품 이벤트 상세조회 data : ", data.data);
+        console.log("상품 이벤트 상세조회 data : ");
+        setStoreData(data.data);
         setInputValue({
           discountRate: data.data.discountRate || "",
           eventName: data.data.eventName || "",
           imagePath: data.data.imagePath || "",
           startDate: dayjs(data.data.startDate) || dayjs(),
           endDate: dayjs(data.data.endDate) || dayjs(),
+          discountRate: data.data.discountRate || "",
           targetItems: data.data.targetItems || [],
         });
       })
@@ -49,7 +57,8 @@ const Index = ({ eventId }) => {
       inputValue.imagePath !== "" &&
       inputValue.startDate !== "" &&
       inputValue.endDate !== "" &&
-      inputValue.target.length > 0
+      inputValue.discountRate !== "" &&
+      inputValue.targetItems.length > 0
     ) {
       setFormValid(true);
     } else {
@@ -62,6 +71,7 @@ const Index = ({ eventId }) => {
     inputValue.target,
     inputValue.startDate,
     inputValue.endDate,
+    inputValue.targetItems,
   ]);
 
   // 이벤트 이름 변경 감지
@@ -92,11 +102,12 @@ const Index = ({ eventId }) => {
       targetItems: [...inputValue.targetItems, product],
     });
   };
-  const handleProductDelete = (productToDelete) => {
+
+  const handleProductDelete = (productIdToDelete) => {
     setInputValue((prevState) => ({
       ...prevState,
       targetItems: prevState.targetItems.filter(
-        (product) => product !== productToDelete
+        (product) => product.itemId !== productIdToDelete
       ),
     }));
   };
@@ -124,13 +135,22 @@ const Index = ({ eventId }) => {
   };
   // 수정 완료 버튼
   const handleSubmit = () => {
-    // 이미지가 null값이면 수정 못하게 하기
     console.log("상품 이벤트 수정할게: ", inputValue);
+    PUT_ItemEvent(eventId, inputValue)
+      .then((data) => {
+        showConfirmAlert({
+          title: "상품 이벤트가 수정되었습니다.",
+          navi: "/admin/event",
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
     <>
-      {inputValue && (
+      {storeData && (
         <Wrap>
           {/* 상품 정보 수정칸 */}
           <Table>
@@ -138,7 +158,7 @@ const Index = ({ eventId }) => {
             <Row>
               <p className="cm-SBold16 col-Black">이벤트 이름</p>
               <InputEdit
-                value={inputValue.itemName}
+                value={inputValue.eventName}
                 id={"eventName"}
                 placeholder={"이벤트 이름을 입력해주세요"}
                 onChange={handleNameChange}
