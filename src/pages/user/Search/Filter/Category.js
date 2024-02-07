@@ -1,19 +1,17 @@
 import styled from "styled-components";
 import React, { useState } from "react";
 import categoryData from "@data/user/CategoryData";
-const Category = () => {
-  const [selectedItems, setSelectedItems] = useState([]);
+const Category = ({ category, setCategory }) => {
+  // const [selected, setSelectedItem] = useState(null);
 
   const handleClick = (item) => {
-    // TODO: 필터링 걸어서 검색하는 API 추가
-    // 이미 눌려있었다면 아이템 빼기
-    if (selectedItems.includes(item.title)) {
-      setSelectedItems(selectedItems.filter((i) => i !== item.title));
+    if (category === item.title) {
+      setCategory(null); // 선택된 항목이 다시 클릭되면 선택 해제
     } else {
-      // 그게 아니라면, 해당 값 필터 리스트에 추가하기
-      setSelectedItems([...selectedItems, item.title]);
+      setCategory(item.title); // 다른 항목이 클릭되면 선택
     }
   };
+
   return (
     <Wrap>
       {categoryData.map((item, index) => (
@@ -21,7 +19,7 @@ const Category = () => {
           className="cm-SRegular16 col-Black"
           key={index}
           onClick={() => handleClick(item)}
-          selected={selectedItems.includes(item.title)}
+          selected={category}
         >
           {item.title}
         </Item>
@@ -43,7 +41,8 @@ const Item = styled.div`
   padding: 0.3rem 0rem;
   box-sizing: border-box;
   cursor: pointer;
-  color: ${({ selected }) => (selected ? "var(--orange)" : "var(--black)")};
+  color: ${({ selected, children }) =>
+    selected === children ? "var(--orange)" : "var(--black)"};
   transition: transform 0.3s ease-in-out;
 
   &:hover {

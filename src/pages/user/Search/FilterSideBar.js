@@ -5,9 +5,9 @@ import Brand from "./Filter/Brand";
 import Category from "./Filter/Category";
 import { ReactComponent as ArrowStroke } from "@images/arrowStroke.svg";
 
-const FilterSideBar = ({ onPriceChange, ...props }) => {
+const FilterSideBar = ({ onPriceChange, onCategoryChange, ...props }) => {
   const [value, setValue] = React.useState([0, 0]);
-
+  const [category, setCategory] = useState(null);
   const [openSubMenu, setOpenSubMenu] = useState([
     "브랜드",
     "가격대",
@@ -25,7 +25,9 @@ const FilterSideBar = ({ onPriceChange, ...props }) => {
 
   const handleSearchBtn = () => {
     onPriceChange(value);
+    onCategoryChange(category);
     console.log("가격 value: ", value);
+    console.log("카테고리:", category);
   };
 
   return (
@@ -72,7 +74,9 @@ const FilterSideBar = ({ onPriceChange, ...props }) => {
         </MenuName>
         <Arrow $isOpen={openSubMenu.includes("카테고리")} />
       </MenuWrap>
-      {openSubMenu.includes("카테고리") && <Category />}
+      {openSubMenu.includes("카테고리") && (
+        <Category category={category} setCategory={setCategory} />
+      )}
       <MenuWrap
         $isOpen={openSubMenu.includes("가격대")}
         onClick={() => handleSubMenuClick("가격대")}

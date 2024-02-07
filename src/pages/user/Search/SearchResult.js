@@ -3,6 +3,7 @@ import styled from "styled-components";
 import FilterSideBar from "./FilterSideBar";
 import Item from "@components/ProductCard/Index";
 import { GET_ItemFilterListUser } from "@api/Item";
+import { categoryFormat } from "assets/CustomName";
 
 const SearchResult = (props) => {
   console.log("query: ", props);
@@ -46,7 +47,7 @@ const SearchResult = (props) => {
   const handleCategoryChange = (newCate) => {
     setFilterData((prevState) => ({
       ...prevState,
-      category: newCate,
+      category: categoryFormat(newCate, true),
     }));
   };
 
@@ -55,40 +56,38 @@ const SearchResult = (props) => {
   }, []);
   useEffect(() => {
     getItemList();
-  }, [filterData.minPrice, filterData.maxPrice]);
+  }, [filterData.minPrice, filterData.maxPrice, filterData.category]);
 
   return (
     <Wrap>
-      {itemList.length > 0 && (
-        <>
-          <Title className="cm-LBold30">
-            <div className="col-Navy">'{props.keyword}'</div>
-            <div className="cm-LRegular30"> &nbsp; 에 대한 검색 결과</div>
-          </Title>
-          <Content>
-            <FilterSideBar
-              onPriceChange={handlePriceChange}
-              onCategoryChange={handleCategoryChange}
-            />
-            {/* <FilterSideBar value={"search"} /> */}
-            <Right>
-              {/* 검색 결과 개수 + 추천순, 최신순 등 정렬 */}
-              <Section className="cm-XsRegular14">
-                <div> 총 {itemList.length} 건</div>
-                <OrderWrap>
-                  <div> </div>
-                  <div> </div>
-                </OrderWrap>
-              </Section>
-              <ListSection>
-                {itemList.map((item) => (
-                  <Item key={item.id} value={item} />
-                ))}
-              </ListSection>
-            </Right>
-          </Content>
-        </>
-      )}
+      <Title className="cm-LBold30">
+        <div className="col-Navy">'{props.keyword}'</div>
+        <div className="cm-LRegular30"> &nbsp; 에 대한 검색 결과</div>
+      </Title>
+      <Content>
+        <FilterSideBar
+          onPriceChange={handlePriceChange}
+          onCategoryChange={handleCategoryChange}
+        />
+        {/* <FilterSideBar value={"search"} /> */}
+        <Right>
+          {/* 검색 결과 개수 + 추천순, 최신순 등 정렬 */}
+          <Section className="cm-XsRegular14">
+            <div> 총 {itemList.length} 건</div>
+            <OrderWrap>
+              <div> </div>
+              <div> </div>
+            </OrderWrap>
+          </Section>
+          {itemList.length > 0 && (
+            <ListSection>
+              {itemList.map((item) => (
+                <Item key={item.id} value={item} />
+              ))}
+            </ListSection>
+          )}
+        </Right>
+      </Content>
     </Wrap>
   );
 };
