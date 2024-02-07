@@ -7,10 +7,13 @@ const UserBox = styled.div`
   width: 5rem;
   height: 1.5rem;
   display: flex;
+  /* align-items: center; */
 `;
 const UserImg = styled.div`
   width: 2rem;
   height: 1.5rem;
+  display: flex;
+  align-items: center;
 `;
 const Image = styled.img`
   width: 1.3rem;
@@ -20,7 +23,7 @@ const Image = styled.img`
 
 const UserName = styled.div`
   width: 3rem;
-  font-size: 14px;
+  font-size: 13px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -28,7 +31,7 @@ const UserName = styled.div`
 
 function User() {
   //user name을 받아오기
-  const userName = localStorage.getItem("userId");
+  const userName = localStorage.getItem("name");
   const navi = useNavigate();
 
   return (

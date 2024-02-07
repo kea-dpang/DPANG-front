@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 // import '../../styles/fontStyle.scss';
 import { ReactComponent as ArrowStroke } from "../../assets/images/arrowStroke.svg";
-import { Link } from "react-router-dom";
+import { Link, useMatch, useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+
 const UserSideBar = () => {
   return (
     <Wrap>
@@ -14,6 +15,7 @@ const UserSideBar = () => {
           <p className="cm-SBold18 col-DarkGrey">주문·배송 조회</p>
           <StyledArrowStroke />
         </Nav>
+
         <Nav to="directAsk">
           <p className="cm-SBold18 col-DarkGrey">1:1 문의</p>
           <StyledArrowStroke />
