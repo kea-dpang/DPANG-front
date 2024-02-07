@@ -4,6 +4,7 @@ import { useState } from "react";
 import { POST_cancel_order } from "@api/cancel";
 import { customOrderStatus } from "assets/CustomName";
 import ArrowImg from "assets/images/UpArrowVector.svg";
+import { idID } from "@mui/material/locale";
 
 function RowData(props) {
   const data = props.data;
@@ -61,7 +62,7 @@ function RowData(props) {
                 navi(`/user/mypage/order/detail/${data.orderId}`);
               }}
             >
-              <Col width="11rem" height="6">
+              <Col width="11rem" height="6" status={b.orderStatus}>
                 {customOrderStatus(b.orderStatus)}
               </Col>
               <Col width="22rem" height="6">
@@ -69,8 +70,8 @@ function RowData(props) {
                 <ItemName>{b.productInfoDto.name}</ItemName>
               </Col>
               <Col width="11rem" height="6">
-                {(b.productInfoDto.price * b.productQuantity).toLocaleString()} /
-                {b.productQuantity}
+                {(b.productInfoDto.price * b.productQuantity).toLocaleString()}{" "}
+                /{b.productQuantity}
               </Col>
 
               <Col width="15rem" height="6">
@@ -98,8 +99,9 @@ function RowData(props) {
                     status={customOrderStatus(b.orderStatus)}
                     onClick={(e) => {
                       e.stopPropagation();
-                      navi(`/user/mypage/refund/enroll/${b.orderDetailId}/${data.orderId}`);
-
+                      navi(
+                        `/user/mypage/refund/enroll/${b.orderDetailId}/${data.orderId}`
+                      );
                     }}
                   >
                     반품
@@ -140,8 +142,15 @@ const Col = styled.div`
   align-items: center;
   justify-content: center;
   height: ${(props) => props.height}rem;
+  ${(props) => setTextColor(props.status)}
 `;
-
+const setTextColor = (status) => {
+  if (status === "CANCELLED") {
+    return { color: "var(--orange)" };
+  } else {
+    return { color: "black" };
+  }
+};
 const ItemImg = styled.img`
   width: 5rem;
   height: 5rem;
