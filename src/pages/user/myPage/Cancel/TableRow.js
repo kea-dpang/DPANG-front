@@ -77,7 +77,6 @@ function TableRow({ data }) {
         console.log(data, "API 연동 성공입니다");
         setNumOfElement(data.data.totalElements);
         setCancelData(data.data.content); //여기는 바꿔야 됩니다
-        console.log("fpofkpkrepgjper", cancelData);
       })
       .catch((error) => {
         console.log(error, "실패입니다");
@@ -92,7 +91,6 @@ function TableRow({ data }) {
       endDate: period.endDate,
     }));
   }, [period]);
-
 
   return (
     <>

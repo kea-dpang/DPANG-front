@@ -14,11 +14,9 @@ import {
   customMileageStatusName,
   CustomMileageStatusNameReverse,
 } from "assets/CustomName";
-import Swal from "sweetalert2";
 import { useQuestionAlert } from "@components/SweetAlert";
 
 const Index = (props) => {
-
   const showQuestionAlert = useQuestionAlert();
   const [searchData, setSearchData] = useState("");
   const navigate = useNavigate();
@@ -44,15 +42,12 @@ const Index = (props) => {
     return POST_charge_req(val, !bool)
       .then((data) => {
         console.log(data);
-        window.location.reload();
       })
       .catch((error) => {
         console.log("실패");
         throw error; // 오류를 다시 던져서 오류 처리 가능
       });
   };
-
-
 
   //승인 버튼을 누를 경우에 handling
   const handleApprove = (val) => {
@@ -61,22 +56,18 @@ const Index = (props) => {
       title: "신청을 승인하시겠습니까?",
       text: "확인 클릭 시 승인 됩니다.",
       saveText: "신청 승인 되었습니다.",
-      onConfirm: ()=> handleConfirm(val),  
+      onConfirm: () => handleConfirm(val),
     });
   };
 
-  const handleReject = (val)=>{
+  const handleReject = (val) => {
     showQuestionAlert({
       title: "신청을 반려하시겠습니까?",
       text: "확인 클릭 시 반려 됩니다.",
       saveText: "신청 반려 되었습니다.",
-      onConfirm: ()=> handleRefuse(val),  
+      onConfirm: () => handleRefuse(val),
     });
-
-
-
-
-  }
+  };
 
   const columns = [
     { name: "chargeRequestId", label: "번호", options: { sort: false } },

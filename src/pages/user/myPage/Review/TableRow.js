@@ -7,6 +7,7 @@ import { GET_review_list } from "@api/review";
 import { customDate } from "assets/CustomName";
 import { useRecoilValue } from "recoil";
 import { periodAtom } from "recoil/user/PeriodSelectAtom";
+import UserPagination from "@components/UserPagination";
 
 const Row = styled.div`
   width: 72rem;
@@ -47,6 +48,7 @@ function trimContent(str) {
 
 function TableRow(props) {
   const id = parseInt(localStorage.getItem("userId"), 10);
+  const [numOfElement, setNumOfElement] = useState(10);
 
   //기간 값 설정
   const period = useRecoilValue(periodAtom);
@@ -89,8 +91,12 @@ function TableRow(props) {
   const end = start + itemPerPage;
   const currentData = reviewData.slice(start, end);
 
-  const handlePageChange = (_, newPage) => {
-    setCurrentPage(newPage);
+  //하위 component에서 전달받은 새로운 val 값으로 업데이트 해준다
+  const handleValChange = (page) => {
+    setVal((prevVal) => ({
+      ...prevVal,
+      page: page - 1,
+    }));
   };
 
   return (
@@ -111,19 +117,11 @@ function TableRow(props) {
         );
       })}
 
-      <PaginationContainer>
-        <Stack spacing={10}>
-          {/* MUI 페이지 네이션 라이브러리 이용 */}
-          <Pagination
-            //페이지당 아이템 개수에 따른 전체 페이지수 계산
-            count={Math.ceil(reviewData.length / itemPerPage)}
-            //페이지는 현재 페이지
-            page={currentPage}
-            onChange={handlePageChange}
-            color="primary"
-          />
-        </Stack>
-      </PaginationContainer>
+      {/* pagination component에 리스트에서 원소의 개수, 전달해줄 value값, 그리고 값이 변경되었을때, state를 업데이트 시켜줄 함수를 props로 보낸다 */}
+      <UserPagination
+        numOfElement={numOfElement}
+        handleValChange={handleValChange}
+      />
     </>
   );
 }

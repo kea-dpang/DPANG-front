@@ -71,18 +71,22 @@ const MypageTitleBox = () => {
                 {/* 사원 마일리지 */}
                 <Mile>{mileage.toLocaleString()} 마일</Mile>
               </MileText>
-              <Mileimg src={membermileImg} />
-              <StyledArrowStrokeVector />
+              <MileIcon>
+                <Mileimg src={membermileImg} />
+                <StyledArrowStrokeVector />
+              </MileIcon>
             </Membermilebox>
-            <Chargemilebox to="">
+            <Membermilebox to="">
               <MileText>
                 <Miletitle>충전 마일리지</Miletitle>
                 {/* 개인 충전 마알리지 */}
                 <Mile>{personalChargedMileage.toLocaleString()} 마일</Mile>
               </MileText>
-              <Mileimg src={chargemileImg} />
-              <StyledArrowStrokeVector />
-            </Chargemilebox>
+              <MileIcon>
+                <Mileimg src={chargemileImg} />
+                <StyledArrowStrokeVector />
+              </MileIcon>
+            </Membermilebox>
           </Mileboxcontainer>
           <Chargebox
             onClick={() => {
@@ -137,16 +141,6 @@ const Profilebox = styled.div`
   background: var(--white, #fff);
 `;
 
-const ProfileIcon = styled.img`
-  width: 3.9375rem;
-  height: 3.9375rem;
-  flex-shrink: 0;
-
-  fill: var(--white, #fff);
-  stroke-width: 3px;
-  stroke: var(--navy, #043277);
-`;
-
 const Nickname = styled.p`
   width: 5.3125rem;
   height: 1.8125rem;
@@ -163,13 +157,14 @@ const MileContainer = styled.div`
   width: 39.2875rem;
   height: 10.4375rem;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: flex-start;
   gap: 0.75rem;
 `;
 
 const Mileboxcontainer = styled.div`
   display: flex;
+  width: 39.2875rem;
   height: 6.1875rem;
   justify-content: center;
   align-items: flex-start;
@@ -178,18 +173,25 @@ const Mileboxcontainer = styled.div`
 `;
 
 const Membermilebox = styled.div`
-  width: 15.3rem;
-  height: 3.06rem;
+  width: 19rem;
+  height: 6rem;
   display: flex;
-  padding: 1.5625rem 1.875rem;
   align-items: center;
-  gap: 0.1875rem;
+  padding-left: 1.875rem;
+  padding-right: 1.25rem;
+  justify-content: space-between;
   background: var(--white, #fff);
 `;
 
 const MileText = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const MileIcon = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 
 const Miletitle = styled.p`
@@ -204,8 +206,7 @@ const Miletitle = styled.p`
 `;
 
 const Mile = styled.p`
-  width: 7.3125rem;
-  height: 1rem;
+  width: 10rem;
   color: var(--black, #000);
   font-family: Pretendard;
   font-size: 1.0625rem;
@@ -217,25 +218,18 @@ const Mile = styled.p`
 const Mileimg = styled.img`
   width: 3.0625rem;
   height: 3.0625rem;
-`;
-
-const Chargemilebox = styled.div`
-  width: 15.3rem;
-  height: 3.06rem;
-  display: flex;
-  padding: 1.5625rem 1.875rem;
-  align-items: center;
-  gap: 0.1875rem;
-  background: var(--white, #fff);
+  margin-right: 1rem;
 `;
 
 const Chargebox = styled.div`
-  width: 35.5rem;
-  height: 1rem;
+  width: 39.2875rem;
+  height: 3rem;
   display: flex;
-  padding: 1.25rem 1.875rem;
+  padding-left: 1.875rem;
+  padding-right: 1.25rem;
+  box-sizing: border-box;
   align-items: center;
-  gap: 7.25rem;
+  justify-content: space-between;
   background: var(--white, #fff);
 `;
 
