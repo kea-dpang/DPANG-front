@@ -10,6 +10,7 @@ import ProductList from "../Enroll/ProductList";
 import ProductCodeInput from "../Enroll/ProductCodeInput";
 
 const Index = ({ eventId }) => {
+  console.log("이벤트아이디: ", eventId);
   const dayjs = require("dayjs");
   const [inputValue, setInputValue] = useState({
     discountRate: "",
@@ -35,6 +36,10 @@ const Index = ({ eventId }) => {
         console.log(error);
       });
   }, []);
+
+  useEffect(() => {
+    console.log("inputValue: ", inputValue.targetItems);
+  }, [inputValue]);
   const [isFormValid, setFormValid] = useState(false); // 입력값 다 입력했는지 판단
   // 입력필드에 다 안찼으면 등록버튼 비활성화
   useEffect(() => {
@@ -122,8 +127,6 @@ const Index = ({ eventId }) => {
     // 이미지가 null값이면 수정 못하게 하기
     console.log("상품 이벤트 수정할게: ", inputValue);
   };
-
-  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <>

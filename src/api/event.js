@@ -48,6 +48,7 @@ export const GET_BrandEventInfo = async (id) => {
 };
 // 관리자 - 상품 이벤트 상세 조회
 export const GET_ItemEventInfo = async (id) => {
+  console.log("상품 이벤트 상세조회 할게요");
   const res = await axios({
     method: "get",
     url: `${url}/item/${id}`,

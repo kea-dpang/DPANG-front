@@ -5,7 +5,9 @@ import Brand from "./Filter/Brand";
 import Category from "./Filter/Category";
 import { ReactComponent as ArrowStroke } from "@images/arrowStroke.svg";
 
-const FilterSideBar = (props) => {
+const FilterSideBar = ({ onPriceChange, onCategoryChange, ...props }) => {
+  const [value, setValue] = React.useState([0, 0]);
+  const [category, setCategory] = useState(null);
   const [openSubMenu, setOpenSubMenu] = useState([
     "브랜드",
     "가격대",
@@ -21,9 +23,16 @@ const FilterSideBar = (props) => {
     }
   };
 
+  const handleSearchBtn = () => {
+    onPriceChange(value);
+    onCategoryChange(category);
+    console.log("가격 value: ", value);
+    console.log("카테고리:", category);
+  };
+
   return (
     <Wrap>
-      {props.value == "search" && (
+      {/* {props.value == "search" && (
         <>
           <MenuWrap
             $isOpen={openSubMenu.includes("카테고리")}
@@ -39,7 +48,7 @@ const FilterSideBar = (props) => {
           </MenuWrap>
           {openSubMenu.includes("카테고리") && <Category />}
         </>
-      )}
+      )} */}
       {/* <MenuWrap
         $isOpen={openSubMenu.includes("브랜드")}
         onClick={() => handleSubMenuClick("브랜드")}
@@ -53,7 +62,21 @@ const FilterSideBar = (props) => {
         <Arrow $isOpen={openSubMenu.includes("브랜드")} />
       </MenuWrap>
       {openSubMenu.includes("브랜드") && <Brand />} */}
-
+      <MenuWrap
+        $isOpen={openSubMenu.includes("카테고리")}
+        onClick={() => handleSubMenuClick("카테고리")}
+      >
+        <MenuName
+          className="cm-SBold16"
+          $isOpen={openSubMenu.includes("카테고리")}
+        >
+          카테고리
+        </MenuName>
+        <Arrow $isOpen={openSubMenu.includes("카테고리")} />
+      </MenuWrap>
+      {openSubMenu.includes("카테고리") && (
+        <Category category={category} setCategory={setCategory} />
+      )}
       <MenuWrap
         $isOpen={openSubMenu.includes("가격대")}
         onClick={() => handleSubMenuClick("가격대")}
@@ -66,8 +89,12 @@ const FilterSideBar = (props) => {
         </MenuName>
         <Arrow $isOpen={openSubMenu.includes("가격대")} />
       </MenuWrap>
-      {openSubMenu.includes("가격대") && <Price />}
-      <Btn className="cm-SRegular16"> 조회 </Btn>
+      {openSubMenu.includes("가격대") && (
+        <Price value={value} setValue={setValue} />
+      )}
+      <Btn className="cm-SRegular16" onClick={handleSearchBtn}>
+        조회
+      </Btn>
     </Wrap>
   );
 };

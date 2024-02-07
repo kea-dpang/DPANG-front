@@ -155,7 +155,7 @@ const Index = () => {
           <Row>
             <p className="cm-SBold16 col-Black">이벤트 내용</p>
             <EventImage
-              imagePath={inputValue.imagePath}
+              eventImage={inputValue.imagePath}
               handleImageDelete={handleImageDelete}
               handleImageChange={handleImageChange}
             />

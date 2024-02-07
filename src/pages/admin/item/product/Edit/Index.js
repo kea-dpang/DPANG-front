@@ -13,12 +13,12 @@ const ProductEditPage = () => {
 
   const navi = useNavigate();
   const [itemInfo, setItemInfo] = useState({
-    itemName: "",
-    itemPrice: "",
+    name: "",
+    price: "",
     discountRate: "",
     stockQuantity: "",
-    itemImage: "",
-    images: [],
+    thumbnailImage: "",
+    informationImages: [],
     category: "",
     subCategory: "",
   });
@@ -28,11 +28,11 @@ const ProductEditPage = () => {
       .then((data) => {
         console.log("상품 data : ", data);
         setItemInfo({
-          itemName: data.itemName,
-          itemPrice: data.itemPrice,
+          name: data.name,
+          price: data.price,
           stockQuantity: data.stockQuantity,
-          itemImage: data.itemImage,
-          images: data.images,
+          thumbnailImage: data.thumbnailImage,
+          informationImages: data.informationImages,
           discountRate: data.discountRate,
           category: data.category,
           subCategory: data.subCategory,
@@ -45,22 +45,22 @@ const ProductEditPage = () => {
   // 입력필드에 다 안찼으면 등록버튼 비활성화
   useEffect(() => {
     if (
-      itemInfo.itemName !== "" &&
-      itemInfo.itemPrice !== "" &&
+      itemInfo.name !== "" &&
+      itemInfo.price !== "" &&
       itemInfo.stockQuantity !== "" &&
-      itemInfo.itemImage !== "" &&
-      itemInfo.images !== ""
+      itemInfo.thumbnailImage !== "" &&
+      itemInfo.informationImages !== ""
     ) {
       setFormValid(true);
     } else {
       setFormValid(false);
     }
   }, [
-    itemInfo.itemName,
-    itemInfo.itemPrice,
+    itemInfo.name,
+    itemInfo.price,
     itemInfo.stockQuantity,
-    itemInfo.itemImage,
-    itemInfo.images,
+    itemInfo.thumbnailImage,
+    itemInfo.informationImages,
   ]);
   const handleSubmit = () => {
     PUT_Item(itemId, itemInfo)

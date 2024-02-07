@@ -158,7 +158,7 @@ const Index = () => {
                 : {}
             }
           >
-            판매처 등록
+            추가하기
           </button>
         </Submit>
       </Wrap>

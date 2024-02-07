@@ -111,9 +111,24 @@ export const GET_ItemFilterListUser = async (
   size
 ) => {
   console.log(
-    "사용자 아이템 검색 필터링 합니다요: ",
+    "사용자 아이템 검색 필터링 - 카테고리 : ",
     category,
-    typeof category
+    "카테고리 타입 :",
+    typeof category,
+    "최대최소 가격: ",
+    minPrice,
+    maxPrice,
+    "최대최소가격 타입 : ",
+    typeof minPrice,
+    typeof maxPrice,
+    "sellerID : ",
+    sellerId,
+    "keyword: ",
+    keyword,
+    "page: ",
+    page,
+    "size: ",
+    size
   );
   const res = await axios({
     method: "get",

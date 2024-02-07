@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Item from "@components/ProductCard/Index";
-import { GET_ItemFilterListUser } from "@api/Item";
+import { GET_HotItemList } from "@api/Item";
 import { useLocation } from "react-router-dom";
 
 const BestProductPage = () => {
@@ -10,17 +10,18 @@ const BestProductPage = () => {
   const title = location.state ? location.state.title : "베스트 상품";
   // 아이템 리스트
   const [itemList, setItemList] = useState([]);
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-
-    GET_ItemFilterListUser()
+  const GetHotItemList = () => {
+    GET_HotItemList()
       .then((data) => {
+        console.log("넘겨받은 핫 아이템 리스트 데이터 : ", data.data);
         setItemList(data.data); // API 응답으로 받은 데이터를 상태에 저장
-        console.log("넘겨받은 아이템 리스트 데이터 : ", data);
       })
       .catch((error) => {
-        console.error("아이템 리스트 가져오기 실패", error);
+        // console.error("아이템 리스트 가져오기 실패", error);
       });
+  };
+  useEffect(() => {
+    GetHotItemList();
   }, []);
 
   return (

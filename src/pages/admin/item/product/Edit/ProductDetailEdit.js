@@ -20,7 +20,7 @@ const ProductDetailEnroll = ({ productInfo, setProductInfo }) => {
         console.log("사진 등록", data.data.uploadedFileUrl);
         setProductInfo({
           ...productInfo,
-          itemImage: data.data.uploadedFileUrl,
+          thumbnailImage: data.data.uploadedFileUrl,
         });
       })
       .catch((error) => {
@@ -28,7 +28,7 @@ const ProductDetailEnroll = ({ productInfo, setProductInfo }) => {
       });
   };
   const handleImageDelete = () => {
-    setProductInfo({ ...productInfo, itemImage: null });
+    setProductInfo({ ...productInfo, thumbnailImage: null });
   };
 
   // 상품 상세 이미지 관리
@@ -39,7 +39,7 @@ const ProductDetailEnroll = ({ productInfo, setProductInfo }) => {
         console.log("사진 등록", data.data.uploadedFileUrl);
         setProductInfo({
           ...productInfo,
-          itemImage: data.data.uploadedFileUrl,
+          thumbnailImage: data.data.uploadedFileUrl,
         });
       })
       .catch((error) => {
@@ -47,7 +47,7 @@ const ProductDetailEnroll = ({ productInfo, setProductInfo }) => {
       });
   };
   const handleDetailImageDelete = () => {
-    setProductInfo({ ...productInfo, images: null });
+    setProductInfo({ ...productInfo, informationImages: null });
   };
   return (
     <Wrap>
@@ -58,7 +58,7 @@ const ProductDetailEnroll = ({ productInfo, setProductInfo }) => {
         <Row>
           <p className="cm-SBold16 col-Black">상품 이미지</p>
           <EventImage
-            eventImage={productInfo.itemImage}
+            eventImage={productInfo.thumbnailImage}
             handleImageDelete={handleImageDelete}
             handleImageChange={handleImageChange}
           />
@@ -67,7 +67,7 @@ const ProductDetailEnroll = ({ productInfo, setProductInfo }) => {
         <Row>
           <p className="cm-SBold16 col-Black">상세 이미지</p>
           <EventImage
-            eventImage={productInfo.images}
+            eventImage={productInfo.informationImages}
             handleImageDelete={handleDetailImageDelete}
             handleImageChange={handleDetailImageChange}
           />
