@@ -3,9 +3,11 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useState, useEffect } from "react";
 import { POST_Question } from "@api/directAsk";
+import { useConfirmAlert } from "@components/SweetAlert";
 
 const Modal = ({ setIsModalOpen, value }) => {
-  console.log("문의등록하려고: ", value);
+  const showConfirmAlert = useConfirmAlert();
+
   const [isFormValid, setFormValid] = useState(false); // 입력값 다 입력했는지 판단
   const [askData, setAskData] = useState({
     itemId: value.id,
@@ -33,7 +35,10 @@ const Modal = ({ setIsModalOpen, value }) => {
     POST_Question(3, askData) // 나중에 userId도 넘겨주기
       .then((data) => {
         setIsModalOpen(false);
-        console.log("상품 문의가 성공적으로 등록되었습니다.");
+        showConfirmAlert({
+          title: "문의가 등록되었습니다.",
+        });
+        // window.location.reload();
       })
       .catch((error) => {
         console.log("상품 문의 등록에 실패하였습니다. 다시 시도해 주세요.");

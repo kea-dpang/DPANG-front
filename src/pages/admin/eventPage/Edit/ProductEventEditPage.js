@@ -193,6 +193,7 @@ const Index = ({ eventId }) => {
               <ProductList
                 productList={inputValue.targetItems}
                 onProductDelete={handleProductDelete}
+                status="put"
               />
             </Row>
             {/* 이벤트 할인율 */}
