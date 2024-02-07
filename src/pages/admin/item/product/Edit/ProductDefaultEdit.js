@@ -6,10 +6,10 @@ import { POST_Image } from "@api/image";
 
 const ProductDefaultEdit = ({ productInfo, setProductInfo }) => {
   const handleNameChange = (e) => {
-    setProductInfo((prev) => ({ ...prev, itemName: e.target.value }));
+    setProductInfo((prev) => ({ ...prev, name: e.target.value }));
   };
   const handlePriceChange = (e) => {
-    setProductInfo((prev) => ({ ...prev, itemPrice: e.target.value }));
+    setProductInfo((prev) => ({ ...prev, price: e.target.value }));
   };
   const handleStockChange = (e) => {
     setProductInfo((prev) => ({ ...prev, stockQuantity: e.target.value }));
@@ -24,8 +24,8 @@ const ProductDefaultEdit = ({ productInfo, setProductInfo }) => {
         <Row>
           <p className="cm-SBold16 col-Black">상품명</p>
           <InputEdit
-            value={productInfo.itemName}
-            id={"itemName"}
+            value={productInfo.name}
+            id={"name"}
             placeholder={"상품명을 입력해주세요"}
             onChange={handleNameChange}
           />
@@ -34,8 +34,8 @@ const ProductDefaultEdit = ({ productInfo, setProductInfo }) => {
         <Row>
           <p className="cm-SBold16 col-Black">판매가</p>
           <InputEdit
-            value={productInfo.itemPrice}
-            id={"itemPrice"}
+            value={productInfo.price}
+            id={"price"}
             placeholder={"판매가를 입력해주세요"}
             onChange={handlePriceChange}
           />

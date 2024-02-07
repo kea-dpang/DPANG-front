@@ -8,7 +8,7 @@ import { useQuestionAlert } from "@components/SweetAlert";
 
 // 상품 미리보기 (카드)
 const Item = (props) => {
-  console.log("상품 카드 가져온 정보 props : ", props);
+  // console.log("상품 카드 가져온 정보 props : ", props);
   const saleprice =
     props.value.price - (props.value.price * props.value.discountRate) / 100;
 
@@ -57,7 +57,7 @@ const Item = (props) => {
           <div className="cm-SRegular16">{props.value.name}</div>
           {/* 가격 */}
           <PriceWrap>
-            {props.value.discountRate !== 0 ? (
+            {props.value.discountRate != 0 ? (
               <>
                 {/* 원래가격 */}
                 <div

@@ -5,8 +5,11 @@ import InputEdit from "./InputEdit";
 import EventDate from "@adminPages/eventPage/Enroll/EventDate";
 import { useNavigate } from "react-router-dom";
 import { GET_BrandInfo, PUT_Brand } from "@api/Brand";
+import { useConfirmAlert } from "@components/SweetAlert";
 
 const Index = ({ id }) => {
+  const showConfirmAlert = useConfirmAlert();
+
   const dayjs = require("dayjs");
   const [storeData, setStoreData] = useState([]);
   const [inputValue, setInputValue] = useState({
@@ -88,8 +91,11 @@ const Index = ({ id }) => {
   const handleSubmit = () => {
     PUT_Brand(id, inputValue)
       .then((data) => {
+        showConfirmAlert({
+          title: "판매처 정보가 수정되었습니다.",
+          navi: `/admin/brand`,
+        });
         console.log("수정 완료 : ");
-        navi(`/admin/brand`);
       })
       .catch((error) => {
         console.log(error);

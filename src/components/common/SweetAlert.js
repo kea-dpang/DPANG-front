@@ -9,7 +9,12 @@ export const useErrorAlert = () => {
 
   const showErrorAlert = useCallback(
     ({ title, text = "", navi }) => {
-      swal(title, text, "error").then((isConfirmed) => {
+      swal({
+        title: title,
+        text: text,
+        icon: "error",
+        buttons: "확인",
+      }).then((isConfirmed) => {
         if (isConfirmed) {
           if (navi) {
             navigate(navi);
@@ -28,7 +33,12 @@ export const useConfirmAlert = () => {
 
   const showConfirmAlert = useCallback(
     ({ title, text = "", navi }) => {
-      swal(title, text, "success").then((isConfirmed) => {
+      swal({
+        title: title,
+        text: text,
+        icon: "success",
+        buttons: "확인",
+      }).then((isConfirmed) => {
         if (isConfirmed) {
           if (navi) {
             navigate(navi);
@@ -50,7 +60,7 @@ export const useQuestionAlert = () => {
       swal({
         title: title,
         text: text,
-        icon: "warning",
+        icon: "success",
         buttons: ["취소", "확인"],
         dangerMode: true,
       }).then((isConfirmed) => {

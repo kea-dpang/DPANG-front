@@ -60,8 +60,8 @@ const CategoryResult = (props) => {
               <Section className="cm-XsRegular14">
                 <div> 총 {itemList.length} 건</div>
                 <OrderWrap>
-                  <div> 추천순 </div>
-                  <div> 판매순 </div>
+                  <div> </div>
+                  <div> </div>
                 </OrderWrap>
               </Section>
               <ListSection>

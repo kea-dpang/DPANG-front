@@ -30,7 +30,7 @@ const FilterSideBar = ({ onPriceChange, ...props }) => {
 
   return (
     <Wrap>
-      {props.value == "search" && (
+      {/* {props.value == "search" && (
         <>
           <MenuWrap
             $isOpen={openSubMenu.includes("카테고리")}
@@ -46,7 +46,7 @@ const FilterSideBar = ({ onPriceChange, ...props }) => {
           </MenuWrap>
           {openSubMenu.includes("카테고리") && <Category />}
         </>
-      )}
+      )} */}
       {/* <MenuWrap
         $isOpen={openSubMenu.includes("브랜드")}
         onClick={() => handleSubMenuClick("브랜드")}
@@ -60,7 +60,19 @@ const FilterSideBar = ({ onPriceChange, ...props }) => {
         <Arrow $isOpen={openSubMenu.includes("브랜드")} />
       </MenuWrap>
       {openSubMenu.includes("브랜드") && <Brand />} */}
-
+      <MenuWrap
+        $isOpen={openSubMenu.includes("카테고리")}
+        onClick={() => handleSubMenuClick("카테고리")}
+      >
+        <MenuName
+          className="cm-SBold16"
+          $isOpen={openSubMenu.includes("카테고리")}
+        >
+          카테고리
+        </MenuName>
+        <Arrow $isOpen={openSubMenu.includes("카테고리")} />
+      </MenuWrap>
+      {openSubMenu.includes("카테고리") && <Category />}
       <MenuWrap
         $isOpen={openSubMenu.includes("가격대")}
         onClick={() => handleSubMenuClick("가격대")}

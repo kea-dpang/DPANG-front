@@ -4,9 +4,12 @@ import { useNavigate } from "react-router-dom";
 import ProductDefaultEnroll from "./ProductDefaultEnroll";
 import ProductDetailEnroll from "./ProductDetailEnroll";
 import { POST_Item } from "@api/Item";
+import { useConfirmAlert } from "@components/SweetAlert";
 
 // 상품 이벤트 등록 index 페이지
 const ProductEnrollPage = () => {
+  const showConfirmAlert = useConfirmAlert();
+
   const navi = useNavigate();
   const [isFormValid, setFormValid] = useState(false); // 입력값 다 입력했는지 판단
   const [productInfo, setProductInfo] = useState({
@@ -48,8 +51,13 @@ const ProductEnrollPage = () => {
     console.log("상품 등록한다: ", productInfo);
     POST_Item(productInfo)
       .then((data) => {
+        showConfirmAlert({
+          title: "상품이 등록되었습니다.",
+          // navi: `/admin/directask/${params}`,
+          navi: "/admin/product",
+        });
         console.log("상품 등록");
-        navi(`/admin/product`);
+        // navi(`/admin/product`);
       })
       .catch((error) => {
         console.log(error);

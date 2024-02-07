@@ -43,13 +43,19 @@ const SearchResult = (props) => {
       maxPrice: newPrice[1],
     }));
   };
+  const handleCategoryChange = (newCate) => {
+    setFilterData((prevState) => ({
+      ...prevState,
+      category: newCate,
+    }));
+  };
 
   useEffect(() => {
     getItemList();
   }, []);
   useEffect(() => {
     getItemList();
-  }, [filterData]);
+  }, [filterData.minPrice, filterData.maxPrice]);
 
   return (
     <Wrap>
@@ -60,7 +66,10 @@ const SearchResult = (props) => {
             <div className="cm-LRegular30"> &nbsp; 에 대한 검색 결과</div>
           </Title>
           <Content>
-            <FilterSideBar onPriceChange={handlePriceChange} />
+            <FilterSideBar
+              onPriceChange={handlePriceChange}
+              onCategoryChange={handleCategoryChange}
+            />
             {/* <FilterSideBar value={"search"} /> */}
             <Right>
               {/* 검색 결과 개수 + 추천순, 최신순 등 정렬 */}

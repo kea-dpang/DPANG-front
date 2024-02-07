@@ -9,6 +9,13 @@ const Price = ({ value, setValue }) => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const handleMinChange = (event) => {
+    setValue([Number(event.target.value), value[1]]);
+  };
+
+  const handleMaxChange = (event) => {
+    setValue([value[0], Number(event.target.value)]);
+  };
 
   return (
     <Wrap>
@@ -20,7 +27,7 @@ const Price = ({ value, setValue }) => {
           onChange={handleChange}
           valueLabelDisplay="auto"
           step={1000}
-          max={1000000}
+          max={500000}
           sx={{
             "& .MuiSlider-thumb": {
               width: 20, // thumb(슬라이더 조절하는 원형 부분)의 크기
@@ -43,12 +50,29 @@ const Price = ({ value, setValue }) => {
       <MinMaxPrice>
         <PriceBox className="cm-XsBold14">
           <div className="col-Navy"> 최저요금 </div>
-          <div className="col-Black"> ₩ {value[0].toLocaleString()}</div>
+          <PriceSelect>
+            ₩
+            <input
+              type="number"
+              value={value[0]}
+              onChange={handleMaxChange}
+              style={{ border: "none", width: "60px", display: "inline" }}
+            />
+          </PriceSelect>
         </PriceBox>
         <div className="col-SemiLightGrey"> - </div>
         <PriceBox className="cm-XsBold14">
           <div className="col-Navy"> 최대요금 </div>
-          <div className="col-Black"> ₩ {value[1].toLocaleString()}</div>
+          <PriceSelect>
+            {/* <div className="col-Black"> ₩ {value[1].toLocaleString()}</div> */}
+            ₩
+            <input
+              type="number"
+              value={value[1]}
+              onChange={handleMaxChange}
+              style={{ border: "none", width: "60px", display: "inline" }}
+            />
+          </PriceSelect>
         </PriceBox>
       </MinMaxPrice>
     </Wrap>
@@ -66,22 +90,24 @@ const Wrap = styled.div`
 const MinMaxPrice = styled.div`
   padding: 1rem;
   display: flex;
-  // width: 14.5rem;
   align-items: center;
   gap: 0.375rem;
   justify-content: center;
 `;
 const PriceBox = styled.div`
-  // width: 6.3125rem;
-  // height: 2.75rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   border-radius: 0.3125rem;
   border: 1px solid var(--dark-grey);
   display: inline-flex;
-  padding: 0.375rem 2.875rem 0.375rem 0.5625rem;
+  padding: 0.375rem 0.5625rem;
   flex-direction: column;
   align-items: flex-start;
   gap: 0.25rem;
+`;
+const PriceSelect = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
