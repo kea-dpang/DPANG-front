@@ -8,15 +8,29 @@ import Dropdown from "components/common/Dropdown";
 import DataTable from "components/common/DataTable";
 import { useState, useEffect } from "react";
 import { GET_refund_list, PUT_update_status } from "@api/refund";
-import { customRefundReason, customRefundStatus, customRefundReasonReverse } from "assets/CustomName";
+import {
+  customRefundReason,
+  customRefundStatus,
+  customRefundReasonReverse,
+} from "assets/CustomName";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import { useQuestionAlert } from "@components/SweetAlert";
 const Index = () => {
   const navigate = useNavigate();
+  const showQuestionAlert = useQuestionAlert();
   //  상태 저장 : 예정, 진행, 종료
   const [index, setIndex] = React.useState("");
   //필터링을 해줄 dropdown 박스의 값. 첫 값은 이름, 뒤에 두 값은 필터링에 들어갈 value
-  const dropdownValue = ["반품 상태", "전체", "사이즈 안맞음", "단순변심", "상품불만", "배송지연", "제품 오배송", "기타"];
+  const dropdownValue = [
+    "반품 상태",
+    "전체",
+    "사이즈 안맞음",
+    "단순변심",
+    "상품불만",
+    "배송지연",
+    "제품 오배송",
+    "기타",
+  ];
   const [refundList, setRefundList] = useState();
   const refundState = ["REFUND_REQUEST", "COLLECTING", "REFUND_COMPLETE"];
   const [searchVal, setSearchVal] = useState();
@@ -42,21 +56,15 @@ const Index = () => {
     setVal((prev) => ({
       ...prev,
       refundReason: customRefundReasonReverse(newCategory),
-    }))
-
+    }));
   };
 
   const handleSearch = () => {
-
-  
     setVal((prev) => ({
       ...prev,
       userId: searchVal,
-    }))
-
-  }
-
-
+    }));
+  };
 
   const [val, setVal] = useState({
     userId: "",
@@ -75,17 +83,27 @@ const Index = () => {
     }));
   }, [page]);
 
-  const handleNextButton = (id, state) => {
+  const toNextStep = (id, state) => {
     const currentStateIndex = refundState.indexOf(state);
     const nextState = refundState[currentStateIndex + 1];
     PUT_update_status(id, nextState)
       .then((data) => {
         console.log("성공-성공", data);
-        window.location.reload();
+        // window.location.reload();
       })
       .catch((error) => {
         console.log("실패-실패", error);
+        throw error;
       });
+  };
+
+  const handleNextButton = (id, state) => {
+    showQuestionAlert({
+      title: "다음 단계로 진행하시겠습니까?",
+      text: "확인 클릭 시 해당 주문은 다음단계로 넘어가게 됩니다.",
+      saveText: "신청 승인 되었습니다.",
+      onConfirm: () => toNextStep(id, state),
+    });
   };
 
   useEffect(() => {
@@ -93,7 +111,7 @@ const Index = () => {
       .then((data) => {
         console.log("성공성공", data);
         setRefundList(data.data.content);
-        setTotalItems(data.data.totalElements)
+        setTotalItems(data.data.totalElements);
         console.log(refundList);
       })
       .catch((error) => {
@@ -151,7 +169,7 @@ const Index = () => {
       label: "상품 정보",
       options: {
         sort: false,
-        customBodyRender: (value, tableMeta) => {
+        customBodyRender: (value) => {
           return (
             //이미지와 상품명 표시
             <div
@@ -195,7 +213,6 @@ const Index = () => {
     },
   ];
 
-
   if (!refundList) {
     return <div />;
   }
@@ -230,12 +247,18 @@ const Index = () => {
                 sx={{ ml: 1, flex: 1, height: "100%" }}
                 placeholder="사용자 ID를 입력해주세요"
                 inputProps={{ "aria-label": "검색어를 입력해주세요" }}
-                onChange={(e)=>{setSearchVal(e.target.value)}}
+                onChange={(e) => {
+                  setSearchVal(e.target.value);
+                }}
               />
               {/* 검색 버튼 (돋보기) */}
-              <IconButton type="button" aria-label="search" onClick={() => {
+              <IconButton
+                type="button"
+                aria-label="search"
+                onClick={() => {
                   handleSearch();
-                }}>
+                }}
+              >
                 <SearchIcon />
               </IconButton>
             </Paper>

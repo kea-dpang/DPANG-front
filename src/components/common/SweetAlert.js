@@ -51,7 +51,6 @@ export const useConfirmAlert = () => {
   return showConfirmAlert;
 };
 
-/* 한번 더 물어보는 alert */
 export const useQuestionAlert = () => {
   const navigate = useNavigate();
 
@@ -64,18 +63,45 @@ export const useQuestionAlert = () => {
         buttons: ["취소", "확인"],
         dangerMode: true,
       }).then((isConfirmed) => {
+        // 사용자가 "확인" 버튼을 클릭한 경우
         if (isConfirmed) {
-          if (saveText != "") {
-            // saveText(다음 확인 단계)가 있을 때
+          // 추가적인 텍스트가 주어진 경우 (예: 다음 확인 단계 표시)
+          if (saveText !== "") {
+            // SweetAlert을 사용하여 추가 텍스트를 표시
             swal(saveText, "", "success");
           }
-          // '확인' 버튼을 눌렀을 때 실행되어야 할 함수 호출
+
+          // '확인' 버튼 클릭 시 실행되어야 하는 함수 호출
           if (typeof onConfirm === "function") {
-            onConfirm().then(() => {
+            // onConfirm 함수 실행 및 반환값 확인
+            const result = onConfirm();
+
+            // onConfirm 함수의 반환값이 Promise인 경우
+            if (result instanceof Promise) {
+              // Promise가 성공적으로 처리된 경우
+              result
+                .then(() => {
+                  // 페이지 이동이나 새로고침 등을 수행
+                  if (navi !== "") {
+                    navigate(navi);
+                  } else {
+                    window.location.reload();
+                  }
+                })
+                // Promise 처리 중 에러가 발생한 경우
+                .catch(() => {
+                  // 새로고침 동작 수행
+                  window.location.reload();
+                });
+            } else {
+              // 반환값이 Promise가 아닌 경우 (일반적으로 동기적인 경우)
+              // 페이지 이동이나 새로고침 등을 수행
               if (navi !== "") {
                 navigate(navi);
+              } else {
+                window.location.reload();
               }
-            });
+            }
           }
         }
       });
@@ -83,6 +109,7 @@ export const useQuestionAlert = () => {
     [navigate]
   );
 
+  // 외부에서 showQuestionAlert 함수를 사용할 수 있도록 반환
   return showQuestionAlert;
 };
 

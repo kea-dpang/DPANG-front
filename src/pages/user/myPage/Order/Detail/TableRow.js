@@ -134,8 +134,8 @@ function TableRow(props) {
                 <ItemName>{b.productInfoDto.name}</ItemName>
               </Col>
               <Col width="11rem">
-                {(b.productInfoDto.price * b.productQuantity).toLocaleString()} /
-                {b.productQuantity}
+                {(b.productInfoDto.price * b.productQuantity).toLocaleString()}{" "}
+                /{b.productQuantity}
               </Col>
 
               <Col width="15rem">
@@ -148,7 +148,9 @@ function TableRow(props) {
                     status={customOrderStatus(b.orderStatus)}
                     onClick={(e) => {
                       e.stopPropagation();
-                      navi(`/user/mypage/refund/enroll/${b.orderDetailId}`);
+                      navi(
+                        `/user/mypage/refund/enroll/${b.orderDetailId}/${data.orderId}`
+                      );
                     }}
                   >
                     반품
@@ -157,7 +159,9 @@ function TableRow(props) {
                     status={customOrderStatus(b.orderStatus)}
                     onClick={(e) => {
                       e.stopPropagation();
-                      navi(`/user/mypage/review/enroll/${b.productInfoDto.itemId}`);
+                      navi(
+                        `/user/mypage/review/enroll/${b.productInfoDto.itemId}`
+                      );
                     }}
                   >
                     리뷰작성
