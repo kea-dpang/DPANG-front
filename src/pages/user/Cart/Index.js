@@ -17,9 +17,11 @@ const Index = () => {
       <Wrap>
         <Header />
         <Title className="cm-LBold30 col-DarkNavy">장바구니</Title>
+
         <InputSection>
           <CartList setSelectedItems={setSelectedItems} />
         </InputSection>
+
         <OrderButton onClick={handleOrderSave}>
           <p className="cm-SBold16 col-White">주문하기</p>
         </OrderButton>
@@ -55,7 +57,8 @@ const InputSection = styled.div`
 `;
 const OrderButton = styled.button`
   display: flex;
-  width: 74.625rem;
+  /* width: 74.625rem; */
+  width: 79.5rem;
   height: 4.1875rem;
   justify-content: center;
   align-items: center;
