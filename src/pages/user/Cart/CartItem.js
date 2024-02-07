@@ -6,12 +6,39 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Checkbox from "@mui/material/Checkbox";
 import { DELETE_CartItem } from "@api/cart";
+import { Controller, useFormContext } from "react-hook-form";
 
 const CartItem = ({ item, updateQuantity, updateChecked }) => {
-  console.log("item itme itme: ", item);
+  // console.log("item 체크 좀 할게요~~:", item.itemId);
+  /* 체크박스 확인 */
+  const {
+    control,
+    watch,
+    setValue,
+    getValues,
+    formState: { errors },
+  } = useFormContext();
+  /////////////////////////////////////////
+  // console.log("item itme itme: ", item);
   const [quantity, setQuantity] = useState(item.quantity);
   const [totalPrice, setTotalPrice] = useState({});
   const [checked, setChecked] = useState(false);
+
+  ////////////////////////////////////////////
+  useEffect(() => {
+    // setValue(`price${item.itemId}`, item.price * quantity);
+    // setValue("price", { id: item.itemId, price: item.price * quantity });
+    setValue(`price${item.itemId}`, item.price * quantity);
+    setValue(`num${item.itemId}`, quantity);
+  }, [quantity]);
+  // useEffect(() => {
+  //   updateItemPrice(item.itemId, item.price * quantity);
+  // }, [quantity]);
+  ////////////////////////////////////////////
+
+  useEffect(() => {
+    console.log("totalPrice:", totalPrice);
+  }, [totalPrice]);
 
   const handleCheckboxChange = () => {
     const newChecked = !checked;
@@ -29,16 +56,19 @@ const CartItem = ({ item, updateQuantity, updateChecked }) => {
 
   const handleIncrease = () => {
     setQuantity(quantity + 1);
-    updateTotalPrice();
+    // updateTotalPrice();
+    updateTotalPrice(item.itemId, item.price * (quantity + 1));
   };
 
   const handleDecrease = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
-      updateTotalPrice();
+      // updateTotalPrice();
+      updateTotalPrice(item.itemId, item.price * (quantity - 1));
     }
   };
 
+  /* 상품 삭제 */
   const handleDelete = () => {
     DELETE_CartItem(item.itemId)
       .then((data) => {
@@ -51,32 +81,48 @@ const CartItem = ({ item, updateQuantity, updateChecked }) => {
 
   return (
     <Content>
-      <Checkbox checked={checked} onChange={() => handleCheckboxChange()} />
-      <div>
-        <ItemImg src={item.image} alt={item.name} />
-      </div>
-      <ItemInfo>
-        <ItemBox>
-          <p className="cm-SBold16 col-Black">{item.name}</p>
-          <DeleteButton onClick={handleDelete}>
-            <p className="cm-SRegular16 col-Black">삭제</p>
-          </DeleteButton>
-        </ItemBox>
-        <ItemState>
-          <ButtonGroup>
-            <Button onClick={handleDecrease}>
-              <RemoveIcon fontSize="small" />
-            </Button>
-            <CountBox>
-              <p className="cm-SRegular16 col-Black">{quantity}</p>
-            </CountBox>
-            <Button onClick={handleIncrease}>
-              <AddIcon fontSize="small" />
-            </Button>
-          </ButtonGroup>
-          <p className="cm-SBold16 col-Black">{item.price * quantity}원</p>
-        </ItemState>
-      </ItemInfo>
+      <Controller
+        name={String(item.itemId)}
+        control={control}
+        render={({ field }) => (
+          <>
+            <Checkbox {...field} type="checkbox" />
+            <div>
+              <ItemImg src={item.image} alt={item.name} />
+            </div>
+            <ItemInfo>
+              <ItemBox>
+                <p className="cm-SBold16 col-Black">{item.name}</p>
+                <DeleteButton onClick={handleDelete}>
+                  <p className="cm-SRegular16 col-Black">삭제</p>
+                </DeleteButton>
+              </ItemBox>
+
+              <ItemState>
+                <ButtonGroup>
+                  {/* 감소 */}
+                  <Button onClick={handleDecrease}>
+                    <RemoveIcon fontSize="small" />
+                  </Button>
+                  {/* 감소, 증가 결과 */}
+                  <CountBox>
+                    <p className="cm-SRegular16 col-Black">{quantity}</p>
+                  </CountBox>
+                  {/* 증가 */}
+                  <Button onClick={handleIncrease}>
+                    <AddIcon fontSize="small" />
+                  </Button>
+                </ButtonGroup>
+
+                <p className="cm-SBold16 col-Black">
+                  {/* {item.price * quantity}원 */}
+                  {Number(item.price * quantity).toLocaleString("ko-KR")}원
+                </p>
+              </ItemState>
+            </ItemInfo>
+          </>
+        )}
+      />
     </Content>
   );
 };
@@ -84,7 +130,6 @@ const CartItem = ({ item, updateQuantity, updateChecked }) => {
 export default CartItem;
 
 const Content = styled.div`
-  // width: 66.25rem;
   box-sizing: border-box;
   padding: 2rem 2rem;
   background: var(--light-grey, #f4f4f4);
@@ -101,44 +146,29 @@ const ItemImg = styled.img`
 `;
 
 const ItemInfo = styled.div`
+  width: 60rem;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: 1.875rem;
-`;
-
-const ItemName = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
 `;
 
 const ItemBox = styled.div`
   display: flex;
-  align-items: flex-start;
-  gap: 20rem;
-  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+const DeleteButton = styled.button`
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--semi-light-grey, #cfcfcf);
+  border-radius: 0.1875rem;
 `;
 
 const ItemState = styled.div`
   display: flex;
-  align-items: flex-start;
-  gap: 39rem;
-  flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
 `;
 
-const DeleteButton = styled.button`
-  display: flex;
-  width: 4.125rem;
-  height: 2.1875rem;
-  padding: 0rem 0.125rem;
-  justify-content: center;
-  align-items: center;
-  gap: 0.3125rem;
-  border-radius: 0.1875rem;
-  border: 1px solid var(--semi-light-grey, #cfcfcf);
-`;
 const CountBox = styled.div`
   width: 2.7rem;
   background: var(--light-grey, #f4f4f4);
