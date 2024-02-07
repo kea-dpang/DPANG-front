@@ -3,7 +3,7 @@ import React from "react";
 import { Box, Chip, Stack } from "@mui/material";
 import styled from "styled-components";
 
-function ProductList({ productList, onProductDelete }) {
+function ProductList({ productList, onProductDelete, status }) {
   console.log("productList: ", productList);
   return (
     <Wrap>
@@ -18,15 +18,27 @@ function ProductList({ productList, onProductDelete }) {
         noValidate
         autoComplete="off"
       >
-        <Stack direction="row" spacing={1}>
-          {productList.map((product, index) => (
-            <Chip
-              key={index}
-              label={product.itemName} // 혹은 itemId
-              onDelete={() => onProductDelete(product.itemId)}
-            />
-          ))}
-        </Stack>
+        {status === "post" ? (
+          <Stack direction="row" spacing={1}>
+            {productList.map((product, index) => (
+              <Chip
+                key={index}
+                label={product} // 혹은 itemId
+                onDelete={() => onProductDelete(product)}
+              />
+            ))}
+          </Stack>
+        ) : (
+          <Stack direction="row" spacing={1}>
+            {productList.map((product, index) => (
+              <Chip
+                key={index}
+                label={product.itemId} // 혹은 itemId
+                onDelete={() => onProductDelete(product.itemId)}
+              />
+            ))}
+          </Stack>
+        )}
       </Box>
     </Wrap>
   );

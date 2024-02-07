@@ -144,6 +144,7 @@ const Index = () => {
             <ProductList
               productList={inputValue.targetItems}
               onProductDelete={handleProductDelete}
+              status="post"
             />
           </Row>
           {/* 이벤트 할인율 */}
