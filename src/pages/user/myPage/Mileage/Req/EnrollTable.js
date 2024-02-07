@@ -17,7 +17,7 @@ function EnrollTable(props) {
       cancelButtonText: "취소",
     });
   };
-  const [money, setMoney] = useState(0);
+  const [money, setMoney] = useState();
   const user = props.userData;
   const [name, setName] = useState(user.name);
   const navi = useNavigate();
@@ -104,7 +104,7 @@ function EnrollTable(props) {
         <Box height="6rem">
           <ColBox height="6rem">입금금액</ColBox>
           <InputBox width="62rem" className="cm-SRegular16">
-            {money} 원
+            {parseInt(money, 10).toLocaleString()} 원
           </InputBox>
         </Box>
         <Border />
@@ -124,7 +124,11 @@ function EnrollTable(props) {
         완료되지 않으면 문의주세요
       </P>
       <ButtonBox>
-        <Button className="cm-SBold16" onClick={handleClick}>
+        <Button
+          className="cm-SBold16"
+          onClick={handleClick}
+          disabled={!name || money === null || isNaN(money)}
+        >
           충전 하기
         </Button>
       </ButtonBox>

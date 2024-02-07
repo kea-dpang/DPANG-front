@@ -42,6 +42,7 @@ const Index = (props) => {
     return POST_charge_req(val, !bool)
       .then((data) => {
         console.log(data);
+        window.location.reload();
       })
       .catch((error) => {
         console.log("실패");

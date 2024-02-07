@@ -27,8 +27,7 @@ const Status = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${(props) => getColour(props.status)};
-  color: white;
+  color: ${(props) => getColour(props.status)};
   border-radius: 3px;
 `;
 
@@ -105,7 +104,10 @@ function TableRow() {
             <Col width="18rem">{a.requestedMileage.toLocaleString()} 마일</Col>
             {/* 마일리지 충전 상태에 따라 다른 상태 표시를 위하여 props로 상태 정보 넘겨줌 */}
             <Col width="18rem">
-              <Status status={customMileageStatusName(a.status)}>
+              <Status
+                status={customMileageStatusName(a.status)}
+                className="cm-SBold16"
+              >
                 {customMileageStatusName(a.status)}
               </Status>
             </Col>
