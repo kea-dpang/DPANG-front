@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 // import '../../styles/fontStyle.scss';
 import { ReactComponent as ArrowStroke } from "../../assets/images/arrowStroke.svg";
@@ -6,44 +6,12 @@ import { Link, useMatch, useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 
 const UserSideBar = () => {
-  // const isOrderActive = useMatch("/order*");
-  // const isRefundActive = useMatch("/refund*");
-  const navigate = useNavigate();
-
-  // 현재 경로가 "order" 또는 "refund"를 포함하는지 확인합니다.
-  const isOrderActive = useMatch("/order*");
-  const isRefundActive = useMatch("/refund*");
-  const isCancelActive = useMatch("/cancel*");
-
-  const getToProp = () => {
-    if (isOrderActive) return "order";
-    if (isRefundActive) return "refund";
-    if (isCancelActive) return "cancel";
-  };
-
   return (
     <Wrap>
       <h1 className="cm-MBold24 col-Navy">마이 페이지</h1>
 
       <NavWrap>
-        {/* <Nav to="order"> */}
-        {/* <Nav
-          to="order"
-          isActive={(match, location) => {
-            if (!match) {
-              return false;
-            }
-            return (
-              location.pathname.includes("order") ||
-              location.pathname.includes("refund")
-            );
-          }}
-        > */}
-        {/* <Nav to="order" isActive={() => isOrderActive || isRefundActive}> */}
-        <Nav
-          to={getToProp()}
-          isActive={() => isOrderActive || isRefundActive || isCancelActive}
-        >
+        <Nav to="order">
           <p className="cm-SBold18 col-DarkGrey">주문·배송 조회</p>
           <StyledArrowStroke />
         </Nav>
