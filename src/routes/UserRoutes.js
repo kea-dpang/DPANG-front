@@ -35,13 +35,13 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import NewProductPage from "@userPages/ProductSet/NewProductPage";
 import CategorySet from "@userPages/CategorySet/Index";
-
+import withAuth from "@utils/hoc/withAuth";
 const UserRoutes = () => {
   return (
     <Routes>
       {/* 로그인, 회원가입, 비밀번호 찾기 */}
       <Route path="sign" element={<SignPage />} />
-      {/* <Route path="login" element={<LoginPage />} /> */}
+      {/* <Route påath="login" element={<LoginPage />} /> */}
       <Route path="findpassword" element={<FindPasswordPage />} />
       {/* 메인페이지 */}
       <Route path="mainpage" element={<MainPage />} />
