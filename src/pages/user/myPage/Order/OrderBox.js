@@ -50,7 +50,7 @@ const NaviBar = styled.div`
   color: white;
 `;
 
-function ReviewBox() {
+function ReviewBox(props) {
   //최근 30일 주문 처리 현황표에 넣을 변수. 임시로 로직 없이 숫자로만. 차후에 분류하고 처리하는 과정이 필요해요
   const [amt, setAmt] = useState([0, 1, 2, 0, 3]);
 
@@ -81,17 +81,13 @@ function ReviewBox() {
         <NaviBar colour="var(--navy)">주문/배송 조회</NaviBar>
         <NaviBar
           colour="var(--dark-grey)"
-          onClick={() => {
-            navi("/user/mypage/refund");
-          }}
+          onClick={props.handleRefundClick}
         >
           반품 조회
         </NaviBar>
         <NaviBar
           colour="var(--dark-grey)"
-          onClick={() => {
-            navi("/user/mypage/cancel");
-          }}
+          onClick={props.handleCancelClick}
         >
           취소 조회
         </NaviBar>
