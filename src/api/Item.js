@@ -159,19 +159,19 @@ export const DELETE_Item = async (itemId) => {
 };
 // 관리자 - 상품 수정
 export const PUT_Item = async (id, value) => {
-  console.log("상품 수정");
+  console.log("상품 수정", value);
   const response = await axios({
     method: "put",
     url: `${url}/${id}`,
     data: {
-      itemName: value.itemName,
+      itemName: value.name,
       category: value.category,
       subCategory: value.subCategory,
-      itemPrice: value.itemPrice,
+      itemPrice: value.price,
       discountRate: value.discountRate,
       stockQuantity: value.stockQuantity,
-      itemImage: value.itemImage,
-      images: value.images,
+      itemImage: value.thumbnailImage,
+      images: value.informationImages,
     },
   });
   return response.data;
