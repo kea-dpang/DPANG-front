@@ -35,6 +35,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import NewProductPage from "@userPages/ProductSet/NewProductPage";
 import CategorySet from "@userPages/CategorySet/Index";
+import NotFoundPage from "@components/NotFound/Index";
 import withAuth from "@utils/hoc/withAuth";
 const UserRoutes = () => {
   return (
@@ -99,6 +100,7 @@ const UserRoutes = () => {
         <Route path="order" element={<UserOrder />} />
         <Route path="order/detail/:id" element={<OrderDetail />} />
       </Route>
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 };

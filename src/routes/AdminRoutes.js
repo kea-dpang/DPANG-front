@@ -27,6 +27,7 @@ import ProductEnrollPage from "@adminPages/item/product/Enroll/Index";
 import ProductEditPage from "@adminPages/item/product/Edit/Index";
 import AdminOrderDetail from "@adminPages/Order/Detail/Index";
 import Monitoring from "@adminPages/monitoring/Index";
+import NotFoundPage from "@components/NotFound/Index";
 
 const AdminRoutes = () => {
   /* 라우트 가드 */
@@ -94,6 +95,7 @@ const AdminRoutes = () => {
         <Route path="directask/:askId" element={<AdminAskEnrollPage />} />
         <Route path="monitoring" element={<Monitoring />} />
       </Route>
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 };

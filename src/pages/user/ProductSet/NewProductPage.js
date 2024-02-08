@@ -6,7 +6,7 @@ import { GET_NewItemList } from "@api/Item";
 const NewProductPage = () => {
   // 아이템 리스트
   const [itemList, setItemList] = useState([]);
-  useEffect(() => {
+  const getList = () => {
     GET_NewItemList()
       .then((data) => {
         setItemList(data.data); // API 응답으로 받은 데이터를 상태에 저장
@@ -15,6 +15,10 @@ const NewProductPage = () => {
       .catch((error) => {
         console.error("아이템 리스트 가져오기 실패", error);
       });
+  };
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    getList();
   }, []);
 
   return (

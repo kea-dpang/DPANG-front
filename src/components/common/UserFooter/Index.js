@@ -2,7 +2,7 @@ import styled from "styled-components";
 import ImageBox from "./ImageBox";
 
 const Container = styled.div`
-  padding-top: 18rem;
+  padding-top: 10rem;
   width: 100vw;
   display: flex;
   flex-direction: column;
