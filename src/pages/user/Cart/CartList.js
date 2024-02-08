@@ -3,16 +3,29 @@ import styled from "styled-components";
 import { GET_CartList } from "@api/cart";
 import { FormProvider, useForm } from "react-hook-form";
 import CartItem from "./CartItem";
+import { cartListAtom } from "recoil/user/CartAtom";
+import { useRecoilState } from "recoil";
 
 const CartList = ({ onItemCount }) => {
-  const [cartList, setCartList] = useState([]);
+  // const [cartList, setCartList] = useState([]);
+  const [cartList, setCartList] = useRecoilState(cartListAtom);
+
+  /* 체크박스 체크*/
+  const methods = useForm();
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    watch,
+    isSubmitting,
+    formState: { errors },
+  } = methods;
 
   /* 장바구니 리스트 가져오기 */
   const getItemList = () => {
     GET_CartList()
       .then((data) => {
-        setCartList(data.data);
-        console.log(data.data);
+        setCartList(data.data); // 서버에서 가져온 데이터를 Recoil 상태에 저장합니다.
 
         onItemCount(data.data.length); // 아이템 갯수를 부모 컴포넌트에 전달
       })

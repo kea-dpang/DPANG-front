@@ -1,22 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { ReactComponent as CheckBtn } from "@images/checkBtn.svg";
-import { DELETE_CartItem } from "@api/cart";
-
+import {
+  DELETE_CartItem,
+  POST_AddCartItem,
+  POST_MinusCartItem,
+} from "@api/cart";
+import {
+  cartListAtom,
+  decreaseCountSelector,
+  increaseCountSelector,
+} from "recoil/user/CartAtom";
+import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
+import { useSetRecoilState } from "recoil";
 const CartItem = ({ item }) => {
+  const [cartList, setCartList] = useRecoilState(cartListAtom); // Recoil 상태에서 cartList를 가져옵니다.
+  const setIncreaseCount = useSetRecoilState(increaseCountSelector);
+  const setDecreaseCount = useSetRecoilState(decreaseCountSelector);
+
+  console.log(cartList);
   /* 상품 삭제 */
   const handleDeleteItem = () => {
     DELETE_CartItem(item.itemId)
       .then((data) => {
-        console.log("상품삭제했당: ", data.data);
-        window.location.reload();
+        // window.location.reload();
+        setCartList((oldCartList) =>
+          oldCartList.filter((itemAtom) => itemAtom.itemId !== item.itemId)
+        );
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  console.log(item);
+  /* 상품 개수 */
+  const handleCount = (e) => {
+    if (e.target.name === "increase") {
+      console.log("증가ㅣ", item.itemId);
+      POST_AddCartItem(item.itemId)
+        .then((data) => {
+          setIncreaseCount(item.itemId);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      // decrease
+      POST_MinusCartItem(item.itemId)
+        .then((data) => {
+          setDecreaseCount(item.itemId);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
   return (
     <Wrap>
       {/* 체크박스 */}
@@ -40,9 +80,13 @@ const CartItem = ({ item }) => {
         <Article>
           {/* 증가 감소 박스 */}
           <CountBox className="cm-SRegular16">
-            <CountBtn>-</CountBtn>
-            <p>1</p>
-            <CountBtn>+</CountBtn>
+            <CountBtn name="decrease" onClick={handleCount}>
+              -
+            </CountBtn>
+            <p>{item.quantity}</p>
+            <CountBtn name="increase" onClick={handleCount}>
+              +
+            </CountBtn>
           </CountBox>
 
           {/* 가격 */}
@@ -53,17 +97,19 @@ const CartItem = ({ item }) => {
                 className="cm-XsRegular14 col-SemiLightGrey"
                 style={{ textDecoration: "line-through" }}
               >
-                {item.price}원
+                {item.price * item.quantity}원
               </p>
               {/* 할인율, 판매 가격 */}
               <Price>
                 <p className="cm-SBold16 col-Orange">{item.discountRate}%</p>
-                <p className="cm-SBold16">{item.discountPrice}원</p>
+                <p className="cm-SBold16">
+                  {item.discountPrice * item.quantity}원
+                </p>
               </Price>
             </PriceWrap>
           ) : (
             // 원가
-            <p className="cm-SBold16">{item.price}원</p>
+            <p className="cm-SBold16">{item.price * item.quantity}원</p>
           )}
         </Article>
       </Section>
