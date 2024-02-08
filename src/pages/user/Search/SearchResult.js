@@ -56,6 +56,7 @@ const SearchResult = (props) => {
     getItemList();
   }, []);
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
     getItemList();
   }, [filterData.minPrice, filterData.maxPrice, filterData.category]);
 
