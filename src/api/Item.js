@@ -99,6 +99,20 @@ export const GET_HotItemList = async () => {
   });
   return res.data;
 };
+// 사용자 - 신상품 조회
+export const GET_NewItemList = async () => {
+  console.log("신상품 조회");
+  const res = await axios({
+    method: "get",
+    url: `${url}/new/list`,
+    params: {
+      page: 0,
+      size: 20,
+      sort: "",
+    },
+  });
+  return res.data;
+};
 // 사용자 - 아이템 검색 필터링
 export const GET_ItemFilterListUser = async (
   category,
