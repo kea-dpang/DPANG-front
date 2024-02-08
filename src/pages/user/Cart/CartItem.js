@@ -8,18 +8,24 @@ import {
 } from "@api/cart";
 import {
   cartListAtom,
+  checkedItemsSelector,
   decreaseCountSelector,
   increaseCountSelector,
 } from "recoil/user/CartAtom";
 import { useRecoilState } from "recoil";
-import { useRecoilValue } from "recoil";
 import { useSetRecoilState } from "recoil";
+
 const CartItem = ({ item }) => {
   const [cartList, setCartList] = useRecoilState(cartListAtom); // Recoil 상태에서 cartList를 가져옵니다.
   const setIncreaseCount = useSetRecoilState(increaseCountSelector);
   const setDecreaseCount = useSetRecoilState(decreaseCountSelector);
+  const [checkedItems, setCheckedItems] = useRecoilState(checkedItemsSelector);
+
+  // 체크된 아이템인지 확인
+  const isChecked = checkedItems.includes(item.itemId);
 
   console.log(cartList);
+
   /* 상품 삭제 */
   const handleDeleteItem = () => {
     DELETE_CartItem(item.itemId)
@@ -57,13 +63,19 @@ const CartItem = ({ item }) => {
     }
   };
 
+  /* 체크박스 클릭 핸들러 */
+  const handleCheckboxClick = (e) => {
+    // 체크박스 상태 변경
+    setCheckedItems(item.itemId);
+  };
+
   return (
     <Wrap>
       {/* 체크박스 */}
       <>
-        <Checkbox type="checkbox" />
+        <Checkbox type="checkbox" onChange={handleCheckboxClick} />
         {/* 커스텀 체크 버튼 */}
-        <CheckBtn />
+        <CheckBtn style={{ fill: isChecked ? "var(--navy)" : "none" }} />
       </>
       <ImgWrap>
         <ItemImg src={item.image} alt={item.name} />
@@ -97,19 +109,22 @@ const CartItem = ({ item }) => {
                 className="cm-XsRegular14 col-SemiLightGrey"
                 style={{ textDecoration: "line-through" }}
               >
-                {item.price * item.quantity}원
+                {(item.price * item.quantity).toLocaleString("ko-KR")} 마일
               </p>
               {/* 할인율, 판매 가격 */}
               <Price>
                 <p className="cm-SBold16 col-Orange">{item.discountRate}%</p>
                 <p className="cm-SBold16">
-                  {item.discountPrice * item.quantity}원
+                  {(item.discountPrice * item.quantity).toLocaleString("ko-KR")}{" "}
+                  마일
                 </p>
               </Price>
             </PriceWrap>
           ) : (
             // 원가
-            <p className="cm-SBold16">{item.price * item.quantity}원</p>
+            <p className="cm-SBold16">
+              {(item.price * item.quantity).toLocaleString("ko-KR")} 마일
+            </p>
           )}
         </Article>
       </Section>
@@ -119,7 +134,7 @@ const CartItem = ({ item }) => {
 
 export default CartItem;
 
-const Wrap = styled.div`
+const Wrap = styled.label`
   display: flex;
   /* align-items: center; */
   gap: 4rem;

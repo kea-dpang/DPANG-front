@@ -3,23 +3,14 @@ import styled from "styled-components";
 import { GET_CartList } from "@api/cart";
 import { FormProvider, useForm } from "react-hook-form";
 import CartItem from "./CartItem";
-import { cartListAtom } from "recoil/user/CartAtom";
+import { cartListAtom, totalAmountSelector } from "recoil/user/CartAtom";
 import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 
 const CartList = ({ onItemCount }) => {
   // const [cartList, setCartList] = useState([]);
   const [cartList, setCartList] = useRecoilState(cartListAtom);
-
-  /* 체크박스 체크*/
-  const methods = useForm();
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    watch,
-    isSubmitting,
-    formState: { errors },
-  } = methods;
+  const totalAmount = useRecoilValue(totalAmountSelector);
 
   /* 장바구니 리스트 가져오기 */
   const getItemList = () => {
@@ -48,13 +39,19 @@ const CartList = ({ onItemCount }) => {
                 <CartItem key={item.itemId} item={item} />
               ))}
             </CartWrap>
-            <Price className="cm-SBold16">총 가격: 0원</Price>
+            <Price className="cm-SBold18">
+              총 가격: {totalAmount.toLocaleString("ko-KR")} 마일
+            </Price>
           </Section>
 
-          <TotalPrice>
-            <p>상품금액</p>
-            <p>상품금액</p>
-            <p>상품금액</p>
+          <TotalPrice className="cm-SBold18 col-Navy">
+            <p>상품금액 {totalAmount.toLocaleString("ko-KR")} 마일</p>
+            <p>+</p>
+            <p>배송비 3,000 마일</p>
+            <p>=</p>
+            <p>
+              주문 예상금액 {(totalAmount + 3000).toLocaleString("ko-KR")} 마일
+            </p>
           </TotalPrice>
         </Wrap>
       ) : (
