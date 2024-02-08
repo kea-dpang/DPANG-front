@@ -42,6 +42,8 @@ export const useConfirmAlert = () => {
         if (isConfirmed) {
           if (navi) {
             navigate(navi);
+          } else {
+            window.location.reload();
           }
         }
       });

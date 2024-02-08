@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "@components/UserHeaderBar/Index";
+import Footer from "@components/UserFooter/Index";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 
@@ -9,6 +10,7 @@ const EventPage = ({ userType }) => {
       <Header />
       <Title className="cm-LBold30">진행중인 이벤트</Title>
       <Outlet />
+      <Footer />
     </Wrap>
   );
 };
