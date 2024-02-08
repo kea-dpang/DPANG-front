@@ -20,7 +20,7 @@ import MainPage from "@userPages/Home/Index";
 import ProductListPage from "@userPages/ProductSet/Index";
 import BestProductPage from "@userPages/ProductSet/BestProdudctPage";
 import EventProductPage from "@userPages/ProductSet/EventProductPage";
-import Cart from "@userPages/Cart/Index";
+import CartPage from "@userPages/Cart/Index";
 import OrderDetail from "@userPages/myPage/Order/Detail/Index";
 import SearchPage from "@userPages/Search/Index";
 import ProductDetail from "@userPages/Product/Index";
@@ -65,7 +65,7 @@ const UserRoutes = () => {
       {/* 위시리스트 */}
       <Route path="wishlist" element={<WishList />} />
       {/* 장바구니 */}
-      <Route path="cart" element={<Cart />} />
+      <Route path="cart" element={<CartPage />} />
       {/* 주문하기 */}
       <Route path="order" element={<Order />} />
       {/* 마이페이지 */}
