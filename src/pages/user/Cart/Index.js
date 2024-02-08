@@ -1,71 +1,67 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CartList from "./CartList";
 import Header from "@components/UserHeaderBar/Index";
 import { useNavigate } from "react-router-dom";
+import Footer from "@components/UserFooter/Index";
+import { GET_CartList } from "@api/cart";
 
-const Index = () => {
-  const [selectedItems, setSelectedItems] = useState([]);
-  const navigate = useNavigate();
-  const handleOrderSave = () => {
-    console.log("주문 넘길게요 selectedItems: ", selectedItems);
-    navigate(`/user/order`);
+const CartPage = () => {
+  /* TODO: 버튼 비활성화 */
+  /*
+  [버튼 비활성화]
+  마일리지 부족할 경우
+  장바구니 아무것도 안담겨 있을 경우
+  */
+  const [cartItemCount, setCartItemCount] = useState(); // 장바구니에 아이템이 담겨있는지 체크
+
+  useEffect(() => {
+    if (cartItemCount === 0) {
+      console.log("장바구니에 아이템이 없습니다.");
+    }
+  }, [cartItemCount]);
+
+  const handleItemCount = (count) => {
+    setCartItemCount(count);
   };
-
   return (
     <>
+      <Header />
       <Wrap>
-        <Header />
-        <Title className="cm-LBold30 col-DarkNavy">장바구니</Title>
-
-        <InputSection>
-          <CartList setSelectedItems={setSelectedItems} />
-        </InputSection>
-
-        <OrderButton onClick={handleOrderSave}>
-          <p className="cm-SBold16 col-White">주문하기</p>
-        </OrderButton>
+        <CartWrap>
+          <Title className="cm-LBold30 col-DarkNavy">장바구니</Title>
+          <Main>
+            <CartList onItemCount={handleItemCount} />
+          </Main>
+          <OrderBtn className="Btn_M_Navy">주문하기</OrderBtn>
+        </CartWrap>
       </Wrap>
+      <Footer />
     </>
   );
 };
 
-export default Index;
+export default CartPage;
 
 const Wrap = styled.div`
   width: 100vw;
-  align-items: center;
-  min-width: 1550px;
-  display: flex;
-  flex-direction: column;
-`;
+  max-width: 100%;
 
+  box-sizing: border-box;
+`;
+const CartWrap = styled.div`
+  padding: 0 15rem;
+`;
 const Title = styled.div`
   display: flex;
-  align-items: center;
-  padding: 2.25rem 15.9375rem 2.25em 15.9375rem;
-`;
-const InputSection = styled.div`
-  display: flex;
-  min-height: calc(100vh - 30rem);
-  box-sizing: border-box; // padding까지 합쳐서 width 설정하기
-  flex-direction: column;
-  align-items: center;
-  gap: 2.3125rem;
   justify-content: center;
-  padding: 2.25rem 15.9375rem 2.25em 15.9375rem;
+  padding: 3rem 0;
 `;
-const OrderButton = styled.button`
-  display: flex;
-  /* width: 74.625rem; */
-  width: 79.5rem;
-  height: 4.1875rem;
-  justify-content: center;
-  align-items: center;
-  gap: 0.3125rem;
-  flex-shrink: 0;
-  border-radius: 0.1875rem;
-  border: 1px solid var(--semi-light-grey, #cfcfcf);
-  background: var(--navy, #043277);
-  margin-bottom: 2rem;
+const Main = styled.div`
+  /* height: 30rem; // CartList의 NoWrap 스타일 컴포넌트에 height 100%를 주기 위한 설정 */
+  min-height: 30rem;
+  /* background: var(--light-grey, #f4f4f4); */
+`;
+const OrderBtn = styled.button`
+  width: 100%;
 `;

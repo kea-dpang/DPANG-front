@@ -1,179 +1,200 @@
-import Button from "@mui/material/Button";
-import ButtonGroup from "@mui/material/ButtonGroup";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import Checkbox from "@mui/material/Checkbox";
-import { DELETE_CartItem } from "@api/cart";
-import { Controller, useFormContext } from "react-hook-form";
+import { ReactComponent as CheckBtn } from "@images/checkBtn.svg";
+import {
+  DELETE_CartItem,
+  POST_AddCartItem,
+  POST_MinusCartItem,
+} from "@api/cart";
+import {
+  cartListAtom,
+  checkedItemsSelector,
+  decreaseCountSelector,
+  increaseCountSelector,
+} from "recoil/user/CartAtom";
+import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 
-const CartItem = ({ item, updateQuantity, updateChecked }) => {
-  // console.log("item 체크 좀 할게요~~:", item.itemId);
-  /* 체크박스 확인 */
-  const {
-    control,
-    watch,
-    setValue,
-    getValues,
-    formState: { errors },
-  } = useFormContext();
-  /////////////////////////////////////////
-  // console.log("item itme itme: ", item);
-  const [quantity, setQuantity] = useState(item.quantity);
-  const [totalPrice, setTotalPrice] = useState({});
-  const [checked, setChecked] = useState(false);
+const CartItem = ({ item }) => {
+  const [cartList, setCartList] = useRecoilState(cartListAtom); // Recoil 상태에서 cartList를 가져옵니다.
+  const setIncreaseCount = useSetRecoilState(increaseCountSelector);
+  const setDecreaseCount = useSetRecoilState(decreaseCountSelector);
+  const [checkedItems, setCheckedItems] = useRecoilState(checkedItemsSelector);
 
-  ////////////////////////////////////////////
-  useEffect(() => {
-    // setValue(`price${item.itemId}`, item.price * quantity);
-    // setValue("price", { id: item.itemId, price: item.price * quantity });
-    setValue(`price${item.itemId}`, item.price * quantity);
-    setValue(`num${item.itemId}`, quantity);
-  }, [quantity]);
-  // useEffect(() => {
-  //   updateItemPrice(item.itemId, item.price * quantity);
-  // }, [quantity]);
-  ////////////////////////////////////////////
+  // 체크된 아이템인지 확인
+  const isChecked = checkedItems.includes(item.itemId);
 
-  useEffect(() => {
-    console.log("totalPrice:", totalPrice);
-  }, [totalPrice]);
-
-  const handleCheckboxChange = () => {
-    const newChecked = !checked;
-    setChecked(newChecked);
-    updateChecked(item.id, newChecked);
-  };
-
-  const updateTotalPrice = () => {
-    setTotalPrice(item.price * quantity);
-  };
-
-  useEffect(() => {
-    updateQuantity(item.id, quantity);
-  }, [quantity]);
-
-  const handleIncrease = () => {
-    setQuantity(quantity + 1);
-    // updateTotalPrice();
-    updateTotalPrice(item.itemId, item.price * (quantity + 1));
-  };
-
-  const handleDecrease = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-      // updateTotalPrice();
-      updateTotalPrice(item.itemId, item.price * (quantity - 1));
-    }
-  };
+  console.log(cartList);
 
   /* 상품 삭제 */
-  const handleDelete = () => {
+  const handleDeleteItem = () => {
     DELETE_CartItem(item.itemId)
       .then((data) => {
-        console.log("상품삭제했당: ", data.data);
+        // window.location.reload();
+        setCartList((oldCartList) =>
+          oldCartList.filter((itemAtom) => itemAtom.itemId !== item.itemId)
+        );
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
+  /* 상품 개수 */
+  const handleCount = (e) => {
+    if (e.target.name === "increase") {
+      console.log("증가ㅣ", item.itemId);
+      POST_AddCartItem(item.itemId)
+        .then((data) => {
+          setIncreaseCount(item.itemId);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      // decrease
+      POST_MinusCartItem(item.itemId)
+        .then((data) => {
+          setDecreaseCount(item.itemId);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
+  /* 체크박스 클릭 핸들러 */
+  const handleCheckboxClick = (e) => {
+    // 체크박스 상태 변경
+    setCheckedItems(item.itemId);
+  };
+
   return (
-    <Content>
-      <Controller
-        name={String(item.itemId)}
-        control={control}
-        render={({ field }) => (
-          <>
-            <Checkbox {...field} type="checkbox" />
-            <div>
-              <ItemImg src={item.image} alt={item.name} />
-            </div>
-            <ItemInfo>
-              <ItemBox>
-                <p className="cm-SBold16 col-Black">{item.name}</p>
-                <DeleteButton onClick={handleDelete}>
-                  <p className="cm-SRegular16 col-Black">삭제</p>
-                </DeleteButton>
-              </ItemBox>
+    <Wrap>
+      {/* 체크박스 */}
+      <>
+        <Checkbox type="checkbox" onChange={handleCheckboxClick} />
+        {/* 커스텀 체크 버튼 */}
+        <CheckBtn style={{ fill: isChecked ? "var(--navy)" : "none" }} />
+      </>
+      <ImgWrap>
+        <ItemImg src={item.image} alt={item.name} />
+      </ImgWrap>
 
-              <ItemState>
-                <ButtonGroup>
-                  {/* 감소 */}
-                  <Button onClick={handleDecrease}>
-                    <RemoveIcon fontSize="small" />
-                  </Button>
-                  {/* 감소, 증가 결과 */}
-                  <CountBox>
-                    <p className="cm-SRegular16 col-Black">{quantity}</p>
-                  </CountBox>
-                  {/* 증가 */}
-                  <Button onClick={handleIncrease}>
-                    <AddIcon fontSize="small" />
-                  </Button>
-                </ButtonGroup>
+      <Section>
+        <Article>
+          <p className="cm-SBold16">{item.name}</p>
+          <DeleteBtn className="cm-SRegular16" onClick={handleDeleteItem}>
+            삭제
+          </DeleteBtn>
+        </Article>
 
-                <p className="cm-SBold16 col-Black">
-                  {/* {item.price * quantity}원 */}
-                  {Number(item.price * quantity).toLocaleString("ko-KR")}원
+        <Article>
+          {/* 증가 감소 박스 */}
+          <CountBox className="cm-SRegular16">
+            <CountBtn name="decrease" onClick={handleCount}>
+              -
+            </CountBtn>
+            <p>{item.quantity}</p>
+            <CountBtn name="increase" onClick={handleCount}>
+              +
+            </CountBtn>
+          </CountBox>
+
+          {/* 가격 */}
+          {item.discountRate != 0 ? (
+            <PriceWrap>
+              {/* 원가 */}
+              <p
+                className="cm-XsRegular14 col-SemiLightGrey"
+                style={{ textDecoration: "line-through" }}
+              >
+                {(item.price * item.quantity).toLocaleString("ko-KR")} 마일
+              </p>
+              {/* 할인율, 판매 가격 */}
+              <Price>
+                <p className="cm-SBold16 col-Orange">{item.discountRate}%</p>
+                <p className="cm-SBold16">
+                  {(item.discountPrice * item.quantity).toLocaleString("ko-KR")}{" "}
+                  마일
                 </p>
-              </ItemState>
-            </ItemInfo>
-          </>
-        )}
-      />
-    </Content>
+              </Price>
+            </PriceWrap>
+          ) : (
+            // 원가
+            <p className="cm-SBold16">
+              {(item.price * item.quantity).toLocaleString("ko-KR")} 마일
+            </p>
+          )}
+        </Article>
+      </Section>
+    </Wrap>
   );
 };
 
 export default CartItem;
 
-const Content = styled.div`
-  box-sizing: border-box;
-  padding: 2rem 2rem;
-  background: var(--light-grey, #f4f4f4);
+const Wrap = styled.label`
   display: flex;
-  align-items: center;
-  flex-direction: row;
-  gap: 1.375rem;
+  /* align-items: center; */
+  gap: 4rem;
 `;
 
-const ItemImg = styled.img`
+const Checkbox = styled.input.attrs({ type: "checkbox" })`
+  // 체크박스를 완전히 숨기지 않고, 화면 바깥으로 이동시키는 기법
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+`;
+
+const ImgWrap = styled.div`
   width: 10rem;
   height: 10rem;
+`;
+const ItemImg = styled.img`
+  width: 100%;
+  height: 100%;
   border-radius: 0.5rem;
+  object-fit: cover;
 `;
 
-const ItemInfo = styled.div`
-  width: 60rem;
+const Section = styled.div`
+  width: 100%;
+  /* padding: 3rem 2rem; */
   display: flex;
   flex-direction: column;
-  gap: 1.875rem;
+  justify-content: center;
+  gap: 1.5rem;
 `;
-
-const ItemBox = styled.div`
+const Article = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 `;
-const DeleteButton = styled.button`
+const DeleteBtn = styled.button`
   padding: 0.5rem 1rem;
   border: 1px solid var(--semi-light-grey, #cfcfcf);
   border-radius: 0.1875rem;
 `;
-
-const ItemState = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
 const CountBox = styled.div`
-  width: 2.7rem;
-  background: var(--light-grey, #f4f4f4);
-  border: 1px solid var(--semi-light-grey, #cfcfcf);
+  border: 1px solid var(--dark-grey);
   display: flex;
-  justify-content: center;
   align-items: center;
+  gap: 1.5rem;
+`;
+const CountBtn = styled.button`
+  /* border: 1px solid black; */
+  background: none;
+  padding: 0.1rem 0.5rem;
+  font-size: 1.5rem;
+`;
+const PriceWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const Price = styled.div`
+  display: flex;
+  gap: 1rem;
 `;

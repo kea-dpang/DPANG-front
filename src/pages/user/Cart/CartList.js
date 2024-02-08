@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from "react";
-import CartItem from "./CartItem";
 import styled from "styled-components";
 import { GET_CartList } from "@api/cart";
 import { FormProvider, useForm } from "react-hook-form";
+import CartItem from "./CartItem";
+import { cartListAtom, totalAmountSelector } from "recoil/user/CartAtom";
+import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 
-const CartList = (setSelectedItems) => {
-  const [cartItems, setCartItems] = useState([]);
-  const [CheckedTotalPrice, setCheckedTotalPrice] = useState(0);
+const CartList = ({ onItemCount }) => {
+  // const [cartList, setCartList] = useState([]);
+  const [cartList, setCartList] = useRecoilState(cartListAtom);
+  const totalAmount = useRecoilValue(totalAmountSelector);
+
   /* 장바구니 리스트 가져오기 */
   const getItemList = () => {
     GET_CartList()
       .then((data) => {
-        console.log("cartItem data: ", data.data);
-        setCartItems(data.data);
+        setCartList(data.data); // 서버에서 가져온 데이터를 Recoil 상태에 저장합니다.
+
+        onItemCount(data.data.length); // 아이템 갯수를 부모 컴포넌트에 전달
       })
       .catch((error) => {
         console.log(error);
@@ -22,164 +28,81 @@ const CartList = (setSelectedItems) => {
   useEffect(() => {
     getItemList();
   }, []);
-  ///////////////////////////////////////////////////////
-
-  /* 체크박스 체크 */
-  const methods = useForm();
-  const {
-    register,
-    handleSubmit,
-    getValues,
-    watch,
-    isSubmitting,
-    formState: { errors },
-  } = methods;
-
-  const watchAllFields = watch();
-
-  useEffect(() => {
-    console.log("watchAllFields:", watchAllFields);
-
-    /* itemId별로 값 나누기 (체크표시:check, 개수별 가격:price, num:개수)  */
-    const newObj = Object.keys(watchAllFields).reduce((acc, key) => {
-      const match = key.match(/(\D*)(\d+)/);
-      if (match) {
-        const [, prefix, id] = match;
-        if (!acc[id]) acc[id] = {};
-        if (prefix) {
-          acc[id][prefix] = watchAllFields[key];
-        } else {
-          acc[id]["check"] = watchAllFields[key];
-        }
-      }
-      return acc;
-    }, {});
-
-    console.log(newObj);
-    /* check가 true인 항목의 price 값 모두 더하기 */
-    const totalPrice = Object.values(newObj).reduce((total, item) => {
-      if (item.check) {
-        total += item.price;
-      }
-      return total;
-    }, 0);
-
-    console.log(totalPrice);
-
-    setCheckedTotalPrice(totalPrice);
-  }, [watchAllFields]);
-  ///////////////////////////////////////////////////////
-
-  // const calculateTotalPrice = () => {
-  //   let totalPrice = 0;
-  //   cartItems.forEach((item) => {
-  //     if (item.checked) {
-  //       totalPrice += item.price * item.quantity;
-  //     }
-  //   });
-  //   return totalPrice;
-  // };
-
-  const updateQuantity = (itemId, quantity) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === itemId ? { ...item, quantity } : item
-      )
-    );
-  };
-
-  const updateChecked = (itemId, checked) => {
-    setCartItems((prevItems) =>
-      prevItems.map((prevItem) => {
-        console.log("preveItem: ", prevItem);
-        if (prevItem.id === itemId) {
-          return {
-            ...prevItem,
-            checked: checked,
-          };
-        }
-        console.log("장바구니 상품 선택:", cartItems);
-        return prevItem;
-      })
-    );
-  };
 
   return (
-    <Wrap>
-      <FormProvider {...methods}>
-        <Container>
-          {cartItems.map((item) => (
-            <CartItem
-              key={item.itemId}
-              item={item}
-              updateQuantity={updateQuantity}
-              updateChecked={updateChecked}
-              // updateItemPrice={updateItemPrice}
-            />
-          ))}
+    <>
+      {cartList.length !== 0 ? (
+        <Wrap>
+          <Section>
+            <CartWrap>
+              {cartList.map((item) => (
+                <CartItem key={item.itemId} item={item} />
+              ))}
+            </CartWrap>
+            <Price className="cm-SBold18">
+              총 가격: {totalAmount.toLocaleString("ko-KR")} 마일
+            </Price>
+          </Section>
 
-          <TotalPrice>
-            <p className="cm-SBold16 col-Black">
-              총 가격: {Number(CheckedTotalPrice).toLocaleString("ko-KR")}원
+          <TotalPrice className="cm-SBold18 col-Navy">
+            <p>상품금액 {totalAmount.toLocaleString("ko-KR")} 마일</p>
+            <p>+</p>
+            <p>배송비 3,000 마일</p>
+            <p>=</p>
+            <p>
+              주문 예상금액 {(totalAmount + 3000).toLocaleString("ko-KR")} 마일
             </p>
           </TotalPrice>
-        </Container>
-        <PriceBox>
-          <p className="cm-SBold16 col-Navy">
-            상품금액 {Number(CheckedTotalPrice).toLocaleString("ko-KR")}원
+        </Wrap>
+      ) : (
+        // 장바구니에 담긴 상품이 없을 경우
+        <NoWrap>
+          <p className="cm-MRegular20 col-DarkGrey">
+            장바구니에 담긴 상품이 없습니다.
           </p>
-          <p className="cm-SBold16 col-Navy">+</p>
-          <p className="cm-SBold16 col-Navy">배송비 3,000원</p>
-          <p className="cm-SBold16 col-Navy">=</p>
-          <p className="cm-SBold16 col-Navy">
-            {/* 주문 예상 금액 {calculateTotalPrice() + 3000}원 */}
-            주문 예상 금액{" "}
-            {Number(CheckedTotalPrice + 3000).toLocaleString("ko-KR")}원
-          </p>
-        </PriceBox>
-      </FormProvider>
-    </Wrap>
+        </NoWrap>
+      )}
+    </>
   );
 };
 
 export default CartList;
 
-const Wrap = styled.div`
-  width: 74.8125rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Container = styled.div`
+const Wrap = styled.div``;
+const NoWrap = styled.div`
   background: var(--light-grey, #f4f4f4);
+
+  height: 100%;
+
+  min-height: 30rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const Section = styled.div`
+  background: var(--light-grey, #f4f4f4);
+  padding: 4rem 4rem 0 4rem;
+  border-radius: 1rem;
+`;
+const CartWrap = styled.div`
+  background: var(--light-grey, #f4f4f4);
+  padding: 4rem 4rem 0 4rem;
+
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
+  gap: 3rem;
 `;
+const Price = styled.div`
+  margin-top: 3rem;
+  border-top: 1px solid var(--dark-grey);
 
+  padding: 3rem;
+  display: flex;
+  justify-content: center;
+`;
 const TotalPrice = styled.div`
-  padding: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1.2rem;
-`;
-
-const PriceBox = styled.div`
-  /* border: 1px solid black; */
-  width: 100%;
-  padding: 2rem;
-  display: flex;
-  justify-content: space-around;
-  /* padding: 0rem 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 11rem;
   margin-top: 2rem;
-  margin-bottom: 2rem; */
+  padding: 3rem;
+  display: flex;
+  justify-content: space-between;
 `;
