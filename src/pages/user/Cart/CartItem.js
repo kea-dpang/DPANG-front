@@ -9,6 +9,7 @@ const CartItem = ({ item }) => {
     DELETE_CartItem(item.itemId)
       .then((data) => {
         console.log("상품삭제했당: ", data.data);
+        window.location.reload();
       })
       .catch((error) => {
         console.log(error);
@@ -45,18 +46,25 @@ const CartItem = ({ item }) => {
           </CountBox>
 
           {/* 가격 */}
-          <PriceWrap>
-            <p
-              className="cm-XsRegular14 col-SemiLightGrey"
-              style={{ textDecoration: "line-through" }}
-            >
-              {item.price}
-            </p>
-            <Price>
-              <p className="cm-SBold16 col-Orange">{item.discountRate}%</p>
-              <p className="cm-SBold16">{item.discountPrice}</p>
-            </Price>
-          </PriceWrap>
+          {item.discountRate != 0 ? (
+            <PriceWrap>
+              {/* 원가 */}
+              <p
+                className="cm-XsRegular14 col-SemiLightGrey"
+                style={{ textDecoration: "line-through" }}
+              >
+                {item.price}원
+              </p>
+              {/* 할인율, 판매 가격 */}
+              <Price>
+                <p className="cm-SBold16 col-Orange">{item.discountRate}%</p>
+                <p className="cm-SBold16">{item.discountPrice}원</p>
+              </Price>
+            </PriceWrap>
+          ) : (
+            // 원가
+            <p className="cm-SBold16">{item.price}원</p>
+          )}
         </Article>
       </Section>
     </Wrap>
