@@ -66,7 +66,7 @@ function Index(props) {
     return (
 
         <Container>
-            진행중인 주문
+            주문 진행 현황
             <Box>
                 <StatusBox>
                     <Status>결제완료<StatusCircle>{props.amt[0]}</StatusCircle></Status>

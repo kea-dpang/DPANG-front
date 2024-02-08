@@ -16,7 +16,6 @@ function TableRow({ data }) {
   const period = useRecoilValue(periodAtom);
   const userId = localStorage.getItem("userId");
   const [numOfElement, setNumOfElement] = useState(0);
-  console.log(userId);
 
   const [val, setVal] = useState({
     userId: parseInt(userId, 10),
@@ -41,7 +40,6 @@ function TableRow({ data }) {
       .then((data) => {
         setOrderList(data.data.content);
         setNumOfElement(data.data.totalElements);
-        console.log(numOfElement);
       })
       .catch((error) => {
         console.log("데이터 조회 실패!", error);

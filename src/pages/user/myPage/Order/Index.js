@@ -1,5 +1,8 @@
 import styled from "styled-components";
+import { useState } from "react";
 import OrderBox from "./OrderBox";
+import CancelBox from '@userPages/myPage/Cancel/CancelBox'
+import RefundBox from '@userPages/myPage/Refund/RefundBox'
 
 const Container = styled.div`
   min-height: 100vh;
@@ -19,11 +22,45 @@ const ReviewContainer = styled.div`
 `;
 
 function Index() {
+
+  const [clickOrder, setClickOrder] = useState(true);
+  const [clickCancel, setClickCancel] = useState(false);
+  const [clickRefund, setClickRefund] = useState(false);
+
+  const handleOrderClick = () =>{
+
+    setClickCancel(false);
+    setClickRefund(false);
+    setClickOrder(true);
+
+  } 
+
+  const handleRefundClick = () =>{
+
+    setClickCancel(false);
+    setClickOrder(false);
+    setClickRefund(true);
+
+  }
+
+
+  const handleCancelClick = () => {
+
+    setClickOrder(false);
+    setClickRefund(false);
+    setClickCancel(true);
+
+  }
+
+
+
   return (
     <Container>
       <ContentBox>
         <ReviewContainer>
-          <OrderBox />
+          { clickOrder && <OrderBox handleCancelClick={handleCancelClick} handleRefundClick={handleRefundClick}/>}
+          { clickCancel && <CancelBox handleRefundClick={handleRefundClick} handleOrderClick={handleOrderClick}/> }
+          { clickRefund && <RefundBox handleCancelClick={handleCancelClick} handleOrderClick={handleOrderClick}/>}
         </ReviewContainer>
       </ContentBox>
     </Container>

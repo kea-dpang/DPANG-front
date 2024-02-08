@@ -51,7 +51,7 @@ const NaviBar = styled.div`
   color: white;
 `;
 
-function ReviewBox() {
+function ReviewBox(props) {
   const navi = useNavigate();
 
   const [amt, setAmt] = useState([0, 1, 2, 0, 3]);
@@ -78,18 +78,14 @@ function ReviewBox() {
       <NavBox className="cm-SBold18">
         <NaviBar
           colour="var(--dark-grey)"
-          onClick={() => {
-            navi("/user/mypage/order");
-          }}
+          onClick={props.handleOrderClick}
         >
           주문/배송 조회
         </NaviBar>
         <NaviBar colour="var(--navy)">반품 조회</NaviBar>
         <NaviBar
           colour="var(--dark-grey)"
-          onClick={() => {
-            navi("/user/mypage/cancel");
-          }}
+          onClick={props.handleCancelClick}
         >
           취소 조회
         </NaviBar>

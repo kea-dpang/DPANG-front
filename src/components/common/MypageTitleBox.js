@@ -13,7 +13,7 @@ const MypageTitleBox = () => {
   const navi = useNavigate();
   const [mileage, setMileage] = useState(0);
   const [personalChargedMileage, setPersonalChargedMileage] = useState(0);
-  const userName = localStorage.getItem("userId");
+  const userName = localStorage.getItem("name");
   const userId = localStorage.getItem("userId");
 
   //처음에 페이지 로딩시 사용자의 회사 지급 마일리지, 개인 충전 마일리지를 return
@@ -53,7 +53,7 @@ const MypageTitleBox = () => {
         <Profilebox to="userInfo">
           <MyPageProfile />
           <Wrap2>
-            <Nickname>김디팡님</Nickname>
+            <Nickname>{userName}님</Nickname>
             <button
               style={{ color: "var(--dark-grey)", background: "none" }}
               onClick={handleLogout}
