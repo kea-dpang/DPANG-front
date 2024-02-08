@@ -143,7 +143,7 @@ export const categoryFormat = (category, isToServer) => {
   const map = {
     패션: "FASHION",
     뷰티: "BEAUTY",
-    "스포츠/레저": "SPORT_LEISURE",
+    "스포츠/레저": "SPORTS_LEISURE",
     "디지털/가전": "DIGITAL_ELECTRONICS",
     인테리어: "INTERIOR",
     "출산/유아동": "BABY",
@@ -257,10 +257,7 @@ export const customRefundStatus = (status) => {
 //     return ""
 // }
 
-
-
 // }
-
 
 export const customRefundReason = (status) => {
   switch (status) {
@@ -292,7 +289,7 @@ export const customRefundReasonReverse = (status) => {
     case "제품 오배송":
       return "WRONG_DELIVERY";
     case "기타":
-      return "OTHERS"
+      return "OTHERS";
     default:
       return undefined;
   }

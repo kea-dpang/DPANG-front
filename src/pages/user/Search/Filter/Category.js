@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import React from "react";
 import categoryData from "@data/user/CategoryData";
 const Category = ({ category, setCategory }) => {
   // const [selected, setSelectedItem] = useState(null);

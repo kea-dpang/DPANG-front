@@ -5,12 +5,19 @@ import { customDate } from "assets/CustomName";
 
 const ReviewBox = (props) => {
   // 김** 으로 이름 표시하기
-  // const name = props.value.writer_name[0] + '*'.repeat(props.value.writer_name.length - 1);
+  const name =
+    props.value.reviewerName[0] +
+    "*".repeat(props.value.reviewerName.length - 1);
   return (
     <Wrap className="cm-SRegular18">
       <UserWrap>
-        <Name> {props.value.reviewerName} </Name>
-        <Rating name="read-only" value={props.value.rating} readOnly />
+        <Name> {name} </Name>
+        <Rating
+          style={{ zIndex: -1 }}
+          name="read-only"
+          value={props.value.rating}
+          readOnly
+        />
       </UserWrap>
       <ContextWrap>
         <div> {props.value.content} </div>

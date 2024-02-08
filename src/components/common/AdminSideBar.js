@@ -91,7 +91,7 @@ const AdminSideBar = () => {
             <OpenMenuWrap>
               <Nav to="brand"> - 판매처 관리 </Nav>
               <Nav to="product"> - 상품 관리 </Nav>
-              <Nav to="monitoring"> - 판매 모니터링 </Nav>
+              <Nav to="monitoring"> - 판매 통계 </Nav>
             </OpenMenuWrap>
           )}
           {/* 이벤트관리 */}
@@ -145,7 +145,7 @@ const AdminSideBar = () => {
           {/* 클릭하면 열리는 상세메뉴 */}
           {/* {openSubMenu === "재고관리" && (
             <OpenMenuWrap>
-              <Nav> - 재고 모니터링 </Nav>
+              <Nav> - 재고 통계 </Nav>
               <Nav> - 재고 검수 </Nav>
               <Nav> - 재고 주문/입고 </Nav>
             </OpenMenuWrap>
@@ -258,30 +258,30 @@ const AdminSideBar = () => {
               <Nav> - 배송상태 업데이트 </Nav>
             </OpenMenuWrap>
           )}
-          {/* 모니터링 */}
+          {/* 통계 */}
           {/* 상위메뉴 */}
           <SubMenuWrap
-            style={{ gap: "7.54rem" }}
-            $isOpen={openSubMenu === "모니터링"}
-            onClick={() => handleSubMenuClick("모니터링")}
+            style={{ gap: "9.2rem" }}
+            $isOpen={openSubMenu === "통계"}
+            onClick={() => handleSubMenuClick("통계")}
           >
             <Left>
-              <Order
+              <Stuff
                 style={{
                   color:
-                    openSubMenu === "모니터링"
+                    openSubMenu === "통계"
                       ? "var(--white)"
                       : "var(--semi-light-grey)",
                 }}
               />
-              <MenuName $isOpen={openSubMenu === "모니터링"}>모니터링</MenuName>
+              <MenuName $isOpen={openSubMenu === "통계"}>통계</MenuName>
             </Left>
-            <Arrow $isOpen={openSubMenu === "모니터링"} />
+            <Arrow $isOpen={openSubMenu === "통계"} />
           </SubMenuWrap>
           {/* 클릭하면 열리는 상세메뉴 */}
-          {openSubMenu === "모니터링" && (
+          {openSubMenu === "통계" && (
             <OpenMenuWrap>
-              <Nav to="monitoring"> - 모니터링 </Nav>
+              <Nav to="monitoring"> - 통계 </Nav>
             </OpenMenuWrap>
           )}
         </MenuWrap>

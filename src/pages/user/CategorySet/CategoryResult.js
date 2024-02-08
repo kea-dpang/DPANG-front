@@ -8,13 +8,16 @@ import { categoryFormat } from "assets/CustomName";
 const CategoryResult = (props) => {
   console.log("query: ", props);
   const [filterData, setFilterData] = useState({
+    category: props.category,
+    subCategory: null,
     minPrice: null,
     maxPrice: null,
+    sellerId: null,
   }); // 아이템 리스트
   const [itemList, setItemList] = useState([]);
   const getItemList = () => {
     GET_ItemFilterListUser(
-      props.category,
+      filterData.category,
       null,
       filterData.minPrice,
       filterData.maxPrice,
@@ -30,6 +33,7 @@ const CategoryResult = (props) => {
         console.log(error);
       });
   };
+
   const handlePriceChange = (newPrice) => {
     setFilterData((prevState) => ({
       ...prevState,
@@ -37,12 +41,26 @@ const CategoryResult = (props) => {
       maxPrice: newPrice[1],
     }));
   };
-  useEffect(() => {
-    getItemList();
-  }, []);
+
+  const handleCategoryChange = (newCate) => {
+    if (newCate !== null) {
+      setFilterData((prevState) => ({
+        ...prevState,
+        category: categoryFormat(newCate, true),
+      }));
+    }
+  };
+
   useEffect(() => {
     getItemList();
   }, [filterData]);
+
+  useEffect(() => {
+    setFilterData((prevState) => ({
+      ...prevState,
+      category: props.category,
+    }));
+  }, [props.category]);
 
   return (
     <Wrap>
@@ -54,7 +72,10 @@ const CategoryResult = (props) => {
             </div>
           </Title>
           <Content>
-            <FilterSideBar onPriceChange={handlePriceChange} />
+            <FilterSideBar
+              onPriceChange={handlePriceChange}
+              onCategoryChange={handleCategoryChange}
+            />
             <Right>
               {/* 검색 결과 개수 + 추천순, 최신순 등 정렬 */}
               <Section className="cm-XsRegular14">

@@ -136,8 +136,8 @@ export const GET_ItemFilterListUser = async (
     params: {
       category: category,
       subCategory: subCategory,
-      minPrice: minPrice,
-      maxPrice: maxPrice,
+      minPrice: minPrice === 0 ? null : minPrice,
+      maxPrice: maxPrice === 0 ? null : maxPrice,
       sellerId: sellerId,
       keyword: keyword,
       page: page,
