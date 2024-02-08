@@ -53,13 +53,25 @@ const ProductSummary = (props) => {
         {/* 상품 사진 & 카테고리 */}
         <ImgWrap className="cm-SRegular16 col-Black">
           {/* 카테고리 */}
-          <CategoryWrap>
-            <Nav to=""> {categoryFormat(props.item.category, false)} </Nav>
+          <CategoryWrap className="cm-SRegular16 col-White">
+            <Nav
+              style={{ backgroundColor: "var(--navy)", color: "var(--white)" }}
+            >
+              카테고리
+            </Nav>
+            <div style={{ color: "var(--black)" }}> {">"}</div>
+            <Nav
+              to={`/user/categories/${categoryFormat(
+                props.item.category,
+                true
+              )}`}
+            >
+              {categoryFormat(props.item.category, false)}
+            </Nav>
             {props.item.subCategory && (
               <>
-                <div> {">"}</div>
+                <div style={{ color: "var(--black)" }}> {">"}</div>
                 <Nav to="">
-                  {" "}
                   {subCategoryFormat(props.item.subCategory, false)}
                 </Nav>
               </>
@@ -81,7 +93,7 @@ const ProductSummary = (props) => {
               readOnly
             />
             <div className="cm-SRegular16 col-Black">
-              ( {props.item.averageRating} )
+              ( {props.item.reviewCount} )
             </div>
           </ReviewWrap>
           {/* 상품 가격 */}
@@ -128,7 +140,7 @@ const ProductSummary = (props) => {
               </AmountBox>
             </div>
 
-            {/* 장바구니 & 위시리스트 */}
+            {/* 장바구니 */}
             <div>
               <ButtonWrap className="cm-SBold16">
                 <Button
@@ -163,6 +175,7 @@ const CategoryWrap = styled.div`
   display: flex;
   flex-direction: row;
   gap: 0.8rem;
+  align-items: center;
 `;
 const ImgWrap = styled.div`
   padding-top: 1rem;
@@ -174,6 +187,9 @@ const ImgWrap = styled.div`
 const Nav = styled(Link)`
   text-decoration: none;
   color: inherit;
+  background-color: var(--light-navy);
+  padding: 0.5rem 1rem;
+  border-radius: 3rem;
 `;
 const ProductImg = styled.div`
   width: 30.97175rem;

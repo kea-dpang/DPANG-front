@@ -4,6 +4,7 @@ import FilterSideBar from "./FilterSideBar";
 import Item from "@components/ProductCard/Index";
 import { GET_ItemFilterListUser } from "@api/Item";
 import { categoryFormat } from "assets/CustomName";
+import { ReactComponent as Search } from "@images/noSearch.svg";
 
 const SearchResult = (props) => {
   console.log("query: ", props);
@@ -55,6 +56,7 @@ const SearchResult = (props) => {
     getItemList();
   }, []);
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
     getItemList();
   }, [filterData.minPrice, filterData.maxPrice, filterData.category]);
 
@@ -79,12 +81,30 @@ const SearchResult = (props) => {
               <div> </div>
             </OrderWrap>
           </Section>
-          {itemList.length > 0 && (
+          {itemList.length !== 0 ? (
             <ListSection>
               {itemList.map((item) => (
                 <Item key={item.id} value={item} />
               ))}
             </ListSection>
+          ) : (
+            <>
+              <NoContent className="cm-MRegular20">
+                <Search
+                  style={{
+                    width: "2.5rem",
+                    height: "2.5rem",
+                  }}
+                />
+                검색 결과가 없습니다
+                <div className="cm-SRegular16">
+                  입력하신 검색어가 정확한지 확인해 주세요
+                </div>
+                <div className="cm-SRegular16">
+                  비슷한 다른 검색어를 입력해 보세요
+                </div>
+              </NoContent>
+            </>
           )}
         </Right>
       </Content>
@@ -133,4 +153,16 @@ const ListSection = styled.div`
   flex-wrap: wrap; // 너비 초과 시 아래로 내려감    align-items: center;
   justify-content: start;
   align-items: center;
+`;
+const NoContent = styled.div`
+  width: 46rem;
+  padding: 10rem 10rem;
+  box-sizing: border-box;
+  // background-color: var(--light-grey);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  justify-content: center;
+  line-height: 2;
 `;

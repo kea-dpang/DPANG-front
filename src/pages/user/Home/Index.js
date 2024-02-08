@@ -11,6 +11,8 @@ const MyPage = () => {
   const [eventData, setEventData] = useState([]);
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
     GET_BrandEventListUser()
       .then((data) => {
         setEventData(data.content);

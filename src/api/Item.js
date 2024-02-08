@@ -99,6 +99,20 @@ export const GET_HotItemList = async () => {
   });
   return res.data;
 };
+// 사용자 - 신상품 조회
+export const GET_NewItemList = async () => {
+  console.log("신상품 조회");
+  const res = await axios({
+    method: "get",
+    url: `${url}/new/list`,
+    params: {
+      page: 0,
+      size: 20,
+      sort: "",
+    },
+  });
+  return res.data;
+};
 // 사용자 - 아이템 검색 필터링
 export const GET_ItemFilterListUser = async (
   category,
@@ -159,19 +173,20 @@ export const DELETE_Item = async (itemId) => {
 };
 // 관리자 - 상품 수정
 export const PUT_Item = async (id, value) => {
-  console.log("상품 수정");
+  console.log("상품 수정", value);
+
   const response = await axios({
     method: "put",
     url: `${url}/${id}`,
     data: {
-      itemName: value.itemName,
+      itemName: value.name,
       category: value.category,
-      subCategory: value.subCategory,
-      itemPrice: value.itemPrice,
+      subCategory: value.subCategory !== null ? value.subCategory : "",
+      itemPrice: value.price,
       discountRate: value.discountRate,
       stockQuantity: value.stockQuantity,
-      itemImage: value.itemImage,
-      images: value.images,
+      itemImage: value.thumbnailImage,
+      images: value.informationImages,
     },
   });
   return response.data;

@@ -11,7 +11,7 @@ const ProductEventList = () => {
     navi("/user/event/brand");
   };
   const [eventDataList, setEventDataList] = useState([]);
-  useEffect(() => {
+  const getList = () => {
     GET_ProductEventListUser()
       .then((data) => {
         console.log("사용자 상품 이벤트 리스트 조회 : ", data.content);
@@ -29,6 +29,10 @@ const ProductEventList = () => {
       .catch((error) => {
         console.log(error);
       });
+  };
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    getList();
   }, []);
 
   return (

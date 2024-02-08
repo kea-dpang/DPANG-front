@@ -12,7 +12,7 @@ const BrandEventPage = () => {
     navi("/user/event/product");
   };
 
-  useEffect(() => {
+  const getList = () => {
     GET_BrandEventListUser()
       .then((data) => {
         console.log("사용자 브랜드 이벤트 리스트 조회 : ", data.content);
@@ -30,6 +30,10 @@ const BrandEventPage = () => {
       .catch((error) => {
         console.log(error);
       });
+  };
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    getList();
   }, []);
 
   return (

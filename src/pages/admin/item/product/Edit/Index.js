@@ -6,12 +6,12 @@ import ProductDefaultEdit from "./ProductDefaultEdit";
 import ProductDetailEnroll from "./ProductDetailEdit";
 import { useParams } from "react-router-dom";
 import { GET_ItemInfo, PUT_Item } from "@api/Item";
+import { useConfirmAlert } from "@components/SweetAlert";
 // 상품 index 페이지
 const ProductEditPage = () => {
   let itemId = useParams().id;
   const [isFormValid, setFormValid] = useState(false); // 입력값 다 입력했는지 판단
 
-  const navi = useNavigate();
   const [itemInfo, setItemInfo] = useState({
     name: "",
     price: "",
@@ -62,11 +62,16 @@ const ProductEditPage = () => {
     itemInfo.thumbnailImage,
     itemInfo.informationImages,
   ]);
+
+  const showConfirmAlert = useConfirmAlert();
+
   const handleSubmit = () => {
     PUT_Item(itemId, itemInfo)
       .then((data) => {
-        console.log("수정 완료 : ");
-        navi(`/admin/product`);
+        showConfirmAlert({
+          title: "상품이 수정되었습니다.",
+          navi: "/admin/product",
+        });
       })
       .catch((error) => {
         console.log(error);
