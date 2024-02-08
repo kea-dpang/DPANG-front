@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { GET_QnAList, GET_QnA } from "@api/directAsk";
 import { customDate } from "assets/CustomName";
+import { ReactComponent as Message } from "@images/messageDot.svg";
 
 const ProductAskList = (value) => {
   const tableTitles = ["제목", "작성자", "작성일", "상태"];
@@ -51,41 +52,61 @@ const ProductAskList = (value) => {
           </Col>
         ))}
       </TableHeader>
-
-      <Main>
-        {askLists.map((item, index) => (
-          <React.Fragment key={item.qnaId}>
-            <Row onClick={() => handleRowClick(index, item.qnaId)}>
-              <Item width={colWidths[0]} $state="not">
-                {item.title}
-              </Item>
-              <Item className="col-DarkGrey" width={colWidths[1]} $state="not">
-                {item.user.name}
-              </Item>
-              <Item className="col-DarkGrey" width={colWidths[2]} $state="not">
-                {customDate(item.createdAt)}
-              </Item>
-              <Item width={colWidths[3]} $state={item.status}>
-                {item.status}
-              </Item>
-            </Row>
-            {selectedRow === index && (
-              <FoldItem>
-                <FoldItemContent>
-                  <h1 className="cm-SBold16">Q.&nbsp; </h1>
-                  <p className="cm-SRegular16">{detail.contents}</p>
-                </FoldItemContent>
-                {detail.answer && (
+      {askLists.length !== 0 ? (
+        <Main>
+          {askLists.map((item, index) => (
+            <React.Fragment key={item.qnaId}>
+              <Row onClick={() => handleRowClick(index, item.qnaId)}>
+                <Item width={colWidths[0]} $state="not">
+                  {item.title}
+                </Item>
+                <Item
+                  className="col-DarkGrey"
+                  width={colWidths[1]}
+                  $state="not"
+                >
+                  {item.user.name}
+                </Item>
+                <Item
+                  className="col-DarkGrey"
+                  width={colWidths[2]}
+                  $state="not"
+                >
+                  {customDate(item.createdAt)}
+                </Item>
+                <Item width={colWidths[3]} $state={item.status}>
+                  {item.status}
+                </Item>
+              </Row>
+              {selectedRow === index && (
+                <FoldItem>
                   <FoldItemContent>
-                    <h1 className="cm-SBold16 col-Orange">A.&nbsp; </h1>
-                    <p className="cm-SRegular16">{detail.answer}</p>
+                    <h1 className="cm-SBold16">Q.&nbsp; </h1>
+                    <p className="cm-SRegular16">{detail.contents}</p>
                   </FoldItemContent>
-                )}
-              </FoldItem>
-            )}
-          </React.Fragment>
-        ))}
-      </Main>
+                  {detail.answer && (
+                    <FoldItemContent>
+                      <h1 className="cm-SBold16 col-Orange">A.&nbsp; </h1>
+                      <p className="cm-SRegular16">{detail.answer}</p>
+                    </FoldItemContent>
+                  )}
+                </FoldItem>
+              )}
+            </React.Fragment>
+          ))}
+        </Main>
+      ) : (
+        <NoContent className="cm-SRegular16 col-DarkGrey">
+          <Message
+            style={{
+              color: "var(--dark-grey)",
+              width: "2.5rem",
+              height: "2.5rem",
+            }}
+          />
+          <div>등록된 상품 문의가 없어요 </div>
+        </NoContent>
+      )}
     </Table>
   );
 };
@@ -152,4 +173,15 @@ const FoldItemContent = styled.div`
   display: flex;
   flex-direction: row;
   padding-bottom: 1rem;
+`;
+const NoContent = styled.div`
+  width: 100%;
+  padding: 5rem 15rem;
+  box-sizing: border-box;
+  background-color: var(--light-grey);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 2;
 `;

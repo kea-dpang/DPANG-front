@@ -12,7 +12,6 @@ const ProductEditPage = () => {
   let itemId = useParams().id;
   const [isFormValid, setFormValid] = useState(false); // 입력값 다 입력했는지 판단
 
-  const navi = useNavigate();
   const [itemInfo, setItemInfo] = useState({
     name: "",
     price: "",

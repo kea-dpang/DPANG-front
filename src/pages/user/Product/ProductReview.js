@@ -3,6 +3,7 @@ import styled from "styled-components";
 import SortButton from "@components/Sort/SortButton";
 import ReviewBox from "./ReviewBox";
 import { GET_ItemReview } from "@api/Item";
+import { ReactComponent as Message } from "@images/messageDot.svg";
 
 const ProductReview = (props) => {
   const [reviewData, setReviewData] = useState([]);
@@ -38,13 +39,25 @@ const ProductReview = (props) => {
         /> */}
       </TotalSortWrap>
 
-      {reviewData && (
+      {reviewData.length !== 0 ? (
         // {/* 리뷰 내용 리스트 */}
         <ReviewWrap>
           {reviewData.map((review, index) => (
             <ReviewBox key={index} value={review} />
           ))}
         </ReviewWrap>
+      ) : (
+        <NoContent className="cm-SRegular16 col-DarkGrey">
+          <Message
+            style={{
+              color: "var(--dark-grey)",
+              width: "2.5rem",
+              height: "2.5rem",
+            }}
+          />
+          <div>아직 작성된 리뷰가 없어요. </div>
+          <div>첫 리뷰를 등록해보세요!</div>
+        </NoContent>
       )}
     </Wrap>
   );
@@ -55,6 +68,7 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  // align-items: center;
   padding-top: 5rem;
   padding-bottom: 3rem;
 `;
@@ -78,4 +92,16 @@ const ReviewWrap = styled.div`
   align-items: center;
   // padding: 2.125rem 10rem 0.9375rem 10rem;
   padding-top: 2.215rem;
+`;
+const NoContent = styled.div`
+  width: 66rem;
+  padding: 5rem 15rem;
+  box-sizing: border-box;
+  margin-left: 11rem;
+  background-color: var(--light-grey);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 2;
 `;

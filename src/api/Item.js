@@ -160,13 +160,14 @@ export const DELETE_Item = async (itemId) => {
 // 관리자 - 상품 수정
 export const PUT_Item = async (id, value) => {
   console.log("상품 수정", value);
+
   const response = await axios({
     method: "put",
     url: `${url}/${id}`,
     data: {
       itemName: value.name,
       category: value.category,
-      subCategory: value.subCategory,
+      subCategory: value.subCategory !== null ? value.subCategory : "",
       itemPrice: value.price,
       discountRate: value.discountRate,
       stockQuantity: value.stockQuantity,

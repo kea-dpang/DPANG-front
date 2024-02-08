@@ -47,6 +47,7 @@ const DetailPage = () => {
                 infoRef={infoRef}
                 reviewRef={reviewRef}
                 askRef={askRef}
+                item={itemInfo}
               />
             </div>
             {/* )} */}

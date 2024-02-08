@@ -7,6 +7,7 @@ const ProductDetailNav = ({
   infoRef,
   reviewRef,
   askRef,
+  item,
 }) => {
   const [selected, setSelected] = useState("info");
   useEffect(() => {
@@ -48,7 +49,7 @@ const ProductDetailNav = ({
         }}
         data-clicked={selected === "review"}
       >
-        후기
+        후기 ({item.reviewCount})
       </NavBtn>
       <NavBtn
         onClick={() => {
@@ -73,7 +74,7 @@ const Wrap = styled.div`
 `;
 const NavBtn = styled.button`
   display: flex;
-  width: 24rem;
+  width: 25rem;
   height: 3.5rem;
   justify-content: center;
   padding-top: 1rem 10.125rem;
