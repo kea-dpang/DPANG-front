@@ -36,7 +36,7 @@ export const GET_cancel_list = async (inputValue) => {
     method: "get",
     url: `${url}/list`, //url은 나중에 수정해야 함다
     params: {
-      userId: inputValue.userId || undefined,
+      userId: inputValue.userId,
       startDate: inputValue.startDate || undefined,
       endDate: inputValue.endDate || undefined,
       page: inputValue.page || undefined,
