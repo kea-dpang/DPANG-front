@@ -115,20 +115,20 @@ export const useQuestionConfirmAlert = () => {
         buttons: ["취소", "확인"],
         dangerMode: true,
       }).then((isConfirmed) => {
-        // if (isConfirmed) {
-        // '확인' 버튼을 눌렀을 때 실행되어야 할 함수 호출
-        if (typeof onConfirm === "function") {
-          onConfirm().then(() => {
-            swal(saveText, "", "success").then((isConfirmed) => {
-              if (isConfirmed) {
-                if (navi) {
-                  navigate(navi);
+        if (isConfirmed) {
+          // '확인' 버튼을 눌렀을 때 실행되어야 할 함수 호출
+          if (typeof onConfirm === "function") {
+            onConfirm().then(() => {
+              swal(saveText, "", "success").then((isConfirmed) => {
+                if (isConfirmed) {
+                  if (navi) {
+                    navigate(navi);
+                  }
                 }
-              }
+              });
             });
-          });
+          }
         }
-        // }
       });
     },
     [navigate]

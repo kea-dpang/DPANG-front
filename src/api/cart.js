@@ -8,7 +8,7 @@ export const POST_Cart = async (itemId, quantity) => {
   console.log("장바구니 담기입니당: ", itemId);
   const res = await axios({
     method: "post",
-    url: `${url}/${userId}`,
+    url: `${url}/${userId}/${itemId}`,
     data: {
       itemId: itemId,
       quantity: quantity,
@@ -40,11 +40,10 @@ export const DELETE_CartItem = async (itemId) => {
 
 /* 장바구니에 상품 1개 추가 */
 export const POST_AddCartItem = async (itemId) => {
-  const userId = localStorage.getItem("userId");
   console.log("axios,count:", itemId, 1);
   const res = await axios({
     method: "post",
-    url: `${url}/${userId}/${itemId}`,
+    url: `${url}/${userId}`,
     data: {
       itemId: itemId,
       quantity: 1,
