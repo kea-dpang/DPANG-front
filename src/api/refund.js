@@ -11,7 +11,7 @@ export const POST_refund_order = async (inputValue) => {
     url: `${url}/${inputValue.orderId}`,
     data: {
       refundReason: inputValue.refundCategory,
-      remark: inputValue.refudMessage || undefined,
+      remark: inputValue.refundMessage,
       retrievalMessage: inputValue.refundShipmentMessage,
     },
   });

@@ -8,6 +8,7 @@ import { useRecoilValue } from "recoil";
 import { periodAtom } from "recoil/user/PeriodSelectAtom";
 import { customRefundReason, customRefundStatus } from "assets/CustomName";
 import UserPagination from "@components/UserPagination";
+import UserEmptyData from "@components/UserEmptyData";
 
 const PaginationContainer = styled.div`
   width: 72rem;
@@ -94,7 +95,7 @@ function TableRow({ data }) {
     }));
   }, [period]);
 
-  return (
+  return numOfElement > 0 ? (
     <>
       {refundList.map((a, k) => {
         return (
@@ -115,7 +116,7 @@ function TableRow({ data }) {
             <Col width="10rem">{customRefundStatus(a.refundStatus)}</Col>
             <Col width="28rem">
               <ItemImg src={a.product.productInfoDto.image} />
-              <ItemName>{a.product.productInfoDto.name}</ItemName>
+              <ItemName>&nbsp; &nbsp;{a.product.productInfoDto.name}</ItemName>
             </Col>
             <Col width="9rem">
               {(
@@ -134,7 +135,7 @@ function TableRow({ data }) {
         handleValChange={handleValChange}
       />
     </>
-  );
+  ): <UserEmptyData text="조회 내역이 없어요...."/>
 }
 
 export default TableRow;

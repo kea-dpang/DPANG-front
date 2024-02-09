@@ -9,11 +9,11 @@ function DetailPayment({ data }) {
                 <Col height="5rem">
                     <ColHead>상품 금액</ColHead>
                     <BlankDiv />
-                    <Content width="28rem">{data.refundInfo.productPaymentAmount}</Content>
+                    <Content width="28rem">{data.refundInfo.productPaymentAmount.toLocaleString()} 마일</Content>
 
                     <ColHead>환불 예정액</ColHead>
                     <BlankDiv />
-                    <Content width="28rem">{data.refundInfo.expectedRefundAmount}</Content>
+                    <Content width="28rem">{data.refundInfo.expectedRefundAmount.toLocaleString()} 마일</Content>
                 </Col>
                 <Border />
 

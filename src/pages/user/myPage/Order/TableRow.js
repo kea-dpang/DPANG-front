@@ -8,6 +8,9 @@ import { GET_order_list } from "@api/order";
 import { useRecoilValue } from "recoil";
 import { periodAtom } from "recoil/user/PeriodSelectAtom";
 import UserPagination from "@components/UserPagination";
+import UserEmptyData from "@components/UserEmptyData";
+
+
 
 function TableRow({ data }) {
   //pagination에서 현재 페이지
@@ -56,12 +59,12 @@ function TableRow({ data }) {
   }, [period]);
 
 
-  return (
+  return numOfElement != 0 ? (
     <>
       {/* 페이지  */}
       {orderList != null &&
         orderList.map((a, i) => {
-          return <RowData data={a} key={i} />;
+          return <RowData data={a} key={i} numOfElement={numOfElement} />;
         })}
 
       <UserPagination
@@ -69,7 +72,8 @@ function TableRow({ data }) {
         handleValChange={handleValChange}
       />
     </>
-  );
+  ) : <UserEmptyData text="조회 내역이 없어요...."/>
+
 }
 
 export default TableRow;
