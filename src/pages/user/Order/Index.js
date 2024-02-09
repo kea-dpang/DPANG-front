@@ -7,22 +7,49 @@ import { ReactComponent as Arrow } from "@images/arrowStroke.svg";
 import OrderList from "./OrderList";
 import EnrollAddress from "./Enroll/Address";
 import Address from "./Address";
+import { FormProvider, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { GET_Address } from "@api/cartOrder";
 
 const OrderPage = () => {
-  const [addressInfo, setAddressInfo] = useState({
-    name: "윤서진",
-    phoneNumber: "010-1234-5678",
-    zipCode: "461831",
-    address: "경기 성남시 수정구 복호동 495",
-    detailAddress: "AI공학관 411",
-  });
-  // api로 회원의 배송지 정보 가져오기
-  useEffect(() => {}, []);
+  const methods = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = methods;
 
   const [FoldCheck, setFoldCheck] = useState([
     { id: 0, name: "배송지", check: true },
     { id: 1, name: "주문", check: true },
   ]);
+
+  const isEditing = watch("edit"); // edit 버튼을 누르면 true (EnrollAddress 컴포넌트가 보여야 한다.)
+
+  const [addressInfo, setAddressInfo] = useState();
+  let orderItemList = JSON.parse(localStorage.getItem("orderList"));
+  const navigate = useNavigate();
+
+  /* orderItemList가 없는 경우 메인 페이지로 리다이렉트 */
+  useEffect(() => {
+    if (!orderItemList || orderItemList.length === 0) {
+      console.log("조건문 통과");
+      navigate("/user/mainpage");
+
+      return null;
+    }
+  }, [orderItemList, navigate]);
+
+  /* api로 회원의 배송지 정보 가져오기 */
+  useEffect(() => {
+    GET_Address()
+      .then((data) => {
+        console.log(data.data);
+        setAddressInfo(data.data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
   /* 메뉴 fold 관리 */
   const handleClick = (menuId) => {
@@ -33,44 +60,59 @@ const OrderPage = () => {
       )
     );
   };
-  /*  */
+
+  /* EnrollAddress에서 추가 및 수정했을 때 데이터 가져오기 */
+  const handleAddressSubmit = (addressData) => {
+    console.log(addressData); // 자식 컴포넌트(EnrollAddress)에서 보낸 주소 데이터
+    setAddressInfo(addressData);
+  };
+
   return (
     <>
-      <Header />
-      <Wrap>
-        <CartWrap>
-          <Title className="cm-LBold30 col-DarkNavy">장바구니</Title>
+      <FormProvider {...methods}>
+        <Header />
+        <Wrap>
+          <CartWrap>
+            <Title className="cm-LBold30 col-DarkNavy">장바구니</Title>
 
-          <Main>
-            <Menu onClick={() => handleClick(0)}>
-              <p>배송지 정보</p>
-              <Arrow
-                style={
-                  FoldCheck[0].check ? { transform: "rotate(180deg)" } : {}
-                }
-              />
-            </Menu>
-            {FoldCheck[0].check &&
-              (!addressInfo ? (
-                <EnrollAddress data={addressInfo} />
-              ) : (
-                <Address data={addressInfo} />
-              ))}
+            <Main>
+              {/* 배송지 정보 메뉴 */}
+              <Menu onClick={() => handleClick(0)}>
+                <p>배송지 정보</p>
+                <Arrow
+                  style={
+                    FoldCheck[0].check ? { transform: "rotate(180deg)" } : {}
+                  }
+                />
+              </Menu>
+              {FoldCheck[0].check &&
+                (!addressInfo?.zipCode || isEditing ? (
+                  <EnrollAddress
+                    data={addressInfo}
+                    handleAddressSubmit={handleAddressSubmit}
+                  />
+                ) : (
+                  <Address data={addressInfo} />
+                ))}
 
-            <Menu onClick={() => handleClick(1)}>
-              <p>주문 정보</p>
-              <Arrow
-                style={
-                  FoldCheck[1].check ? { transform: "rotate(180deg)" } : {}
-                }
-              />
-            </Menu>
-            {FoldCheck[1].check && <OrderList />}
-          </Main>
-          <OrderBtn className="Btn_M_Navy">78,000원 결제하기</OrderBtn>
-        </CartWrap>
-      </Wrap>
-      <Footer />
+              {/* 주문 정보 메뉴 */}
+              <Menu onClick={() => handleClick(1)}>
+                <p>주문 정보</p>
+                <Arrow
+                  style={
+                    FoldCheck[1].check ? { transform: "rotate(180deg)" } : {}
+                  }
+                />
+              </Menu>
+              {FoldCheck[1].check && (
+                <OrderList orderItemList={orderItemList} />
+              )}
+            </Main>
+            <OrderBtn className="Btn_M_Navy">78,000원 결제하기</OrderBtn>
+          </CartWrap>
+        </Wrap>
+        <Footer />
+      </FormProvider>
     </>
   );
 };

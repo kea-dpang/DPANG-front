@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { checkedItemsAtom } from "recoil/user/CartAtom";
 import styled from "styled-components";
 
-const OrderList = () => {
-  let orderItemList = JSON.parse(localStorage.getItem("orderList"));
+const OrderList = ({ orderItemList }) => {
   return (
     <Wrap>
       {orderItemList.map((item) => (

@@ -1,21 +1,49 @@
+import { PATCH_Address } from "@api/cartOrder";
 import { TextField } from "@mui/material";
-import React from "react";
-import { useForm } from "react-hook-form";
+import React, { useEffect } from "react";
+import { useForm, useFormContext } from "react-hook-form";
 import styled from "styled-components";
 
-const EnrollAddress = ({ data }) => {
-  const methods = useForm();
+const EnrollAddress = ({ data, handleAddressSubmit }) => {
+  console.log("데이터 유무 확인:", data);
+
+  const methods = useFormContext();
+
+  // data가 비동기적으로 로드되는 경우, 컴포넌트가 처음 렌더링될 때 data값이 아직 설정되지 않았을 수 있으므로 data가 업데이트 될 때마다 form 값을 업데이트
+  useEffect(() => {
+    if (data) {
+      setValue("name", data.name);
+      setValue("phone", data.phone);
+      setValue("zipCode", data.zipCode);
+      setValue("address", data.address);
+      setValue("detail", data.detailAddress);
+    }
+  }, [data]);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = methods;
+    setValue,
+  } = useFormContext();
 
   const onSubmit = (userData) => {
     console.log(userData);
+    // api patch 연동
+    PATCH_Address(userData)
+      .then((data) => {
+        setValue("edit", false); // 추가 버튼을 눌렀으므로 'edit' 상태를 false로 설정
+        // 부모 컴포넌트에게 폼 데이터 전달
+        handleAddressSubmit(userData);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
+
   return (
     <Wrap>
+      {/* handleSubmit에 부모 컴포넌트에서 전달된 onSubmit 함수를 전달합니다. */}
       <Form onSubmit={handleSubmit(onSubmit)}>
         <BtnWrap>
           <StyledBtn className="Btn_M_Navy">추가</StyledBtn>
@@ -25,25 +53,33 @@ const EnrollAddress = ({ data }) => {
           label="이름"
           variant="outlined"
           style={{ width: "40%" }}
-          error={!!errors.name}
-          helperText={errors.name && errors.name.message}
-          {...register("name", {
-            required: "이름은 필수 입력입니다.",
-          })}
+          // defaultValue={data?.name} // 초기 값 설정
+          value={data?.name}
+          readOnly // 수정할 수 없도록 설정
+          // error={!!errors.name}
+          // helperText={errors.name && errors.name.message}
+          {...register(
+            "name"
+            // {
+            //   required: "이름은 필수 입력입니다.",
+            // }
+          )}
         />
         <StyledTextField
           id="phone"
           label="전화번호"
           variant="outlined"
           style={{ width: "40%" }}
-          placeholder="000-0000-0000"
+          defaultValue={data?.phoneNumber} // 초기 값 설정
+          // placeholder="000-0000-0000"
           error={!!errors.phone}
           helperText={errors.phone && errors.phone.message}
           {...register("phone", {
             required: "전화번호는 필수 입력입니다.",
             pattern: {
-              value: /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/,
-              message: "올바른 전화번호 형식을 입력해주세요. 예) 010-1234-5678",
+              // value: /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/,
+              value: /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/,
+              message: "올바른 전화번호 형식을 입력해주세요. 예) 01012345678",
             },
           })}
         />
@@ -52,6 +88,7 @@ const EnrollAddress = ({ data }) => {
           label="우편번호"
           variant="outlined"
           style={{ width: "40%" }}
+          defaultValue={data?.zipCode} // 초기 값 설정
           error={!!errors.zipCode}
           helperText={errors.zipCode && errors.zipCode.message}
           {...register("zipCode", {
@@ -67,6 +104,7 @@ const EnrollAddress = ({ data }) => {
           label="주소"
           variant="outlined"
           style={{ width: "70%" }}
+          // defaultValue={data?.address} // 초기 값 설정
           error={!!errors.address}
           helperText={errors.address && errors.address.message}
           {...register("address", {
@@ -78,6 +116,7 @@ const EnrollAddress = ({ data }) => {
           label="상세주소"
           variant="outlined"
           style={{ width: "70%" }}
+          // defaultValue={data?.detailAddress} // 초기 값 설정
           {...register("detail")}
         />
       </Form>

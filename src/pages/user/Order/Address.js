@@ -1,22 +1,32 @@
 import React from "react";
+import { useFormContext } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-// name: "윤서진",
-// phoneNumber: "010-1234-5678",
-// zipCode: "461831",
-// address: "경기 성남시 수정구 복호동 495",
-// detailAddress: "AI공학관 411",
 const Address = ({ data }) => {
+  const methods = useFormContext();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useFormContext();
+
+  const handleEdit = () => {
+    setValue("edit", true); // 수정 버튼을 눌렀으므로 'edit' 상태를 true로 설정
+  };
+
   return (
     <Wrap>
       <BtnWrap>
-        <StyledBtn className="Btn_M_Navy">수정</StyledBtn>
+        <StyledBtn onClick={handleEdit} className="Btn_M_Navy">
+          수정
+        </StyledBtn>
       </BtnWrap>
       <Wrap2>
         <Content>
           <p className="cm-MBold20">{data.name}</p>
-          <p className="cm-MBold20">{data.phoneNumber}</p>
+          <p className="cm-MBold20">{data.phone}</p>
         </Content>
 
         <Content className="cm-SRegular18">
