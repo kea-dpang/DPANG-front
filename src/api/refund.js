@@ -37,7 +37,7 @@ export const GET_refund_list = async (inputValue) => {
     method: "get",
     url: `${url}/list`,
     params: {
-      userId: inputValue.userId || undefined,
+      userId: inputValue.userId,
       refundReason: inputValue.refundReason || undefined, 
       startDate: inputValue.startDate || undefined,
       endDate: inputValue.endDate || undefined,

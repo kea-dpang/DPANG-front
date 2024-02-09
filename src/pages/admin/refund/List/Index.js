@@ -15,6 +15,11 @@ import {
 } from "assets/CustomName";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useQuestionAlert } from "@components/SweetAlert";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
 const Index = () => {
   const navigate = useNavigate();
   const showQuestionAlert = useQuestionAlert();
@@ -66,6 +71,7 @@ const Index = () => {
     }));
   };
 
+
   const [val, setVal] = useState({
     userId: "",
     refundReason: "",
@@ -84,27 +90,32 @@ const Index = () => {
   }, [page]);
 
   const toNextStep = (id, state) => {
-    const currentStateIndex = refundState.indexOf(state);
-    const nextState = refundState[currentStateIndex + 1];
-    PUT_update_status(id, nextState)
+
+    PUT_update_status(id, state)
       .then((data) => {
         console.log("성공-성공", data);
-        // window.location.reload();
+        window.location.reload();
       })
       .catch((error) => {
         console.log("실패-실패", error);
         throw error;
       });
+
   };
 
-  const handleNextButton = (id, state) => {
+
+  const handleChange = (id, state) => {
+
     showQuestionAlert({
-      title: "다음 단계로 진행하시겠습니까?",
-      text: "확인 클릭 시 해당 주문은 다음단계로 넘어가게 됩니다.",
-      saveText: "신청 승인 되었습니다.",
+      title: "환불 상태를 변경하시겠습니까?",
+      text: "확인 클릭 시 해당 환불건에 대해서 상태가 업데이트 됩니다.",
+      saveText: "변경 되었습니다.",
       onConfirm: () => toNextStep(id, state),
-    });
-  };
+
+    })
+
+  }
+
 
   useEffect(() => {
     GET_refund_list(val)
@@ -194,16 +205,22 @@ const Index = () => {
             const orderId = rowData.product.orderDetailId;
 
             return (
-              <ButtonContainer>
+              <ButtonContainer style={{width:150}} onClick={(e)=>{e.stopPropagation();}}>
                 {state !== "REFUND_COMPLETE" ? (
-                  <Button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleNextButton(orderId, state);
-                    }}
-                  >
-                    다음 단계
-                  </Button>
+                      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                      <InputLabel id="demo-select-small-label">상태처리</InputLabel>
+                      <Select
+                        labelId="demo-select-small-label"
+                        id="demo-select-small"
+                        value={state}
+                        label="상태수정"
+                        onChange={(e)=>{handleChange(value, e.target.value)}}
+                      >
+                        <MenuItem value="REFUND_REQUEST">환불 요청</MenuItem>
+                        <MenuItem value="COLLECTING">회수중</MenuItem>
+                        <MenuItem value="REFUND_COMPLETE">환불 완료</MenuItem>
+                      </Select>
+                    </FormControl>
                 ) : null}
               </ButtonContainer>
             );
