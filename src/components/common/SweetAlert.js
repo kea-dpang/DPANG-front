@@ -151,6 +151,32 @@ export const useQuestionConfirmAlert = () => {
   return showQuestionConfirmAlert;
 };
 
+/* 한번 더 물어보고, 확인 alert창 또 뜨는 alert */
+// ex) 회원탈퇴
+export const useQuestion2Alert = () => {
+  const navigate = useNavigate();
+
+  const showQuestion2Alert = useCallback(
+    ({ title, text, navi }) => {
+      swal({
+        title: title,
+        text: text,
+        icon: "warning",
+        buttons: ["취소", "확인"],
+        dangerMode: true,
+      }).then((isConfirmed) => {
+        if (isConfirmed) {
+          if (navi) {
+            navigate(navi);
+          }
+        }
+      });
+    },
+    [navigate]
+  );
+
+  return showQuestion2Alert;
+};
 ///////////sweetAlert 2////////////////
 // /* 2 에러 alert */
 // export const useErrorAlert = () => {

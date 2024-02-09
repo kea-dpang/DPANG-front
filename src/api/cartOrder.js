@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const userUrl = "/api/users";
-// const orderUrl = "/api"
+const orderUrl = "/api/order";
 
 /* 사용자 주소 조회 */
 export const GET_Address = async () => {
@@ -26,5 +26,40 @@ export const PATCH_Address = async (data) => {
     },
   });
   console.log("AXIOS:", res);
+  return res.data;
+};
+
+/* 주문하기 */
+export const POST_Order = async (addressInfo, checkedItems) => {
+  console.log("addressInfo", addressInfo);
+  console.log("checkedItems", checkedItems);
+
+  const userId = localStorage.getItem("userId");
+
+  // checkedItems 형식 변환
+  const formattedItems = checkedItems.map((item) => ({
+    itemId: item.itemId, // id를 itemId로 변환
+    quantity: item.quantity, // quantity는 그대로 사용
+  }));
+  console.log("formattedItems", formattedItems);
+
+  const res = await axios({
+    method: "post",
+    url: `${orderUrl}`,
+    headers: {
+      "X-DPANG-CLIENT-ID": userId,
+    },
+    data: {
+      deliveryInfo: {
+        name: addressInfo.name,
+        phoneNumber: addressInfo.phoneNumber | "",
+        zipCode: addressInfo.zipCode,
+        address: addressInfo.address,
+        detailAddress: addressInfo.detailAddress | "",
+      },
+      deliveryRequest: "string",
+      orderIteminfo: formattedItems,
+    },
+  });
   return res.data;
 };

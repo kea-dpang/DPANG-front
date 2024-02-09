@@ -46,6 +46,10 @@ const LoginPage = () => {
         localStorage.setItem("email", userData.email);
         localStorage.setItem("name", data.data.user.userName);
         localStorage.setItem("role", data.data.token.role);
+        localStorage.setItem(
+          "totalMileage",
+          data.data.user.mileage + data.data.user.personalChargedMileage
+        );
       })
       .catch((error) => {
         showErrorAlert({

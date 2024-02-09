@@ -6,8 +6,13 @@ import { useNavigate } from "react-router-dom";
 import Footer from "@components/UserFooter/Index";
 import { GET_CartList } from "@api/cart";
 import { Link } from "react-router-dom";
-import { checkedItemsAtom } from "recoil/user/CartAtom";
+import { checkedItemsAtom, totalAmountSelector } from "recoil/user/CartAtom";
 import { useRecoilValue } from "recoil";
+import {
+  useErrorAlert,
+  useQuestion2Alert,
+  useQuestionAlert,
+} from "@components/SweetAlert";
 const CartPage = () => {
   /* TODO: 버튼 비활성화 */
   /*
@@ -17,6 +22,10 @@ const CartPage = () => {
   */
   const [cartItemCount, setCartItemCount] = useState(); // 장바구니에 아이템이 담겨있는지 체크
   const checkedItems = useRecoilValue(checkedItemsAtom);
+  const totalAmount = useRecoilValue(totalAmountSelector);
+  const navigate = useNavigate();
+  // alert
+  const showQuestion2Alert = useQuestion2Alert();
 
   useEffect(() => {
     if (cartItemCount === 0) {
@@ -29,8 +38,21 @@ const CartPage = () => {
   };
 
   const handleBtn = () => {
-    localStorage.setItem("orderList", JSON.stringify(checkedItems));
+    const totalMileage = localStorage.getItem("totalMileage");
+    if (totalMileage < totalAmount + 3000) {
+      showQuestion2Alert({
+        title: `${(totalAmount - totalMileage).toLocaleString(
+          "ko-KR"
+        )} 마일이 부족합니다.`,
+        text: "마일리지 충전 페이지로 이동하시겠습니까?",
+        navi: "/user/mypage/mileage/req",
+      });
+    } else {
+      navigate("/user/order");
+      localStorage.setItem("orderList", JSON.stringify(checkedItems));
+    }
   };
+
   return (
     <>
       <Header />
@@ -40,13 +62,13 @@ const CartPage = () => {
           <Main>
             <CartList onItemCount={handleItemCount} />
           </Main>
-          <OrderLink
+          <OrderBtn
             className="Btn_M_Navy"
-            to={"/user/order"}
+            // to={"/user/order"}
             onClick={handleBtn}
           >
             주문하기
-          </OrderLink>
+          </OrderBtn>
         </CartWrap>
       </Wrap>
       <Footer />
@@ -75,9 +97,9 @@ const Main = styled.div`
   min-height: 30rem;
   /* background: var(--light-grey, #f4f4f4); */
 `;
-const OrderLink = styled(Link)`
-  padding: 1.3rem 0;
+const OrderBtn = styled.button`
+  /* padding: 1.3rem 0; */
   width: 100%;
-  display: flex;
-  justify-content: center;
+  /* display: flex; */
+  /* justify-content: center; */
 `;

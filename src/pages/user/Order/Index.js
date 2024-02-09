@@ -9,7 +9,7 @@ import EnrollAddress from "./Enroll/Address";
 import Address from "./Address";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { GET_Address } from "@api/cartOrder";
+import { GET_Address, POST_Order } from "@api/cartOrder";
 import { useRecoilState } from "recoil";
 import {
   cartListAtom,
@@ -17,6 +17,7 @@ import {
   totalAmountSelector,
 } from "recoil/user/CartAtom";
 import { useRecoilValue } from "recoil";
+import { useQuestionConfirmAlert } from "@components/SweetAlert";
 
 const OrderPage = () => {
   const methods = useForm();
@@ -38,6 +39,8 @@ const OrderPage = () => {
   let orderItemList = JSON.parse(localStorage.getItem("orderList"));
   const navigate = useNavigate();
 
+  // alert
+  const showQuestionConfirmAlert = useQuestionConfirmAlert();
   // 가격 total
   const [checkedItems, setCheckedItems] = useRecoilState(checkedItemsAtom);
   const totalAmount = useRecoilValue(totalAmountSelector);
@@ -84,6 +87,29 @@ const OrderPage = () => {
     setAddressInfo(addressData);
   };
 
+  /* 주문하기 */
+  const handleOrderBtn = () => {
+    showQuestionConfirmAlert({
+      title: `결제하시겠습니까?`,
+      text: "확인 클릭 시 결제 완료됩니다.",
+      saveText: "결제되었습니다.",
+      navi: "/user/mainpage",
+      onConfirm: () =>
+        POST_Order(addressInfo, checkedItems)
+          .then((data) => {
+            console.log(data);
+            // 잔여 마일리지 계산
+            const oldMileage = localStorage.getItem("totalMileage");
+            localStorage.setItem(
+              "totalMileage",
+              oldMileage - (totalAmount + 3000)
+            );
+          })
+          .catch((error) => {
+            console.log(error);
+          }),
+    });
+  };
   return (
     <FormProvider {...methods}>
       <Header />
@@ -122,7 +148,7 @@ const OrderPage = () => {
             </Menu>
             {FoldCheck[1].check && <OrderList orderItemList={orderItemList} />}
           </Main>
-          <OrderBtn className="Btn_M_Navy">
+          <OrderBtn className="Btn_M_Navy" onClick={handleOrderBtn}>
             {(totalAmount + 3000).toLocaleString("ko-KR")}원 결제하기
           </OrderBtn>
         </CartWrap>
