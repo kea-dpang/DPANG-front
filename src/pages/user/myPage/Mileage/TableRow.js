@@ -5,6 +5,7 @@ import { GET_mileage_list } from "@api/mileage";
 import { customDate, customMileageStatusName } from "assets/CustomName";
 import UserPagination from "@components/UserPagination";
 import { periodAtom } from "recoil/user/PeriodSelectAtom";
+import UserEmptyData from "@components/UserEmptyData";
 
 const Row = styled.div`
   width: 72rem;
@@ -93,7 +94,7 @@ function TableRow() {
     }));
   }, [period]);
 
-  return (
+  return numOfElement > 0 ? (
     <>
       {/* currentData 만큼만 rendering해줌 */}
       {mileageList.map((a, i) => {
@@ -120,7 +121,7 @@ function TableRow() {
         handleValChange={handleValChange}
       />
     </>
-  );
+  ): <UserEmptyData text="표시할 데이터가 없어요...."/>
 }
 
 export default TableRow;

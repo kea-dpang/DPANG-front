@@ -12,7 +12,7 @@ function DetailCancel(props) {
           <Row height="6rem">
             <ColHeader>취소 사유</ColHeader>
             <Col width="62rem">
-              <DataBox width="60rem">{customRefundReason(data.reason)}</DataBox>
+              <DataBox width="60rem">{customRefundReason(data.refundReason)}</DataBox>
             </Col>
           </Row>
 

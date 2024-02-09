@@ -31,7 +31,7 @@ function RowData(props) {
     }
   };
 
-  return (
+  return(
     <Row className="cm-SRegular16" height={rowHeight}>
       <Col
         width="2rem"
@@ -67,7 +67,7 @@ function RowData(props) {
               </Col>
               <Col width="22rem" height="6">
                 <ItemImg src={b.productInfoDto.image} />
-                <ItemName>{b.productInfoDto.name}</ItemName>
+                <ItemName>&nbsp; &nbsp;{b.productInfoDto.name}</ItemName>
               </Col>
               <Col width="11rem" height="6">
                 {(b.productInfoDto.price * b.productQuantity).toLocaleString()}{" "}
@@ -124,7 +124,7 @@ function RowData(props) {
         })}
       </ItemColBox>
     </Row>
-  );
+  )
 }
 
 const Row = styled.div`

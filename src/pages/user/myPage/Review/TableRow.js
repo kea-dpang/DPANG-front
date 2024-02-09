@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import Rating from "@mui/material/Rating";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 import { useState, useEffect } from "react";
 import { GET_review_list } from "@api/review";
 import { customDate } from "assets/CustomName";
@@ -43,7 +45,7 @@ function TableRow(props) {
   //기간 값 설정
   const period = useRecoilValue(periodAtom);
   const [val, setVal] = useState({
-    reviewerId: id,             //**********나중에 ID 가져와지면 다시 바꿀 것@ */
+    reviewerId: 1,             //skwn
     page: 0,
     size: 10,
     sort: "",

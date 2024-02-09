@@ -83,7 +83,13 @@ const Index = (props) => {
     },
     { name: "name", label: "이름" },
     { name: "depositorName", label: "입금자명" },
-    { name: "requestedMileage", label: "충전 희망 금액" },
+    { name: "requestedMileage", label: "충전 희망 금액", options: { 
+      customBodyRender: (value) =>{
+
+        return value.toLocaleString()
+
+      }
+    }},
     {
       name: "chargeRequestId",
       label: "충전 상태",

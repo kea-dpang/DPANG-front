@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import { GET_cancel_list } from "@api/cancel";
 import { useRecoilValue } from "recoil";
 import { periodAtom } from "recoil/user/PeriodSelectAtom";
-import { customOrderStatus } from "assets/CustomName";
 import UserPagination from "@components/UserPagination";
+import UserEmptyData from "@components/UserEmptyData";
 
 const PaginationContainer = styled.div`
   width: 72rem;
@@ -92,7 +92,7 @@ function TableRow({ data }) {
     }));
   }, [period]);
 
-  return (
+  return numOfElement > 0 ? (
     <>
       {cancelData.map((a, k) => {
         return (
@@ -111,7 +111,7 @@ function TableRow({ data }) {
             </Col>
             <Col width="25rem">
               <ItemImg src={a.product.productInfoDto.image} />
-              <ItemName>{a.product.productInfoDto.name}</ItemName>
+              <ItemName>&nbsp; &nbsp;{a.product.productInfoDto.name}</ItemName>
             </Col>
             <Col width="15rem">
               {(
@@ -128,7 +128,7 @@ function TableRow({ data }) {
         handleValChange={handleValChange}
       />
     </>
-  );
+  ): <UserEmptyData text="조회 내역이 없어요...."/>
 }
 
 export default TableRow;
