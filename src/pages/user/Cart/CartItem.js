@@ -18,13 +18,18 @@ import { useSetRecoilState } from "recoil";
 const CartItem = ({ item }) => {
   const [cartList, setCartList] = useRecoilState(cartListAtom); // Recoil 상태에서 cartList를 가져옵니다.
   const setIncreaseCount = useSetRecoilState(increaseCountSelector);
-  const setDecreaseCount = useSetRecoilState(decreaseCountSelector);
+  const [decreaseCount, setDecreaseCount] = useRecoilState(
+    decreaseCountSelector
+  );
   const [checkedItems, setCheckedItems] = useRecoilState(checkedItemsSelector);
 
   // 체크된 아이템인지 확인
-  const isChecked = checkedItems.includes(item.itemId);
+  // const isChecked = checkedItems.includes(item.itemId);
+  const isChecked = checkedItems.some(
+    (checkedItem) => checkedItem.itemId === item.itemId
+  );
 
-  console.log(cartList);
+  // console.log(cartList);
 
   /* 상품 삭제 */
   const handleDeleteItem = () => {
@@ -53,20 +58,23 @@ const CartItem = ({ item }) => {
         });
     } else {
       // decrease
-      POST_MinusCartItem(item.itemId)
-        .then((data) => {
-          setDecreaseCount(item.itemId);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      // 상품이 1개일 때는 -버튼 클릭해도 변화 X
+      if (item.quantity > 1) {
+        POST_MinusCartItem(item.itemId)
+          .then((data) => {
+            setDecreaseCount(item.itemId);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     }
   };
 
   /* 체크박스 클릭 핸들러 */
   const handleCheckboxClick = (e) => {
     // 체크박스 상태 변경
-    setCheckedItems(item.itemId);
+    setCheckedItems(item); // 아이템의 전체 정보를 전달
   };
 
   return (

@@ -57,7 +57,6 @@ const FaqList = () => {
           faqDataList.map((item, index) => (
             <React.Fragment key={index}>
               <Row key={index} onClick={() => handleItemClick(index)}>
-                {" "}
                 <Item>
                   <h1 className="cm-SBold18">Q. </h1>
                   <p className="cm-SRegular18">{item.question}</p>
@@ -67,7 +66,7 @@ const FaqList = () => {
                 <Row>
                   <FoldItem>
                     <h1 className="cm-SBold18">A. </h1>
-                    <p className="cm-SRegular18">{item.answer}</p>
+                    <Content className="cm-SRegular18">{item.answer}</Content>
                   </FoldItem>
                 </Row>
               )}
@@ -130,7 +129,9 @@ const Item = styled.button`
 `;
 const FoldItem = styled.div`
   width: 100%;
-  padding: 1rem;
+  /* padding: 1rem; */
+  padding: 2rem 1.4375rem;
+
   box-sizing: border-box;
   background: var(--light-grey, #f4f4f4);
 
@@ -138,4 +139,12 @@ const FoldItem = styled.div`
   gap: 0.3125rem;
 
   text-align: left; // 내용 왼쪽 정렬
+`;
+
+const Content = styled.div`
+  /* width: 100%; */
+  width: calc(100% - 2.875rem);
+
+  /* white-space: normal; */
+  overflow-wrap: break-word;
 `;

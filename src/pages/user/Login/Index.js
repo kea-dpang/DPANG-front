@@ -29,7 +29,7 @@ const LoginPage = () => {
   const onSubmit = (userData) => {
     POST_Login(userData)
       .then((data) => {
-        console.log("datatatatatatat", data);
+        console.log("datatatatatatat", data.data);
         navigate("/user/mainpage");
 
         // accessToken, refreshToken은 쿠키에 저장
@@ -42,10 +42,14 @@ const LoginPage = () => {
           path: "/",
         });
         // userId, email, role은 로컬스토리지에 저장
-        localStorage.setItem("userId", data.data.userIdx);
+        localStorage.setItem("userId", data.data.user.userIdx);
         localStorage.setItem("email", userData.email);
-        localStorage.setItem("name", data.data.userName);
+        localStorage.setItem("name", data.data.user.userName);
         localStorage.setItem("role", data.data.token.role);
+        localStorage.setItem(
+          "totalMileage",
+          data.data.user.mileage + data.data.user.personalChargedMileage
+        );
       })
       .catch((error) => {
         showErrorAlert({
