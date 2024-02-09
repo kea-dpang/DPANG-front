@@ -17,7 +17,10 @@ import {
   totalAmountSelector,
 } from "recoil/user/CartAtom";
 import { useRecoilValue } from "recoil";
-import { useQuestionConfirmAlert } from "@components/SweetAlert";
+import {
+  useQuestion2Alert,
+  useQuestionConfirmAlert,
+} from "@components/SweetAlert";
 
 const OrderPage = () => {
   const methods = useForm();
@@ -41,6 +44,8 @@ const OrderPage = () => {
 
   // alert
   const showQuestionConfirmAlert = useQuestionConfirmAlert();
+  const showQuestion2Alert = useQuestion2Alert();
+
   // 가격 total
   const [checkedItems, setCheckedItems] = useRecoilState(checkedItemsAtom);
   const totalAmount = useRecoilValue(totalAmountSelector);
@@ -98,8 +103,16 @@ const OrderPage = () => {
         POST_Order(addressInfo, checkedItems)
           .then((data) => {
             console.log(data);
+            localStorage.removeItem("orderList");
+
             // 잔여 마일리지 계산
-            const oldMileage = localStorage.getItem("totalMileage");
+            const oldMileage = parseInt(
+              localStorage.getItem("totalMileage"),
+              10
+            );
+            console.log(oldMileage);
+            console.log(oldMileage - (totalAmount + 3000));
+
             localStorage.setItem(
               "totalMileage",
               oldMileage - (totalAmount + 3000)
@@ -107,6 +120,18 @@ const OrderPage = () => {
           })
           .catch((error) => {
             console.log(error);
+            if (error.response.status === 400) {
+              const totalMileage = localStorage.getItem("totalMileage");
+
+              // 이후에 없애도 될듯
+              showQuestion2Alert({
+                title: `${(totalAmount - totalMileage).toLocaleString(
+                  "ko-KR"
+                )} 마일이 부족합니다.`,
+                text: "마일리지 충전 페이지로 이동하시겠습니까?",
+                navi: "/user/mypage/mileage/req",
+              });
+            }
           }),
     });
   };

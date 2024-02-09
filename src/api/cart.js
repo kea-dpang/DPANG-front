@@ -19,6 +19,7 @@ export const POST_Cart = async (itemId, quantity) => {
 
 // 장바구니 목록 조회
 export const GET_CartList = async () => {
+  const userId = localStorage.getItem("userId");
   console.log("장바구니 목록 조회입니당");
   const res = await axios({
     method: "get",

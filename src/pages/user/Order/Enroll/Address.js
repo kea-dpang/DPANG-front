@@ -13,7 +13,7 @@ const EnrollAddress = ({ data, handleAddressSubmit }) => {
   useEffect(() => {
     if (data) {
       setValue("name", data.name);
-      setValue("phone", data.phone);
+      setValue("phoneNumber", data.phoneNumber);
       setValue("zipCode", data.zipCode);
       setValue("address", data.address);
       setValue("detail", data.detailAddress);
@@ -74,9 +74,9 @@ const EnrollAddress = ({ data, handleAddressSubmit }) => {
           style={{ width: "40%" }}
           defaultValue={data?.phoneNumber} // 초기 값 설정
           // placeholder="000-0000-0000"
-          error={!!errors.phone}
-          helperText={errors.phone && errors.phone.message}
-          {...register("phone", {
+          error={!!errors.phoneNumber}
+          helperText={errors.phoneNumber && errors.phoneNumber.message}
+          {...register("phoneNumber", {
             required: "전화번호는 필수 입력입니다.",
             pattern: {
               // value: /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/,

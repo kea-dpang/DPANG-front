@@ -151,8 +151,7 @@ export const useQuestionConfirmAlert = () => {
   return showQuestionConfirmAlert;
 };
 
-/* 한번 더 물어보고, 확인 alert창 또 뜨는 alert */
-// ex) 회원탈퇴
+/* 한번 더 물어보고, 확인 alert창 또 '안' 뜨는 alert */
 export const useQuestion2Alert = () => {
   const navigate = useNavigate();
 

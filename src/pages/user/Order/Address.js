@@ -26,7 +26,7 @@ const Address = ({ data }) => {
       <Wrap2>
         <Content>
           <p className="cm-MBold20">{data.name}</p>
-          <p className="cm-MBold20">{data.phone}</p>
+          <p className="cm-MBold20">{data.phoneNumber}</p>
         </Content>
 
         <Content className="cm-SRegular18">
