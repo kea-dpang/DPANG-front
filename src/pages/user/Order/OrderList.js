@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { checkedItemsAtom } from "recoil/user/CartAtom";
+import { checkedItemsAtom, totalAmountSelector } from "recoil/user/CartAtom";
 import styled from "styled-components";
 
 const OrderList = ({ orderItemList }) => {
+  const totalAmount = useRecoilValue(totalAmountSelector);
+
   return (
     <Wrap>
       {orderItemList.map((item) => (
@@ -49,6 +51,14 @@ const OrderList = ({ orderItemList }) => {
           </Article>
         </Wrap2>
       ))}
+
+      <TotalPrice className="cm-SBold18 col-Navy">
+        <p>상품금액 {totalAmount.toLocaleString("ko-KR")} 마일</p>
+        <p>+</p>
+        <p>배송비 3,000 마일</p>
+        <p>=</p>
+        <p>주문 예상금액 {(totalAmount + 3000).toLocaleString("ko-KR")} 마일</p>
+      </TotalPrice>
     </Wrap>
   );
 };
@@ -95,4 +105,10 @@ const PriceWrap = styled.div`
 const Price = styled.div`
   display: flex;
   gap: 1rem;
+`;
+const TotalPrice = styled.div`
+  margin-top: 2rem;
+  padding: 3rem;
+  display: flex;
+  justify-content: space-between;
 `;

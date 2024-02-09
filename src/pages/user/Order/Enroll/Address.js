@@ -32,6 +32,7 @@ const EnrollAddress = ({ data, handleAddressSubmit }) => {
     // api patch 연동
     PATCH_Address(userData)
       .then((data) => {
+        console.log("axios", data);
         setValue("edit", false); // 추가 버튼을 눌렀으므로 'edit' 상태를 false로 설정
         // 부모 컴포넌트에게 폼 데이터 전달
         handleAddressSubmit(userData);
@@ -55,7 +56,8 @@ const EnrollAddress = ({ data, handleAddressSubmit }) => {
           style={{ width: "40%" }}
           // defaultValue={data?.name} // 초기 값 설정
           value={data?.name}
-          readOnly // 수정할 수 없도록 설정
+          // readOnly // 수정할 수 없도록 설정
+          disabled
           // error={!!errors.name}
           // helperText={errors.name && errors.name.message}
           {...register(

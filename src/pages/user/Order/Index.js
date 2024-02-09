@@ -10,6 +10,13 @@ import Address from "./Address";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { GET_Address } from "@api/cartOrder";
+import { useRecoilState } from "recoil";
+import {
+  cartListAtom,
+  checkedItemsAtom,
+  totalAmountSelector,
+} from "recoil/user/CartAtom";
+import { useRecoilValue } from "recoil";
 
 const OrderPage = () => {
   const methods = useForm();
@@ -30,6 +37,16 @@ const OrderPage = () => {
   const [addressInfo, setAddressInfo] = useState();
   let orderItemList = JSON.parse(localStorage.getItem("orderList"));
   const navigate = useNavigate();
+
+  // 가격 total
+  const [checkedItems, setCheckedItems] = useRecoilState(checkedItemsAtom);
+  const totalAmount = useRecoilValue(totalAmountSelector);
+
+  // /* 가격 total */
+  useEffect(() => {
+    // 로컬 스토리지에서 가져온 orderItemList를 checkedItems에 설정
+    setCheckedItems(orderItemList);
+  }, []);
 
   /* orderItemList가 없는 경우 메인 페이지로 리다이렉트 */
   useEffect(() => {
@@ -68,52 +85,50 @@ const OrderPage = () => {
   };
 
   return (
-    <>
-      <FormProvider {...methods}>
-        <Header />
-        <Wrap>
-          <CartWrap>
-            <Title className="cm-LBold30 col-DarkNavy">장바구니</Title>
+    <FormProvider {...methods}>
+      <Header />
+      <Wrap>
+        <CartWrap>
+          <Title className="cm-LBold30 col-DarkNavy">장바구니</Title>
 
-            <Main>
-              {/* 배송지 정보 메뉴 */}
-              <Menu onClick={() => handleClick(0)}>
-                <p>배송지 정보</p>
-                <Arrow
-                  style={
-                    FoldCheck[0].check ? { transform: "rotate(180deg)" } : {}
-                  }
+          <Main>
+            {/* 배송지 정보 메뉴 */}
+            <Menu onClick={() => handleClick(0)}>
+              <p>배송지 정보</p>
+              <Arrow
+                style={
+                  FoldCheck[0].check ? { transform: "rotate(180deg)" } : {}
+                }
+              />
+            </Menu>
+            {FoldCheck[0].check &&
+              (!addressInfo?.zipCode || isEditing ? (
+                <EnrollAddress
+                  data={addressInfo}
+                  handleAddressSubmit={handleAddressSubmit}
                 />
-              </Menu>
-              {FoldCheck[0].check &&
-                (!addressInfo?.zipCode || isEditing ? (
-                  <EnrollAddress
-                    data={addressInfo}
-                    handleAddressSubmit={handleAddressSubmit}
-                  />
-                ) : (
-                  <Address data={addressInfo} />
-                ))}
+              ) : (
+                <Address data={addressInfo} />
+              ))}
 
-              {/* 주문 정보 메뉴 */}
-              <Menu onClick={() => handleClick(1)}>
-                <p>주문 정보</p>
-                <Arrow
-                  style={
-                    FoldCheck[1].check ? { transform: "rotate(180deg)" } : {}
-                  }
-                />
-              </Menu>
-              {FoldCheck[1].check && (
-                <OrderList orderItemList={orderItemList} />
-              )}
-            </Main>
-            <OrderBtn className="Btn_M_Navy">78,000원 결제하기</OrderBtn>
-          </CartWrap>
-        </Wrap>
-        <Footer />
-      </FormProvider>
-    </>
+            {/* 주문 정보 메뉴 */}
+            <Menu onClick={() => handleClick(1)}>
+              <p>주문 정보</p>
+              <Arrow
+                style={
+                  FoldCheck[1].check ? { transform: "rotate(180deg)" } : {}
+                }
+              />
+            </Menu>
+            {FoldCheck[1].check && <OrderList orderItemList={orderItemList} />}
+          </Main>
+          <OrderBtn className="Btn_M_Navy">
+            {(totalAmount + 3000).toLocaleString("ko-KR")}원 결제하기
+          </OrderBtn>
+        </CartWrap>
+      </Wrap>
+      <Footer />
+    </FormProvider>
   );
 };
 

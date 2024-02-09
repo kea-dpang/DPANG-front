@@ -25,5 +25,6 @@ export const PATCH_Address = async (data) => {
       detailAddress: data.detailAddress,
     },
   });
+  console.log("AXIOS:", res);
   return res.data;
 };
