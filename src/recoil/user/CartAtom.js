@@ -111,7 +111,13 @@ export const totalAmountSelector = selector({
       }
       // discountRate가 0이 아닌 아이템은 discountPrice*quantity
       else {
-        return acc + item.discountPrice * item.quantity;
+        return (
+          acc +
+          (item.price - (item.price * item.discountRate) / 100) * item.quantity
+        );
+        // return (
+        //   acc + (item.price - item.price * item.discountRate) * item.quantity
+        // );
       }
     }, 0);
   },
