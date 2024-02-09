@@ -45,8 +45,12 @@ const FaqList = () => {
             width={colWidths[index]}
             className="cm-SRegular18"
             onClick={() => setSelectedId(item.id)}
+            selected={selectedId === item.id} // 선택된 header의 스타일
           >
-            {item.subject}
+            <p>{item.subject}</p>
+            <LineWrap>
+              <Line selected={selectedId === item.id} />
+            </LineWrap>
           </Col>
         ))}
       </Header>
@@ -93,6 +97,12 @@ const Header = styled.div`
 const Col = styled.button`
   width: ${(props) => props.width};
   background: none;
+  font-weight: ${(props) => (props.selected ? "700" : "")};
+  /* text-decoration: ${(props) => (props.selected ? "underline" : "none")}; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
 `;
 const Main = styled.div`
   width: 100%;
@@ -147,4 +157,17 @@ const Content = styled.div`
 
   /* white-space: normal; */
   overflow-wrap: break-word;
+`;
+
+const LineWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+`;
+const Line = styled.div`
+  width: 9rem;
+  /* height: 1rem; */
+  /* border: 2px solid var(--white); */
+  border: ${(props) => props.selected && "2px solid var(--white)"};
 `;
