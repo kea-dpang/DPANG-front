@@ -35,9 +35,10 @@ const OrderList = ({ orderItemList }) => {
                 <Price>
                   <p className="cm-SBold16 col-Orange">{item.discountRate}%</p>
                   <p className="cm-SBold16">
-                    {(item.discountPrice * item.quantity).toLocaleString(
-                      "ko-KR"
-                    )}{" "}
+                    {(
+                      (item.price - (item.price * item.discountRate) / 100) *
+                      item.quantity
+                    ).toLocaleString("ko-KR")}{" "}
                     마일
                   </p>
                 </Price>

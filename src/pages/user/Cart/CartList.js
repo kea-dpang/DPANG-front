@@ -18,7 +18,7 @@ const CartList = ({ onItemCount }) => {
       .then((data) => {
         setCartList(data.data); // 서버에서 가져온 데이터를 Recoil 상태에 저장합니다.
         console.log(data.data);
-        onItemCount(data.data.length); // 아이템 갯수를 부모 컴포넌트에 전달
+        onItemCount(data.data.length); // 아이템 개수를 부모 컴포넌트에 전달
       })
       .catch((error) => {
         console.log(error);

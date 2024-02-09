@@ -103,21 +103,24 @@ const OrderPage = () => {
         POST_Order(addressInfo, checkedItems)
           .then((data) => {
             console.log(data);
-            localStorage.removeItem("orderList");
-
-            // 잔여 마일리지 계산
-            const oldMileage = parseInt(
-              localStorage.getItem("totalMileage"),
-              10
-            );
-            console.log(oldMileage);
-            console.log(oldMileage - (totalAmount + 3000));
-
-            localStorage.setItem(
-              "totalMileage",
-              oldMileage - (totalAmount + 3000)
-            );
+            const remainedMileage =
+              data.data.mileageInfo.mileage +
+              data.data.mileageInfo.personalChargedMileage;
+            localStorage.setItem("totalMileage", remainedMileage);
           })
+          // localStorage.removeItem("orderList");
+          // 잔여 마일리지 계산
+          // const oldMileage = parseInt(
+          //   localStorage.getItem("totalMileage"),
+          //   10
+          // );
+          // console.log(oldMileage);
+          // console.log(oldMileage - (totalAmount + 3000));
+          //   localStorage.setItem(
+          //     "totalMileage",
+          //     oldMileage - (totalAmount + 3000)
+          //   );
+          // })
           .catch((error) => {
             console.log(error);
             if (error.response.status === 400) {
