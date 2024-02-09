@@ -5,7 +5,9 @@ import Header from "@components/UserHeaderBar/Index";
 import { useNavigate } from "react-router-dom";
 import Footer from "@components/UserFooter/Index";
 import { GET_CartList } from "@api/cart";
-
+import { Link } from "react-router-dom";
+import { checkedItemsAtom } from "recoil/user/CartAtom";
+import { useRecoilValue } from "recoil";
 const CartPage = () => {
   /* TODO: 버튼 비활성화 */
   /*
@@ -14,6 +16,7 @@ const CartPage = () => {
   장바구니 아무것도 안담겨 있을 경우
   */
   const [cartItemCount, setCartItemCount] = useState(); // 장바구니에 아이템이 담겨있는지 체크
+  const checkedItems = useRecoilValue(checkedItemsAtom);
 
   useEffect(() => {
     if (cartItemCount === 0) {
@@ -24,6 +27,10 @@ const CartPage = () => {
   const handleItemCount = (count) => {
     setCartItemCount(count);
   };
+
+  const handleBtn = () => {
+    localStorage.setItem("orderList", JSON.stringify(checkedItems));
+  };
   return (
     <>
       <Header />
@@ -33,7 +40,13 @@ const CartPage = () => {
           <Main>
             <CartList onItemCount={handleItemCount} />
           </Main>
-          <OrderBtn className="Btn_M_Navy">주문하기</OrderBtn>
+          <OrderLink
+            className="Btn_M_Navy"
+            to={"/user/order"}
+            onClick={handleBtn}
+          >
+            주문하기
+          </OrderLink>
         </CartWrap>
       </Wrap>
       <Footer />
@@ -62,6 +75,9 @@ const Main = styled.div`
   min-height: 30rem;
   /* background: var(--light-grey, #f4f4f4); */
 `;
-const OrderBtn = styled.button`
+const OrderLink = styled(Link)`
+  padding: 1.3rem 0;
   width: 100%;
+  display: flex;
+  justify-content: center;
 `;
