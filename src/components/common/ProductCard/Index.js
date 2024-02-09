@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as CartImg } from "@images/cart.svg";
 import { ReactComponent as LikeImg } from "assets/images/heart.svg";
 import { POST_Cart } from "@api/cart";
-import { useQuestionAlert } from "@components/SweetAlert";
+import { useQuestionFunctionAlert } from "@components/SweetAlert";
 
 // 상품 미리보기 (카드)
 const Item = (props) => {
@@ -12,20 +12,18 @@ const Item = (props) => {
   const saleprice =
     props.value.price - (props.value.price * props.value.discountRate) / 100;
 
-  const navigate = useNavigate();
-  const showQuestionAlert = useQuestionAlert();
+  const showQuestionAlert = useQuestionFunctionAlert();
 
   const handleCartAdd = () => {
     showQuestionAlert({
       title: "장바구니에 상품이 추가되었습니다.",
       text: "장바구니 페이지로 이동하시겠습니까?",
       saveText: "",
-      navi: "",
+      navi: "/user/cart",
       onConfirm: async () => {
         try {
           const data = await POST_Cart(props.value.id, 1);
           console.log("장바구니 등록 성공 야호!", data);
-          navigate(`/user/cart`);
         } catch (error) {
           console.log("장바구니 등록에 실패했습니다 ㅠㅠㅠ", error);
         }

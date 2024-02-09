@@ -8,7 +8,7 @@ export const POST_Cart = async (itemId, quantity) => {
   console.log("장바구니 담기입니당: ", itemId);
   const res = await axios({
     method: "post",
-    url: `${url}/${userId}/${itemId}`,
+    url: `${url}/${userId}`,
     data: {
       itemId: itemId,
       quantity: quantity,

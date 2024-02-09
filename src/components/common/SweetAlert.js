@@ -65,39 +65,25 @@ export const useQuestionAlert = () => {
         buttons: ["취소", "확인"],
         dangerMode: true,
       }).then((isConfirmed) => {
-        // 사용자가 "확인" 버튼을 클릭한 경우
         if (isConfirmed) {
-          // 추가적인 텍스트가 주어진 경우 (예: 다음 확인 단계 표시)
           if (saveText !== "") {
-            // SweetAlert을 사용하여 추가 텍스트를 표시
             swal(saveText, "", "success");
           }
-
-          // '확인' 버튼 클릭 시 실행되어야 하는 함수 호출
           if (typeof onConfirm === "function") {
-            // onConfirm 함수 실행 및 반환값 확인
             const result = onConfirm();
-
-            // onConfirm 함수의 반환값이 Promise인 경우
             if (result instanceof Promise) {
-              // Promise가 성공적으로 처리된 경우
               result
                 .then(() => {
-                  // 페이지 이동이나 새로고침 등을 수행
                   if (navi !== "") {
                     navigate(navi);
                   } else {
                     window.location.reload();
                   }
                 })
-                // Promise 처리 중 에러가 발생한 경우
                 .catch(() => {
-                  // 새로고침 동작 수행
                   window.location.reload();
                 });
             } else {
-              // 반환값이 Promise가 아닌 경우 (일반적으로 동기적인 경우)
-              // 페이지 이동이나 새로고침 등을 수행
               if (navi !== "") {
                 navigate(navi);
               } else {
@@ -175,6 +161,34 @@ export const useQuestion2Alert = () => {
   );
 
   return showQuestion2Alert;
+};
+
+//확인.취소 물어보고 취소하면 함수실행o. navi실행x. 확인하면 함수실행하고 리프레시 혹은 navi
+export const useQuestionFunctionAlert = () => {
+  const navigate = useNavigate();
+
+  const useQuestionFunctionAlert = useCallback(
+    ({ title, text, navi, onConfirm }) => {
+      if (typeof onConfirm === "function") {
+        onConfirm();
+      }
+      swal({
+        title: title,
+        text: text,
+        icon: "success",
+        buttons: ["취소", "확인"],
+        dangerMode: true,
+      }).then((isConfirmed) => {
+        if (isConfirmed) {
+          if (navi) {
+            navigate(navi);
+          }
+        }
+      });
+    },
+    [navigate]
+  );
+  return useQuestionFunctionAlert;
 };
 ///////////sweetAlert 2////////////////
 // /* 2 에러 alert */
