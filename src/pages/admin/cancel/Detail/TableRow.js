@@ -51,9 +51,9 @@ function TableRow(props) {
         <ItemName>{data.product.productInfoDto.name}</ItemName>
       </Col>
       <Col width="10rem">
-        {data.product.productInfoDto.price} / {data.product.productQuantity}
+        {data.product.productInfoDto.price.toLocaleString()} / {data.product.productQuantity}
       </Col>
-      <Col width="10rem">{data.expectedRefundAmount}</Col>
+      <Col width="10rem">{data.expectedRefundAmount.toLocaleString()}</Col>
     </Row>
   );
 }

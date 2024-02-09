@@ -21,11 +21,11 @@ function RefundDetail(props) {
         <Col height="5rem">
           <ColHead>총 결제 금액</ColHead>
           <BlankDiv />
-          <Content width="28rem">{data.totalAmount}마일</Content>
+          <Content width="28rem">{data.totalAmount.toLocaleString()}마일</Content>
 
           <ColHead>환불 예상액</ColHead>
           <BlankDiv />
-          <Content width="28rem">{data.expectedRefundAmount}마일</Content>
+          <Content width="28rem">{data.expectedRefundAmount.toLocaleString()}마일</Content>
         </Col>
         <Border />
 

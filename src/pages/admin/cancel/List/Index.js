@@ -127,7 +127,7 @@ const Index = () => {
           //ID를 기준으로 데이터 가져옴
           const rowData = cancelList.find((row) => row.cancelId === value);
           if (rowData != null) {
-            const quantity = rowData.product.productInfoDto.price;
+            const quantity = rowData.product.productInfoDto.price.toLocaleString();
             const name = rowData.product.productQuantity;
 
             return (

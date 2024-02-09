@@ -5,9 +5,11 @@ import { POST_cancel_order } from "@api/cancel";
 import { customOrderStatus } from "assets/CustomName";
 import ArrowImg from "assets/images/UpArrowVector.svg";
 import { idID } from "@mui/material/locale";
+import { useQuestionAlert } from "@components/SweetAlert";
 
 function RowData(props) {
   const data = props.data;
+  const showQuestionAlert = useQuestionAlert();
 
   const [click, setClick] = useState(false);
 
@@ -30,6 +32,37 @@ function RowData(props) {
       setClick(!click);
     }
   };
+
+  const handleCancel = (id) =>{
+
+    showQuestionAlert({
+      title: "신청을 승인하시겠습니까?",
+      text: "확인 클릭 시 승인 됩니다.",
+      saveText: "신청 승인 되었습니다.",
+      onConfirm: () => handleConfirm(id),
+    });
+
+
+
+  }
+
+  const handleConfirm = (id) =>{
+
+
+      POST_cancel_order(id)
+        .then((data) => {
+          console.log("성공함", data);
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.log("실패함", error);
+        });
+
+
+
+
+  }
+
 
   return(
     <Row className="cm-SRegular16" height={rowHeight}>
@@ -79,17 +112,7 @@ function RowData(props) {
                   {/* 버튼을 누르면 주문의 항목에 대한 ID를 넘겨서 취소 요청을 보낸다 */}
                   <Button
                     status={customOrderStatus(b.orderStatus)}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      POST_cancel_order(b.orderDetailId)
-                        .then((data) => {
-                          console.log("성공함", data);
-                          window.location.reload();
-                        })
-                        .catch((error) => {
-                          console.log("실패함", error);
-                        });
-                    }}
+                    onClick={(e)=>{ e.stopPropagation(); handleCancel(b.orderDetailId);}}
                   >
                     취소
                   </Button>
