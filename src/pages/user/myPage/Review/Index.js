@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import ReviewBox from "./ReviewBox";
+import { useState } from "react";
+import DetailPopUp from "@userPages/myPage/Review/Detail/Index"
 
 const Container = styled.div`
   min-height: 100vh;
@@ -19,13 +21,32 @@ const ReviewContainer = styled.div`
   min-height: calc(100vh);
 `;
 
+
 function Index() {
+  const [popUpState, setPopUpState] = useState(false);
+  const [reviewValue, setReviewValue] = useState();
+
+  const handleClick = (a) => {
+
+    setReviewValue(a);
+    setPopUpState(true);
+
+  }
+
+  const handleClose = () =>{
+
+    setPopUpState(false);
+
+  }
+
   return (
     <Container>
+
       <ContentBox>
+      {popUpState && <DetailPopUp value={reviewValue} handleClose={handleClose}/>}
         {/* 정보를 표시해줄 component를 호출 */}
         <ReviewContainer>
-          <ReviewBox />
+          <ReviewBox handleClick={handleClick} />
         </ReviewContainer>
       </ContentBox>
     </Container>

@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import Rating from "@mui/material/Rating";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
 import { useState, useEffect } from "react";
 import { GET_review_list } from "@api/review";
 import { customDate } from "assets/CustomName";
@@ -22,14 +20,6 @@ const Col = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
-
-const PaginationContainer = styled.div`
-  width: 72rem;
-  height: 5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 const ItemImg = styled.img`
@@ -53,7 +43,7 @@ function TableRow(props) {
   //기간 값 설정
   const period = useRecoilValue(periodAtom);
   const [val, setVal] = useState({
-    reviewerId: id,
+    reviewerId: id,             //**********나중에 ID 가져와지면 다시 바꿀 것@ */
     page: 0,
     size: 10,
     sort: "",
@@ -84,12 +74,8 @@ function TableRow(props) {
     }));
   }, [period]);
 
-  const itemPerPage = 10;
-  const [currentPage, setCurrentPage] = useState(1);
 
-  const start = (currentPage - 1) * itemPerPage;
-  const end = start + itemPerPage;
-  const currentData = reviewData.slice(start, end);
+
 
   //하위 component에서 전달받은 새로운 val 값으로 업데이트 해준다
   const handleValChange = (page) => {
@@ -101,9 +87,9 @@ function TableRow(props) {
 
   return (
     <>
-      {currentData.map((a, i) => {
+      {reviewData.map((a, i) => {
         return (
-          <Row className="cm-SRegular16" key={i}>
+          <Row className="cm-SRegular16" key={i} onClick={()=>{props.handleClick(a)}}>
             <Col width="10rem">{customDate(a.createdTime)}</Col>
             <Col width="22rem">
               <ItemImg src={a.itemThumbnailImage} />

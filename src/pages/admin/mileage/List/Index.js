@@ -94,7 +94,7 @@ function Index() {
       mileageList={mileageList}
       handlePagination={handlePagination}
       totalItems={totalItems}
-      onChangePage ={handleCategoryChange}
+      handleCategoryChange ={handleCategoryChange}
       handleSearch={handleSearch}
     />
   );

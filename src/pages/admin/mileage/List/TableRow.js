@@ -81,21 +81,12 @@ const Index = (props) => {
         },
       },
     },
-    {
-      name: "status",
-      label: "처리 상태",
-      options: {
-        customBodyRender: (value) => {
-          return customMileageStatusName(value);
-        },
-      },
-    },
     { name: "name", label: "이름" },
     { name: "depositorName", label: "입금자명" },
     { name: "requestedMileage", label: "충전 희망 금액" },
     {
       name: "chargeRequestId",
-      label: "충전 상태 관리",
+      label: "충전 상태",
       options: {
         customBodyRender: (value, tableMeta) => {
           //ID를 기준으로 데이터 찾기
@@ -125,8 +116,9 @@ const Index = (props) => {
                   거절
                 </Button>
               </ButtonBox>
-            ) : null;
+            ) : customMileageStatusName(status);
           } else {
+
           }
         },
       },
