@@ -31,22 +31,10 @@ const Index = () => {
   const [dropdownValue, setDropdownValue] = useState(["브랜드를 선택해주세요"]);
   const [brand, setBrand] = useState([]);
   const [totalData, setTotalData] = useState(0);
+  const [sellerName, setSellerName] = useState();
 
-  // useEffect(() => {
-  //   GET_BrandList()
-  //     .then((data) => {
-  //       setBrand(data.data.content);
-  //       setTotalData(data.data.totalElements);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, []);
-  useEffect(() => {
-    navigate(`?page=${page}`);
-
-    console.log("렌더링 렌더링");
-    GET_BrandList(page, 10)
+  const getList = (sellerName) => {
+    GET_BrandList(sellerName, page, 10)
       .then((data) => {
         setBrand(data.data.content);
         setTotalData(data.data.totalElements);
@@ -54,6 +42,10 @@ const Index = () => {
       .catch((error) => {
         console.log(error);
       });
+  };
+  useEffect(() => {
+    navigate(`?page=${page}`);
+    getList(null);
   }, [page]);
 
   const handleRowsDelete = (rowsDeleted) => {
@@ -67,13 +59,10 @@ const Index = () => {
       });
     console.log("삭제: ", rowsDeleted);
   };
-
-  // useEffect(() => {
-  //   setDropdownValue([
-  //     "브랜드를 선택해주세요",
-  //     ...new Set(brand.map((item) => item.name)),
-  //   ]);
-  // }, [brand]);
+  // 검색 핸들러
+  const handleSearch = () => {
+    getList(sellerName);
+  };
   // 페이지네이션 버튼 핸들러
   const handlePagination = (page) => {
     console.log("지금 페이지네이션 페이지 : ", page);
@@ -98,15 +87,13 @@ const Index = () => {
         <PageName className="cm-LBold30 col-Black"> 판매처 관리 </PageName>
         <FilterSection>
           <SearchWrap>
-            {/* 카테고리 선택 드롭다운*/}
-            {/* <Dropdown
-              value={dropdownValue}
-              onChange={handleDropChange}
-              width={"15rem"}
-            /> */}
             {/* 검색창 */}
             <Paper
               component="form"
+              onSubmit={(e) => {
+                e.preventDefault(); // form의 기본 이벤트인 새로고침 방지
+                handleSearch();
+              }}
               sx={{
                 p: "0rem 1rem",
                 display: "flex",
@@ -121,10 +108,19 @@ const Index = () => {
                 sx={{ ml: 1, flex: 1, height: "100%" }}
                 placeholder="검색어를 입력해주세요"
                 inputProps={{ "aria-label": "검색어를 입력해주세요" }}
+                onChange={(e) => {
+                  setSellerName(e.target.value);
+                }}
               />
 
               {/* 검색 버튼 (돋보기) */}
-              <IconButton type="button" aria-label="search">
+              <IconButton
+                type="submit"
+                aria-label="search"
+                onClick={() => {
+                  handleSearch();
+                }}
+              >
                 <SearchIcon />
               </IconButton>
             </Paper>

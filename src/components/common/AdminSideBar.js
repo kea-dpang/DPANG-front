@@ -231,7 +231,7 @@ const AdminSideBar = () => {
           )}
           {/* 관리자관리 */}
           {/* 상위메뉴 */}
-          <SubMenuWrap
+          {/* <SubMenuWrap
             style={{ gap: "6.8rem" }}
             $isOpen={openSubMenu === "관리자관리"}
             onClick={() => handleSubMenuClick("관리자관리")}
@@ -250,14 +250,14 @@ const AdminSideBar = () => {
               </MenuName>
             </Left>
             <Arrow $isOpen={openSubMenu === "관리자관리"} />
-          </SubMenuWrap>
+          </SubMenuWrap> */}
           {/* 클릭하면 열리는 상세메뉴 */}
-          {openSubMenu === "관리자관리" && (
+          {/* {openSubMenu === "관리자관리" && (
             <OpenMenuWrap>
               <Nav> - 주문내역 확인 </Nav>
               <Nav> - 배송상태 업데이트 </Nav>
             </OpenMenuWrap>
-          )}
+          )} */}
           {/* 통계 */}
           {/* 상위메뉴 */}
           <SubMenuWrap

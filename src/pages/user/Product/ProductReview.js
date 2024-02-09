@@ -23,7 +23,7 @@ const ProductReview = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log("reviewData: ", reviewData);
+    setSortedReviews(reviewData);
   }, [reviewData]);
   return (
     <Wrap>
@@ -33,16 +33,16 @@ const ProductReview = (props) => {
       <TotalSortWrap>
         <div className="cm-SRegular18">총 {reviewData.length} 개</div>
         {/* 최신순 정렬, 평점순 정렬 */}
-        {/* <SortButton
+        <SortButton
           reviewData={reviewData}
           setSortedReviews={setSortedReviews}
-        /> */}
+        />
       </TotalSortWrap>
 
-      {reviewData.length !== 0 ? (
+      {sortedReviews.length !== 0 ? (
         // {/* 리뷰 내용 리스트 */}
         <ReviewWrap>
-          {reviewData.map((review, index) => (
+          {sortedReviews.map((review, index) => (
             <ReviewBox key={index} value={review} />
           ))}
         </ReviewWrap>

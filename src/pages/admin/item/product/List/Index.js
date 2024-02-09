@@ -6,11 +6,11 @@ import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Dropdown from "@components/Dropdown";
-// import DataTable from "@components/AdminDataTable";
 import categoryData from "@data/user/CategoryData";
-import { GET_ItemList, GET_ItemFilterListUser, DELETE_Item } from "@api/Item";
+import { GET_ItemFilterListUser, DELETE_Item } from "@api/Item";
 import { useLocation } from "react-router-dom";
 import DataTable from "@components/DataTable";
+import { categoryFormat, subCategoryFormat } from "assets/CustomName";
 
 // 상품 리스트 관리자 페이지
 const Index = () => {
@@ -63,7 +63,13 @@ const Index = () => {
       10
     )
       .then((data) => {
-        setItem(data.data.content);
+        console.log(data.data.content);
+        const items = data.data.content.map((item) => ({
+          ...item,
+          category: categoryFormat(item.category, false),
+          subCategory: subCategoryFormat(item.subCategory, false),
+        }));
+        setItem(items);
         setTotalData(data.data.totalElements);
       })
       .catch((error) => {
@@ -117,7 +123,7 @@ const Index = () => {
               width={"15rem"}
             />
             {/* 검색창 */}
-            <Paper
+            {/* <Paper
               component="form"
               sx={{
                 p: "0rem 1rem",
@@ -127,19 +133,19 @@ const Index = () => {
                 width: "25rem",
                 height: "3rem",
               }}
-            >
-              {/* 검색어 입력창 */}
-              <InputBase
+            > */}
+            {/* 검색어 입력창 */}
+            {/* <InputBase
                 sx={{ ml: 1, flex: 1, height: "100%" }}
                 placeholder="검색어를 입력해주세요"
                 inputProps={{ "aria-label": "검색어를 입력해주세요" }}
-              />
+              /> */}
 
-              {/* 검색 버튼 (돋보기) */}
-              <IconButton type="button" aria-label="search">
+            {/* 검색 버튼 (돋보기) */}
+            {/* <IconButton type="button" aria-label="search">
                 <SearchIcon />
               </IconButton>
-            </Paper>
+            </Paper> */}
           </SearchWrap>
           {/* 추가하기 버튼 */}
           <Button>
@@ -190,14 +196,14 @@ const FilterSection = styled.div`
   box-sizing: border-box; // padding까지 합쳐서 width 설정하기
   flex-direction: row;
   align-items: center;
-  gap: 23.9rem;
+  // gap: 23.9rem;
+  gap: 51rem;
 `;
 const SearchWrap = styled.div`
   display: flex;
   gap: 0.875rem;
   align-items: center;
 `;
-
 const ListSection = styled.div`
   display: flex;
   width: 88.9375rem;

@@ -169,21 +169,21 @@ export const categoryFormat = (category, isToServer) => {
 // 상품 서브카테고리 이름 커스텀
 export const subCategoryFormat = (category, isToServer) => {
   const map = {
-    여성의류: "WOMEN_CLOTHES",
-    남성의류: "MEN_CLOTHES",
-    언더웨어: "UNDERWEAR",
+    여성의류: "women_clothes",
+    남성의류: "men_clothes",
+    언더웨어: "underwear",
     신발: "SHOES",
-    잡화: "BAGS_WALLETS_ACCESSORIES",
-    액세서리: "JEWELRY_WATCHES_ACCESSORIES",
+    잡화: "bags_wallets_accessories",
+    액세서리: "jewelry_watches_accessories",
   };
 
   const reverseMap = {
-    WOMEN_CLOTHES: "여성의류",
-    MEN_CLOTHES: "남성의류",
-    UNDERWEAR: "언더웨어",
-    SHOES: "신발",
-    BAGS_WALLETS_ACCESSORIES: "잡화",
-    JEWELRY_WATCHES_ACCESSORIES: "액세서리",
+    women_clothes: "여성의류",
+    men_clothes: "남성의류",
+    underwear: "언더웨어",
+    shoes: "신발",
+    bags_wallets_accessories: "잡화",
+    jewelry_watches_accessories: "액세서리",
   };
 
   if (isToServer) {

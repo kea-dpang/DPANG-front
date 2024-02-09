@@ -9,7 +9,7 @@ import SearchDropdown from "@components/SearchDropdown";
 const ProductDefaultEnroll = ({ productInfo, setProductInfo }) => {
   const [brand, setBrand] = useState([]);
   useEffect(() => {
-    GET_BrandList(0, 30)
+    GET_BrandList()
       .then((data) => {
         console.log("brand : ", data.data.content);
         const brandData = data.data.content.map((item) => ({

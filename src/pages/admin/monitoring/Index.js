@@ -11,7 +11,7 @@ const Monitoring = () => {
         <ListSection>
           <iframe
             src="http://61.109.216.206:5601/app/dashboards#/view/27a3ff40-c3ff-11ee-b75d-15677e16b3d5?embed=true&_g=(filters%3A!()%2Cquery%3A(language%3Akuery%2Cquery%3A'')%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-7d%2Cto%3Anow))&show-query-input=true&show-time-filter=true"
-            height="1300"
+            height="1600"
             width="100%"
           ></iframe>
         </ListSection>

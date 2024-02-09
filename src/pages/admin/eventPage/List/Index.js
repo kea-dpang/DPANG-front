@@ -138,28 +138,6 @@ const Index = () => {
               onChange={handleCategoryChange}
               width={"10rem"}
             />
-            {/* 검색창 */}
-            <Paper
-              component="form"
-              sx={{
-                p: "0rem 1rem",
-                display: "flex",
-                alignItems: "center",
-                width: "25rem",
-                height: "3rem",
-              }}
-            >
-              {/* 검색어 입력창 */}
-              <InputBase
-                sx={{ ml: 1, flex: 1, height: "100%" }}
-                placeholder="검색어를 입력해주세요"
-                inputProps={{ "aria-label": "검색어를 입력해주세요" }}
-              />
-              {/* 검색 버튼 (돋보기) */}
-              <IconButton type="button" aria-label="search">
-                <SearchIcon />
-              </IconButton>
-            </Paper>
           </SearchWrap>
           {/* 추가하기 버튼 */}
           <Button>
@@ -208,7 +186,7 @@ const FilterSection = styled.div`
   box-sizing: border-box; // padding까지 합쳐서 width 설정하기
   flex-direction: row;
   align-items: center;
-  gap: 28.9rem;
+  gap: 56rem;
 `;
 const SearchWrap = styled.div`
   display: flex;
