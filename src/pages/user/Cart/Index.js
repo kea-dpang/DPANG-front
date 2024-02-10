@@ -6,7 +6,11 @@ import { useNavigate } from "react-router-dom";
 import Footer from "@components/UserFooter/Index";
 import { GET_CartList } from "@api/cart";
 import { Link } from "react-router-dom";
-import { checkedItemsAtom, totalAmountSelector } from "recoil/user/CartAtom";
+import {
+  cartListAtom,
+  checkedItemsAtom,
+  totalAmountSelector,
+} from "recoil/user/CartAtom";
 import { useRecoilValue } from "recoil";
 import {
   useErrorAlert,
@@ -21,6 +25,8 @@ const CartPage = () => {
   장바구니 아무것도 안담겨 있을 경우
   */
   const [cartItemCount, setCartItemCount] = useState(); // 장바구니에 아이템이 담겨있는지 체크
+  const cartListCheck = useRecoilValue(cartListAtom);
+
   const checkedItems = useRecoilValue(checkedItemsAtom);
   const totalAmount = useRecoilValue(totalAmountSelector);
   const navigate = useNavigate();
@@ -62,13 +68,16 @@ const CartPage = () => {
           <Main>
             <CartList onItemCount={handleItemCount} />
           </Main>
-          <OrderBtn
-            className="Btn_M_Navy"
-            // to={"/user/order"}
-            onClick={handleBtn}
-          >
-            주문하기
-          </OrderBtn>
+          {/* {cartItemCount > 0 && ( */}
+          {cartListCheck.length > 0 && (
+            <OrderBtn
+              className="Btn_M_Navy"
+              // to={"/user/order"}
+              onClick={handleBtn}
+            >
+              주문하기
+            </OrderBtn>
+          )}
         </CartWrap>
       </Wrap>
       <Footer />

@@ -6,9 +6,10 @@ const userId = window.localStorage.getItem("userId");
 //장바구니 담기
 export const POST_Cart = async (itemId, quantity) => {
   console.log("장바구니 담기입니당: ", itemId);
+  console.log(userId);
   const res = await axios({
     method: "post",
-    url: `${url}/${userId}/${itemId}`,
+    url: `${url}/${userId}`,
     data: {
       itemId: itemId,
       quantity: quantity,
