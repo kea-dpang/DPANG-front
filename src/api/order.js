@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = `/api/order`;
+const url = `/api/orders`;
 
 export const POST_OrderInfo = async (inputValue) => {
   console.log("주문하기: ", inputValue);
@@ -36,13 +36,13 @@ export const GET_Order = async () => {
   return res.data;
 };
 
-  export const PUT_change_status = async (orderId, inputValue) => {
-    const res = await axios({
-      method: "put",
-      url: `${url}/${orderId}`,
-    });
-    return res.data;
-  };
+export const PUT_change_status = async (orderId, inputValue) => {
+  const res = await axios({
+    method: "put",
+    url: `${url}/${orderId}`,
+  });
+  return res.data;
+};
 
 // export const GET_OrderList = async (orderId, inputValue) => {
 //   console.log("주문상세조회");
@@ -58,7 +58,7 @@ export const GET_order_list = async (inputValue) => {
 
   const res = await axios({
     method: "get",
-    url: `${url}/list`,
+    url: `${url}`,
     params: {
       userId: inputValue.userId,
       startDate: inputValue.startDate || undefined,
@@ -84,14 +84,11 @@ export const GET_order_detail = async (orderId) => {
   return res.data;
 };
 
-export const GET_order_item_detail = async (id, orderId)=>{
-
-
+export const GET_order_item_detail = async (id, orderId) => {
   const res = await axios({
-    method: "get", 
-    url: `${url}/${orderId}/detail/${id}`
-  }) 
+    method: "get",
+    url: `${url}/${orderId}/detail/${id}`,
+  });
 
-return res.data;
-
-}
+  return res.data;
+};

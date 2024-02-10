@@ -31,27 +31,11 @@ const Column = styled.div`
   align-items: center;
   justify-content: center;
 `;
-const ItemColBox = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const ItemCol = styled.div`
-  height: 6rem;
-  display: flex;
-  ${(props) => setBorder(props.i)};
-  
-`;
 
 const setBorder = (i) => {
-
-  if (i != 0)
-    return { borderTop: "1px solid black" }
-  else
-    return { border: 0 }
-
-}
-
+  if (i != 0) return { borderTop: "1px solid black" };
+  else return { border: 0 };
+};
 
 function TableRow(props) {
   const navi = useNavigate();
@@ -61,22 +45,18 @@ function TableRow(props) {
   console.log(id, orderId);
 
   useEffect(() => {
-
     GET_order_item_detail(id, orderId)
       .then((data) => {
         console.log("성공", data);
-        setOrderData(data.data)
+        setOrderData(data.data);
       })
       .catch((error) => {
-        console.log("실패", error)
-      })
-
-
-  }, [])
-
+        console.log("실패", error);
+      });
+  }, []);
 
   if (!orderData) {
-    return <></>
+    return <></>;
   }
 
   return (
@@ -95,7 +75,6 @@ function TableRow(props) {
         {orderData.productInfoDto.price} / {orderData.productQuantity}
       </Col>
       <Col width="14rem">{orderData.productInfoDto.price - 3000}</Col>
-
     </Row>
   );
 }

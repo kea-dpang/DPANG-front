@@ -12,13 +12,14 @@ import {
   customRefundReason,
   customRefundStatus,
   customRefundReasonReverse,
+  customRefundStatusReverse,
 } from "assets/CustomName";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useQuestionAlert } from "@components/SweetAlert";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -29,12 +30,9 @@ const Index = () => {
   const dropdownValue = [
     "반품 상태",
     "전체",
-    "사이즈 안맞음",
-    "단순변심",
-    "상품불만",
-    "배송지연",
-    "제품 오배송",
-    "기타",
+    "환불 요청",
+    "회수중",
+    "환불 완료",
   ];
   const [refundList, setRefundList] = useState();
   const refundState = ["REFUND_REQUEST", "COLLECTING", "REFUND_COMPLETE"];
@@ -60,7 +58,7 @@ const Index = () => {
     //드롭다운 박스에서 가져온 값으로 카테고리를 설정
     setVal((prev) => ({
       ...prev,
-      refundReason: customRefundReasonReverse(newCategory),
+      refundReason: customRefundStatusReverse(newCategory),
     }));
   };
 
@@ -70,7 +68,6 @@ const Index = () => {
       userId: searchVal,
     }));
   };
-
 
   const [val, setVal] = useState({
     userId: "",
@@ -90,7 +87,6 @@ const Index = () => {
   }, [page]);
 
   const toNextStep = (id, state) => {
-
     PUT_update_status(id, state)
       .then((data) => {
         console.log("성공-성공", data);
@@ -100,22 +96,16 @@ const Index = () => {
         console.log("실패-실패", error);
         throw error;
       });
-
   };
 
-
   const handleChange = (id, state) => {
-
     showQuestionAlert({
       title: "환불 상태를 변경하시겠습니까?",
       text: "확인 클릭 시 해당 환불건에 대해서 상태가 업데이트 됩니다.",
       saveText: "변경 되었습니다.",
       onConfirm: () => toNextStep(id, state),
-
-    })
-
-  }
-
+    });
+  };
 
   useEffect(() => {
     GET_refund_list(val)
@@ -205,22 +195,31 @@ const Index = () => {
             const orderId = rowData.product.orderDetailId;
 
             return (
-              <ButtonContainer style={{width:150}} onClick={(e)=>{e.stopPropagation();}}>
+              <ButtonContainer
+                style={{ width: 150 }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+              >
                 {state !== "REFUND_COMPLETE" ? (
-                      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-                      <InputLabel id="demo-select-small-label">상태처리</InputLabel>
-                      <Select
-                        labelId="demo-select-small-label"
-                        id="demo-select-small"
-                        value={state}
-                        label="상태수정"
-                        onChange={(e)=>{handleChange(value, e.target.value)}}
-                      >
-                        <MenuItem value="REFUND_REQUEST">환불 요청</MenuItem>
-                        <MenuItem value="COLLECTING">회수중</MenuItem>
-                        <MenuItem value="REFUND_COMPLETE">환불 완료</MenuItem>
-                      </Select>
-                    </FormControl>
+                  <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                    <InputLabel id="demo-select-small-label">
+                      상태처리
+                    </InputLabel>
+                    <Select
+                      labelId="demo-select-small-label"
+                      id="demo-select-small"
+                      value={state}
+                      label="상태수정"
+                      onChange={(e) => {
+                        handleChange(value, e.target.value);
+                      }}
+                    >
+                      <MenuItem value="REFUND_REQUEST">환불 요청</MenuItem>
+                      <MenuItem value="COLLECTING">회수중</MenuItem>
+                      <MenuItem value="REFUND_COMPLETE">환불 완료</MenuItem>
+                    </Select>
+                  </FormControl>
                 ) : null}
               </ButtonContainer>
             );

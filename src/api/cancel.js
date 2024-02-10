@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "/api/cancel";
+const url = "/api/cancels";
 
 //주문한 아이템에 대한 취소 요청을 날리는 API
 //마이페이지 주문 리스트에서 버튼 클릭 이벤트 통해 날림
@@ -34,7 +34,7 @@ export const GET_cancel_list = async (inputValue) => {
 
   const res = await axios({
     method: "get",
-    url: `${url}/list`, //url은 나중에 수정해야 함다
+    url: `${url}`, //url은 나중에 수정해야 함다
     params: {
       userId: inputValue.userId,
       startDate: inputValue.startDate || undefined,

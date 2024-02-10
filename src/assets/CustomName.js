@@ -247,6 +247,19 @@ export const customRefundStatus = (status) => {
   }
 };
 
+export const customRefundStatusReverse = (status) => {
+  switch (status) {
+    case "환불 요청":
+      return "REFUND_REQUEST";
+    case "회수중":
+      return "COLLECTING";
+    case "환불 완료":
+      return "REFUND_COMPLETE";
+    default:
+      return undefined;
+  }
+};
+
 // export const customRefundStatusReverse = (status) =>{
 // switch(status){
 //   case "환불 요청":
