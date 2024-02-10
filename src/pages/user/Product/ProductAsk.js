@@ -45,8 +45,7 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-top: 5rem;
-  padding-bottom: 10rem;
+  padding-top: 10rem;
 `;
 const PageName = styled.div`
   display: flex;
