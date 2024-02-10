@@ -35,7 +35,7 @@ module.exports = function (app) {
   );
   /* 주문 */
   app.use(
-    ["/api/refund", "/api/order", "/api/cancel"],
+    ["/api/refunds", "/api/orders", "/api/cancels"],
     createProxyMiddleware({
       target: "http://61.109.214.181:8085",
       changeOrigin: true,
