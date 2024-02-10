@@ -62,19 +62,18 @@ const Item = (props) => {
                   className="cm-XsRegular14 col-SemiLightGrey"
                   style={{ textDecoration: "line-through" }}
                 >
-                  {" "}
-                  {props.value.price}원
+                  {props.value.price.toLocaleString()}마일
                 </div>
                 {/* 할인율 & 현재 판매가격 */}
                 <SaleWrap className="cm-SBold16">
                   <div className="col-Orange"> {props.value.discountRate}%</div>
-                  <div> {saleprice.toLocaleString()}원</div>
+                  <div> {saleprice.toLocaleString()}마일</div>
                 </SaleWrap>
               </>
             ) : (
               // 할인율이 0일 때는 원가만 보여줌
               <SaleWrap className="cm-SBold16">
-                <div> {props.value.price.toLocaleString()}원</div>
+                <div> {props.value.price.toLocaleString()}마일</div>
               </SaleWrap>
             )}
           </PriceWrap>

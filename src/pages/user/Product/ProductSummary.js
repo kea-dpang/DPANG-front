@@ -94,18 +94,22 @@ const ProductSummary = (props) => {
             <PriceWrap>
               <DiscountWrap className="cm-SBold18">
                 <div className="col-Orange"> {props.item.discountRate}%</div>
-                <div className="col-Black"> {saleprice.toLocaleString()} </div>
+                <div className="col-Black">
+                  {saleprice.toLocaleString()} 마일
+                </div>
               </DiscountWrap>
               <div
                 className="cm-SBold16 col-SemiLightGrey"
                 style={{ textDecoration: "line-through" }}
               >
-                {props.item.price}
+                {props.item.price.toLocaleString()} 마일
               </div>
             </PriceWrap>
           ) : (
             <DiscountWrap style={{ paddingTop: "1rem" }} className="cm-SBold18">
-              <div className="col-Black"> {props.item.price} </div>
+              <div className="col-Black">
+                {props.item.price.toLocaleString()}마일
+              </div>
             </DiscountWrap>
           )}
           {/* 판매자 */}
@@ -127,7 +131,7 @@ const ProductSummary = (props) => {
                   <NumberBadge count={count} setCount={setCount} />
                   {/* 최종 값 */}
                   <div className="cm-SRegular16 col-Black">
-                    {totalPrice.toLocaleString()}원
+                    {totalPrice.toLocaleString()}마일
                   </div>
                 </SelectPriceWrap>
               </AmountBox>

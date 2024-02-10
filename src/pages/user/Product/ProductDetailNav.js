@@ -1,65 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-const ProductDetailNav = ({
-  handleScrollInfo,
-  handleScrollReview,
-  handleScrollAsk,
-  infoRef,
-  reviewRef,
-  askRef,
-  item,
-}) => {
+import { Link } from "react-scroll";
+const ProductDetailNav = ({ item }) => {
   const [selected, setSelected] = useState("info");
-  useEffect(() => {
-    const onScroll = () => {
-      const infoOffset = infoRef.current.offsetTop - 10 || 0;
-      const reviewOffset = reviewRef.current.offsetTop - 10 || 0;
-      const askOffset = askRef.current.offsetTop - 10 || 0;
-
-      if (window.scrollY + 1 > askOffset) {
-        setSelected("ask");
-      } else if (window.scrollY + 0.5 >= reviewOffset) {
-        setSelected("review");
-      } else if (window.scrollY + 10 > infoOffset) {
-        setSelected("info");
-      }
-    };
-
-    window.addEventListener("scroll", onScroll);
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-    };
-  }, []);
+  const handleClick = (section) => {
+    setSelected(section);
+  };
   return (
     <Wrap className="cm-SBold18">
-      <NavBtn
-        onClick={() => {
-          handleScrollInfo();
-          setSelected("info");
-        }}
+      <Nav
+        to="info"
+        spy={true}
+        smooth={true}
         data-clicked={selected === "info"}
+        onSetActive={() => setSelected("info")}
       >
         상품 정보
-      </NavBtn>
-      <NavBtn
-        onClick={() => {
-          handleScrollReview();
-          setSelected("review");
-        }}
+      </Nav>
+      <Nav
+        to="review"
+        spy={true}
+        smooth={true}
         data-clicked={selected === "review"}
+        onSetActive={() => setSelected("review")}
       >
         후기 ({item.reviewCount})
-      </NavBtn>
-      <NavBtn
-        onClick={() => {
-          handleScrollAsk();
-          setSelected("ask");
-        }}
+      </Nav>
+      <Nav
+        to="ask"
+        spy={true}
+        smooth={true}
         data-clicked={selected === "ask"}
+        onSetActive={() => setSelected("ask")}
       >
         문의
-      </NavBtn>
+      </Nav>
     </Wrap>
   );
 };
@@ -72,7 +47,8 @@ const Wrap = styled.div`
   justify-content: center;
   padding-top: 3rem;
 `;
-const NavBtn = styled.button`
+const Nav = styled(Link)`
+  cursor: pointer;
   display: flex;
   width: 25rem;
   height: 3.5rem;

@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { GET_ItemFilterListUser, GET_HotItemList } from "@api/Item";
 import ItemData from "@data/user/ItemDetailData";
+import { ReactComponent as Arrowcircle } from "@images/arrowcircle.svg";
 
 const Carousel = (props) => {
   console.log("Item data: ", ItemData);
@@ -64,13 +65,32 @@ const Carousel = (props) => {
     console.log("진짜 아이템 리스트", itemList);
   }, [itemList]);
 
+  function PrevArrow(props) {
+    const { onClick } = props;
+    return (
+      <Arrow className="left" onClick={onClick}>
+        <Arrowcircle style={{ transform: "scaleX(-1)" }} />
+      </Arrow>
+    );
+  }
+
+  function NextArrow(props) {
+    const { onClick } = props;
+    return (
+      <Arrow className="right" onClick={onClick}>
+        <Arrowcircle />
+      </Arrow>
+    );
+  }
+
   var settings = {
     dots: true, // 캐러셀 밑에 ... 을 표시할지
     infinite: true, // 슬라이드가 끝까지 가면 다시 처음으로 반복
-    speed: 3000, // 속도
+    speed: 500, // 속도
     slidesToShow: 4, // 한 번에 보여줄 슬라이드 개수
     slidesToScroll: 4, // 한 번에 넘어가는 슬라이드 개수
-    arrow: true,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
   };
   return (
     <>
@@ -87,4 +107,25 @@ export default Carousel;
 
 const StyledSlider = styled(Slider)`
   width: 100%;
+`;
+const Arrow = styled.p`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--black);
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  z-index: 1;
+
+  &.left {
+    left: -34px;
+  }
+  &.right {
+    right: -34px;
+  }
 `;
