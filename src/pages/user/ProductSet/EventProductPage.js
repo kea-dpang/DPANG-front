@@ -38,7 +38,7 @@ const EventProductPage = () => {
         {itemList && (
           <ItemWrap>
             {itemList.map((item) => (
-              <Item key={item.itemId} value={item} />
+              <Item key={item.id} value={item} />
             ))}
           </ItemWrap>
         )}
