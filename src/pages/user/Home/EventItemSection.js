@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Carousel from "./Carousel";
+import { ReactComponent as Arrow } from "@images/arrowStrokeVector.svg";
 
 const ItemSection = (props) => {
   console.log(props.title);
@@ -15,7 +16,10 @@ const ItemSection = (props) => {
           to={`/user/collections/event/${props.id}`}
           state={{ title: props.title, sellerId: props.sellerId, id: props.id }}
         >
-          {props.title}
+          {props.title}{" "}
+          <Arrow
+            style={{ width: "1.5rem", height: "1.5rem", color: "var(--black)" }}
+          />
         </Title>
         <Carousel sellerId={props.sellerId} filter="event" />
       </Wrap>
@@ -35,4 +39,5 @@ const Title = styled(Link)`
   text-decoration: none;
   color: inherit;
   padding-bottom: 2.5rem;
+  align-items: center;
 `;
