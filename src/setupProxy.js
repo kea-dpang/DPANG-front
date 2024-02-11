@@ -109,7 +109,7 @@ module.exports = function (app) {
   app.use(
     "/api/auth",
     createProxyMiddleware({
-      target: "http://61.109.214.181:8091",
+      target: "http://61.109.214.38",
       changeOrigin: true,
     })
   );
