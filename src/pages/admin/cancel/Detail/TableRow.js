@@ -39,21 +39,26 @@ function TableRow(props) {
 
   return (
     <Row className="cm-SRegular16">
-      <Col width="16.9375rem">
+      <Col width="13.9375rem">
         <Column>
           <p>{data.orderDate}</p>
           <p>{data.orderID}</p>
         </Column>
       </Col>
-      <Col width="11rem">{customOrderStatus(data.product.orderStatus)}</Col>
-      <Col width="26rem">
-        <ItemImg src={data.product.productInfoDto.image} />
+      <Col width="9rem">
+        <Column>
+          <p>{data.cancelRequestDate}</p>
+        </Column>
+      </Col>
+      <Col width="8rem">{customOrderStatus(data.product.orderStatus)}</Col>
+      <Col width="21rem">
+        <ItemImg src={data.product.productInfoDto.image} /> &nbsp; &nbsp;
         <ItemName>{data.product.productInfoDto.name}</ItemName>
       </Col>
-      <Col width="10rem">
+      <Col width="9rem">
         {data.product.productInfoDto.price.toLocaleString()} / {data.product.productQuantity}
       </Col>
-      <Col width="10rem">{data.expectedRefundAmount.toLocaleString()}</Col>
+      <Col width="9rem">{data.expectedRefundAmount.toLocaleString()}</Col>
     </Row>
   );
 }

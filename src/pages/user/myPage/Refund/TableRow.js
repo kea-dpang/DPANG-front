@@ -112,19 +112,24 @@ function TableRow({ data }) {
                 <p>{a.orderId}</p>
               </Column>
             </Col>
-            <Col width="6rem">{customRefundReason(a.refundReason)}</Col>
-            <Col width="10rem">{customRefundStatus(a.refundStatus)}</Col>
-            <Col width="28rem">
+            <Col width="9rem">
+              <Column>
+                <p>{a.refundRequestDate}</p>
+              </Column>
+            </Col>
+            <Col width="8rem">{customRefundReason(a.refundReason)}</Col>
+            <Col width="6rem">{customRefundStatus(a.refundStatus)}</Col>
+            <Col width="23rem">
               <ItemImg src={a.product.productInfoDto.image} />
               <ItemName>&nbsp; &nbsp;{a.product.productInfoDto.name}</ItemName>
             </Col>
-            <Col width="9rem">
+            <Col width="8rem">
               {(
                 a.product.productInfoDto.price * a.product.productQuantity
               ).toLocaleString()}
               /{a.product.productQuantity}
             </Col>
-            <Col width="9rem">{a.expectedRefundAmount.toLocaleString()}</Col>
+            <Col width="8rem">{a.expectedRefundAmount.toLocaleString()}</Col>
           </Row>
         );
       })}

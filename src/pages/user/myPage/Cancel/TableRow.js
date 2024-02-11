@@ -103,23 +103,28 @@ function TableRow({ data }) {
               navi(`/user/mypage/cancel/detail/${a.cancelId}`);
             }}
           >
-            <Col width="15rem">
+            <Col width="10rem">
               <Column>
-                <p>{a.orderDate}</p>
+              <p>{a.orderDate}</p>
                 <p>{a.orderId}</p>
+              </Column>
+            </Col>
+            <Col width="10rem">
+              <Column>
+                <p>{a.cancelRequestDate}</p>
               </Column>
             </Col>
             <Col width="25rem">
               <ItemImg src={a.product.productInfoDto.image} />
               <ItemName>&nbsp; &nbsp;{a.product.productInfoDto.name}</ItemName>
             </Col>
-            <Col width="15rem">
+            <Col width="13rem">
               {(
                 a.product.productInfoDto.price * a.product.productQuantity
               ).toLocaleString()}
               /{a.product.productQuantity}
             </Col>
-            <Col width="17rem">{a.expectedRefundAmount.toLocaleString()}</Col>
+            <Col width="14rem">{a.expectedRefundAmount.toLocaleString()}</Col>
           </Row>
         );
       })}

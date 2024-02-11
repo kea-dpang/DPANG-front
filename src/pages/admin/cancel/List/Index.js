@@ -92,6 +92,7 @@ const Index = () => {
         },
       },
     },
+    { name: "cancelRequestDate", label: "취소 요청일", options: { sort: false } },
     // { name: "name", label: "이름" },
     {
       name: "cancelId",

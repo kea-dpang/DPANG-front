@@ -146,15 +146,7 @@ const Index = () => {
         },
       },
     },
-    {
-      name: "refundReason",
-      label: "상세사유",
-      options: {
-        customBodyRender: (value) => {
-          return customRefundReason(value);
-        },
-      },
-    },
+    { name: "refundRequestDate", label: "취소 요청일", options: { sort: false } },
     {
       name: "refundStatus",
       label: "처리상태",
