@@ -1,4 +1,4 @@
-import axios from "axios";
+import instance from "@utils/apiInterceptor";
 
 const userUrl = "/api/users";
 const orderUrl = "/api/order";
@@ -6,7 +6,7 @@ const orderUrl = "/api/order";
 /* 사용자 주소 조회 */
 export const GET_Address = async () => {
   const userId = localStorage.getItem("userId");
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${userUrl}/${userId}/address`,
   });
@@ -15,7 +15,7 @@ export const GET_Address = async () => {
 /* 사용자 주소 수정 */
 export const PATCH_Address = async (data) => {
   const userId = localStorage.getItem("userId");
-  const res = await axios({
+  const res = await instance({
     method: "patch",
     url: `${userUrl}/${userId}/address`,
     data: {
@@ -25,7 +25,7 @@ export const PATCH_Address = async (data) => {
       detailAddress: data.detailAddress,
     },
   });
-  console.log("AXIOS:", res);
+  console.log("instance:", res);
   return res.data;
 };
 
@@ -43,7 +43,7 @@ export const POST_Order = async (addressInfo, checkedItems) => {
   }));
   console.log("formattedItems", formattedItems);
 
-  const res = await axios({
+  const res = await instance({
     method: "post",
     url: `${orderUrl}`,
     headers: {

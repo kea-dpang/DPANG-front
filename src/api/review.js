@@ -1,5 +1,5 @@
 import { IronOutlined } from "@mui/icons-material";
-import axios from "axios";
+import instance from "@utils/apiInterceptor";
 
 const url = `/api/reviews`;
 
@@ -7,7 +7,7 @@ export const POST_review = async (inputValue) => {
   console.log("inputValue: ", inputValue);
 
   //리뷰 등록하기
-  const res = await axios({
+  const res = await instance({
     method: "post",
     url: url,
     data: {
@@ -24,7 +24,7 @@ export const POST_review = async (inputValue) => {
 export const GET_review_list = async (inputValue) => {
   console.log("서버로 전달할 데이터", inputValue);
 
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `/api/reviewers/${inputValue.reviewerId}/reviews`,
     params: {

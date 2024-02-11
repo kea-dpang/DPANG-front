@@ -5,7 +5,7 @@ module.exports = function (app) {
   app.use(
     "/api/mileage",
     createProxyMiddleware({
-      target: "http://61.109.214.181:8080",
+      target: "http://61.109.214.38",
       changeOrigin: true,
     })
   );
@@ -21,7 +21,7 @@ module.exports = function (app) {
   app.use(
     "/api/qna",
     createProxyMiddleware({
-      target: "http://61.109.214.181:8083",
+      target: "http://61.109.214.38",
       changeOrigin: true,
     })
   );
@@ -29,7 +29,7 @@ module.exports = function (app) {
   app.use(
     "/api/seller",
     createProxyMiddleware({
-      target: "http://61.109.214.181:8084",
+      target: "http://61.109.214.38",
       changeOrigin: true,
     })
   );
@@ -37,7 +37,7 @@ module.exports = function (app) {
   app.use(
     ["/api/refunds", "/api/orders", "/api/cancels"],
     createProxyMiddleware({
-      target: "http://61.109.214.181:8085",
+      target: "http://61.109.214.38",
       changeOrigin: true,
     })
   );
@@ -45,7 +45,7 @@ module.exports = function (app) {
   app.use(
     ["/api/reviews", "/api/reviewers"],
     createProxyMiddleware({
-      target: "http://61.109.214.181:8086",
+      target: "http://61.109.214.38",
       changeOrigin: true,
     })
   );
@@ -53,7 +53,7 @@ module.exports = function (app) {
   app.use(
     "/api/items",
     createProxyMiddleware({
-      target: "http://61.109.214.181:8086",
+      target: "http://61.109.214.38",
       changeOrigin: true,
     })
   );
@@ -61,7 +61,7 @@ module.exports = function (app) {
   app.use(
     "/api/items",
     createProxyMiddleware({
-      target: "http://61.109.214.181:8086",
+      target: "http://61.109.214.38",
       changeOrigin: true,
     })
   );
@@ -85,7 +85,7 @@ module.exports = function (app) {
   app.use(
     "/api/events",
     createProxyMiddleware({
-      target: "http://61.109.214.181:8088",
+      target: "http://61.109.214.38",
       changeOrigin: true,
     })
   );
@@ -93,7 +93,7 @@ module.exports = function (app) {
   app.use(
     "/api/users",
     createProxyMiddleware({
-      target: "http://61.109.214.181:8089",
+      target: "http://61.109.214.38",
       changeOrigin: true,
     })
   );
@@ -101,7 +101,7 @@ module.exports = function (app) {
   app.use(
     "/api/carts",
     createProxyMiddleware({
-      target: "http://61.109.214.181:8089",
+      target: "http://61.109.214.38",
       changeOrigin: true,
     })
   );

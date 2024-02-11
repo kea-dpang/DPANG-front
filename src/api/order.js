@@ -1,10 +1,10 @@
-import axios from "axios";
+import instance from "@utils/apiInterceptor";
 
 const url = `/api/orders`;
 
 export const POST_OrderInfo = async (inputValue) => {
   console.log("주문하기: ", inputValue);
-  const res = await axios({
+  const res = await instance({
     method: "post",
     url: url,
     data: {
@@ -23,7 +23,7 @@ export const POST_OrderInfo = async (inputValue) => {
 
 export const GET_Order = async () => {
   console.log("get orderlist");
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${url}/list`,
     params: {
@@ -37,7 +37,7 @@ export const GET_Order = async () => {
 };
 
 export const PUT_change_status = async (orderId, inputValue) => {
-  const res = await axios({
+  const res = await instance({
     method: "put",
     url: `${url}/${orderId}`,
   });
@@ -46,7 +46,7 @@ export const PUT_change_status = async (orderId, inputValue) => {
 
 // export const GET_OrderList = async (orderId, inputValue) => {
 //   console.log("주문상세조회");
-//   const response = await axios({
+//   const response = await instance({
 //     method: "get",
 //     url: `${url}/${orderId}`,
 //     data: {},
@@ -56,7 +56,7 @@ export const PUT_change_status = async (orderId, inputValue) => {
 export const GET_order_list = async (inputValue) => {
   console.log("서버로 전달할 데이터는", inputValue);
 
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${url}`,
     params: {
@@ -76,7 +76,7 @@ export const GET_order_list = async (inputValue) => {
 export const GET_order_detail = async (orderId) => {
   console.log("서버로 전달할 데이터는", orderId);
 
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${url}/${orderId}`,
   });
@@ -85,7 +85,7 @@ export const GET_order_detail = async (orderId) => {
 };
 
 export const GET_order_item_detail = async (id, orderId) => {
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${url}/${orderId}/detail/${id}`,
   });
