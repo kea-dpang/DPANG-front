@@ -39,7 +39,10 @@ export const GET_Order = async () => {
 export const PUT_change_status = async (orderId, inputValue) => {
   const res = await instance({
     method: "put",
-    url: `${url}/${orderId}`,
+    url: `${url}/${orderId}/details/${orderDetailId}`,
+    data: {
+      status: nextState
+    }
   });
   return res.data;
 };
@@ -63,9 +66,9 @@ export const GET_order_list = async (inputValue) => {
       userId: inputValue.userId,
       startDate: inputValue.startDate || undefined,
       endDate: inputValue.endDate || undefined,
-      orderStatus: inputValue.status || undefined,
+      orderStatus: inputValue.orderStatus || undefined,
       page: inputValue.page || undefined,
-      size: inputValue.size || undefined,
+      size: inputValue.size || 10,
       sort: inputValue.sort || undefined,
     },
   });
@@ -73,12 +76,12 @@ export const GET_order_list = async (inputValue) => {
   return res.data;
 };
 
-export const GET_order_detail = async (orderId) => {
-  console.log("서버로 전달할 데이터는", orderId);
+export const GET_order_detail = async (orderDetailId, orderId) => {
+  console.log("주문상세조회하기", orderId);
 
   const res = await instance({
     method: "get",
-    url: `${url}/${orderId}`,
+    url: `${url}/${orderId}/details/${orderDetailId}`,
   });
 
   return res.data;
@@ -87,7 +90,7 @@ export const GET_order_detail = async (orderId) => {
 export const GET_order_item_detail = async (id, orderId) => {
   const res = await instance({
     method: "get",
-    url: `${url}/${orderId}/detail/${id}`,
+    url: `${url}/${orderId}/details/${id}`,
   });
 
   return res.data;

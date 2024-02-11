@@ -16,16 +16,6 @@ return(
       </Col>
       <Border />
       <Col height="5rem">
-        <ColHead>사용자 이름</ColHead>
-        <BlankDiv />
-        <Content width="28rem">{data.username}</Content>
-
-        <ColHead>전화번호</ColHead>
-        <BlankDiv />
-        <Content width="28rem">{data.phonenumber}</Content>
-      </Col>
-      <Border/>
-      <Col height="5rem">
         <ColHead>사용자 주소</ColHead>
         <BlankDiv />
         <Content width="64.9375rem">{data.address}, {data.detailaddress}</Content>
