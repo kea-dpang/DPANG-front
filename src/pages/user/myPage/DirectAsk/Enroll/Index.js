@@ -94,8 +94,8 @@ const AskEnrollPage = () => {
         .then((data) => {
           showConfirmAlert({
             title: "문의가 성공적으로 수정되었습니다.",
+            navi: "/user/mypage/directAsk",
           });
-          // window.location.reload();
         })
         .catch((error) => {
           alert("문의 수정이 실패하였습니다. 다시 시도해 주세요.");
