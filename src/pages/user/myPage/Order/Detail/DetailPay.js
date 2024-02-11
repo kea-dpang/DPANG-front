@@ -11,12 +11,12 @@ function DetailPay(props) {
           <ColHeader>상품 합계 금액</ColHeader>
           <Col width="26rem">
             <DataBox width="24rem">
-              {data.paymentInfo.productTotalPrice.toLocaleString()}
+              {data.paymentInfo.productTotalPrice.toLocaleString()} 마일
             </DataBox>
           </Col>
           <ColHeader>배송비</ColHeader>
           <Col width="26rem">
-            <DataBox width="24rem">{data.paymentInfo.deliveryFee.toLocaleString()}</DataBox>
+            <DataBox width="24rem">{data.paymentInfo.deliveryFee.toLocaleString()} 마일</DataBox>
           </Col>
         </Row>
 

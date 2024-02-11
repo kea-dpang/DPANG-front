@@ -7,9 +7,9 @@ function DetailRefund(props) {
       <TableBox className="cm-SRegular16">
         <Row height="6rem">
           <ColHeader>상품 합계 금액</ColHeader>
-          <Col width="26rem"><DataBox>{props.data.totalAmount.toLocaleString()}</DataBox></Col>
+          <Col width="26rem"><DataBox>{props.data.totalAmount.toLocaleString()} 마일</DataBox></Col>
           <ColHeader>환불 예정 금액</ColHeader>
-          <Col width="26rem"><DataBox>{props.data.expectedRefundAmount.toLocaleString()}</DataBox></Col>
+          <Col width="26rem"><DataBox>{props.data.expectedRefundAmount.toLocaleString()} 마일</DataBox></Col>
         </Row>
 
         <Border />
