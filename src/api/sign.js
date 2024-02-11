@@ -1,7 +1,7 @@
 import { setCookie } from "@utils/cookie";
 import { customLeaveCategoryName } from "assets/CustomName";
 import instance from "@utils/apiInterceptor";
-
+import axios from "axios";
 const url = "/api/users/register";
 const authUrl = "/api/auth";
 
@@ -12,7 +12,7 @@ export const POST_User = async (data) => {
   // data.category = customAskCategoryName(data.category, true);
   console.log(data);
 
-  const res = await instance({
+  const res = await axios({
     method: "post",
     url: `${authUrl}/join`,
     data: {
@@ -29,7 +29,7 @@ export const POST_User = async (data) => {
 
 /* auth 로그인 */
 export const POST_Login = async (data) => {
-  const res = await instance({
+  const res = await axios({
     method: "post",
     url: `${authUrl}/login`,
     data: {
@@ -43,7 +43,7 @@ export const POST_Login = async (data) => {
 /* 로그인>비밀번호 찾기 */
 /* 이메일로 코드 전송 */
 export const POST_Code = async (email) => {
-  const res = await instance({
+  const res = await axios({
     method: "post",
     url: `${authUrl}/send-verification-code`,
     params: {
@@ -55,7 +55,7 @@ export const POST_Code = async (email) => {
 /* 비밀번호 재설정 */
 export const POST_newPassword = async (data) => {
   console.log(data);
-  const res = await instance({
+  const res = await axios({
     method: "post",
     url: `${authUrl}/reset-password`,
     data: {
@@ -71,7 +71,7 @@ export const POST_newPassword = async (data) => {
 // TODO: 토큰 갱신 시 accessToken이 아니라 refreshToken을 서버에 보내줘야 하는 것 -> 현재는 accessToken을 보내주는 것으로 되어 있음..
 export const POST_newToken = async (refreshToken) => {
   // console.log(accessToken);
-  const res = await instance({
+  const res = await axios({
     method: "post",
     url: `${authUrl}/renew-token`,
     data: {
@@ -95,7 +95,7 @@ export const POST_newToken = async (refreshToken) => {
 /* 비밀번호 변경 */
 export const POST_changePassword = async (data) => {
   const emailValue = localStorage.getItem("email");
-  const res = await instance({
+  const res = await axios({
     method: "post",
     url: `${authUrl}/change-password`,
     data: {
@@ -120,7 +120,7 @@ export const DELETE_UserLeave = async (password, checkedState, note) => {
   checkedArr = checkedArr.map(customLeaveCategoryName);
   console.log(checkedArr);
 
-  const res = await instance({
+  const res = await axios({
     method: "delete",
     url: `${authUrl}/users/${userId}`,
     data: {

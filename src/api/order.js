@@ -36,13 +36,14 @@ export const GET_Order = async () => {
   return res.data;
 };
 
-export const PUT_change_status = async (orderId, inputValue) => {
+export const PUT_change_status = async (orderDetailId, orderId, nextState) => {
+  console.log(orderId, "dedededed", nextState);
   const res = await instance({
     method: "put",
     url: `${url}/${orderId}/details/${orderDetailId}`,
     data: {
-      status: nextState
-    }
+      status: nextState,
+    },
   });
   return res.data;
 };
