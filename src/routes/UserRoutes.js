@@ -41,9 +41,9 @@ const UserRoutes = () => {
   return (
     <Routes>
       {/* 로그인, 회원가입, 비밀번호 찾기 */}
-      <Route path="sign" element={<SignPage />} />
+      {/* <Route path="sign" element={<SignPage />} /> */}
       {/* <Route påath="login" element={<LoginPage />} /> */}
-      <Route path="findpassword" element={<FindPasswordPage />} />
+      {/* <Route path="findpassword" element={<FindPasswordPage />} /> */}
       {/* 메인페이지 */}
       <Route path="mainpage" element={<MainPage />} />
       {/* 베스트, 이벤트 */}

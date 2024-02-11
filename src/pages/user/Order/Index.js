@@ -96,7 +96,7 @@ const OrderPage = () => {
   const handleOrderBtn = () => {
     showQuestionConfirmAlert({
       title: `결제하시겠습니까?`,
-      text: "확인 클릭 시 결제 완료됩니다.",
+      text: "확인 클릭 시 마일이 소진됩니다.",
       saveText: "결제되었습니다.",
       navi: "/user/mainpage",
       onConfirm: () =>
