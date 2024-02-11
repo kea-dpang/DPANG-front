@@ -1,3 +1,4 @@
+import { customOrderStatus } from "assets/CustomName";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -35,21 +36,22 @@ const Column = styled.div`
 
 function TableRow(props) {
 
-  console.log(props.id)
-
   const data = props.data
 
   return (
     <Row className="cm-SRegular16">
+      <Col width="10rem">
+        <p>{data.itemId}</p>
+      </Col>
       <Col width="14.9375rem">
         <Column>
           <p>{data.orderDate}</p>
           <p>{data.orderId}</p>
         </Column>
       </Col>
-      <Col width="16rem">{data.orderStatus}</Col>
+      <Col width="16rem">{customOrderStatus(data.orderStatus)}</Col>
       <Col width="26rem">
-        <ItemImg src={data.imgUrl} />
+        <ItemImg src={data.image} />
         <ItemName>{data.name}</ItemName>
       </Col>
       <Col width="15rem">

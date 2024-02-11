@@ -236,6 +236,27 @@ export const customOrderStatus = (status) => {
   }
 };
 
+export const customOrderStatusReverse = (status) => {
+  switch (status) {
+    case "주문승인":
+      return "ORDER_RECIEVED";
+    case "결제완료":
+      return "PAYMENT_COMPLETED";
+    case "배송요청":
+      return "DELIVERY_REQUESTED";
+    case "배송준비":
+      return "PREPARING_FOR_DELIVERY";
+    case "배송중":
+      return "IN_DELIVERY";
+    case "배송완료":
+      return "DELIVERY_COMPLETED";
+    case "취소/환불":
+      return "CANCELLED";
+    default:
+      return undefined;
+  }
+};
+
 export const customRefundStatus = (status) => {
   switch (status) {
     case "REFUND_REQUEST":
