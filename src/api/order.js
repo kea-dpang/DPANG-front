@@ -42,8 +42,8 @@ export const PUT_change_status = async (orderDetailId, orderId, nextState) => {
     method: "put",
     url: `${url}/${orderId}/details/${orderDetailId}`,
     data: {
-      status: nextState
-    }
+      status: nextState,
+    },
   });
   return res.data;
 };
