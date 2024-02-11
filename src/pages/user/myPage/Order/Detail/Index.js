@@ -24,6 +24,7 @@ const ReviewContainer = styled.div`
 
 function Index() {
   const { id } = useParams();
+  console.log(id);
   const [orderInfo, setInfo] = useState();
 
   useEffect(() => {
