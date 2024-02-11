@@ -1,11 +1,10 @@
-import instance from "@utils/apiInterceptor";
 import { getCookie } from "@utils/cookie";
 import {
   customAskCategoryName,
   customDate,
   customFAQCategoryName,
 } from "assets/CustomName";
-import axios from "axios";
+import instance from "@utils/apiInterceptor";
 
 const url = "/api/faq";
 

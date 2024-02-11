@@ -1,10 +1,10 @@
-import axios from "axios";
+import instance from "@utils/apiInterceptor";
 
 const url = `/api/orders`;
 
 export const POST_OrderInfo = async (inputValue) => {
   console.log("주문하기: ", inputValue);
-  const res = await axios({
+  const res = await instance({
     method: "post",
     url: url,
     data: {
@@ -23,7 +23,7 @@ export const POST_OrderInfo = async (inputValue) => {
 
 export const GET_Order = async () => {
   console.log("get orderlist");
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${url}/list`,
     params: {
@@ -38,7 +38,7 @@ export const GET_Order = async () => {
 
 export const PUT_change_status = async (orderDetailId, orderId, nextState) => {
   console.log(orderId, "dedededed", nextState);
-  const res = await axios({
+  const res = await instance({
     method: "put",
     url: `${url}/${orderId}/details/${orderDetailId}`,
     data: {
@@ -50,7 +50,7 @@ export const PUT_change_status = async (orderDetailId, orderId, nextState) => {
 
 // export const GET_OrderList = async (orderId, inputValue) => {
 //   console.log("주문상세조회");
-//   const response = await axios({
+//   const response = await instance({
 //     method: "get",
 //     url: `${url}/${orderId}`,
 //     data: {},
@@ -60,7 +60,7 @@ export const PUT_change_status = async (orderDetailId, orderId, nextState) => {
 export const GET_order_list = async (inputValue) => {
   console.log("서버로 전달할 데이터는", inputValue);
 
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${url}`,
     params: {
@@ -80,7 +80,7 @@ export const GET_order_list = async (inputValue) => {
 export const GET_order_detail = async (orderDetailId, orderId) => {
   console.log("주문상세조회하기", orderId);
 
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${url}/${orderId}/details/${orderDetailId}`,
   });
@@ -89,7 +89,7 @@ export const GET_order_detail = async (orderDetailId, orderId) => {
 };
 
 export const GET_order_item_detail = async (id, orderId) => {
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${url}/${orderId}/details/${id}`,
   });

@@ -1,10 +1,11 @@
-import axios from "axios";
 import { customDate, customStatusName } from "assets/CustomName";
+import instance from "@utils/apiInterceptor";
+
 const url = "/api/events";
 
 // 관리자 - 이벤트리스트 조회
 export const GET_EventList = async (page) => {
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${url}/admin`,
     params: {
@@ -24,7 +25,7 @@ export const GET_EventList = async (page) => {
 };
 // 관리자 - 브랜드 이름으로 아이디 조회
 export const GET_BrandName = async () => {
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${url}/admin`,
     params: {
@@ -37,7 +38,7 @@ export const GET_BrandName = async () => {
 };
 // 관리자 - 브랜드 이벤트 상세 조회
 export const GET_BrandEventInfo = async (id) => {
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${url}/seller/${id}`,
     params: {
@@ -49,7 +50,7 @@ export const GET_BrandEventInfo = async (id) => {
 // 관리자 - 상품 이벤트 상세 조회
 export const GET_ItemEventInfo = async (id) => {
   console.log("상품 이벤트 상세조회 할게요");
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${url}/item/${id}`,
     params: {
@@ -60,7 +61,7 @@ export const GET_ItemEventInfo = async (id) => {
 };
 // 사용자 - 브랜드 이벤트 리스트 조회
 export const GET_BrandEventListUser = async () => {
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${url}/seller`,
     params: {
@@ -73,7 +74,7 @@ export const GET_BrandEventListUser = async () => {
 };
 // 사용자 - 상품 이벤트 리스트 조회
 export const GET_ProductEventListUser = async () => {
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${url}/item`,
     params: {
@@ -87,7 +88,7 @@ export const GET_ProductEventListUser = async () => {
 // 관리자 - 이벤트 삭제
 export const DELETE_Event = async (id) => {
   console.log("이벤트 삭제", id);
-  const response = await axios({
+  const response = await instance({
     method: "delete",
     url: url,
     data: id,
@@ -97,7 +98,7 @@ export const DELETE_Event = async (id) => {
 // 관리자 - 브랜드 이벤트 등록
 export const POST_BrandEvent = async (inputValue) => {
   console.log("brand 이벤트 등록: ", inputValue);
-  const res = await axios({
+  const res = await instance({
     method: "post",
     url: `${url}/seller`,
     data: {
@@ -114,7 +115,7 @@ export const POST_BrandEvent = async (inputValue) => {
 // 관리자 - 상품 이벤트 등록
 export const POST_ItemEvent = async (inputValue) => {
   console.log("상품 이벤트 등록: ", inputValue);
-  const res = await axios({
+  const res = await instance({
     method: "post",
     url: `${url}/item`,
     data: {
@@ -131,7 +132,7 @@ export const POST_ItemEvent = async (inputValue) => {
 // 관리자 - 브랜드 이벤트 수정
 export const PUT_BrandEvent = async (id, value) => {
   console.log("브랜드 이벤트 수정");
-  const response = await axios({
+  const response = await instance({
     method: "put",
     url: `${url}/seller/${id}`,
     data: {
@@ -150,7 +151,7 @@ export const PUT_BrandEvent = async (id, value) => {
 // 관리자 - 상품 이벤트 수정
 export const PUT_ItemEvent = async (id, value) => {
   console.log("상품 이벤트 수정");
-  const response = await axios({
+  const response = await instance({
     method: "put",
     url: `${url}/item/${id}`,
     data: {

@@ -1,4 +1,4 @@
-import axios from "axios";
+import instance from "@utils/apiInterceptor";
 
 const url = "/api/cancels";
 
@@ -6,7 +6,7 @@ const url = "/api/cancels";
 //마이페이지 주문 리스트에서 버튼 클릭 이벤트 통해 날림
 export const POST_cancel_order = async (orderId) => {
   //서버에 같이 전달해줄 내용은 어떤 order item에 대한 취소 내용인지에 관한 것이다
-  const res = await axios({
+  const res = await instance({
     method: "post",
     url: `${url}/${orderId}`,
   });
@@ -18,7 +18,7 @@ export const POST_cancel_order = async (orderId) => {
 //마이페이지 취소 내역에서 특정 리스트를 클릭하여 페이지 로딩되면 조회
 export const GET_cancel_detail = async (cancelId) => {
   //서버에 같이 전달해줄 내용은 어떤 cancel 내역에 관한 내용인지 전달해준다
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${url}/${cancelId}`,
   });
@@ -32,7 +32,7 @@ export const GET_cancel_list = async (inputValue) => {
 
   console.log("서버로 전달할 데이터는", inputValue);
 
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${url}`, //url은 나중에 수정해야 함다
     params: {

@@ -2,13 +2,13 @@ import {
   customLeaveCategoryName,
   customUserCategoryName,
 } from "assets/CustomName";
-import axios from "axios";
+import instance from "@utils/apiInterceptor";
 
 const url = "/api/users";
 
 export const GET_User = async () => {
   const userId = localStorage.getItem("userId");
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${url}/${userId}`,
   });
@@ -22,7 +22,7 @@ export const GET_UserList = async (categoryValue, searchValue, pageNum) => {
   console.log("확인2:", searchValue);
   console.log("확인3:", pageNum);
 
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${url}/find`,
     params: {
@@ -37,7 +37,7 @@ export const GET_UserList = async (categoryValue, searchValue, pageNum) => {
 };
 
 export const GET_UserDetail = async (userId) => {
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${url}/${userId}/temp`,
   });
@@ -47,7 +47,7 @@ export const GET_UserDetail = async (userId) => {
 export const DELETE_Users = async (userId) => {
   console.log(userId);
 
-  const res = await axios({
+  const res = await instance({
     method: "delete",
     url: `${url}/list`,
     data: {

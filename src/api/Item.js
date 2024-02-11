@@ -1,5 +1,5 @@
-import axios from "axios";
 import { categoryFormat, subCategoryFormat } from "assets/CustomName";
+import instance from "@utils/apiInterceptor";
 
 const url = "/api/items";
 // 관리자 - 상품 등록
@@ -11,7 +11,7 @@ export const POST_Item = async (inputValue) => {
     inputValue.subCategory = null;
   }
   console.log("상품 등록 subcategory: ", inputValue.subcategory);
-  const res = await axios({
+  const res = await instance({
     method: "post",
     url: url,
     data: {
@@ -30,7 +30,7 @@ export const POST_Item = async (inputValue) => {
 // 관리자 - 상품 리스트 조회
 export const GET_ItemList = async (page) => {
   console.log("get itemlist");
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: url,
     params: {
@@ -51,7 +51,7 @@ export const GET_ItemList = async (page) => {
 // 사용자 - 상품 리스트 조회
 export const GET_ItemListUser = async () => {
   console.log("아이템 카드리스트 조회에옹");
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${url}/card/list`,
     params: {
@@ -65,7 +65,7 @@ export const GET_ItemListUser = async () => {
 // 관리자 - 상품 상세 조회 (사용자)
 export const GET_ItemInfo = async (id) => {
   console.log("아이템 상세정보 조회");
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${url}/${id}/detail`,
   });
@@ -74,7 +74,7 @@ export const GET_ItemInfo = async (id) => {
 // 사용자 - 상품별 리뷰 조회
 export const GET_ItemReview = async (id) => {
   console.log("아이템 리뷰 조회");
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${url}/${id}/reviews`,
     params: {
@@ -88,7 +88,7 @@ export const GET_ItemReview = async (id) => {
 // 사용자 - 인기상품 조회
 export const GET_HotItemList = async () => {
   console.log("인기상품 조회");
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${url}/popular/list`,
     params: {
@@ -102,7 +102,7 @@ export const GET_HotItemList = async () => {
 // 사용자 - 신상품 조회
 export const GET_NewItemList = async () => {
   console.log("신상품 조회");
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${url}/new/list`,
     params: {
@@ -144,7 +144,7 @@ export const GET_ItemFilterListUser = async (
     "size: ",
     size
   );
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: url,
     params: {
@@ -164,7 +164,7 @@ export const GET_ItemFilterListUser = async (
 // 관리자 - 상품 삭제
 export const DELETE_Item = async (itemId) => {
   console.log("상품 삭제", itemId);
-  const response = await axios({
+  const response = await instance({
     method: "delete",
     url: url,
     data: { itemIds: itemId },
@@ -175,7 +175,7 @@ export const DELETE_Item = async (itemId) => {
 export const PUT_Item = async (id, value) => {
   console.log("상품 수정", value);
 
-  const response = await axios({
+  const response = await instance({
     method: "put",
     url: `${url}/${id}`,
     data: {
