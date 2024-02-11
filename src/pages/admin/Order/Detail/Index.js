@@ -10,22 +10,23 @@ import { GET_order_detail } from "@api/order";
 const Index = () => {
 
     const { id } = useParams();
+    const [orderDetail, setOrderDetail] = useState();
 
-    const data = Data.find(item => {
-
-        return parseInt(id, 10) === item.id;
-    
-    });
 
     useEffect(()=> {
       GET_order_detail(parseInt(id, 10))
       .then((data)=> {
         console.log("상세조회 성공", data)
+        setOrderDetail(data.data)
       })
       .catch((error)=> {
         console.log("상세조회 실패", error)
       })
     }, [])
+
+    if(!orderDetail) {
+      return <></>
+    }
 
     
     return (
@@ -34,12 +35,10 @@ const Index = () => {
         <Wrap>
             <PageName className="cm-LBold30 col-Black"> 주문 관리</PageName>
             <PageSubName className="cm-MBold24 col-Navy">
-            {" "}
             주문 내역 상세 조회
             </PageSubName>
             <InputSection>
-                <DetailTable data={data} />
-                <DetailOrder data={data} />
+                <DetailTable data={orderDetail} />
             </InputSection>
         </Wrap>
         </>
