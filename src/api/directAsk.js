@@ -4,7 +4,8 @@ import {
   customStatusName,
   customStatusNameReverse,
 } from "assets/CustomName";
-import axios from "axios";
+import instance from "@utils/apiInterceptor";
+
 const url = "/api/qna";
 
 export const GET_QnAList = async ({
@@ -20,7 +21,7 @@ export const GET_QnAList = async ({
   console.log("문의조회합니다요: ", userId, category, state, period, itemId);
   console.log("페이지: ", pageNum);
 
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: url,
     // headers: {
@@ -52,7 +53,7 @@ export const GET_QnAList = async ({
 };
 
 export const GET_QnA = async (QnAId) => {
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${url}/${QnAId}`, //path
   });
@@ -66,7 +67,7 @@ export const GET_QnA = async (QnAId) => {
 
 export const PUT_Answer = async (QnAId, answer) => {
   console.log("확인용:", QnAId, answer);
-  const res = await axios({
+  const res = await instance({
     method: "put",
     url: `${url}/${QnAId}/answer`,
     data: {
@@ -83,7 +84,7 @@ export const POST_Question = async (userId, data) => {
   console.log("data: ", data);
   console.log("data: ", data.itemId);
 
-  const res = await axios({
+  const res = await instance({
     method: "post",
     url: url,
     data: {
@@ -102,7 +103,7 @@ export const PUT_Question = async (qnaId, data) => {
   data.category = customAskCategoryName(data.category, true);
   console.log("data입니다요!: ", data);
 
-  const res = await axios({
+  const res = await instance({
     method: "put",
     url: `${url}/${qnaId}`,
     data: {
@@ -117,7 +118,7 @@ export const PUT_Question = async (qnaId, data) => {
 };
 
 export const DELETE_QnA = async (qnaId) => {
-  const res = await axios({
+  const res = await instance({
     method: "delete",
     url: `${url}`,
     data: {

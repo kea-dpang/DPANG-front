@@ -1,9 +1,10 @@
-import axios from "axios";
+import instance from "@utils/apiInterceptor";
+
 const url = `/api/seller`;
 // 관리자 - 판매처 리스트 조회
 export const GET_BrandList = async (sellerName, page, size) => {
   console.log("get brandlist");
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: url,
     params: {
@@ -19,7 +20,7 @@ export const GET_BrandList = async (sellerName, page, size) => {
 export const GET_BrandInfo = async (id) => {
   console.log("get brand info");
   const url = `/api/seller/${id}`;
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: url,
     params: {
@@ -32,7 +33,7 @@ export const GET_BrandInfo = async (id) => {
 // 관리자 - 판매처 등록
 export const POST_Brand = async (inputValue) => {
   console.log("brand 등록");
-  const res = await axios({
+  const res = await instance({
     method: "post",
     url: url,
     data: {
@@ -49,7 +50,7 @@ export const POST_Brand = async (inputValue) => {
 // 관리자 - 판매처 삭제
 export const DELETE_Brand = async (brandId) => {
   console.log("브랜드 삭제", brandId);
-  const response = await axios({
+  const response = await instance({
     method: "delete",
     url: url,
     data: brandId,
@@ -60,7 +61,7 @@ export const DELETE_Brand = async (brandId) => {
 export const PUT_Brand = async (id, value) => {
   console.log("브랜드 수정");
   const url = `/api/seller/${id}`;
-  const response = await axios({
+  const response = await instance({
     method: "put",
     url: url,
     data: {

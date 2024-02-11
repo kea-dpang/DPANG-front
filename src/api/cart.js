@@ -1,4 +1,4 @@
-import axios from "axios";
+import instance from "@utils/apiInterceptor";
 
 const url = `/api/carts`;
 const userId = window.localStorage.getItem("userId");
@@ -7,7 +7,7 @@ const userId = window.localStorage.getItem("userId");
 export const POST_Cart = async (itemId, quantity) => {
   console.log("장바구니 담기입니당: ", itemId);
   console.log(userId);
-  const res = await axios({
+  const res = await instance({
     method: "post",
     url: `${url}/${userId}`,
     data: {
@@ -22,7 +22,7 @@ export const POST_Cart = async (itemId, quantity) => {
 export const GET_CartList = async () => {
   const userId = localStorage.getItem("userId");
   console.log("장바구니 목록 조회입니당");
-  const res = await axios({
+  const res = await instance({
     method: "get",
     url: `${url}/${userId}`,
   });
@@ -32,7 +32,7 @@ export const GET_CartList = async () => {
 // 장바구니 상품 삭제
 export const DELETE_CartItem = async (itemId) => {
   console.log("장바구니 상품 삭제합니당");
-  const res = await axios({
+  const res = await instance({
     method: "delete",
     url: `${url}/${userId}/${itemId}`,
   });
@@ -41,8 +41,8 @@ export const DELETE_CartItem = async (itemId) => {
 
 /* 장바구니에 상품 1개 추가 */
 export const POST_AddCartItem = async (itemId) => {
-  console.log("axios,count:", itemId, 1);
-  const res = await axios({
+  console.log("instance,count:", itemId, 1);
+  const res = await instance({
     method: "post",
     url: `${url}/${userId}`,
     data: {
@@ -54,10 +54,10 @@ export const POST_AddCartItem = async (itemId) => {
 };
 /* 장바구니 상품 1개 감소 */
 export const POST_MinusCartItem = async (itemId) => {
-  console.log("axios", itemId);
+  console.log("instance", itemId);
   const userId = localStorage.getItem("userId");
 
-  const res = await axios({
+  const res = await instance({
     method: "post",
     url: `${url}/${userId}/${itemId}/minus`,
   });
