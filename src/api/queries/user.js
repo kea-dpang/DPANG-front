@@ -1,8 +1,14 @@
+import { GET_User } from "@api/user";
 import { useQuery } from "react-query";
 
 // 커스텀 훅
-export const useUser = (id) => {
-  return useQuery(["user", id], () => getUser(id));
+// export const useUser = () => {
+//   return useQuery(["user", id], () => GET_User(id));
+// };
+
+// 마이페이지>회원정보조회
+export const useUser = () => {
+  return useQuery("user", GET_User);
 };
 
 // export const useUpdateUser = () => {
