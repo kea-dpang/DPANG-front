@@ -12,7 +12,7 @@ export const GET_User = async () => {
     method: "get",
     url: `${url}/${userId}`,
   });
-  return res.data;
+  return res.data.data;
 };
 
 export const GET_UserList = async (categoryValue, searchValue, pageNum) => {

@@ -24,10 +24,6 @@ export const GET_QnAList = async ({
   const res = await instance({
     method: "get",
     url: url,
-    // headers: {
-    //     'Authorization': `Bearer ${accessToken}`
-    // },
-
     params: {
       //query
       userId: userId,
@@ -49,7 +45,8 @@ export const GET_QnAList = async ({
     return item;
   });
 
-  return res.data;
+  console.log("axios 확인,", res.data);
+  return res.data.data;
 };
 
 export const GET_QnA = async (QnAId) => {
