@@ -37,11 +37,11 @@ export const GET_Order = async () => {
   return res.data;
 };
 
-export const PUT_change_status = async (orderId, nextState) => {
-  console.log(orderId, "dedededed", nextState);
+export const PUT_change_status = async (orderId, orderDetailId, nextState) => {
+  console.log(orderId, orderDetailId, "=====================================================", nextState);
   const res = await instance({
     method: "put",
-    url: `${url}/${orderId}`,
+    url: `${url}/${orderId}/details/${orderDetailId}`,
     data: {
       status: nextState
     }
