@@ -93,7 +93,7 @@ export const GET_HotItemList = async () => {
     url: `${url}/popular/list`,
     params: {
       page: 0,
-      size: 20,
+      size: 12,
       sort: "",
     },
   });
@@ -107,7 +107,7 @@ export const GET_NewItemList = async () => {
     url: `${url}/new/list`,
     params: {
       page: 0,
-      size: 20,
+      size: 12,
       sort: "",
     },
   });
