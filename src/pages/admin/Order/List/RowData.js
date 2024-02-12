@@ -61,13 +61,13 @@ function RowData(props) {
       }));
     }, [page]);
   
-const toNextStep = (orderId, state) => {
+const toNextStep = (orderId, orderDetailId, state) => {
   if (!orderId) {
     console.error("주문 ID가 올바르지 않습니다.");
     return;
   }
 
-  PUT_change_status(orderId, state)
+  PUT_change_status(orderId, orderDetailId, state)
     .then((data) => {
       console.log("성공", data);
       window.location.reload();
@@ -85,8 +85,10 @@ const toNextStep = (orderId, state) => {
   const [previousStatus, setPreviousStatus] = useState("");
   
   // 상태 처리 함수 수정
-  const handleChange = (orderDetailId, state) => {
-    const orderId = orderDetailId;
+  const handleChange = (orderId, orderDetailId, state) => {
+
+    console.log("==============================", orderDetailId, state)
+
     // "주문승인"으로 돌아가는 경우 막음
     if (previousStatus === "ORDER_RECEIVED" && state !== "ORDER_RECEIVED") {
       console.error("주문 승인 상태로는 다시 돌아갈 수 없습니다");
@@ -100,7 +102,7 @@ const toNextStep = (orderId, state) => {
       onConfirm: () => {
         // 상태 변경 시 이전 상태 업데이트
         setPreviousStatus(state);
-        toNextStep(orderId, state);
+        toNextStep(orderId, orderDetailId, state);
       },
     });
   };
@@ -171,7 +173,7 @@ return(
                         value={c.orderStatus}
                         label="상태수정"
                         onChange={(e) => {
-                            handleChange(c, e.target.value);
+                            handleChange(data.orderId, c.orderDetailId, e.target.value);
                         }}
                         >
                         <MenuItem value="ORDER_RECEIVED">주문승인</MenuItem>
