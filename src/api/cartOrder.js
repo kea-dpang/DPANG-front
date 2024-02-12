@@ -58,7 +58,7 @@ export const POST_Order = async (addressInfo, checkedItems) => {
         detailAddress: addressInfo.detailAddress | "",
       },
       deliveryRequest: "string",
-      orderIteminfo: formattedItems,
+      orderItemInfo: formattedItems,
     },
   });
   return res.data;
