@@ -22,6 +22,7 @@ function TableRow({data, selectedOrderStatus, handleChange}) {
 
 
     const [val, setVal] = useState({
+        orderId:"",
         userId: "",
         orderStatus:"",
         startDate: "",
@@ -87,4 +88,3 @@ function TableRow({data, selectedOrderStatus, handleChange}) {
     }
 
 export default TableRow;
-
