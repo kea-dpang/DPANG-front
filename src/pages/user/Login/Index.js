@@ -30,7 +30,6 @@ const LoginPage = () => {
     POST_Login(userData)
       .then((data) => {
         console.log("datatatatatatat", data.data);
-        navigate("/user/mainpage");
 
         // accessToken, refreshToken은 쿠키에 저장
         setCookie("accessToken", data.data.token.accessToken, {
@@ -50,6 +49,8 @@ const LoginPage = () => {
           "totalMileage",
           data.data.user.mileage + data.data.user.personalChargedMileage
         );
+
+        navigate("/user/mainpage");
       })
       .catch((error) => {
         showErrorAlert({
