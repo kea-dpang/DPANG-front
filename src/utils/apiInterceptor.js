@@ -15,7 +15,7 @@ instance.interceptors.request.use(
 
     // TODO: 해당 로직을 넣으므로 withAuth 넣을지 고려해보기
     if (accessToken) {
-      console.log(accessToken);
+      // console.log(accessToken);
       config.headers["Authorization"] = `Bearer ${accessToken}`;
     } else {
       alert("accessToken이 없습니다.");

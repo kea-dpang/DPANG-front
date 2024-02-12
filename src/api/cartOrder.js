@@ -46,13 +46,13 @@ export const POST_Order = async (addressInfo, checkedItems) => {
   const res = await instance({
     method: "post",
     url: `${orderUrl}`,
-    headers: {
-      "X-DPANG-CLIENT-ID": userId,
-    },
+    // headers: {
+    //   "X-DPANG-CLIENT-ID": userId,
+    // },
     data: {
       deliveryInfo: {
         name: addressInfo.name,
-        phoneNumber: addressInfo.phoneNumber | "",
+        phoneNumber: addressInfo.phoneNumber,
         zipCode: addressInfo.zipCode,
         address: addressInfo.address,
         detailAddress: addressInfo.detailAddress | "",

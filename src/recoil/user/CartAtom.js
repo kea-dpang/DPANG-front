@@ -35,7 +35,7 @@ export const increaseCountSelector = selector({
     const cartList = get(cartListAtom);
     return cartList;
   },
-  set: ({ set }, newItemId) => {
+  set: ({ get, set }, newItemId) => {
     set(cartListAtom, (oldCartList) =>
       oldCartList.map((item) => {
         if (item.itemId === newItemId) {
@@ -44,6 +44,20 @@ export const increaseCountSelector = selector({
             quantity: item.quantity + 1,
             // discountPrice: item.discountPrice * (item.quantity + 1),
             // price: item.price * (item.quantity + 1),
+          };
+        }
+        return item;
+      })
+    );
+    // checkedItemsAtom도 업데이트
+    const oldCheckedItems = get(checkedItemsAtom);
+    set(
+      checkedItemsAtom,
+      oldCheckedItems.map((item) => {
+        if (item.itemId === newItemId) {
+          return {
+            ...item,
+            quantity: item.quantity + 1,
           };
         }
         return item;
@@ -59,9 +73,23 @@ export const decreaseCountSelector = selector({
     const cartList = get(cartListAtom);
     return cartList;
   },
-  set: ({ set }, newItemId) => {
+  set: ({ get, set }, newItemId) => {
     set(cartListAtom, (oldCartList) =>
       oldCartList.map((item) => {
+        if (item.itemId === newItemId) {
+          return {
+            ...item,
+            quantity: item.quantity - 1,
+          };
+        }
+        return item;
+      })
+    );
+    // checkedItemsAtom도 업데이트
+    const oldCheckedItems = get(checkedItemsAtom);
+    set(
+      checkedItemsAtom,
+      oldCheckedItems.map((item) => {
         if (item.itemId === newItemId) {
           return {
             ...item,
@@ -97,7 +125,7 @@ export const checkedItemsSelector = selector({
 
 /* 체크된 아이템의 총 가격 */
 export const totalAmountSelector = selector({
-  key: "totalAmountSelector",
+  key: `totalAmountSelector/${v1()}`,
   get: ({ get }) => {
     const checkedItems = get(checkedItemsAtom);
 
