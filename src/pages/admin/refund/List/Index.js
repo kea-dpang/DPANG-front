@@ -148,16 +148,6 @@ const Index = () => {
     },
     { name: "refundRequestDate", label: "취소 요청일", options: { sort: false } },
     {
-      name: "refundStatus",
-      label: "처리상태",
-      options: {
-        sort: false,
-        customBodyRender: (value) => {
-          return customRefundStatus(value);
-        },
-      },
-    },
-    {
       name: "product",
       label: "상품 정보",
       options: {
@@ -212,7 +202,7 @@ const Index = () => {
                       <MenuItem value="REFUND_COMPLETE">환불 완료</MenuItem>
                     </Select>
                   </FormControl>
-                ) : null}
+                ) : <div style={{margin: "10px"}}>{customRefundStatus(state)}</div>}
               </ButtonContainer>
             );
           }

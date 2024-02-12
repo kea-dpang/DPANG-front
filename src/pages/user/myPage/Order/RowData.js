@@ -36,8 +36,8 @@ function RowData(props) {
   const handleCancel = (id) =>{
 
     showQuestionAlert({
-      title: "신청을 승인하시겠습니까?",
-      text: "확인 클릭 시 승인 됩니다.",
+      title: "취소하시겠습니까?",
+      text: "확인시 즉시 취소 됩니다.",
       saveText: "신청 승인 되었습니다.",
       onConfirm: () => handleConfirm(id),
     });
