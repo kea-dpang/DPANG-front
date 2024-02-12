@@ -70,7 +70,7 @@ export const GET_order_list = async (inputValue) => {
       orderStatus: inputValue.orderStatus,
       orderId: inputValue.orderId || undefined,
       page: inputValue.page || undefined,
-      size: inputValue.size || 10,
+      size: inputValue.size || undefined,
       sort: inputValue.sort || undefined,
     },
   });

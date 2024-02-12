@@ -112,8 +112,8 @@ align-items: end;
 `
 
 function RequestTable() {
-    const { id } = useParams();
-    console.log(id);
+    const { id } = useParams(); //detail id
+    const {orderId} = useParams(); //order id
 
     const navi = useNavigate();
     const [category, setCategory] = useState("");
@@ -125,7 +125,8 @@ function RequestTable() {
         console.log(category)
 
         const val = {
-            orderId: id, 
+            orderId: orderId, 
+            orderDetailId: id, 
             refundCategory: category, 
             refundMessage: text, 
             refundShipmentMessage: message, 

@@ -70,7 +70,7 @@ function ReviewBox(props) {
     <Container>
       <MyPageBodyHeader header="취소·환불 관리" />
       <OrderOverviewBox className="cm-SRegular16">
-        <OrderBox amt={amt} />
+        <OrderBox amt={props.orderOverview} />
       </OrderOverviewBox>
       <DetailHeader className="cm-SRegular16">최근 취소 관리</DetailHeader>
       <CalenderBox>
