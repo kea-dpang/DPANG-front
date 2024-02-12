@@ -43,6 +43,7 @@ const AskList = () => {
   } = useQnAList(page, userId, period);
   const askDataList = data?.content;
   const numOfElement = data ? data.totalElements : 0;
+  // console.log("ddddd", data.data.content);
 
   /* 페이지네이션 */
   //하위 component에서 전달받은 새로운 val 값으로 업데이트 해준다
