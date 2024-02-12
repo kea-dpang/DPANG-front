@@ -151,6 +151,10 @@ export const PUT_BrandEvent = async (id, value) => {
 // 관리자 - 상품 이벤트 수정
 export const PUT_ItemEvent = async (id, value) => {
   console.log("상품 이벤트 수정");
+  console.log(
+    "value:",
+    value.targetItems.map((item) => item.itemId)
+  );
   const response = await instance({
     method: "put",
     url: `${url}/item/${id}`,
@@ -161,6 +165,7 @@ export const PUT_ItemEvent = async (id, value) => {
       startDate: value.startDate,
       endDate: value.endDate,
       imagePath: value.imagePath,
+      targetItems: value.targetItems.map((item) => item.itemId),
     },
   });
   return response.data;
