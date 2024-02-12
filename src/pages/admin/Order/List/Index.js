@@ -53,11 +53,14 @@ const Index = () => {
 
   const [selectedCategory, setSelectedCategory] = useState(dropdownValue[0]);
   const handleCategoryChange = (newCategory) => {
+    setSelectedCategory(newCategory);
+    // 드롭다운 박스에서 가져온 값으로 카테고리를 설정
     setVal((prev) => ({
-        ...prev,
-        orderStatus: customOrderStatusReverse(newCategory),
+      ...prev,
+      orderStatus: customOrderStatusReverse(newCategory),
     }));
   };
+
 
   const handleSearch = () => {
     setVal((prev) => ({
@@ -91,20 +94,38 @@ const Index = () => {
       console.log("성공", data)
       window.location.reload();
     })
-    .catch((error)=>{
-      console.log("실패", error);
-      throw error;
-    });
+    .catch((error) => {
+        console.log("실패", error);
+        console.error("에러 상세정보:", error.response.data); // 에러 세부 정보 로깅
+        throw error;
+      });
+      
   };
 
-  const handleChange = (orderDetailId, state) => {
-    showQuestionAlert({
-      title: "주문 상태를 변경하시겠습니까?",
-      text: "확인 클릭 시 해당 주문건에 대해서 상태가 업데이트 됩니다.",
-      saveText: "변경 되었습니다.",
-      onConfirm: () => toNextStep(orderDetailId, state),
-    });
-  }; 
+// 이전 상태를 기억하는 변수 추가
+const [previousStatus, setPreviousStatus] = useState("");
+
+// 상태 처리 함수 수정
+const handleChange = (orderDetailId, state) => {
+  // "주문승인"으로 돌아가는 경우 막음
+  if (previousStatus === "ORDER_RECEIVED" && state !== "ORDER_RECEIVED") {
+        console.error("주문 승인 상태로는 다시 돌아갈 수 없습니다");
+    return;
+  }
+
+  showQuestionAlert({
+    title: "주문 상태를 변경하시겠습니까?",
+    text: "확인 클릭 시 해당 주문건에 대해서 상태가 업데이트 됩니다.",
+    saveText: "변경 되었습니다.",
+    onConfirm: () => {
+      // 상태 변경 시 이전 상태 업데이트
+      setPreviousStatus(val.orderStatus);
+      toNextStep(orderDetailId, state);
+    },
+  });
+};
+
+  
 
   useEffect(() => {
     GET_order_list(val)
@@ -206,7 +227,7 @@ const Index = () => {
           const rowData = orderList.find((row) => row.orderId === value);
           const orderDetail = rowData.productList
           if (rowData != null) {
-            const orderState = rowData.orderStatus;
+            const state = rowData.orderStatus;
             const orderId = rowData.productList.orderDetailId;
             return orderDetail.map((item) => {
 
@@ -217,7 +238,7 @@ const Index = () => {
                         e.stopPropagation();
                     }}
                     >
-                        {orderState !== "CANCELLED" ? (
+                        {state !== "CANCELLED" ? (
                       <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
                         <InputLabel id="demo-select-small-label">
                             상태처리
@@ -225,7 +246,7 @@ const Index = () => {
                         <Select
                           labelId="demo-select-small-label"
                           id="demo-select-small"
-                          value={orderState}
+                          value={state}
                           label="상태수정"
                           onChange={(e) => {
                             handleChange(value, e.target.value);

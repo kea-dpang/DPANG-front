@@ -2,7 +2,6 @@ import { setCookie } from "@utils/cookie";
 import { customLeaveCategoryName } from "assets/CustomName";
 import instance from "@utils/apiInterceptor";
 import axios from "axios";
-
 const url = "/api/users/register";
 const authUrl = "/api/auth";
 

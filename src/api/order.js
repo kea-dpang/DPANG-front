@@ -1,3 +1,4 @@
+
 import instance from "@utils/apiInterceptor";
 
 const url = `/api/orders`;
@@ -36,11 +37,11 @@ export const GET_Order = async () => {
   return res.data;
 };
 
-export const PUT_change_status = async (orderDetailId, orderId, nextState) => {
+export const PUT_change_status = async (orderId, nextState) => {
   console.log(orderId, "dedededed", nextState);
   const res = await instance({
     method: "put",
-    url: `${url}/${orderId}/details/${orderDetailId}`,
+    url: `${url}/${orderId}`,
     data: {
       status: nextState
     }
@@ -67,7 +68,7 @@ export const GET_order_list = async (inputValue) => {
       userId: inputValue.userId,
       startDate: inputValue.startDate || undefined,
       endDate: inputValue.endDate || undefined,
-      orderStatus: inputValue.orderStatus || undefined,
+      orderStatus: inputValue.orderStatus,
       page: inputValue.page || undefined,
       size: inputValue.size || 10,
       sort: inputValue.sort || undefined,
@@ -96,3 +97,4 @@ export const GET_order_item_detail = async (id, orderId) => {
 
   return res.data;
 };
+

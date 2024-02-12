@@ -1,46 +1,160 @@
 import styled from "styled-components";
-import React, { useState, useEffect } from "react";
+import * as React from "react";
+import { useState, useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import DataTable from "@components/AdminDataTable";
-import { GET_Order, PUT_change_status } from "@api/order";
+import { GET_order_list, PUT_change_status } from "@api/order";
 import Dropdown from "@components/Dropdown";
-import data from "@data/admin/AdminOrderData";
-import { useNavigate } from "react-router-dom";
+import { customOrderStatus, customOrderStatusReverse } from "assets/CustomName";
+import {useLocation, useNavigate} from "react-router-dom";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import { useQuestionAlert } from "@components/SweetAlert";
+
 
 
 const Index = () => {
   const navigate = useNavigate();
+  const showQuestionAlert = useQuestionAlert();
+  const dropdownValue = [
+    "상태",
+    "전체",
+    "주문승인",
+    "결제완료",
+    "배송요청",
+    "배송준비",
+    "배송중",
+    "배송완료",
+    "취소/환불"
+  ];
+  const [orderList, setOrderList] = useState();
+  const orderState = ["ORDER_RECEIVED", "PAYMENT_COMPLETED", "DELIVERY_REQUESTED", "PREPARING_FOR_DELIVERY", "IN_DELIVERY", "DELIVERY_COMPLETED", "CANCELLED"];
+  const [searchVal, setSearchVal] = useState();
+
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const page = searchParams.get("page") || 0;
+  const [totalItems, setTotalItems] = useState(0);
+
+  const handlePagination = (page) => {
+    console.log("지금 페이지네이션 페이지 : ", page);
+    navigate(`?page=${page}`);
+  };
 
 
-  const handleNextButton = (id) => {
+  const handleRowClick = (rowData) => {
+    navigate(`/admin/order/${rowData[0]}`);
+  }
 
-    PUT_change_status(id)
+  const [selectedCategory, setSelectedCategory] = useState(dropdownValue[0]);
+  const handleCategoryChange = (newCategory) => {
+    setSelectedCategory(newCategory);
+    // 드롭다운 박스에서 가져온 값으로 카테고리를 설정
+    setVal((prev) => ({
+      ...prev,
+      orderStatus: customOrderStatusReverse(newCategory),
+    }));
+  };
+
+
+  const handleSearch = () => {
+    setVal((prev) => ({
+      ...prev,
+      userId: searchVal,
+    }));
+  };
+
+
+  const [val, setVal] = useState({
+    userId: "",
+    orderStatus:"",
+    startDate: "",
+    endDate: "",
+    page: 0,
+    size: 10,
+    sort: "",
+  });
+
+  useEffect(() => {
+    setVal((prevState) => ({
+      ...prevState,
+      page: page,
+    }));
+  }, [page]);
+
+  const toNextStep = (id, state) => {
+
+    PUT_change_status(id, state)
     .then((data)=>{
       console.log("성공", data)
+      window.location.reload();
     })
-    .catch((error)=>{
-      console.log("실패", error)
-    })
+    .catch((error) => {
+        console.log("실패", error);
+        console.error("에러 상세정보:", error.response.data); // 에러 세부 정보 로깅
+        throw error;
+      });
+      
+  };
 
+// 이전 상태를 기억하는 변수 추가
+const [previousStatus, setPreviousStatus] = useState("");
+
+// 상태 처리 함수 수정
+const handleChange = (orderDetailId, state) => {
+  // "주문승인"으로 돌아가는 경우 막음
+  if (previousStatus === "ORDER_RECEIVED" && state !== "ORDER_RECEIVED") {
+        console.error("주문 승인 상태로는 다시 돌아갈 수 없습니다");
+    return;
   }
+
+  showQuestionAlert({
+    title: "주문 상태를 변경하시겠습니까?",
+    text: "확인 클릭 시 해당 주문건에 대해서 상태가 업데이트 됩니다.",
+    saveText: "변경 되었습니다.",
+    onConfirm: () => {
+      // 상태 변경 시 이전 상태 업데이트
+      setPreviousStatus(val.orderStatus);
+      toNextStep(orderDetailId, state);
+    },
+  });
+};
+
+  
+
+  useEffect(() => {
+    GET_order_list(val)
+      .then((data) => {
+        console.log("주문목록조회 성공", data);
+        setOrderList(data.data.content);
+        setTotalItems(data.data.totalElements);
+        console.log(orderList);
+      })
+      .catch((error) => {
+        console.log("실패했어용", error);
+      });
+  }, [val]);
+
+
 
   // 테이블 column
   const columns = [
-    {name: "id", label: "번호", options: {sort: false}},
-
     {
-      name: "id",
+      name: "orderId",
       label: "날짜 | 주문번호",
       options: {
         sort: false ,
-        customBodyRender: (value, tableMeta) => {
-
-          const rowData = data.find(row => row.id == value);
-          const orderDate = rowData['orderDate'];
-          const orderId = rowData['orderId'];
+        customBodyRender: (value) => {
+            console.log("colum: ", value)
+          const rowData = orderList.find((row) => row.orderId === value);
+          if (rowData != null) {
+          const orderDate = rowData.orderDate;
+          const orderId = rowData.orderId;
 
           return (
             <div>
@@ -48,89 +162,125 @@ const Index = () => {
               <p>{orderId}</p>
             </div>
           );
+          }
         },
       },
     },
-    {name: "id", label: "상품 정보", options: {sort: false, customBodyRender: (value, tableMeta)=> {
-      const rowData = data.find(row => row.id == value);
-      const img = rowData['imgUrl'];
-      const name = rowData['name'];
+    {name: "orderId", label: "상품 정보", 
+      options: {
+        sort: false, 
+        customBodyRender: (value)=> {
 
-      return (
+        const rowData = orderList.find((row) => row.orderId === value);
+        const orderDetail = rowData.productList
+        console.log("orderDetail",orderDetail)
+         return orderDetail.map((item) =>  {
 
-        <div style={{display:"flex", height: "6rem", alignItems: "center"}}>
-          <img style={{width: "5rem"}} src = {img} />
-          <P>{name}</P>
-        </div>
-      )
-    }}},
-    {name: "id", label: "상품금액 / 수량", options: {sort: false, customBodyRender: (value, tableMeta)=> {
-      const rowData =data.find(row => row.id == value);
-      const price = rowData['price'];
-      const quantity = rowData['productQuantity'];
+          const image = item.productInfoDto.image;
+          const name =item.productInfoDto.name;
+            return (
+            // {orderDetail.map((item) => )}
+            <div style={{display:"flex", height: "6rem", alignItems: "center"}}>
+              <img style={{width: "5rem"}} src = {image} />
+              <P>{name}</P>
+            </div>
+            
+          )})}
+
+    }},
+    {name: "orderId", label: "상품금액 / 수량", options: {sort: false, customBodyRender: (value, tableMeta)=> {
+      const rowData = orderList.find((row) => row.orderId === value);
+      const orderDetail = rowData.productList
+      console.log("orderDetail",orderDetail)
+      return orderDetail.map((item) => {
+        const price = item.productInfoDto.price;
+        const productQuantity = item.productQuantity;
 
       return (
         <div>
-          <p>{price} / {quantity}</p>
+          <p>{price} / {productQuantity}</p>
         </div>
-      )
-    }}},
+      )})}
+      }},
     {name: "orderer", label: "주문 아이디", sort: false},
-    {name: "orderStatus", label: "상태", sort: false},
+    {name: "orderId", label: "상태",
+    options: {sort: false,
+    customBodyRender: (value) => {
+        const rowData = orderList.find((row) => row.orderId === value);
+        const orderDetail = rowData.productList
+        console.log("orderDetail",orderDetail)
+        return orderDetail.map((item) =>  {
+            const orderState = item.orderStatus;
+            return (
+                <div>
+                    <p>{customOrderStatus(orderState)}</p>
+                </div>
+        )})}
+    }},
     {
-      name: "id",
+      name: "orderId",
       label: "상태 처리",
       options: {
         sort: false,
         customBodyRender: (value) => {
-          const rowData = data.find(row => row.id === value);
-          const orderStatus = rowData['orderStatus']
 
-          return(<ButtonContainer>
+          const rowData = orderList.find((row) => row.orderId === value);
+          const orderDetail = rowData.productList
+          if (rowData != null) {
+            const state = rowData.orderStatus;
+            const orderId = rowData.productList.orderDetailId;
+            return orderDetail.map((item) => {
 
-            {orderStatus !== '배송 완료' ? <Button onClick= {(e) => {
-              e.stopPropagation();
-              handleNextButton(value);
-            }}>다음 단계</Button>: null}
-          </ButtonContainer>
-          )
-        }
+                return (
+                    <ButtonContainer
+                    style={{width: 150}}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                    }}
+                    >
+                        {state !== "CANCELLED" ? (
+                      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                        <InputLabel id="demo-select-small-label">
+                            상태처리
+                        </InputLabel>
+                        <Select
+                          labelId="demo-select-small-label"
+                          id="demo-select-small"
+                          value={state}
+                          label="상태수정"
+                          onChange={(e) => {
+                            handleChange(value, e.target.value);
+                          }}
+                        >
+                            <MenuItem value="ORDER_RECEIVED">주문승인</MenuItem>
+                            <MenuItem value="PAYMENT_COMPLETED">결제완료</MenuItem>
+                            <MenuItem value="DELIVERY_REQUESTED">배송요청</MenuItem>
+                            <MenuItem value="PREPARING_FOR_DELIVERY">베송준비</MenuItem>
+                            <MenuItem value="IN_DELIVERY">배송중</MenuItem>
+                            <MenuItem value="DELIVERY_COMPLETED">배송완료</MenuItem>
+                            <MenuItem value="CANCELLED">취소/환불</MenuItem>
+                        </Select>
+                        </FormControl>
+                      ) : null} 
+                    </ButtonContainer>
+                );
+            })
+
+ 
+          }
+        },
+
       },
     },
   ];
 
+
+  if (!orderList) {
+    return <div/>;
+  }
+
   
 
-  const [order, setOrder] = useState([]);
-  useEffect(() => {
-    GET_Order()
-      .then((data) => {
-        console.log("주문목록조회 성공", data);
-      })
-      .catch((error) => {
-        console.log("실패했어용", error);
-      });
-  }, []);
-
-  const dropdownValue = [
-    "상태",
-    "결제 완료",
-    "배송 요청",
-    "배송 준비중",
-    "배송중",
-    "배송 완료"
-  ];
-
-  const handleRowClick = (rowData) => {
-    navigate(`/admin/order/${rowData[0]}`)
-  };
-  
-
-
-  const [selectedDropValue, setSelectedDropValue]=useState(dropdownValue[0]);
-  const handleStatusChange = (newStatus) => {
-    setSelectedDropValue(newStatus);
-  };
 
   return(
 
@@ -146,7 +296,7 @@ const Index = () => {
           <SearchWrap>
             <Dropdown
               value = {dropdownValue}
-              onChange = {handleStatusChange}
+              onChange = {handleCategoryChange}
               width={"10rem"}
             />
             <Paper
@@ -165,30 +315,40 @@ const Index = () => {
                 sx={{ ml: 1, flex: 1, height: "100%" }}
                 placeholder="검색어를 입력해주세요"
                 inputProps={{ "aria-label": "검색어를 입력해주세요" }}
+                onChange={(e) => {
+                    setSearchVal(e.target.value);
+                }}
               />
               {/* 검색 버튼 (돋보기) */}
-              <IconButton type="button" aria-label="search">
+              <IconButton
+              type="button"
+              aria-label="search"
+              onClick={() => {
+                handleSearch();
+              }}
+              >
                 <SearchIcon />
               </IconButton>
             </Paper>
             </SearchWrap>
         </FilterSection>
-
         <ListSection>
+          
+          {/* {orderList && ( */}
           <DataTable
-            data={data}
+            data={orderList}
             columns={columns}
             onRowClick={handleRowClick}
-            filterValue={selectedDropValue}
-            index={"orderStatus"}
+            filterValue={selectedCategory}
+            index={"orderState"}
             placeholder={dropdownValue[0]}
             checkBoxCheck={false}
+            onChangePage={handlePagination}
+            count={totalItems}
           />
+          {/* )} */}
         </ListSection>
-      </Wrap>
-    
-    
-    
+      </Wrap>   
     </>
   );
  
