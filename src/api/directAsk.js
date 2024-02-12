@@ -46,7 +46,7 @@ export const GET_QnAList = async ({
   });
 
   console.log("axios 확인,", res.data);
-  return res.data.data;
+  return res.data;
 };
 
 export const GET_QnA = async (QnAId) => {
