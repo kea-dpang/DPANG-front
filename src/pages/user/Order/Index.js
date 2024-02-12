@@ -188,6 +188,8 @@ const OrderPage = () => {
 
 export default OrderPage;
 const Wrap = styled.div`
+  min-height: 50rem;
+
   width: 100vw;
   max-width: 100%;
 
@@ -201,7 +203,10 @@ const Title = styled.div`
   justify-content: center;
   padding: 3rem 0;
 `;
-const Main = styled.div``;
+const Main = styled.div`
+  /* padding-bottom: 20rem; */
+  min-height: 40rem;
+`;
 const Menu = styled.div`
   border: 1px solid black;
   display: flex;
