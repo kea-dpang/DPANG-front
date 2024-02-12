@@ -55,11 +55,14 @@ const OrderBox = (props) => {
       const handleSearch = () => {
         setVal((prev) => ({
           ...prev,
-          userId: searchVal,
+          orderId: searchVal,
         }));
+        console.log("검색 값:", searchVal);
+        console.log("새로운 상태:", val);
       };
 
       const [val, setVal] = useState({
+        orderId:"",
         userId: "",
         orderStatus:"",
         startDate: "",
@@ -121,7 +124,7 @@ const OrderBox = (props) => {
               {/* 검색어 입력창 */}
               <InputBase
                 sx={{ ml: 1, flex: 1, height: "100%" }}
-                placeholder="검색어를 입력해주세요"
+                placeholder="주문번호를 입력해주세요"
                 inputProps={{ "aria-label": "검색어를 입력해주세요" }}
                 onChange={(e) => {
                     setSearchVal(e.target.value);

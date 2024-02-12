@@ -36,11 +36,11 @@ export const GET_Order = async () => {
   return res.data;
 };
 
-export const PUT_change_status = async (orderId, nextState) => {
-  console.log(orderId, "dedededed", nextState);
+export const PUT_change_status = async (orderId, orderDetailId, nextState) => {
+  console.log(orderId, orderDetailId, "=====================================================", nextState);
   const res = await instance({
     method: "put",
-    url: `${url}/${orderId}`,
+    url: `${url}/${orderId}/details/${orderDetailId}`,
     data: {
       status: nextState,
     },
@@ -68,6 +68,7 @@ export const GET_order_list = async (inputValue) => {
       startDate: inputValue.startDate || undefined,
       endDate: inputValue.endDate || undefined,
       orderStatus: inputValue.orderStatus,
+      orderId: inputValue.orderId || undefined,
       page: inputValue.page || undefined,
       size: inputValue.size || 10,
       sort: inputValue.sort || undefined,
@@ -76,6 +77,7 @@ export const GET_order_list = async (inputValue) => {
 
   return res.data;
 };
+
 
 export const GET_order_detail = async (orderId) => {
   console.log("주문상세조회하기", orderId);
