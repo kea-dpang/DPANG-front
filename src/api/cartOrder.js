@@ -1,7 +1,7 @@
 import instance from "@utils/apiInterceptor";
 
 const userUrl = "/api/users";
-const orderUrl = "/api/order";
+const orderUrl = "/api/orders";
 
 /* 사용자 주소 조회 */
 export const GET_Address = async () => {
