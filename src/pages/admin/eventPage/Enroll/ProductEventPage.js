@@ -10,8 +10,10 @@ import EventImage from "./EventImage";
 import InputText from "@adminPages/item/product/Enroll/InputText";
 import { POST_Image } from "@api/image";
 import { POST_ItemEvent } from "@api/event";
+import { useConfirmAlert } from "@components/SweetAlert";
 
 const Index = () => {
+  const showConfirmAlert = useConfirmAlert();
   const [isFormValid, setFormValid] = useState(false); // 입력값 다 입력했는지 판단
   const [inputValue, setInputValue] = useState({
     eventName: "",
@@ -93,8 +95,11 @@ const Index = () => {
   const handleSubmit = () => {
     POST_ItemEvent(inputValue)
       .then((data) => {
+        showConfirmAlert({
+          title: "상품 이벤트가 등록되었습니다.",
+          navi: "/admin/event",
+        });
         console.log("상품 이벤트 등록");
-        // navi(`/admin/event`);
       })
       .catch((error) => {
         console.log(error);

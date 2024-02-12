@@ -10,8 +10,10 @@ import { useNavigate } from "react-router-dom";
 import { POST_BrandEvent } from "@api/event";
 import SearchDropdown from "@components/SearchDropdown";
 import { GET_BrandList } from "@api/Brand";
+import { useConfirmAlert } from "@components/SweetAlert";
 
 const Index = () => {
+  const showConfirmAlert = useConfirmAlert();
   const [brand, setBrand] = useState([]);
   useEffect(() => {
     GET_BrandList()
@@ -100,8 +102,11 @@ const Index = () => {
     console.log("등록할게: ", inputValue);
     POST_BrandEvent(inputValue)
       .then((data) => {
+        showConfirmAlert({
+          title: "브랜드 이벤트가 등록되었습니다.",
+          navi: "/admin/event",
+        });
         console.log("브랜드 이벤트 등록");
-        navi(`/admin/event`);
       })
       .catch((error) => {
         console.log(error);
