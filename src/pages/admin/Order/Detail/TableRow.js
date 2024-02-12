@@ -40,23 +40,33 @@ function TableRow(props) {
 
   return (
     <Row className="cm-SRegular16">
-      <Col width="10rem">
-        <p>{data.itemId}</p>
-      </Col>
+      
       <Col width="14.9375rem">
         <Column>
           <p>{data.orderDate}</p>
           <p>{data.orderId}</p>
         </Column>
       </Col>
-      <Col width="16rem">{customOrderStatus(data.orderStatus)}</Col>
+      <ItemColBox>
+      {data.productList.map((c, f) => {
+            return (
+                <ItemCol
+                    key={f}
+                    f={f}>
+      <Col width="10rem">
+        <p>{c.productInfoDto.itemId}</p>
+      </Col>
+      <Col width="16rem">{customOrderStatus(c.orderStatus)}</Col>
       <Col width="26rem">
-        <ItemImg src={data.image} />
-        <ItemName>{data.name}</ItemName>
+        <ItemImg src={c.productInfoDto.image} />
+        <ItemName>{c.productInfoDto.name}</ItemName>
       </Col>
       <Col width="15rem">
-        {data.price} / {data.productQuantity}
+        {c.productInfoDto.price} / {c.productQuantity}
       </Col>
+      </ItemCol>
+      )})}
+      </ItemColBox>
 
 
     </Row>
@@ -64,3 +74,15 @@ function TableRow(props) {
 }
 
 export default TableRow;
+
+const ItemCol = styled.div`
+  height: 6rem;
+  display: flex;
+`;
+
+const ItemColBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;

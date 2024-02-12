@@ -5,7 +5,7 @@ import EventProductEnrollPage from "@adminPages/eventPage/Enroll/Index";
 import EventBrandEnrollPage from "@adminPages/eventPage/Enroll/BrandIndex";
 import EventProductEditPage from "@adminPages/eventPage/Edit/Index";
 import EventBrandEditPage from "@adminPages/eventPage/Edit/BrandIndex";
-import OrderPage from "@adminPages/Order/List/Index";
+import OrderPage from "@adminPages/Order/List/OrderBox";
 import AdminRefundList from "@adminPages/refund/List/Index";
 import AdminRefundDetail from "@adminPages/refund/Detail/Index";
 import AdminMileageView from "@adminPages/mileage/List/Index";
