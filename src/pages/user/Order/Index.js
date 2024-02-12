@@ -99,45 +99,37 @@ const OrderPage = () => {
       text: "확인 클릭 시 마일이 소진됩니다.",
       saveText: "결제되었습니다.",
       navi: "/user/mainpage",
-      onConfirm: () =>
-        POST_Order(addressInfo, checkedItems)
-          .then((data) => {
-            console.log(data);
-            const remainedMileage =
-              data.data.mileageInfo.mileage +
-              data.data.mileageInfo.personalChargedMileage;
-            localStorage.setItem("totalMileage", remainedMileage);
-          })
-          // localStorage.removeItem("orderList");
-          // 잔여 마일리지 계산
-          // const oldMileage = parseInt(
-          //   localStorage.getItem("totalMileage"),
-          //   10
-          // );
-          // console.log(oldMileage);
-          // console.log(oldMileage - (totalAmount + 3000));
-          //   localStorage.setItem(
-          //     "totalMileage",
-          //     oldMileage - (totalAmount + 3000)
-          //   );
-          // })
-          .catch((error) => {
-            console.log(error);
-            if (error.response.status === 400) {
-              const totalMileage = localStorage.getItem("totalMileage");
 
-              // 이후에 없애도 될듯
-              showQuestion2Alert({
-                title: `${(totalAmount - totalMileage).toLocaleString(
-                  "ko-KR"
-                )} 마일이 부족합니다.`,
-                text: "마일리지 충전 페이지로 이동하시겠습니까?",
-                navi: "/user/mypage/mileage/req",
-              });
-            }
-          }),
+      onConfirm: async () => {
+        try {
+          const data = await POST_Order(addressInfo, checkedItems);
+          console.log(data);
+          const remainedMileage =
+            data.data.mileageInfo.mileage +
+            data.data.mileageInfo.personalChargedMileage;
+          localStorage.setItem("totalMileage", remainedMileage);
+        } catch (error) {
+          // console.log(error);
+          if (error.response.status === 400) {
+            // console.log(400);
+            const totalMileage = localStorage.getItem("totalMileage");
+
+            // 이후에 없애도 될듯
+            showQuestion2Alert({
+              title: `${(totalAmount + 3000 - totalMileage).toLocaleString(
+                "ko-KR"
+              )} 마일이 부족합니다.`,
+              text: "마일리지 충전 페이지로 이동하시겠습니까?",
+              navi: "/user/mypage/mileage/req",
+            });
+            // console.log("showQuestion2Alert 호출 후");
+          }
+          throw error; // 에러를 다시 던져서 외부 catch 블록에서 잡을 수 있게 한다
+        }
+      },
     });
   };
+
   return (
     <FormProvider {...methods}>
       <Header />

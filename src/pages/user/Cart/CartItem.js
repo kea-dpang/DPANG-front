@@ -29,7 +29,7 @@ const CartItem = ({ item }) => {
     (checkedItem) => checkedItem.itemId === item.itemId
   );
 
-  console.log("sds", cartList);
+  // console.log("sds", cartList);
 
   /* 상품 삭제 */
   const handleDeleteItem = () => {

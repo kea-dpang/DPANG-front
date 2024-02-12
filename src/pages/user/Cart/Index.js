@@ -43,7 +43,12 @@ const CartPage = () => {
     setCartItemCount(count);
   };
 
+  useEffect(() => {
+    console.log("바뀔 때마다...checkedItem:", checkedItems);
+  }, [checkedItems]);
   const handleBtn = () => {
+    // console.log("checkedItem:", checkedItems);
+
     const totalMileage = localStorage.getItem("totalMileage");
     if (totalMileage < totalAmount + 3000) {
       showQuestion2Alert({
@@ -55,6 +60,8 @@ const CartPage = () => {
       });
     } else {
       navigate("/user/order");
+      console.log("제발좀되어라...checkedItem:", checkedItems);
+
       localStorage.setItem("orderList", JSON.stringify(checkedItems));
     }
   };
