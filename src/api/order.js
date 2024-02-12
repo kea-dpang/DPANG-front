@@ -69,6 +69,7 @@ export const GET_order_list = async (inputValue) => {
       startDate: inputValue.startDate || undefined,
       endDate: inputValue.endDate || undefined,
       orderStatus: inputValue.orderStatus,
+      orderId: inputValue.orderId || undefined,
       page: inputValue.page || undefined,
       size: inputValue.size || 10,
       sort: inputValue.sort || undefined,
@@ -77,6 +78,7 @@ export const GET_order_list = async (inputValue) => {
 
   return res.data;
 };
+
 
 export const GET_order_detail = async (orderId) => {
   console.log("주문상세조회하기", orderId);
