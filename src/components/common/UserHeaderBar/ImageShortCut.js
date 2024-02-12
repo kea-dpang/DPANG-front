@@ -1,16 +1,15 @@
-import heart from "../../../assets/images/heart.png";
-import cart from "../../../assets/images/cart.svg"
-import ship from '../../../assets/images/ship.svg'
+import heart from "@images/heart.png";
+import cart from "@images/cart.svg";
+import ship from "@images/ship.svg";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 const ImageButton = styled.img`
   width: 1.3rem;
   height: 1.3rem;
-
 `;
 const ImageButtonBox = styled.div`
-  width: 6rem;
+  width: 4rem;
   height: 1.5rem;
 
   display: flex;
@@ -19,14 +18,23 @@ const ImageButtonBox = styled.div`
 `;
 
 function ImageShortCut() {
-
   const navi = useNavigate();
 
   return (
     <ImageButtonBox>
-      <ImageButton src={ship} onClick={()=>{navi("/user/mypage/order")}} />
-      <ImageButton src={heart} onClick={()=>{navi("/user/wishlist")}}/>
-      <ImageButton src={cart} onClick={()=>{navi("/user/cart")}} />
+      <ImageButton
+        src={ship}
+        onClick={() => {
+          navi("/user/mypage/order");
+        }}
+      />
+      {/* <ImageButton src={heart} onClick={()=>{navi("/user/wishlist")}}/> */}
+      <ImageButton
+        src={cart}
+        onClick={() => {
+          navi("/user/cart");
+        }}
+      />
     </ImageButtonBox>
   );
 }
