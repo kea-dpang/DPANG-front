@@ -1,4 +1,3 @@
-
 import instance from "@utils/apiInterceptor";
 
 const url = `/api/orders`;
@@ -43,8 +42,8 @@ export const PUT_change_status = async (orderId, nextState) => {
     method: "put",
     url: `${url}/${orderId}`,
     data: {
-      status: nextState
-    }
+      status: nextState,
+    },
   });
   return res.data;
 };
@@ -97,4 +96,3 @@ export const GET_order_item_detail = async (id, orderId) => {
 
   return res.data;
 };
-
