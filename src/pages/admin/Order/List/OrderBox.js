@@ -1,3 +1,4 @@
+
 import styled from "styled-components";
 import * as React from "react";
 import { useState, useEffect } from "react";
@@ -123,7 +124,7 @@ const OrderBox = (props) => {
               {/* 검색어 입력창 */}
               <InputBase
                 sx={{ ml: 1, flex: 1, height: "100%" }}
-                placeholder="주문번호를 입력하세요"
+                placeholder="주문번호를 입력해주세요"
                 inputProps={{ "aria-label": "검색어를 입력해주세요" }}
                 onChange={(e) => {
                     setSearchVal(e.target.value);

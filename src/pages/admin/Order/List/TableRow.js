@@ -1,3 +1,4 @@
+
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import RowData from "./RowData";
@@ -9,7 +10,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import { customOrderStatus } from "assets/CustomName";
 
 
-function TableRow({data, selectedOrderStatus, handleChange, searchVal}) {
+function TableRow({data, selectedOrderStatus, handleChange}) {
     const [orderList, setOrderList] = useState([]);
     const [totalItems, setTotalItems] = useState(0);
     const location = useLocation();
@@ -45,7 +46,7 @@ function TableRow({data, selectedOrderStatus, handleChange, searchVal}) {
         }));
       }, [page]);
 
-      useEffect(() => {
+    useEffect(() => {
         GET_order_list(val)
           .then((data) => {
             console.log("주문목록조회 성공", data);
@@ -57,7 +58,6 @@ function TableRow({data, selectedOrderStatus, handleChange, searchVal}) {
             console.log("실패했어용", error);
           });
       }, [val]);
-      
 
 
       return numOfElement !== 0 ? (
@@ -69,7 +69,7 @@ function TableRow({data, selectedOrderStatus, handleChange, searchVal}) {
                   ? true
                   : item.productList.some(
                       (product) => customOrderStatus(product.orderStatus) === selectedOrderStatus
-                    ) && (item.orderId.includes(searchVal) || item.orderId.toString() === searchVal)
+                    )
               )
               .map((c, f) => {
                 return <RowData
