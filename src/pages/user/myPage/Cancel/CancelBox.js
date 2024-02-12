@@ -53,7 +53,6 @@ const NaviBar = styled.div`
 function ReviewBox(props) {
   const navi = useNavigate();
 
-  const [amt, setAmt] = useState([0, 1, 2, 0, 3]);
   const head = [
     { width: "10rem", text: "날짜/주문번호" },
     { width: "10rem", text: "취소신청 일자" },
@@ -66,7 +65,7 @@ function ReviewBox(props) {
     <Container>
       <MyPageBodyHeader header="취소·환불 관리" />
       <OrderOverviewBox className="cm-SRegular16">
-        <OrderBox amt={amt} />
+        <OrderBox amt={props.orderOverview} />
       </OrderOverviewBox>
       <DetailHeader className="cm-SRegular16">최근 취소 관리</DetailHeader>
       <CalenderBox>

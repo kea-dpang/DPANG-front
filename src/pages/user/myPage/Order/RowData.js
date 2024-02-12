@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { POST_cancel_order } from "@api/cancel";
 import { customOrderStatus } from "assets/CustomName";
 import ArrowImg from "assets/images/UpArrowVector.svg";
@@ -33,23 +33,30 @@ function RowData(props) {
     }
   };
 
-  const handleCancel = (id) =>{
+  const handleCancel = (orderId, orderDetailId) =>{
 
     showQuestionAlert({
       title: "취소하시겠습니까?",
       text: "확인시 즉시 취소 됩니다.",
       saveText: "신청 승인 되었습니다.",
-      onConfirm: () => handleConfirm(id),
+      onConfirm: () => handleConfirm(orderId, orderDetailId),
     });
 
 
 
   }
 
-  const handleConfirm = (id) =>{
+  useEffect(()=>{
+
+    setRowHeight(6);
 
 
-      POST_cancel_order(id)
+  }, [data])
+
+  const handleConfirm = (orderId, orderDetailId) =>{
+
+
+      POST_cancel_order(orderId, orderDetailId)
         .then((data) => {
           console.log("성공함", data);
           window.location.reload();
@@ -112,7 +119,7 @@ function RowData(props) {
                   {/* 버튼을 누르면 주문의 항목에 대한 ID를 넘겨서 취소 요청을 보낸다 */}
                   <Button
                     status={customOrderStatus(b.orderStatus)}
-                    onClick={(e)=>{ e.stopPropagation(); handleCancel(b.orderDetailId);}}
+                    onClick={(e)=>{ e.stopPropagation(); handleCancel(data.orderId, b.orderDetailId);}}
                   >
                     취소
                   </Button>

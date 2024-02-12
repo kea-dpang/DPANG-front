@@ -4,11 +4,11 @@ const url = "/api/cancels";
 
 //주문한 아이템에 대한 취소 요청을 날리는 API
 //마이페이지 주문 리스트에서 버튼 클릭 이벤트 통해 날림
-export const POST_cancel_order = async (orderId) => {
+export const POST_cancel_order = async (orderId, orderDetailId) => {
   //서버에 같이 전달해줄 내용은 어떤 order item에 대한 취소 내용인지에 관한 것이다
   const res = await instance({
     method: "post",
-    url: `${url}/${orderId}`,
+    url: `/api/orders/${orderId}/details/${orderDetailId}/cancel`,
   });
 
   return res.data;

@@ -45,7 +45,7 @@ function TableRow(props) {
   //기간 값 설정
   const period = useRecoilValue(periodAtom);
   const [val, setVal] = useState({
-    reviewerId: 1,             //skwn
+    reviewerId: id,             //skwn
     page: 0,
     size: 10,
     sort: "",

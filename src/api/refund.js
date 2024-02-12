@@ -7,7 +7,7 @@ export const POST_refund_order = async (inputValue) => {
   console.log("서버가 쓸 내용은?", inputValue);
   const res = await instance({
     method: "post",
-    url: `${url}/${inputValue.orderId}`,
+    url: `/api/orders/${inputValue.orderId}/details/${inputValue.orderDetailId}/refund`,
     data: {
       refundReason: inputValue.refundCategory,
       remark: inputValue.refundMessage,

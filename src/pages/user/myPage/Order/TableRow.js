@@ -45,7 +45,7 @@ function TableRow({ data }) {
         setNumOfElement(data.data.totalElements);
       })
       .catch((error) => {
-        console.log("데이터 조회 실패!", error);
+        console.log("orderlist 받아오기 실수", error);
       });
   }, [val]);
 

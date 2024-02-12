@@ -39,6 +39,7 @@ const Index = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const page = searchParams.get("page") || 0;
+  
   const [totalItems, setTotalItems] = useState(0);
 
   const handlePagination = (page) => {

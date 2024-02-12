@@ -21,10 +21,11 @@ justify-content: center;
 `
 const StatusBox = styled.div`
 
-width: 40rem;
-height: 4rem;
+width: ${(props) => props.width};
+height: ${(props) => props.height};
 display: flex;
-justify-content: space-between;
+justify-content: ${(props) => props.align};
+align-items: end;
 
 `
 
@@ -61,14 +62,25 @@ justify-content: center;
 
 `
 
+const Refund = styled.div`
+
+width: 8rem;
+height: 2rem;
+display: flex;
+justify-content: center;
+align-items: center
+
+`
+
 function Index(props) {
 
     return (
 
         <Container>
             주문 진행 현황
-            <Box>
-                <StatusBox>
+            <Box className="cm-SRegular16">
+                <StatusBox width="16rem" height="1rem" />
+                <StatusBox width="40rem" height="4rem" align="space-between">
                     <Status>결제완료<StatusCircle>{props.amt[0]}</StatusCircle></Status>
                     <ArrowBox className="cm-MBold24">&#62;</ArrowBox>
                     <Status>배송요청<StatusCircle>{props.amt[1]}</StatusCircle></Status>
@@ -78,16 +90,11 @@ function Index(props) {
                     <Status>배송중<StatusCircle>{props.amt[3]}</StatusCircle></Status>
                     <ArrowBox className="cm-MBold24">&#62;</ArrowBox>
                     <Status>배송완료<StatusCircle>{props.amt[4]}</StatusCircle></Status>
-
                 </StatusBox>
+                <StatusBox width="16rem" height="12.5rem" align="end"><Refund>취소/환불 {props.amt[5]}</Refund></StatusBox>
             </Box>
         </Container>
-
-
-
     )
-
-
 }
 
 export default Index;   

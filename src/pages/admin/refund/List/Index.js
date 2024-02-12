@@ -42,6 +42,7 @@ const Index = () => {
   const searchParams = new URLSearchParams(location.search);
   const page = searchParams.get("page") || 0;
   const [totalItems, setTotalItems] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState(dropdownValue[0]);
 
   const handlePagination = (page) => {
     console.log("지금 페이지네이션 페이지 : ", page);
@@ -53,7 +54,7 @@ const Index = () => {
   };
 
   //선택한 드롭 박스의 값을 저장하기 위한 state 변수
-  const [selectedCategory, setSelectedCategory] = useState(dropdownValue[0]);
+
   const handleCategoryChange = (newCategory) => {
     //드롭다운 박스에서 가져온 값으로 카테고리를 설정
     setVal((prev) => ({
@@ -162,6 +163,28 @@ const Index = () => {
               <P>{value.productInfoDto.name}</P>
             </div>
           );
+        },
+      },
+    },
+    {
+      name: "refundId",
+      label: "상품가격 / 수량",
+      options: {
+        sort: false,
+        customBodyRender: (value, tableMeta) => {
+          //ID를 기준으로 데이터 찾기
+          const rowData = refundList.find((row) => row.refundId === value);
+          //날짜와 주문 번호를 가져옴
+          if (rowData != null) {
+            const price = rowData.product.productInfoDto.price;
+            const amt = rowData.product.productQuantity;
+
+            return (
+              <div>
+                <p>{price.toLocaleString()} / {amt}</p>
+              </div>
+            );
+          }
         },
       },
     },
