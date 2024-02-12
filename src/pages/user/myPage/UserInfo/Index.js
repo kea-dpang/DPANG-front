@@ -1,3 +1,4 @@
+import { useUser } from "@api/queries/user";
 import { GET_User } from "@api/user";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -6,18 +7,20 @@ import styled from "styled-components";
 const infoTitles = ["사원번호", "이름", "이메일", "입사일"];
 
 const UserInfoPage = () => {
-  const [infoData, setInfoData] = useState();
+  // const [infoData, setInfoData] = useState();
 
-  useEffect(() => {
-    GET_User()
-      .then((data) => {
-        console.log("일단 확인해보자.", data.data);
-        setInfoData(data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   GET_User()
+  //     .then((data) => {
+  //       console.log("일단 확인해보자.", data.data);
+  //       setInfoData(data.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
+  const { data: infoData, isLoading, error } = useUser();
+
   return (
     <Wrap>
       <Title>
