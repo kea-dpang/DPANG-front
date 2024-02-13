@@ -5,7 +5,7 @@ import { useState } from "react";
 // 관리자 헤더
 const AdminHeader = () => {
 
-    const [user, setUser] = useState('김디팡')
+    const user = localStorage.getItem('name');
 
     return(
         <>

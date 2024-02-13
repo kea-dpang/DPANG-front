@@ -202,7 +202,7 @@ const Button = styled.button`
   border-radius: 3px;
   ${({ disabled }) => (
     disabled ?
-      `background-color: var(--light-grey); color: black`
+      `background-color: var(--light-grey); color: var(--dark-grey)`
       : `background-color: var(--navy); color: white;`)}
 `;
 
