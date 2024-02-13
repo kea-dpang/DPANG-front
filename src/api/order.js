@@ -22,20 +22,20 @@ export const POST_OrderInfo = async (inputValue) => {
   return res.data;
 };
 
-export const GET_Order = async () => {
-  console.log("get orderlist");
-  const res = await instance({
-    method: "get",
-    url: `${url}/list`,
-    params: {
-      page: 0,
-      size: 20,
-      sort: "",
-    },
-  });
-  console.log("주문내역 result : ", res.data);
-  return res.data;
-};
+//export const GET_Order = async () => {
+//  console.log("get orderlist");
+//  const res = await instance({
+//    method: "get",
+//    url: `${url}/list`,
+//    params: {
+//      page: 0,
+//      size: 20,
+//      sort: "",
+//    },
+// });
+//  console.log("주문내역 result : ", res.data);
+//  return res.data;
+//};
 
 export const PUT_change_status = async (orderId, orderDetailId, nextState) => {
   console.log(orderId, orderDetailId, "=====================================================", nextState);
@@ -69,7 +69,6 @@ export const GET_order_list = async (inputValue) => {
       startDate: inputValue.startDate || undefined,
       endDate: inputValue.endDate || undefined,
       orderStatus: inputValue.orderStatus,
-      orderId: inputValue.orderId || undefined,
       page: inputValue.page || undefined,
       size: inputValue.size || 10,
       sort: inputValue.sort || undefined,
@@ -93,8 +92,8 @@ export const GET_order_detail = async (orderId) => {
 
 export const GET_order_item_detail = async (id, orderId) => {
   const res = await instance({
-    method: "get",
-    url: `${url}/${orderId}/details/${id}`,
+  method: "get",
+  url: `${url}/${orderId}/details/${id}`,
   });
 
   return res.data;

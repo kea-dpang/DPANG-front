@@ -6,23 +6,17 @@ import UserPagination from "@components/UserPagination";
 import UserEmptyData from "@components/UserEmptyData";
 import * as React from "react";
 import { GET_order_list } from "@api/order";
-import {useLocation, useNavigate} from "react-router-dom";
 import { customOrderStatus } from "assets/CustomName";
 
 
-function TableRow({data, selectedOrderStatus, handleChange}) {
+function TableRow({data, selectedOrderStatus, handleChange, handleSearch}) {
     const [orderList, setOrderList] = useState([]);
-    const [totalItems, setTotalItems] = useState(0);
-    const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    const page = searchParams.get("page") || 0;
     const [numOfElement, setNumOfElement] = useState(0);
 
 
 
 
     const [val, setVal] = useState({
-        orderId:"",
         userId: "",
         orderStatus:"",
         startDate: "",
@@ -38,13 +32,7 @@ function TableRow({data, selectedOrderStatus, handleChange}) {
           page: page - 1,
         }));
       };
-    
-      useEffect(() => {
-        setVal((prevState) => ({
-          ...prevState,
-          page: page,
-        }));
-      }, [page]);
+
 
     useEffect(() => {
         GET_order_list(val)
@@ -78,6 +66,7 @@ function TableRow({data, selectedOrderStatus, handleChange}) {
                 numOfElement={numOfElement}
                 selectedOrderStatus={selectedOrderStatus}
                 handleChange={handleChange}  // handleChange 함수를 전달
+                handleSearch={handleSearch}
               />
               })}
           <UserPagination numOfElement={numOfElement} handleValChange={handleValChange} />

@@ -11,6 +11,7 @@ import { customOrderStatus, customOrderStatusReverse } from "assets/CustomName";
 import {useLocation, useNavigate} from "react-router-dom";
 import TableHeader from "@components/MypageTableHeader";
 import TableRow from "./TableRow";
+import { GET_order_list } from "@api/order";
 
 const OrderBox = (props) => {
 
@@ -27,7 +28,7 @@ const OrderBox = (props) => {
         "배송완료",
         "취소/환불"
       ];
-      const [orderList, setOrderList] = useState(props);
+      const [orderList, setOrderList] = useState([]);
       const [searchVal, setSearchVal] = useState();
     
       const location = useLocation();
@@ -38,6 +39,10 @@ const OrderBox = (props) => {
       const handlePagination = (page) => {
         console.log("지금 페이지네이션 페이지 : ", page);
         navigate(`?page=${page}`);
+        setVal((prev) => ({
+          ...prev,
+          page: page,
+        }));
       };
     
     
@@ -50,20 +55,19 @@ const OrderBox = (props) => {
           orderStatus: customOrderStatusReverse(newCategory),
         }));
       };
-    
-    
+
       const handleSearch = () => {
+
+  
         setVal((prev) => ({
           ...prev,
-          orderId: searchVal,
-        }));
-        console.log("검색 값:", searchVal);
-        console.log("새로운 상태:", val);
-      };
+          userId: searchVal,
+          page: 0,
+        }))
+      }
 
       const [val, setVal] = useState({
-        orderId:"",
-        userId: "",
+        userId: undefined,
         orderStatus:"",
         startDate: "",
         endDate: "",
@@ -72,6 +76,23 @@ const OrderBox = (props) => {
         sort: "",
       });
     
+    
+
+
+
+      useEffect(() => {
+        GET_order_list(val)
+          .then((data) => {
+            console.log("주문목록조회 성공", data);
+            setOrderList(data.data.content);
+            setTotalItems(data.data.totalElements);
+          })
+          .catch((error) => {
+            console.log("실패했어용", error);
+          });
+      }, [val]);
+
+                
       useEffect(() => {
         setVal((prevState) => ({
           ...prevState,
@@ -79,8 +100,7 @@ const OrderBox = (props) => {
         }));
       }, [page]);
 
-    
-    
+
 
 
     const head = [
@@ -124,7 +144,7 @@ const OrderBox = (props) => {
               {/* 검색어 입력창 */}
               <InputBase
                 sx={{ ml: 1, flex: 1, height: "100%" }}
-                placeholder="주문번호를 입력해주세요"
+                placeholder="사용자 ID를 입력해주세요"
                 inputProps={{ "aria-label": "검색어를 입력해주세요" }}
                 onChange={(e) => {
                     setSearchVal(e.target.value);
@@ -135,7 +155,7 @@ const OrderBox = (props) => {
               type="button"
               aria-label="search"
               onClick={() => {
-                handleSearch();
+                handleSearch(searchVal);
               }}
               >
                 <SearchIcon />
@@ -222,3 +242,4 @@ width: 15rem;
 const TableBox = styled.div`
   background-color: white;
 `;
+
