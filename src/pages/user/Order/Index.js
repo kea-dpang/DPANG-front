@@ -70,7 +70,6 @@ const OrderPage = () => {
   useEffect(() => {
     GET_Address()
       .then((data) => {
-        console.log(data.data);
         setAddressInfo(data.data);
       })
       .catch((error) => console.log(error));

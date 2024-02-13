@@ -3,7 +3,11 @@ import styled from "styled-components";
 import { GET_CartList } from "@api/cart";
 import { FormProvider, useForm } from "react-hook-form";
 import CartItem from "./CartItem";
-import { cartListAtom, totalAmountSelector } from "recoil/user/CartAtom";
+import {
+  cartListAtom,
+  checkedItemsAtom,
+  totalAmountSelector,
+} from "recoil/user/CartAtom";
 import { useRecoilState } from "recoil";
 import { useRecoilValue } from "recoil";
 
@@ -12,12 +16,20 @@ const CartList = ({ onItemCount }) => {
   const [cartList, setCartList] = useRecoilState(cartListAtom);
   const totalAmount = useRecoilValue(totalAmountSelector);
 
+  const [checkedItems, setCheckedItems] = useRecoilState(checkedItemsAtom);
+
+  // 페이지에 들어올 때마다 checkedItems 상태를 cartList 값으로 초기화
+  // -> 새로고침이 되지 않아 전에 체크 하고 안하고 했던 checkedItems가 남아있어 전체 체크가 안되어있는 문제 해결 위해
+  useEffect(() => {
+    setCheckedItems(cartList);
+  }, [cartList]);
+
   /* 장바구니 리스트 가져오기 */
   const getItemList = () => {
     GET_CartList()
       .then((data) => {
         setCartList(data.data); // 서버에서 가져온 데이터를 Recoil 상태에 저장합니다.
-        console.log(data.data);
+        // console.log("장바구니 리스트 가져오기:",data.data);
         onItemCount(data.data.length); // 아이템 개수를 부모 컴포넌트에 전달
       })
       .catch((error) => {
