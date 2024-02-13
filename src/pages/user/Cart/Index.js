@@ -49,21 +49,21 @@ const CartPage = () => {
   const handleBtn = () => {
     // console.log("checkedItem:", checkedItems);
 
-    const totalMileage = localStorage.getItem("totalMileage");
-    if (totalMileage < totalAmount + 3000) {
-      showQuestion2Alert({
-        title: `${(totalAmount - totalMileage).toLocaleString(
-          "ko-KR"
-        )} 마일이 부족합니다.`,
-        text: "마일리지 충전 페이지로 이동하시겠습니까?",
-        navi: "/user/mypage/mileage/req",
-      });
-    } else {
-      navigate("/user/order");
-      console.log("제발좀되어라...checkedItem:", checkedItems);
+    // const totalMileage = localStorage.getItem("totalMileage");
+    // if (totalMileage < totalAmount + 3000) {
+    //   showQuestion2Alert({
+    //     title: `${(totalAmount - totalMileage).toLocaleString(
+    //       "ko-KR"
+    //     )} 마일이 부족합니다.`,
+    //     text: "마일리지 충전 페이지로 이동하시겠습니까?",
+    //     navi: "/user/mypage/mileage/req",
+    //   });
+    // } else {
+    navigate("/user/order");
+    console.log("제발좀되어라...checkedItem:", checkedItems);
 
-      localStorage.setItem("orderList", JSON.stringify(checkedItems));
-    }
+    localStorage.setItem("orderList", JSON.stringify(checkedItems));
+    // }
   };
 
   return (
