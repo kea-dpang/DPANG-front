@@ -39,6 +39,7 @@ const Index = () => {
             </PageSubName>
             <InputSection>
                 <DetailTable data={orderDetail} />
+                <DetailOrder data={orderDetail} />
             </InputSection>
         </Wrap>
         </>

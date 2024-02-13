@@ -7,10 +7,10 @@ return(
     <Border />
     <Table className="cm-SRegular16 ">
       <Col height="5rem">
-        <ColHead>주문아이디</ColHead>
+        <ColHead>주문자</ColHead>
         <BlankDiv />
         <Content width="28rem">{data.orderer}</Content>
-        <ColHead>주문 번호</ColHead>
+        <ColHead>주문번호</ColHead>
         <BlankDiv />
         <Content width="28rem">{data.orderId}</Content>
       </Col>
@@ -18,17 +18,17 @@ return(
       <Col height="5rem">
         <ColHead>사용자 주소</ColHead>
         <BlankDiv />
-        <Content width="64.9375rem">{data.address}, {data.detailaddress}</Content>
+        <Content width="64.9375rem">{data.deliveryInfo.address}  {data.deliveryInfo.detailAddress || ''} ({data.deliveryInfo.zipCode})</Content>
       </Col>
       <Border />
 
       <Col height="5rem">
-        <ColHead>주문 상품</ColHead>
+        <ColHead>사용자 전화번호</ColHead>
         <BlankDiv />
-        <Content width="28rem">{data.name}</Content>
+        <Content width="28rem">{data.deliveryInfo.phoneNumber}</Content>
         <ColHead>주문금액</ColHead>
         <BlankDiv />
-        <Content width="28rem">{data.price * data.productQuantity}</Content>
+        <Content width="28rem">{data.paymentInfo.productTotalPrice}</Content>
       </Col>
       <Border />
 
