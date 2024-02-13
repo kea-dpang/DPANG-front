@@ -11,12 +11,13 @@ import {
   checkedItemsAtom,
   totalAmountSelector,
 } from "recoil/user/CartAtom";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   useErrorAlert,
   useQuestion2Alert,
   useQuestionAlert,
 } from "@components/SweetAlert";
+
 const CartPage = () => {
   /* TODO: 버튼 비활성화 */
   /*
@@ -28,10 +29,12 @@ const CartPage = () => {
   const cartListCheck = useRecoilValue(cartListAtom);
 
   const checkedItems = useRecoilValue(checkedItemsAtom);
+  //
   const totalAmount = useRecoilValue(totalAmountSelector);
   const navigate = useNavigate();
   // alert
   const showQuestion2Alert = useQuestion2Alert();
+  const showErrorAlert = useErrorAlert();
 
   useEffect(() => {
     if (cartItemCount === 0) {
@@ -46,24 +49,18 @@ const CartPage = () => {
   useEffect(() => {
     console.log("바뀔 때마다...checkedItem:", checkedItems);
   }, [checkedItems]);
+
   const handleBtn = () => {
-    // console.log("checkedItem:", checkedItems);
-
-    // const totalMileage = localStorage.getItem("totalMileage");
-    // if (totalMileage < totalAmount + 3000) {
-    //   showQuestion2Alert({
-    //     title: `${(totalAmount - totalMileage).toLocaleString(
-    //       "ko-KR"
-    //     )} 마일이 부족합니다.`,
-    //     text: "마일리지 충전 페이지로 이동하시겠습니까?",
-    //     navi: "/user/mypage/mileage/req",
-    //   });
-    // } else {
-    navigate("/user/order");
     console.log("제발좀되어라...checkedItem:", checkedItems);
-
-    localStorage.setItem("orderList", JSON.stringify(checkedItems));
-    // }
+    if (checkedItems.length === 0) {
+      showErrorAlert({
+        title: "주문할 상품을 선택해 주세요.",
+        text: "",
+      });
+    } else {
+      navigate("/user/order");
+      localStorage.setItem("orderList", JSON.stringify(checkedItems));
+    }
   };
 
   return (

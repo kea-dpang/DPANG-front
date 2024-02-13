@@ -8,6 +8,7 @@ import {
 } from "@api/cart";
 import {
   cartListAtom,
+  checkedItemsAtom,
   checkedItemsSelector,
   decreaseCountSelector,
   increaseCountSelector,
@@ -21,7 +22,8 @@ const CartItem = ({ item }) => {
   const [decreaseCount, setDecreaseCount] = useRecoilState(
     decreaseCountSelector
   );
-  const [checkedItems, setCheckedItems] = useRecoilState(checkedItemsSelector);
+  // const [checkedItems, setCheckedItems] = useRecoilState(checkedItemsSelector);
+  const [checkedItems, setCheckedItems] = useRecoilState(checkedItemsAtom);
 
   // 체크된 아이템인지 확인
   // const isChecked = checkedItems.includes(item.itemId);
@@ -74,7 +76,16 @@ const CartItem = ({ item }) => {
   /* 체크박스 클릭 핸들러 */
   const handleCheckboxClick = (e) => {
     // 체크박스 상태 변경
-    setCheckedItems(item); // 아이템의 전체 정보를 전달
+    // setCheckedItems(item); // 아이템의 전체 정보를 전달
+    if (isChecked) {
+      // item이 이미 checkedItems에 있다면 제거
+      setCheckedItems((prevItems) =>
+        prevItems.filter((i) => i.itemId !== item.itemId)
+      );
+    } else {
+      // item이 checkedItems에 없다면 추가
+      setCheckedItems((prevItems) => [...prevItems, item]);
+    }
   };
 
   return (
