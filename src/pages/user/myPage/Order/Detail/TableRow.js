@@ -1,6 +1,8 @@
 import { customOrderStatus } from "assets/CustomName";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useErrorAlert, useQuestionAlert } from "@components/SweetAlert";
+import { POST_cancel_order } from "@api/cancel";
 
 const Row = styled.div`
   width: 72rem;
@@ -14,7 +16,16 @@ const Col = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  ${(props) => setTextColor(props.status)}
 `;
+
+const setTextColor = (status) => {
+  if (status === "CANCELLED") {
+    return { color: "var(--orange)" };
+  } else {
+    return { color: "black" };
+  }
+};
 
 const ItemImg = styled.img`
   width: 5rem;
@@ -108,6 +119,42 @@ function TableRow(props) {
 
   const data = props.data;
   console.log("DEDedededed", data);
+  const showQuestionAlert = useQuestionAlert();
+  const showErrorAlert = useErrorAlert();
+  const handleCancel = (orderId, orderDetailId) => {
+
+    showQuestionAlert({
+      title: "취소하시겠습니까?",
+      text: "확인시 즉시 취소 됩니다.",
+      saveText: "신청 승인 되었습니다.",
+      onConfirm: () => handleConfirm(orderId, orderDetailId),
+    });
+
+
+
+  }
+
+  const handleConfirm = (orderId, orderDetailId) => {
+
+
+    POST_cancel_order(orderId, orderDetailId)
+      .then((data) => {
+        console.log("성공함", data);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log("실패함", error);
+        showErrorAlert({
+          title: "오류가 발생했습니다", 
+          text: "잠시후 다시 시도해주세요", 
+        })
+        window.location.reload();
+      });
+
+
+
+
+  }
 
   return (
     <Row className="cm-SRegular16">
@@ -128,9 +175,9 @@ function TableRow(props) {
                 navi("/user/mypage/temp/order/detail");
               }}
             >
-              <Col width="11rem">{customOrderStatus(b.orderStatus)}</Col>
+              <Col width="11rem" status={b.orderStatus}>{customOrderStatus(b.orderStatus)}</Col>
               <Col width="22rem">
-                <ItemImg src={b.productInfoDto.image} />
+                <ItemImg src={b.productInfoDto.image} /> &nbsp; &nbsp;
                 <ItemName>{b.productInfoDto.name}</ItemName>
               </Col>
               <Col width="11rem">
@@ -140,7 +187,10 @@ function TableRow(props) {
 
               <Col width="15rem">
                 <ButtonBox>
-                  <Button status={customOrderStatus(b.orderStatus)}>
+                  <Button
+                    status={customOrderStatus(b.orderStatus)}
+                    onClick={(e) => { e.stopPropagation(); handleCancel(data.orderId, b.orderDetailId); }}
+                  >
                     취소
                   </Button>
                   {/* 버튼을 클릭하더라도 상위 요소에 대하 이벤트 버블링 발생하지 않도록 함 */}

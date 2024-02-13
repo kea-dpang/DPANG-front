@@ -28,6 +28,8 @@ function Index() {
   const [orderInfo, setInfo] = useState();
 
   useEffect(() => {
+
+    window.scrollTo(0, 0);
     GET_order_detail(id)
       .then((data) => {
         setInfo(data.data);
