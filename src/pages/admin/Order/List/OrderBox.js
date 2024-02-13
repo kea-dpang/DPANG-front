@@ -176,6 +176,7 @@ const OrderBox = (props) => {
                 onChangePage={handlePagination}
                 count={totalItems}
                 selectedOrderStatus={selectedCategory} // 선택된 orderStatus를 전달합니다
+                handleSearch={handleSearch}
                 />
             
         </TableBox>
@@ -242,4 +243,5 @@ width: 15rem;
 const TableBox = styled.div`
   background-color: white;
 `;
+
 

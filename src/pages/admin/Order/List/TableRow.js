@@ -9,11 +9,9 @@ import { GET_order_list } from "@api/order";
 import { customOrderStatus } from "assets/CustomName";
 
 
-function TableRow({data, selectedOrderStatus, handleChange, handleSearch}) {
+function TableRow({props, selectedOrderStatus, handleChange, handleSearch}) {
     const [orderList, setOrderList] = useState([]);
     const [numOfElement, setNumOfElement] = useState(0);
-
-
 
 
     const [val, setVal] = useState({
