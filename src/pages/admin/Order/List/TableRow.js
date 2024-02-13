@@ -9,10 +9,13 @@ import { GET_order_list } from "@api/order";
 import { customOrderStatus } from "assets/CustomName";
 
 
-function TableRow({props, selectedOrderStatus, handleChange, handleSearch}) {
-    const [orderList, setOrderList] = useState([]);
+function TableRow({data, selectedOrderStatus, handleChange, handleSearch, count}) {
     const [numOfElement, setNumOfElement] = useState(0);
 
+    console.log(data);
+
+    const orderList = data;
+    
 
     const [val, setVal] = useState({
         userId: "",
@@ -32,21 +35,20 @@ function TableRow({props, selectedOrderStatus, handleChange, handleSearch}) {
       };
 
 
-    useEffect(() => {
-        GET_order_list(val)
-          .then((data) => {
-            console.log("주문목록조회 성공", data);
-            setOrderList(data.data.content);
-            setNumOfElement(data.data.totalElements);
-            console.log(orderList);
-          })
-          .catch((error) => {
-            console.log("실패했어용", error);
-          });
-      }, [val]);
+    // useEffect(() => {
+    //     GET_order_list(val)
+    //       .then((data) => {
+    //         console.log("List 조회 성공~", data);
+    //         setOrderList(data.data.content);
+    //         setNumOfElement(data.data.totalElements);
+    //         console.log("씨발", orderList);
+    //       })
+    //       .catch((error) => {
+    //         console.log("실패했어용", error);
+    //       });
+    //   }, [val]);
 
-
-      return numOfElement !== 0 ? (
+      return count !== 0 ? (
         <>
           {orderList != null &&
             orderList
@@ -57,17 +59,18 @@ function TableRow({props, selectedOrderStatus, handleChange, handleSearch}) {
                       (product) => customOrderStatus(product.orderStatus) === selectedOrderStatus
                     )
               )
-              .map((c, f) => {
+              .map((a, f) => {
+                console.log("시발시발")
                 return <RowData
-                data={c}
+                data={a}
                 key={f}
-                numOfElement={numOfElement}
+                numOfElement={count}
                 selectedOrderStatus={selectedOrderStatus}
                 handleChange={handleChange}  // handleChange 함수를 전달
                 handleSearch={handleSearch}
               />
               })}
-          <UserPagination numOfElement={numOfElement} handleValChange={handleValChange} />
+          <UserPagination numOfElement={count} handleValChange={handleValChange} />
         </>
       ) : (
         <UserEmptyData text="조회 내역이 없어요...." />
