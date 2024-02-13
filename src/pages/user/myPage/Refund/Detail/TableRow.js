@@ -22,8 +22,10 @@ const ItemImg = styled.img`
   height: 5rem;
 `;
 const ItemName = styled.div`
-  width: 11rem;
+  width: 18rem;
   height: 5rem;
+  box-sizing: border-box;
+  padding: 2rem;
 `;
 const Column = styled.div`
   width: 10rem;
@@ -49,16 +51,17 @@ function TableRow(props) {
           <p>{data.refundRequestDate}</p>
         </Column>
       </Col>
-      <Col width="8rem">{customRefundReason(data.returnInfo.reason)}</Col>
-      <Col width="6rem">{customRefundStatus(data.refundStatus)}</Col>
       <Col width="23rem">
-        <ItemImg src={data.product.productInfoDto.image} /> &nbsp; &nbsp;
+        <ItemImg src={data.product.productInfoDto.image} />
         <ItemName>{data.product.productInfoDto.name}</ItemName>
       </Col>
+      <Col width="8rem">{customRefundReason(data.returnInfo.reason)}</Col>
+      <Col width="6rem">{customRefundStatus(data.refundStatus)}</Col>
       <Col width="8rem">
-        {data.product.productInfoDto.price.toLocaleString()} /{" "}
+        {data.product.productInfoDto.price.toLocaleString()} /
         {data.product.productQuantity}
       </Col>
+
       <Col width="8rem">
         {data.refundInfo.expectedRefundAmount.toLocaleString()}
       </Col>

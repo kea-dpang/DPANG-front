@@ -29,7 +29,12 @@ const ItemImg = styled.img`
   height: 5rem;
 `;
 const ItemName = styled.div`
-  width: 11rem;
+  width: 18rem;
+  height: 5rem;
+  box-sizing: border-box;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
 `;
 
 //문자열이 너무 길어지면 잘라주기

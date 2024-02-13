@@ -32,7 +32,10 @@ const ItemImg = styled.img`
   height: 5rem;
 `;
 const ItemName = styled.div`
-  width: 11rem;
+  width: 18rem;
+  height: 5rem;
+  box-sizing: border-box;
+  padding: 2rem;
 `;
 const Column = styled.div`
   width: 10rem;

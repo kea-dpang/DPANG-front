@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import ReviewBox from "./ReviewBox";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DetailPopUp from "@userPages/myPage/Review/Detail/Index"
 
 const Container = styled.div`
@@ -38,6 +38,11 @@ function Index() {
     setPopUpState(false);
 
   }
+
+  useEffect(()=>{
+
+    window.scrollTo(0, 0);
+  }, [])
 
   return (
     <Container>
