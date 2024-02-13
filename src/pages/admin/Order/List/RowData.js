@@ -16,7 +16,7 @@ function RowData(props) {
   const data = props.data;
   const [click, setClick] = useState(false);
 
-  const [rowHeight, setRowHeight] = useState(12);
+  const [rowHeight, setRowHeight] = useState(6);
 
   const [rotate, setRotate] = useState(180);
 
@@ -43,6 +43,13 @@ function RowData(props) {
   const searchParams = new URLSearchParams(location.search);
   const page = searchParams.get("page") || 0;
   const [totalItems, setTotalItems] = useState(0);
+
+  useEffect(() => {
+
+    setRowHeight(6);
+
+
+  }, [data])
 
   const [val, setVal] = useState({
     userId: "",
@@ -117,7 +124,7 @@ function RowData(props) {
           <Arrow src={ArrowImg} rotate={rotate} />
         )}
       </Col>
-      <Col width="11rem" height={rowHeight}>
+      <Col width="10rem" height={rowHeight}>
         <Column>
           <p>{data.orderDate}</p>
           <p>{data.orderId}</p>
@@ -143,7 +150,7 @@ function RowData(props) {
                 <ItemImg src={c.productInfoDto.image} />
                 <ItemName>&nbsp; &nbsp;{c.productInfoDto.name}</ItemName>
               </Col>
-              <Col width="11rem" height="6">
+              <Col width="10rem" height="6">
                 <p>
                   {c.productInfoDto.price} / {c.productQuantity}
                 </p>
@@ -151,7 +158,7 @@ function RowData(props) {
               <Col width="13rem" height="6">
                 <p>{customOrderStatus(c.orderStatus)}</p>
               </Col>
-              <Col width="13rem" height="6">
+              <Col width="12rem" height="6">
                 <ButtonContainer
                   style={{ width: 150 }}
                   onClick={(e) => {
@@ -197,7 +204,7 @@ function RowData(props) {
 export default RowData;
 
 const Row = styled.div`
-  width: 72rem;
+  width: 73rem;
   border-bottom: 1px black solid;
   display: flex;
   height: ${(props) => props.height}rem;
@@ -237,7 +244,6 @@ const ItemColBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 `;
 
 const ItemCol = styled.div`

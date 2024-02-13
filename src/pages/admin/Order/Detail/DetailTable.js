@@ -11,10 +11,10 @@ const DetailTable = (props) => {
  
     <Wrap>
       <TableBox>
-        <Tabledetail className="cm-SRegular16">
-          <Col width="14.9375rem">날짜/주문번호</Col>
+        <Tabledetail className="cm-SBold16">
+          <Col width="14rem">날짜 | 주문번호</Col>
           <Col width="10rem">상품번호</Col>
-          <Col width="16rem">상태</Col>
+          <Col width="17rem">상태</Col>
           <Col width="26rem">상품명</Col>
           <Col width="15rem">상품금액/수량</Col>
         </Tabledetail>
@@ -50,6 +50,8 @@ const Tabledetail = styled.div`
   background-color: var(--navy);
   border-radius: 3px;
   display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 const Col = styled.div`
   color: white;

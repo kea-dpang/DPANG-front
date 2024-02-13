@@ -6,7 +6,6 @@ const Row = styled.div`
   width: 73.9375rem;
   border-bottom: 1px black solid;
   display: flex;
-  font-size: 14px;
 `;
 
 const Col = styled.div`
@@ -41,7 +40,7 @@ function TableRow(props) {
   return (
     <Row className="cm-SRegular16">
       
-      <Col width="14.9375rem">
+      <Col width="15rem">
         <Column>
           <p>{data.orderDate}</p>
           <p>{data.orderId}</p>
@@ -53,15 +52,15 @@ function TableRow(props) {
                 <ItemCol
                     key={f}
                     f={f}>
-      <Col width="10rem">
+      <Col width="10.8rem">
         <p>{c.productInfoDto.itemId}</p>
       </Col>
-      <Col width="16rem">{customOrderStatus(c.orderStatus)}</Col>
+      <Col width="15.3rem">{customOrderStatus(c.orderStatus)}</Col>
       <Col width="26rem">
         <ItemImg src={c.productInfoDto.image} />
         <ItemName>{c.productInfoDto.name}</ItemName>
       </Col>
-      <Col width="15rem">
+      <Col width="10.5rem">
         {c.productInfoDto.price} / {c.productQuantity}
       </Col>
       </ItemCol>
@@ -78,6 +77,8 @@ export default TableRow;
 const ItemCol = styled.div`
   height: 6rem;
   display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ItemColBox = styled.div`

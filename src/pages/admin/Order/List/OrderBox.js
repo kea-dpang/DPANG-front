@@ -105,12 +105,12 @@ const OrderBox = (props) => {
 
     const head = [
         { width: "2rem", text: "" },
-        { width: "11rem", text: "날짜 | 주문번호" },
+        { width: "10rem", text: "날짜 | 주문번호" },
         { width: "11rem", text: "주문아이디" },
-        { width: "22rem", text: "상품정보" },
-        { width: "13rem", text: "상품 금액 / 수량" },
-        { width: "15rem", text: "상태" },
-        { width: "15rem", text: "상태 처리"},
+        { width: "17rem", text: "상품정보" },
+        { width: "10rem", text: "상품 금액 / 수량" },
+        { width: "13rem", text: "상태" },
+        { width: "12rem", text: "상태 처리"},
       ];
 
       return (
