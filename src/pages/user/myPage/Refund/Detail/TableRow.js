@@ -23,6 +23,7 @@ const ItemImg = styled.img`
 `;
 const ItemName = styled.div`
   width: 11rem;
+  height: 5rem;
 `;
 const Column = styled.div`
   width: 10rem;
@@ -51,7 +52,7 @@ function TableRow(props) {
       <Col width="8rem">{customRefundReason(data.returnInfo.reason)}</Col>
       <Col width="6rem">{customRefundStatus(data.refundStatus)}</Col>
       <Col width="23rem">
-        <ItemImg src={data.product.productInfoDto.image} />
+        <ItemImg src={data.product.productInfoDto.image} /> &nbsp; &nbsp;
         <ItemName>{data.product.productInfoDto.name}</ItemName>
       </Col>
       <Col width="8rem">

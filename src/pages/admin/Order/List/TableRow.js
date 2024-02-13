@@ -60,7 +60,6 @@ function TableRow({data, selectedOrderStatus, handleChange, handleSearch, count}
                     )
               )
               .map((a, f) => {
-                console.log("시발시발")
                 return <RowData
                 data={a}
                 key={f}

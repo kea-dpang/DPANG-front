@@ -84,7 +84,7 @@ function RowData(props) {
 
   // 상태 처리 함수 수정
   const handleChange = (orderId, orderDetailId, state) => {
-    console.log("==============================", orderDetailId, state);
+    console.log("==============================", orderId, orderDetailId, state);
 
     // "주문승인"으로 돌아가는 경우 막음
     if (previousStatus === "ORDER_RECEIVED" && state !== "ORDER_RECEIVED") {
@@ -169,7 +169,7 @@ function RowData(props) {
                         value={c.orderStatus}
                         label="상태수정"
                         onChange={(e) => {
-                          handleChange(c, e.target.value);
+                          handleChange(data.orderId, c.orderDetailId, e.target.value);
                         }}
                       >
                         <MenuItem value="ORDER_RECEIVED">주문승인</MenuItem>
