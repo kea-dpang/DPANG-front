@@ -51,7 +51,7 @@ const EnrollAddress = ({ data, handleAddressSubmit }) => {
         </BtnWrap>
         <StyledTextField
           id="name"
-          label="이름"
+          // label="이름"
           variant="outlined"
           style={{ width: "40%" }}
           // defaultValue={data?.name} // 초기 값 설정
