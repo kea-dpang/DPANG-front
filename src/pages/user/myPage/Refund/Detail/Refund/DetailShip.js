@@ -1,3 +1,4 @@
+import { customPhoneNumber } from "assets/CustomName";
 import styled from "styled-components";
 
 function DetailShip(props) {
@@ -14,7 +15,7 @@ function DetailShip(props) {
           </Col>
           <ColHeader>배송자 연락처</ColHeader>
           <Col width="26rem">
-            <DataBox width="24rem">{data.retrieverContact}</DataBox>
+            <DataBox width="24rem">{customPhoneNumber(data.retrieverContact)}</DataBox>
           </Col>
         </Row>
         <Border />
