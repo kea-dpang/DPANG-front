@@ -64,6 +64,7 @@ export const useQuestionAlert = () => {
         icon: "success",
         buttons: ["취소", "확인"],
         dangerMode: true,
+        navi: navi, 
       }).then((isConfirmed) => {
         if (isConfirmed) {
           if (saveText !== "") {

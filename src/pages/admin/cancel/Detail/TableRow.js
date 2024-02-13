@@ -22,6 +22,9 @@ const ItemImg = styled.img`
 `;
 const ItemName = styled.div`
   width: 21rem;
+  height: 5rem;
+  display: flex;
+  align-items: center;
 `;
 const Column = styled.div`
   width: 10rem;
@@ -45,13 +48,12 @@ function TableRow(props) {
           <p>{data.orderID}</p>
         </Column>
       </Col>
-      <Col width="9rem">
+      <Col width="13rem">
         <Column>
           <p>{data.cancelRequestDate}</p>
         </Column>
       </Col>
-      <Col width="8rem">{customOrderStatus(data.product.orderStatus)}</Col>
-      <Col width="21rem">
+      <Col width="29rem">
         <ItemImg src={data.product.productInfoDto.image} /> &nbsp; &nbsp;
         <ItemName>{data.product.productInfoDto.name}</ItemName>
       </Col>

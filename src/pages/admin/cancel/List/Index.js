@@ -112,7 +112,7 @@ const Index = () => {
                 style={{ display: "flex", height: "6rem", alignItems: "center" }}
               >
                 <img style={{ width: "5rem" }} src={img} />
-                <p>{name}</p>
+                <P>{name}</P>
               </div>
             );
           }
@@ -254,4 +254,9 @@ const ListSection = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+`;
+const P = styled.div`
+  width: 15rem;
+  padding-left: 1rem;
+  box-sizing: border-box;
 `;

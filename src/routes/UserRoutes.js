@@ -4,7 +4,7 @@ import DirectAskPage from "@userPages/myPage/DirectAsk/Index";
 import Review from "@userPages/myPage/Review/Index";
 import EnrollReview from "@userPages/myPage/Review/Enroll/Index";
 import Mileage from "@userPages/myPage/Mileage/Index";
-import MileageReq from "@userPages/myPage/Mileage/Req/Index";
+import MileageReq from "@userPages/myPage/Mileage/Enroll/Index";
 import UserRefund from "@userPages/myPage/Refund/Index";
 import UserOrder from "@userPages/myPage/Order/Index";
 import EditPassword from "@userPages/myPage/UserInfo/EditPassword";

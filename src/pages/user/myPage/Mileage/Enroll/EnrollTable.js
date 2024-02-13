@@ -3,51 +3,56 @@ import { GlobalStyle } from "styles/GlobalStyled";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { POST_mileage_request } from "@api/mileage";
-import Swal from "sweetalert2";
+import { useQuestionAlert } from "@components/SweetAlert";
 
 function EnrollTable(props) {
   //alert창을 커스텀해서 보내준다
-  const showQuestionAlert = (options) => {
-    return Swal.fire({
-      title: "마일리지를 신청하시겠습니까?",
-      text: "확인을 누르면 신청됩니다",
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonText: "확인",
-      cancelButtonText: "취소",
+
+
+  const showQuestionAlert = useQuestionAlert();
+
+  const handleApprove = (val) => {
+    // 확인 창을 띄움
+    showQuestionAlert({
+      title: "신청하시겠습니까?",
+      text: "확인 클릭 시 신청 됩니다.",
+      saveText: "신청되었습니다.",
+      navi: "/user/mypage/mileage", 
+      onConfirm: () => handleConfirm(),
     });
   };
+
+  const handleConfirm = () => {
+
+    const userId = localStorage.getItem("userId");
+    if (money === null)
+      setMoney(0);
+
+    const XID = 1;
+
+    const data = {
+      XID: XID,
+      userId: userId,
+      amount: money,
+      depositor: name,
+    };
+
+    return POST_mileage_request(data)
+      .then((data) => {
+        console.log("등록", data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+  };
+
+
   const [money, setMoney] = useState();
   const user = props.userData;
   const [name, setName] = useState(user.name);
   const navi = useNavigate();
 
-  const handleClick = () => {
-    const userId = localStorage.getItem("userId");
-    showQuestionAlert().then((result) => {
-      if (result.isConfirmed) {
-        const XID = 1;
-
-        const data = {
-          XID: XID,
-          userId: userId,
-          amount: money,
-          depositor: name,
-        };
-        console.log(data);
-
-        POST_mileage_request(data)
-          .then((data) => {
-            console.log("등록", data.data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-
-        navi("/user/mypage/order");
-      }
-    });
-  };
 
   return (
     <Container>
@@ -126,7 +131,7 @@ function EnrollTable(props) {
       <ButtonBox>
         <Button
           className="cm-SBold16"
-          onClick={handleClick}
+          onClick={handleApprove}
           disabled={!name || money === null || isNaN(money)}
         >
           충전 하기
@@ -195,6 +200,10 @@ const Button = styled.button`
   background-color: var(--navy);
   color: white;
   border-radius: 3px;
+  ${({ disabled }) => (
+    disabled ?
+      `background-color: var(--light-grey); color: black`
+      : `background-color: var(--navy); color: white;`)}
 `;
 
 const ButtonBox = styled.div`

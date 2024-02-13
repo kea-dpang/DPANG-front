@@ -21,7 +21,6 @@ const Index = (props) => {
   const [searchData, setSearchData] = useState("");
   const navigate = useNavigate();
   //  상태 저장 : 예정, 진행, 종료
-  const [index, setIndex] = React.useState("");
   const [bool, setBool] = useState(true);
   //필터링을 해줄 dropdown 박스의 값. 첫 값은 이름, 뒤에 두 값은 필터링에 들어갈 value
   const dropdownValue = ["처리 상태", "전체", "요청", "승인", "반려"];
