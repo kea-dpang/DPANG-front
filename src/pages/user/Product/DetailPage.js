@@ -6,13 +6,15 @@ import ProductDetailNav from "./ProductDetailNav";
 import ProductInfo from "./ProductInfo";
 import ProductReview from "./ProductReview";
 import ProductAsk from "@userPages/Product/ProductAsk";
+import RecentWatched from "./RecentWatched";
 import { GET_ItemInfo } from "@api/Item";
 
 const DetailPage = () => {
   const { itemId } = useParams();
   const [itemInfo, setItemInfo] = useState(); // 상품 상세조회 할 id값 주소에서 가져오기
+  let watched = JSON.parse(localStorage.getItem("watched") || "[]");
 
-  const getList = () => {
+  const getInfo = () => {
     GET_ItemInfo(itemId)
       .then((data) => {
         console.log("상품 상세보기 data : ", data);
@@ -23,8 +25,36 @@ const DetailPage = () => {
       });
   };
   useEffect(() => {
-    getList();
-  }, []);
+    getInfo();
+    window.scrollTo({ top: 0 });
+  }, [itemId]);
+  // 최근 본 상품 localstorage에 저장
+  useEffect(() => {
+    if (!itemInfo) return;
+
+    // itemId가 이미 배열에 있는지 검사
+    const existingItem = watched.find((item) => item.id === itemInfo.id);
+
+    // itemId가 이미 배열에 있다면 제거 (중복제거)
+    if (existingItem) {
+      watched = watched.filter((item) => item.id !== itemInfo.id);
+    }
+
+    // 최근본 상품 배열의 맨 앞에 추가
+    watched.unshift({
+      id: itemInfo.id,
+      name: itemInfo.name,
+      thumbnailImage: itemInfo.thumbnailImage,
+      price: itemInfo.price,
+      discountRate: itemInfo.discountRate,
+    });
+
+    // 최근 본 상품의 최대 크기는 12. 넘어가면 가장 오래된 것부터 삭제
+    if (watched.length > 12) {
+      watched.pop();
+    }
+    localStorage.setItem("watched", JSON.stringify(watched));
+  }, [itemInfo]);
 
   return (
     <>
@@ -47,6 +77,7 @@ const DetailPage = () => {
             <div id="ask">
               <ProductAsk item={itemInfo} />
             </div>
+            <RecentWatched />
           </>
         )}
       </Wrap>

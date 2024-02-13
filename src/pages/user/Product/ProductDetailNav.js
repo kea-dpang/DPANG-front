@@ -46,6 +46,8 @@ const Wrap = styled.div`
   flex-direction: row;
   justify-content: center;
   padding-top: 3rem;
+  position: relative;
+  z-index: 100;
 `;
 const Nav = styled(Link)`
   cursor: pointer;

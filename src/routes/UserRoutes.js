@@ -36,6 +36,7 @@ import { Route, Routes } from "react-router-dom";
 import NewProductPage from "@userPages/ProductSet/NewProductPage";
 import CategorySet from "@userPages/CategorySet/Index";
 import NotFoundPage from "@components/NotFound/Index";
+import RecentPage from "@userPages/Recent/Index";
 import withAuth from "@utils/hoc/withAuth";
 const UserRoutes = () => {
   return (
@@ -65,6 +66,8 @@ const UserRoutes = () => {
       <Route path="categories/:id" element={<CategorySet />} />
       {/* 위시리스트 */}
       <Route path="wishlist" element={<WishList />} />
+      {/* 최근 본 상품 */}
+      <Route path="recent" element={<RecentPage />} />
       {/* 장바구니 */}
       <Route path="cart" element={<CartPage />} />
       {/* 주문하기 */}
