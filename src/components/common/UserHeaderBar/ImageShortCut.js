@@ -1,4 +1,5 @@
 import heart from "@images/heart.png";
+import recent from "@images/recent.svg";
 import cart from "@images/cart.svg";
 import ship from "@images/ship.svg";
 import styled from "styled-components";
@@ -9,7 +10,7 @@ const ImageButton = styled.img`
   height: 1.3rem;
 `;
 const ImageButtonBox = styled.div`
-  width: 4rem;
+  width: 7rem;
   height: 1.5rem;
 
   display: flex;
@@ -28,11 +29,16 @@ function ImageShortCut() {
           navi("/user/mypage/order");
         }}
       />
-      {/* <ImageButton src={heart} onClick={()=>{navi("/user/wishlist")}}/> */}
       <ImageButton
         src={cart}
         onClick={() => {
           navi("/user/cart");
+        }}
+      />
+      <ImageButton
+        src={recent}
+        onClick={() => {
+          navi("/user/recent");
         }}
       />
     </ImageButtonBox>
