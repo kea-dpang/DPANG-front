@@ -20,6 +20,8 @@ export const POST_refund_order = async (inputValue) => {
 //특정 환불에 대한 목록을 조회하기 위한 API
 export const GET_refund_detail = async (refundId) => {
   //서버에게 전달해줄 값은 어떤 refund에 대한 것인지이다
+
+  console.log("조회할 ID는", refundId)
   const res = await instance({
     method: "get",
     url: `${url}/${refundId}`,

@@ -5,12 +5,12 @@ import { POST_cancel_order } from "@api/cancel";
 import { customOrderStatus } from "assets/CustomName";
 import ArrowImg from "assets/images/UpArrowVector.svg";
 import { idID } from "@mui/material/locale";
-import { useQuestionAlert } from "@components/SweetAlert";
+import { useQuestionAlert, useErrorAlert } from "@components/SweetAlert";
 
 function RowData(props) {
   const data = props.data;
   const showQuestionAlert = useQuestionAlert();
-
+  const showErrorAlert = useErrorAlert();
   const [click, setClick] = useState(false);
 
   const [rowHeight, setRowHeight] = useState(6);
@@ -33,7 +33,7 @@ function RowData(props) {
     }
   };
 
-  const handleCancel = (orderId, orderDetailId) =>{
+  const handleCancel = (orderId, orderDetailId) => {
 
     showQuestionAlert({
       title: "취소하시겠습니까?",
@@ -42,36 +42,38 @@ function RowData(props) {
       onConfirm: () => handleConfirm(orderId, orderDetailId),
     });
 
-
-
   }
 
-  useEffect(()=>{
+  useEffect(() => {
 
     setRowHeight(6);
 
 
   }, [data])
 
-  const handleConfirm = (orderId, orderDetailId) =>{
+  const handleConfirm = (orderId, orderDetailId) => {
 
 
-      POST_cancel_order(orderId, orderDetailId)
-        .then((data) => {
-          console.log("성공함", data);
-          window.location.reload();
+    POST_cancel_order(orderId, orderDetailId)
+      .then((data) => {
+        console.log("성공함", data);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log("실패함", error);
+        showErrorAlert({
+          title: "오류가 발생했습니다",
+          text: "잠시후 다시 시도해주세요",
         })
-        .catch((error) => {
-          console.log("실패함", error);
-        });
-
+        window.location.reload();
+      });
 
 
 
   }
 
 
-  return(
+  return (
     <Row className="cm-SRegular16" height={rowHeight}>
       <Col
         width="2rem"
@@ -119,7 +121,7 @@ function RowData(props) {
                   {/* 버튼을 누르면 주문의 항목에 대한 ID를 넘겨서 취소 요청을 보낸다 */}
                   <Button
                     status={customOrderStatus(b.orderStatus)}
-                    onClick={(e)=>{ e.stopPropagation(); handleCancel(data.orderId, b.orderDetailId);}}
+                    onClick={(e) => { e.stopPropagation(); handleCancel(data.orderId, b.orderDetailId); }}
                   >
                     취소
                   </Button>
