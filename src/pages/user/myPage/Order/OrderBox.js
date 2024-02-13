@@ -53,7 +53,6 @@ const NaviBar = styled.div`
 function ReviewBox(props) {
   //최근 30일 주문 처리 현황표에 넣을 변수. 임시로 로직 없이 숫자로만. 차후에 분류하고 처리하는 과정이 필요해요
   console.log(props.orderOverview)
-  const [amt, setAmt] = useState([0, 1, 2, 0, 3]);
 
   const navi = useNavigate();
 
@@ -71,7 +70,7 @@ function ReviewBox(props) {
       <MyPageBodyHeader header="주문·배송 조회" />
       {/* 최근 30일 주문 처리 내역 확인 box */}
       <OrderOverviewBox className="cm-SRegular16">
-        <OrderBox amt={props.orderOverview} />
+        <OrderBox />
       </OrderOverviewBox>
       <DetailHeader className="cm-SRegular16">최근 주문 관리</DetailHeader>
       <CalenderBox>

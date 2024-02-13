@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import Header from "../../../../../components/common/UserHeaderBar/Index";
 import EnrollReviewBox from "./EnrollReviewBox";
 import MyPageBodyHeader from "components/common/MyPageBodyHeader";
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 const Container = styled.div`
   min-height: 100vh;
@@ -25,6 +25,11 @@ const ReviewContainer = styled.div`
 function Index() {
   const { id } = useParams();
 
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+
+
+  }, [])
   return (
     <Container>
       <ContentBox>
