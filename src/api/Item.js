@@ -6,7 +6,7 @@ const url = "/api/items";
 export const POST_Item = async (inputValue) => {
   // 카테고리 커스텀
   if (inputValue.subCategory !== "") {
-    inputValue.subCategory = subCategoryFormat(inputValue.subCategory, false);
+    inputValue.subCategory = subCategoryFormat(inputValue.subCategory, true);
   } else {
     inputValue.subCategory = null;
   }
