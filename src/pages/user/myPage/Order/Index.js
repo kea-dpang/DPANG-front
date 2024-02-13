@@ -33,6 +33,11 @@ function Index() {
   const orderOverview = [0, 0, 0, 0, 0, 0];
 
   useEffect(()=>{
+
+    setClickCancel(false);
+    setClickRefund(false);
+    setClickOrder(true);
+
     window.scrollTo(0, 0);
     const currentDate = new Date();
     const prevDate = new Date();

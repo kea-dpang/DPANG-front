@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import EnrollReviewBox from "./EnrollBox";
+import { useEffect } from "react";
 
 const Container = styled.div`
   min-height: 100vh;
@@ -19,12 +20,18 @@ const ReviewContainer = styled.div`
 `;
 
 function Index() {
+
   const UserInfo = {
-    memberId: "12345678",
-    name: "디팡이",
-    email: "dpang1@naver.com",
-    date: "2024.01.01",
+    memberId: localStorage.getItem('userId'),
+    name: localStorage.getItem('name'),
+    email: localStorage.getItem('email'),
   };
+
+  useEffect(()=>{
+
+    window.scrollTo(0, 0);
+
+  }, [])
 
   return (
     <Container>

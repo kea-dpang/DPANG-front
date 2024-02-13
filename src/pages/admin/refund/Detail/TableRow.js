@@ -22,6 +22,10 @@ const ItemImg = styled.img`
 `;
 const ItemName = styled.div`
   width: 19rem;
+  height: 6rem;
+  box-sizing: border-box;
+  padding: 2rem;
+  align-items: center;
 `;
 const Column = styled.div`
   width: 10rem;
@@ -49,7 +53,7 @@ function TableRow(props) {
       <Col width="9rem">{customRefundReason(data.refundReason)}</Col>
       <Col width="8rem">{customRefundStatus(data.refundStatus)}</Col>
       <Col width="20rem">
-        <ItemImg src={data.product.productInfoDto.image} /> &nbsp; &nbsp;
+        <ItemImg src={data.product.productInfoDto.image} />
         <ItemName>{data.product.productInfoDto.name}</ItemName>
       </Col>
       <Col width="9rem">

@@ -1,4 +1,6 @@
+import { customPhoneNumber } from 'assets/CustomName';
 import styled from 'styled-components'
+
 
 function DetailShip({data}){
 
@@ -14,7 +16,7 @@ function DetailShip({data}){
   
             <ColHead>회수자 연락처</ColHead>
             <BlankDiv />
-            <Content width="28rem">{data.recallInfo.retrieverContact}</Content>
+            <Content width="28rem">{customPhoneNumber(data.recallInfo.retrieverContact)}</Content>
           </Col>
           <Border />
   

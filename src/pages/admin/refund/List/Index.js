@@ -24,8 +24,6 @@ import Select from "@mui/material/Select";
 const Index = () => {
   const navigate = useNavigate();
   const showQuestionAlert = useQuestionAlert();
-  //  상태 저장 : 예정, 진행, 종료
-  const [index, setIndex] = React.useState("");
   //필터링을 해줄 dropdown 박스의 값. 첫 값은 이름, 뒤에 두 값은 필터링에 들어갈 value
   const dropdownValue = [
     "반품 상태",
@@ -160,7 +158,7 @@ const Index = () => {
               style={{ display: "flex", height: "6rem", alignItems: "center" }}
             >
               <img style={{ width: "5rem" }} src={value.productInfoDto.image} />
-              <P>{value.productInfoDto.name}</P>
+              <P style={{paddingLeft: "1rem"}}>{value.productInfoDto.name}</P>
             </div>
           );
         },
@@ -330,6 +328,8 @@ const SearchWrap = styled.div`
   display: flex;
   gap: 0.875rem;
   align-items: center;
+  width: 88.9375rem;
+  justify-content: space-between;
 `;
 const ListSection = styled.div`
   display: flex;
@@ -340,16 +340,7 @@ const ListSection = styled.div`
   justify-content: center;
   align-items: flex-start;
 `;
-const Button = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--navy);
-  width: 5rem;
-  height: 2rem;
-  color: white;
-  border-radius: 3px;
-`;
+
 
 const ButtonContainer = styled.div`
   width: 5.2rem;
@@ -357,4 +348,6 @@ const ButtonContainer = styled.div`
 
 const P = styled.div`
   width: 15rem;
+  padding-left: 1rem;
+  box-sizing: border-box;
 `;

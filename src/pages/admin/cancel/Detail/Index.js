@@ -19,6 +19,9 @@ const Index = () => {
 
   //서버로부터 특정 ID에 대한 조회를 요청하는 API
   useEffect(() => {
+
+    window.scrollTo(0, 0)
+
     GET_cancel_detail(id)
       .then((data) => {
         console.log("성공했습니다", data.data);

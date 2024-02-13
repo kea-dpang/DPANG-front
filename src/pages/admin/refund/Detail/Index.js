@@ -1,9 +1,8 @@
 import styled from "styled-components";
 import * as React from "react";
 import { useState, useEffect } from "react";
-import "../../../../styles/fonts.css";
+import "styles/fonts.css";
 import Table from "./Table";
-import Data from "../../../../assets/data/admin/AdminRefundData";
 import { useParams } from "react-router-dom";
 import RefundDetail from "./RefundDetail";
 import { GET_refund_detail } from "@api/refund";
@@ -15,6 +14,7 @@ const [refundDetail, setRefundDetail] = useState();
 
   useEffect(()=>{
 
+    window.scrollTo(0, 0)
     GET_refund_detail(parseInt(id, 10))
     .then((data)=>{
       console.log("성공성공", data)

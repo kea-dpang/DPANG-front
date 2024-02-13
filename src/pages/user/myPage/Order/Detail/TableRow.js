@@ -173,10 +173,6 @@ function TableRow(props) {
             <ItemCol
               key={i}
               i={i}
-              onClick={(e) => {
-                e.stopPropagation();
-                navi("/user/mypage/temp/order/detail");
-              }}
             >
               <Col width="11rem" status={b.orderStatus}>{customOrderStatus(b.orderStatus)}</Col>
               <Col width="22rem">
