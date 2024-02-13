@@ -15,6 +15,8 @@ export const GET_Address = async () => {
 /* 사용자 주소 수정 */
 export const PATCH_Address = async (data) => {
   const userId = localStorage.getItem("userId");
+  console.log("디테일 주소", data.detail);
+
   const res = await instance({
     method: "patch",
     url: `${userUrl}/${userId}/address`,
@@ -26,6 +28,7 @@ export const PATCH_Address = async (data) => {
     },
   });
   console.log("instance:", res);
+
   return res.data;
 };
 

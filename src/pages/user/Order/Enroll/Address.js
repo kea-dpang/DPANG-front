@@ -16,7 +16,7 @@ const EnrollAddress = ({ data, handleAddressSubmit }) => {
       setValue("phoneNumber", data.phoneNumber);
       setValue("zipCode", data.zipCode);
       setValue("address", data.address);
-      setValue("detail", data.detailAddress);
+      setValue("detailAddress", data.detailAddress);
     }
   }, [data]);
 
@@ -28,11 +28,11 @@ const EnrollAddress = ({ data, handleAddressSubmit }) => {
   } = useFormContext();
 
   const onSubmit = (userData) => {
-    console.log(userData);
+    // console.log("patch axios 연결할 데이터", userData);
     // api patch 연동
     PATCH_Address(userData)
       .then((data) => {
-        console.log("axios", data);
+        console.log("axiossss", data);
         setValue("edit", false); // 추가 버튼을 눌렀으므로 'edit' 상태를 false로 설정
         // 부모 컴포넌트에게 폼 데이터 전달
         handleAddressSubmit(userData);
@@ -119,7 +119,7 @@ const EnrollAddress = ({ data, handleAddressSubmit }) => {
           variant="outlined"
           style={{ width: "70%" }}
           // defaultValue={data?.detailAddress} // 초기 값 설정
-          {...register("detail")}
+          {...register("detailAddress")}
         />
       </Form>
     </Wrap>

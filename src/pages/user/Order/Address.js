@@ -15,7 +15,6 @@ const Address = ({ data }) => {
   const handleEdit = () => {
     setValue("edit", true); // 수정 버튼을 눌렀으므로 'edit' 상태를 true로 설정
   };
-
   return (
     <Wrap>
       <BtnWrap>
