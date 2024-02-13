@@ -1,11 +1,6 @@
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
-import Paper from "@mui/material/Paper";
-import InputBase from "@mui/material/InputBase";
-import IconButton from "@mui/material/IconButton";
-import SearchIcon from "@mui/icons-material/Search";
 import Dropdown from "@components/Dropdown";
-// import DataTable from "@components/AdminDataTable";
 import DataTable from "@components/DataTable";
 import { useNavigate } from "react-router-dom";
 import { GET_EventList, DELETE_Event } from "@api/event";
@@ -74,15 +69,6 @@ const Index = () => {
     setSelectedDropValue(newDropValue);
   };
   const [event, setEvent] = useState([]);
-  // useEffect(() => {
-  //   GET_EventList()
-  //     .then((data) => {
-  //       setEvent(data.data.content);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, []);
   useEffect(() => {
     navigate(`?page=${page}`);
     console.log("렌더링 렌더링");
@@ -147,7 +133,7 @@ const Index = () => {
           </Button>
         </FilterSection>
         <ListSection>
-          {event.length > 0 && (
+          {event && (
             <DataTable
               data={event}
               columns={columns}
