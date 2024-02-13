@@ -54,14 +54,12 @@ const NaviBar = styled.div`
 function ReviewBox(props) {
   const navi = useNavigate();
 
-  const [amt, setAmt] = useState([0, 1, 2, 0, 3]);
-
   const header = [
     { text: "날짜/주문번호", width: "10rem" },
     { text: "취소 신청일", width: "9rem" },
+    { text: "상품명", width: "23rem" },
     { text: "사유", width: "8rem" },
     { text: "상태", width: "6rem" },
-    { text: "상품명", width: "23rem" },
     { text: "상품금액/수량", width: "8rem" },
     { text: "환불 예정 금액", width: "8rem" },
   ];

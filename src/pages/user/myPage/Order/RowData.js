@@ -109,7 +109,7 @@ function RowData(props) {
               </Col>
               <Col width="22rem" height="6">
                 <ItemImg src={b.productInfoDto.image} />
-                <ItemName>&nbsp; &nbsp;{b.productInfoDto.name}</ItemName>
+                <ItemName>{b.productInfoDto.name}</ItemName>
               </Col>
               <Col width="11rem" height="6">
                 {(b.productInfoDto.price * b.productQuantity).toLocaleString()}{" "}
@@ -188,7 +188,9 @@ const ItemImg = styled.img`
   height: 5rem;
 `;
 const ItemName = styled.div`
-  width: 11rem;
+  width: 17rem;
+  padding: 2rem;
+  box-sizing: border-box;
 `;
 const Column = styled.div`
   width: 10rem;

@@ -35,7 +35,10 @@ const ItemImg = styled.img`
   height: 5rem;
 `;
 const ItemName = styled.div`
-  width: 11rem;
+  width: 18rem;
+  height: 5rem;
+  box-sizing: border-box;
+  padding: 2rem;
 `;
 const Column = styled.div`
   width: 10rem;
@@ -75,6 +78,8 @@ function TableRow({ data }) {
   
 
   useEffect(() => {
+
+    window.scrollTo(0, 0);
     GET_refund_list(val)
       .then((data) => {
         console.log(" 조회성공!!", data.data.content);
@@ -117,12 +122,12 @@ function TableRow({ data }) {
                 <p>{a.refundRequestDate}</p>
               </Column>
             </Col>
-            <Col width="8rem">{customRefundReason(a.refundReason)}</Col>
-            <Col width="6rem">{customRefundStatus(a.refundStatus)}</Col>
             <Col width="23rem">
               <ItemImg src={a.product.productInfoDto.image} />
-              <ItemName>&nbsp; &nbsp;{a.product.productInfoDto.name}</ItemName>
+              <ItemName>{a.product.productInfoDto.name}</ItemName>
             </Col>
+            <Col width="8rem">{customRefundReason(a.refundReason)}</Col>
+            <Col width="6rem">{customRefundStatus(a.refundStatus)}</Col>
             <Col width="8rem">
               {(
                 a.product.productInfoDto.price * a.product.productQuantity

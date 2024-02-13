@@ -33,7 +33,7 @@ function Index() {
   const orderOverview = [0, 0, 0, 0, 0, 0];
 
   useEffect(()=>{
-
+    window.scrollTo(0, 0);
     const currentDate = new Date();
     const prevDate = new Date();
     prevDate.setDate(currentDate.getDate()-30);

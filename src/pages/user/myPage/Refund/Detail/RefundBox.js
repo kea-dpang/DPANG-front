@@ -32,9 +32,9 @@ function ReviewBox(props) {
   const head = [
     { width: "10rem", text: "취소신청일자" },
     { width: "9rem", text: "날짜/주문번호"},
+    { width: "23rem", text: "상품명" },
     { width: "8rem", text: "사유" },
     { width: "6rem", text: "상태" },
-    { width: "23rem", text: "상품명" },
     { width: "8rem", text: "상품금액/수량" },
     { width: "8rem", text: "환불 예정 금액 " },
   ];

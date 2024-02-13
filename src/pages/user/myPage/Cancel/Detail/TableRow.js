@@ -21,7 +21,9 @@ const ItemImg = styled.img`
   height: 5rem;
 `;
 const ItemName = styled.div`
-  width: 11rem;
+  width: 18rem;
+  padding: 2rem;
+  box-sizing: border-box;
 `;
 const Column = styled.div`
   width: 10rem;
@@ -39,17 +41,17 @@ function TableRow(props) {
 
   return (
     <Row className="cm-SRegular16">
-            <Col width="10rem">
-              <Column>
-              <p>{data.orderDate}</p>
-                <p>{data.orderId}</p>
-              </Column>
-            </Col>
-            <Col width="10rem">
-              <Column>
-                <p>{data.cancelRequestDate}</p>
-              </Column>
-            </Col>
+      <Col width="10rem">
+        <Column>
+          <p>{data.orderDate}</p>
+          <p>{data.orderId}</p>
+        </Column>
+      </Col>
+      <Col width="10rem">
+        <Column>
+          <p>{data.cancelRequestDate}</p>
+        </Column>
+      </Col>
       <Col width="25rem">
         <ItemImg src={data.product.productInfoDto.image} />
         <ItemName>{data.product.productInfoDto.name}</ItemName>

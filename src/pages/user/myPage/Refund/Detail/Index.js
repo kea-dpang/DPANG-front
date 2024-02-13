@@ -28,6 +28,8 @@ function Index() {
   const [refundList, setRefundList] = useState();
 
   useEffect(() => {
+
+    window.scrollTo(0, 0);
     GET_refund_detail(id)
       .then((data) => {
         console.log("성공성공", data.data);

@@ -27,6 +27,9 @@ function Index() {
   const [detailData, setDetailData] = useState();
 
   useEffect(() => {
+
+    window.scrollTo(0, 0);
+    
     GET_cancel_detail(id)
       .then((data) => {
         console.log("성공성공", data.data);

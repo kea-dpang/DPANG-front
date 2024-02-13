@@ -32,7 +32,9 @@ const ItemImg = styled.img`
   height: 5rem;
 `;
 const ItemName = styled.div`
-  width: 11rem;
+  width: 18rem;
+  padding: 2rem;
+  box-sizing: border-box;
 `;
 const Column = styled.div`
   width: 10rem;
@@ -68,6 +70,12 @@ function TableRow({ data }) {
       page: page - 1,
     }));
   };
+
+  //처음에 렌더링할때 위로 옮김
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+
+  }, [])
 
   //초기 rendering시 취소 리스트에 대한 정보를 API를 통해 받아온다
   useEffect(() => {
@@ -116,7 +124,7 @@ function TableRow({ data }) {
             </Col>
             <Col width="25rem">
               <ItemImg src={a.product.productInfoDto.image} />
-              <ItemName>&nbsp; &nbsp;{a.product.productInfoDto.name}</ItemName>
+              <ItemName>{a.product.productInfoDto.name}</ItemName>
             </Col>
             <Col width="13rem">
               {(
