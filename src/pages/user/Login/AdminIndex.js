@@ -36,6 +36,7 @@ const AdminLoginPage = () => {
           localStorage.setItem("userId", data.data.userIdx);
           localStorage.setItem("email", userData.email);
           localStorage.setItem("role", "ADMIN");
+          localStorage.setItem("name", data.data.user.userName);
 
           // accessToken, refreshToken은 쿠키에 저장
           setCookie("accessToken", data.data.token.accessToken, {
