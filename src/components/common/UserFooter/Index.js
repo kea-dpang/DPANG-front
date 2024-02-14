@@ -20,13 +20,12 @@ const BorderBar = styled.div`
 `;
 
 const P = styled.div`
-  color: black;
   height: 1.2rem;
 `;
 
 function Index() {
   return (
-    <Container>
+    <Container className="col-SemiLightGrey">
       <BorderBar>
         <ImageBox />
         <P className="cm-SRegular16">상호: (주) 디팡테크 | 대표자명: 강석훈</P>
