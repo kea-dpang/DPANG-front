@@ -5,7 +5,11 @@ import { useForm } from "react-hook-form";
 import { POST_Code, POST_newPassword } from "@api/sign";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
-import { useConfirmAlert, useErrorAlert } from "@components/SweetAlert";
+import {
+  useConfirmAlert,
+  useConfirmAlert2,
+  useErrorAlert,
+} from "@components/SweetAlert";
 
 const FindPasswordPage = () => {
   const methods = useForm();
@@ -20,22 +24,30 @@ const FindPasswordPage = () => {
   const emailValue = watch("email");
   const navigate = useNavigate();
 
+  // 인증코드 버튼 눌러도 email 값 날라가지 않도록
+  const [email, setEmail] = useState("");
+
   // alert
   const showErrorAlert = useErrorAlert();
   const showConfirmAlert = useConfirmAlert();
+  const showConfirmAlert2 = useConfirmAlert2();
 
   /*  특정 필드의 유효성 검사를 수동으로 실행 */
   const handleCodeBtn = async (e) => {
     // 이메일 필드의 유효성 검사 실행
     const isValid = await methods.trigger("email");
+    console.log("부르기 전", emailValue);
 
     if (isValid) {
+      console.log("부르기 전", emailValue);
+
       POST_Code(emailValue)
         .then((data) => {
-          showConfirmAlert({
+          showConfirmAlert2({
             title: "이메일로 인증번호가 전송되었습니다.",
             text: "메일을 확인해 주세요.",
           });
+          console.log("dfdfdfd", emailValue);
         })
         .catch((error) => {
           // showErrorAlert({
@@ -98,6 +110,7 @@ const FindPasswordPage = () => {
                   variant="outlined"
                   name="email"
                   style={{ width: "33rem" }}
+                  onChange={(e) => setEmail(e.target.value)} // 이메일 필드 값이 변경될 때마다 setEmail 호출
                   error={!!errors.email}
                   helperText={errors.email && errors.email.message}
                   {...register("email", {

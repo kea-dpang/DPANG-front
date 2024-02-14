@@ -41,8 +41,8 @@ const AskList = () => {
     isError,
     error,
   } = useQnAList(page, userId, period);
-  const askDataList = data?.content;
-  const numOfElement = data ? data.totalElements : 0;
+  const askDataList = data && data.data.content;
+  const numOfElement = data ? data.data.totalElements : 0;
   // console.log("ddddd", data.data.content);
 
   /* 페이지네이션 */
