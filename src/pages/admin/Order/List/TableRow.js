@@ -10,7 +10,6 @@ import { customOrderStatus } from "assets/CustomName";
 
 
 function TableRow({data, selectedOrderStatus, handleChange, handleSearch, count}) {
-    const [numOfElement, setNumOfElement] = useState(0);
 
     console.log(data);
 
@@ -26,13 +25,6 @@ function TableRow({data, selectedOrderStatus, handleChange, handleSearch, count}
         size: 10,
         sort: "",
       });
-
-      const handleValChange = (page) => {
-        setVal((prevVal) => ({
-          ...prevVal,
-          page: page - 1,
-        }));
-      };
 
 
     // useEffect(() => {
@@ -69,7 +61,6 @@ function TableRow({data, selectedOrderStatus, handleChange, handleSearch, count}
                 handleSearch={handleSearch}
               />
               })}
-          <UserPagination numOfElement={count} handleValChange={handleValChange} />
         </>
       ) : (
         <UserEmptyData text="조회 내역이 없어요...." />

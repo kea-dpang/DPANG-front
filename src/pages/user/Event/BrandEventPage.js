@@ -41,10 +41,10 @@ const BrandEventPage = () => {
       <Wrap>
         {/* 상품 이벤트 & 브랜드 이벤트 선택 버튼 */}
         <ProductBrandTab className="cm-SRegular18 col-White">
+          <Nav color="var(--navy)"> 브랜드 이벤트</Nav>
           <Nav color="var(--semi-light-grey)" onClick={() => handleNavClick()}>
             상품 이벤트
           </Nav>
-          <Nav color="var(--navy)"> 브랜드 이벤트</Nav>
         </ProductBrandTab>
         {/* 진행중인 이벤트 */}
         <StatusTitle className="cm-SBold18 col-Navy"> 진행 중 </StatusTitle>
@@ -53,7 +53,7 @@ const BrandEventPage = () => {
           <>
             <ListSection>
               {eventDataList.ProceedingList.map((item) => (
-                <EventList key={item.id} data={item} />
+                <EventList key={item.id} data={item} isLink={true} />
               ))}
             </ListSection>
           </>
@@ -69,7 +69,7 @@ const BrandEventPage = () => {
           <>
             <ListSection>
               {eventDataList.WaitingList.map((item) => (
-                <EventList key={item.id} data={item} />
+                <EventList key={item.id} data={item} isLink={false} />
               ))}
             </ListSection>
           </>
@@ -85,7 +85,7 @@ const BrandEventPage = () => {
           <>
             <ListSection>
               {eventDataList.EndList.map((item) => (
-                <EventList key={item.id} data={item} />
+                <EventList key={item.id} data={item} isLink={false} />
               ))}
             </ListSection>
           </>

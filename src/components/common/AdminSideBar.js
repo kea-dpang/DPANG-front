@@ -91,7 +91,7 @@ const AdminSideBar = () => {
             <OpenMenuWrap>
               <Nav to="brand"> - 판매처 관리 </Nav>
               <Nav to="product"> - 상품 관리 </Nav>
-              <Nav to="monitoring"> - 판매 통계 </Nav>
+              {/* <Nav to="monitoring"> - 판매 통계 </Nav> */}
             </OpenMenuWrap>
           )}
           {/* 이벤트관리 */}

@@ -152,7 +152,7 @@ const ListSection = styled.div`
   flex-direction: row; // 가로로 배치
   flex-wrap: wrap; // 너비 초과 시 아래로 내려감    align-items: center;
   justify-content: start;
-  align-items: center;
+  // align-items: center;
 `;
 const NoContent = styled.div`
   width: 46rem;
