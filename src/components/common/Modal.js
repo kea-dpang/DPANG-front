@@ -7,7 +7,8 @@ import { useConfirmAlert } from "@components/SweetAlert";
 
 const Modal = ({ setIsModalOpen, value }) => {
   const showConfirmAlert = useConfirmAlert();
-
+  const userId = localStorage.getItem("userId");
+  console.log("userId: ", userId);
   const [isFormValid, setFormValid] = useState(false); // 입력값 다 입력했는지 판단
   const [askData, setAskData] = useState({
     itemId: value.id,
@@ -32,7 +33,7 @@ const Modal = ({ setIsModalOpen, value }) => {
     setAskData((prev) => ({ ...prev, askContent: e.target.value }));
   };
   const handleSubmit = () => {
-    POST_Question(3, askData) // 나중에 userId도 넘겨주기
+    POST_Question(userId, askData) // 나중에 userId도 넘겨주기
       .then((data) => {
         setIsModalOpen(false);
         showConfirmAlert({
