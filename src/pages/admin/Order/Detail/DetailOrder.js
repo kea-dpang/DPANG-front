@@ -32,6 +32,12 @@ return(
       </Col>
       <Border />
 
+      <Col height="8rem">
+        <ColHead>사용자 요청사항</ColHead>
+        <BlankDiv />
+        <Content width="64.9375rem">{data.deliveryInfo.deliveryRequest === "string" ? '' : data.deliveryInfo.deliveryRequest}</Content>
+      </Col>
+
     </Table>
 
     <Border />
