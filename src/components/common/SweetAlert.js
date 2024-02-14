@@ -53,6 +53,30 @@ export const useConfirmAlert = () => {
   return showConfirmAlert;
 };
 
+/* 확인 -> reload 안되는 alert */
+export const useConfirmAlert2 = () => {
+  const navigate = useNavigate();
+
+  const showConfirmAlert = useCallback(
+    ({ title, text = "", navi }) => {
+      swal({
+        title: title,
+        text: text,
+        icon: "success",
+        buttons: "확인",
+      }).then((isConfirmed) => {
+        if (isConfirmed) {
+          if (navi) {
+            navigate(navi);
+          }
+        }
+      });
+    },
+    [navigate]
+  );
+  return showConfirmAlert;
+};
+
 export const useQuestionAlert = () => {
   const navigate = useNavigate();
 
@@ -64,7 +88,7 @@ export const useQuestionAlert = () => {
         icon: "success",
         buttons: ["취소", "확인"],
         dangerMode: true,
-        navi: navi, 
+        navi: navi,
       }).then((isConfirmed) => {
         if (isConfirmed) {
           if (saveText !== "") {
