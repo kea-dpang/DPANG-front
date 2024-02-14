@@ -1,0 +1,57 @@
+@mixin fontStyle {
+    font-family: Pretendard;
+    font-style: normal;
+    line-height: normal;
+}
+// 색상
+.col-Navy {
+    color: var(--navy); 
+}
+.col-DarkGrey {
+    color: var(--dark-grey); 
+}
+.col-Black {
+    color: var(--black);
+}
+
+
+.cm-XLBold36 {
+    @include fontStyle;
+    font-size: 2.25rem;
+    font-weight: 700;
+}
+.cm-LBold30 {
+    @include fontStyle;
+    font-size: 1.875rem;
+    font-weight: 700;
+}
+.cm-MBold24 {
+    @include fontStyle;
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+.cm-SBold18 {
+    @include fontStyle;
+    font-size: 1.125rem;
+    font-weight: 700;
+}
+.cm-LBold30 {
+    @include fontStyle;
+    font-size: 1.875rem;
+    font-weight: 700;
+}
+.cm-SRegular18 {
+    @include fontStyle;
+    font-size: 1.125rem;
+    font-weight: 400;
+}
+.cm-SRegular16 {
+    @include fontStyle;
+    font-size: 1rem;
+    font-weight: 400;
+}
+.cm-SBold16 {
+    @include fontStyle;
+    font-size: 1rem;
+    font-weight: 700;
+}

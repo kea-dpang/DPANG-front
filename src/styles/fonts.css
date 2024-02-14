@@ -1,0 +1,125 @@
+
+.col-Navy {
+    color: var(--navy); 
+}
+.col-DarkGrey {
+    color: var(--dark-grey); 
+}
+.col-Black {
+    color: var(--black);
+}
+.col-SemiLightGrey {
+    color: var(--semi-light-grey);
+}
+.col-Orange {
+    color: var(--orange);
+}
+.col-White {
+    color: var(--white);
+}
+
+.cm-XLBold36 {
+    font-family: Pretendard;
+    font-style: normal;
+    line-height: normal;
+    font-size: 2.25rem;
+    font-weight: 700;
+}
+.cm-LBold30 {
+    font-family: Pretendard;
+    font-style: normal;
+    line-height: normal;
+    font-size: 1.875rem;
+    font-weight: 700;
+}
+.cm-LRegular30 {
+    font-family: Pretendard;
+    font-style: normal;
+    line-height: normal;
+    font-size: 1.875rem;
+    font-weight: 400;
+}
+.cm-MBold24 {
+    font-family: Pretendard;
+    font-style: normal;
+    line-height: normal;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+.cm-MRegular20 {
+    font-family: Pretendard;
+    font-style: normal;
+    line-height: normal;
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+.cm-MBold20 {
+    font-family: Pretendard;
+    font-style: normal;
+    line-height: normal;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+.cm-MRegular24 {
+    font-family: Pretendard;
+    font-style: normal;
+    line-height: normal;
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+.cm-SBold18 {
+    font-family: Pretendard;
+    font-style: normal;
+    line-height: normal;
+    font-size: 1.125rem;
+    font-weight: 700;
+}
+.cm-SRegular18 {
+    font-family: Pretendard;
+    font-style: normal;
+    line-height: normal;
+    font-size: 1.125rem;
+    font-weight: 400;
+}
+.cm-SRegular16 {
+    font-family: Pretendard;
+    font-style: normal;
+    line-height: normal;
+    font-size: 1rem;
+    font-weight: 400;
+}
+.cm-SBold16 {
+    font-family: Pretendard;
+    font-style: normal;
+    line-height: normal;
+    font-size: 1rem;
+    font-weight: 700;
+}
+.cm-XsRegular14 {
+    font-family: Pretendard;
+    font-size: 0.8125rem;
+    font-style: normal;
+    line-height: normal;
+    font-weight: 400;
+}
+.cm-XsBold14 {
+    font-family: Pretendard;
+    font-size: 0.8125rem;
+    font-style: normal;
+    line-height: normal;
+    font-weight: 700;
+}
+.cm-XsRegular12 {
+    font-family: Pretendard;
+    font-size: 0.75rem;
+    font-style: normal;
+    line-height: normal;
+    font-weight: 400;
+}
+.cm-XsBold12 {
+    font-family: Pretendard;
+    font-size: 0.75rem;
+    font-style: normal;
+    line-height: normal;
+    font-weight: 700;
+}
