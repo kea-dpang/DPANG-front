@@ -18,7 +18,7 @@ return(
       <Col height="5rem">
         <ColHead>사용자 주소</ColHead>
         <BlankDiv />
-        <Content width="64.9375rem">{data.deliveryInfo.address}  {data.deliveryInfo.detailAddress || ''} ({data.deliveryInfo.zipCode})</Content>
+        <Content width="64.9375rem">{data.deliveryInfo.address} {data.deliveryInfo.detailAddress === "0" ? '' : data.deliveryInfo.detailAddress} ({data.deliveryInfo.zipCode})</Content>
       </Col>
       <Border />
 

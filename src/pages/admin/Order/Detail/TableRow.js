@@ -6,6 +6,8 @@ const Row = styled.div`
   width: 73.9375rem;
   border-bottom: 1px black solid;
   display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Col = styled.div`
@@ -40,27 +42,29 @@ function TableRow(props) {
   return (
     <Row className="cm-SRegular16">
       
-      <Col width="15rem">
+      <Col width="11rem">
         <Column>
           <p>{data.orderDate}</p>
           <p>{data.orderId}</p>
         </Column>
       </Col>
+      
       <ItemColBox>
       {data.productList.map((c, f) => {
             return (
                 <ItemCol
                     key={f}
-                    f={f}>
-      <Col width="10.8rem">
+                    f={f}
+                    style={{borderBottom:"1px black solid"}}>
+      <Col width="11rem">
         <p>{c.productInfoDto.itemId}</p>
       </Col>
-      <Col width="15.3rem">{customOrderStatus(c.orderStatus)}</Col>
-      <Col width="26rem">
+      <Col width="11rem">{customOrderStatus(c.orderStatus)}</Col>
+      <Col width="27rem">
         <ItemImg src={c.productInfoDto.image} />
         <ItemName>{c.productInfoDto.name}</ItemName>
       </Col>
-      <Col width="10.5rem">
+      <Col width="11rem">
         {c.productInfoDto.price} / {c.productQuantity}
       </Col>
       </ItemCol>
