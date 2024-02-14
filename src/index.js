@@ -19,7 +19,7 @@ ReactDOM.render(
       </React.StrictMode>
     </RecoilRoot>
 
-    <ReactQueryDevtools />
+    {/* <ReactQueryDevtools /> */}
   </QueryClientProvider>,
   document.getElementById("root")
 );
