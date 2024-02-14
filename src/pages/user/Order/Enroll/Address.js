@@ -55,7 +55,9 @@ const EnrollAddress = ({ data, handleAddressSubmit }) => {
           variant="outlined"
           style={{ width: "40%" }}
           // defaultValue={data?.name} // 초기 값 설정
-          value={data?.name}
+
+          // value={data?.name}
+          value={data?.name || ""}
           // readOnly // 수정할 수 없도록 설정
           disabled
           // error={!!errors.name}

@@ -60,7 +60,7 @@ export const POST_Order = async (addressInfo, checkedItems) => {
         address: addressInfo.address,
         detailAddress: addressInfo.detailAddress | "",
       },
-      deliveryRequest: "string",
+      deliveryRequest: "배송 전에 미리 연락주세요.",
       orderItemInfo: formattedItems,
     },
   });
