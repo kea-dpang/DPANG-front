@@ -13,12 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-        
+      
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-actions@v1
+        uses: docker/setup-buildx-action@v1
 
       - name: Login to KakaoCloud Container Registry
         run: docker login ${{ secrets.KC_REGISTRY_URL }} --username ${{ secrets.KC_ACCESS_KEY_ID }} --password ${{ secrets.KC_SECRET_KEY }}
