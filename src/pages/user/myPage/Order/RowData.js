@@ -34,26 +34,19 @@ function RowData(props) {
   };
 
   const handleCancel = (orderId, orderDetailId) => {
-
     showQuestionAlert({
       title: "취소하시겠습니까?",
       text: "확인시 즉시 취소 됩니다.",
       saveText: "신청 승인 되었습니다.",
       onConfirm: () => handleConfirm(orderId, orderDetailId),
     });
-
-  }
+  };
 
   useEffect(() => {
-
     setRowHeight(6);
-
-
-  }, [data])
+  }, [data]);
 
   const handleConfirm = (orderId, orderDetailId) => {
-
-
     POST_cancel_order(orderId, orderDetailId)
       .then((data) => {
         console.log("성공함", data);
@@ -64,14 +57,10 @@ function RowData(props) {
         showErrorAlert({
           title: "오류가 발생했습니다",
           text: "잠시후 다시 시도해주세요",
-        })
+        });
         window.location.reload();
       });
-
-
-
-  }
-
+  };
 
   return (
     <Row className="cm-SRegular16" height={rowHeight}>
@@ -121,7 +110,10 @@ function RowData(props) {
                   {/* 버튼을 누르면 주문의 항목에 대한 ID를 넘겨서 취소 요청을 보낸다 */}
                   <Button
                     status={customOrderStatus(b.orderStatus)}
-                    onClick={(e) => { e.stopPropagation(); handleCancel(data.orderId, b.orderDetailId); }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleCancel(data.orderId, b.orderDetailId);
+                    }}
                   >
                     취소
                   </Button>
@@ -156,7 +148,7 @@ function RowData(props) {
         })}
       </ItemColBox>
     </Row>
-  )
+  );
 }
 
 const Row = styled.div`
@@ -263,7 +255,6 @@ const Arrow = styled.img`
   width: 1rem;
   height: 1rem;
   transform: rotate(${(props) => props.rotate}deg);
-  transition: transform 0.3s ease;
 `;
 const setButton2 = (s) => {
   switch (s) {

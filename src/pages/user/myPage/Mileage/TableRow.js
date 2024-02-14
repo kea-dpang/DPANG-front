@@ -121,7 +121,9 @@ function TableRow() {
         handleValChange={handleValChange}
       />
     </>
-  ): <UserEmptyData text="표시할 데이터가 없어요...."/>
+  ) : (
+    <UserEmptyData text="마일리지 신청 내역이 없어요...." />
+  );
 }
 
 export default TableRow;

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import OrderBox from "./OrderBox";
-import CancelBox from '@userPages/myPage/Cancel/CancelBox'
-import RefundBox from '@userPages/myPage/Refund/RefundBox'
+import CancelBox from "@userPages/myPage/Cancel/CancelBox";
+import RefundBox from "@userPages/myPage/Refund/RefundBox";
 import { GET_order_list } from "@api/order";
 import { customDate } from "assets/CustomName";
 import UserEmptyData from "@components/UserEmptyData";
@@ -24,63 +24,57 @@ const ReviewContainer = styled.div`
   min-height: calc(100vh - 30rem);
 `;
 
-
-
 function Index() {
-
   const [clickOrder, setClickOrder] = useState(true);
   const [clickCancel, setClickCancel] = useState(false);
   const [clickRefund, setClickRefund] = useState(false);
 
-
-  useEffect(()=>{
-    window.scrollTo(0, 0);
-
+  useEffect(() => {
     setClickCancel(false);
     setClickRefund(false);
     setClickOrder(true);
+  }, []);
 
-
-  }, [])
-
-
-
-
-  const handleOrderClick = () =>{
-
+  const handleOrderClick = () => {
     setClickCancel(false);
     setClickRefund(false);
     setClickOrder(true);
+  };
 
-  } 
-
-  const handleRefundClick = () =>{
-
+  const handleRefundClick = () => {
     setClickCancel(false);
     setClickOrder(false);
     setClickRefund(true);
-
-  }
-
+  };
 
   const handleCancelClick = () => {
-
     setClickOrder(false);
     setClickRefund(false);
     setClickCancel(true);
-
-  }
-
-
-
+  };
 
   return (
     <Container>
       <ContentBox>
         <ReviewContainer>
-          { clickOrder && <OrderBox handleCancelClick={handleCancelClick} handleRefundClick={handleRefundClick}/>}
-          { clickCancel && <CancelBox handleRefundClick={handleRefundClick} handleOrderClick={handleOrderClick}/> }
-          { clickRefund && <RefundBox handleCancelClick={handleCancelClick} handleOrderClick={handleOrderClick}/>}
+          {clickOrder && (
+            <OrderBox
+              handleCancelClick={handleCancelClick}
+              handleRefundClick={handleRefundClick}
+            />
+          )}
+          {clickCancel && (
+            <CancelBox
+              handleRefundClick={handleRefundClick}
+              handleOrderClick={handleOrderClick}
+            />
+          )}
+          {clickRefund && (
+            <RefundBox
+              handleCancelClick={handleCancelClick}
+              handleOrderClick={handleOrderClick}
+            />
+          )}
         </ReviewContainer>
       </ContentBox>
     </Container>

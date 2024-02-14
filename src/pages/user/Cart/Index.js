@@ -12,11 +12,7 @@ import {
   totalAmountSelector,
 } from "recoil/user/CartAtom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  useErrorAlert,
-  useQuestion2Alert,
-  useQuestionAlert,
-} from "@components/SweetAlert";
+import { useErrorAlert, useQuestion2Alert } from "@components/SweetAlert";
 
 const CartPage = () => {
   /* TODO: 버튼 비활성화 */

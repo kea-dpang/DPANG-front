@@ -71,12 +71,6 @@ function TableRow({ data }) {
     }));
   };
 
-  //처음에 렌더링할때 위로 옮김
-  useEffect(()=>{
-    window.scrollTo(0, 0);
-
-  }, [])
-
   //초기 rendering시 취소 리스트에 대한 정보를 API를 통해 받아온다
   useEffect(() => {
     //취소 내역 서버로 부터 받아오기
@@ -113,7 +107,7 @@ function TableRow({ data }) {
           >
             <Col width="10rem">
               <Column>
-              <p>{a.orderDate}</p>
+                <p>{a.orderDate}</p>
                 <p>{a.orderId}</p>
               </Column>
             </Col>
@@ -141,7 +135,9 @@ function TableRow({ data }) {
         handleValChange={handleValChange}
       />
     </>
-  ): <UserEmptyData text="조회 내역이 없어요...."/>
+  ) : (
+    <UserEmptyData text="조회 내역이 없어요...." />
+  );
 }
 
 export default TableRow;

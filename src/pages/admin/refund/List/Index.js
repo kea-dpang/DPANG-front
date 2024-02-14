@@ -9,13 +9,16 @@ import DataTable from "components/common/DataTable";
 import { useState, useEffect } from "react";
 import { GET_refund_list, PUT_update_status } from "@api/refund";
 import {
-  customRefundReason,
   customRefundStatus,
-  customRefundReasonReverse,
   customRefundStatusReverse,
 } from "assets/CustomName";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useQuestionAlert } from "@components/SweetAlert";
+import {
+  useQuestionAlert,
+  useErrorAlert,
+  useQuestion2Alert,
+  useQuestionConfirmAlert,
+} from "@components/SweetAlert";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -24,6 +27,10 @@ import Select from "@mui/material/Select";
 const Index = () => {
   const navigate = useNavigate();
   const showQuestionAlert = useQuestionAlert();
+
+  const showQuestionConfirmAlert = useQuestionConfirmAlert();
+  const showQuestion2Alert = useQuestion2Alert();
+
   //필터링을 해줄 dropdown 박스의 값. 첫 값은 이름, 뒤에 두 값은 필터링에 들어갈 value
   const dropdownValue = [
     "반품 상태",
@@ -41,6 +48,7 @@ const Index = () => {
   const page = searchParams.get("page") || 0;
   const [totalItems, setTotalItems] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState(dropdownValue[0]);
+  const errorAlert = useErrorAlert();
 
   const handlePagination = (page) => {
     console.log("지금 페이지네이션 페이지 : ", page);
@@ -85,24 +93,28 @@ const Index = () => {
     }));
   }, [page]);
 
-  const toNextStep = (id, state) => {
-    PUT_update_status(id, state)
-      .then((data) => {
-        console.log("성공-성공", data);
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.log("실패-실패", error);
-        throw error;
-      });
-  };
-
   const handleChange = (id, state) => {
-    showQuestionAlert({
-      title: "환불 상태를 변경하시겠습니까?",
-      text: "확인 클릭 시 해당 환불건에 대해서 상태가 업데이트 됩니다.",
-      saveText: "변경 되었습니다.",
-      onConfirm: () => toNextStep(id, state),
+    showQuestionConfirmAlert({
+      title: `상태를 변경하시겠습니까?`,
+      text: "확인 클릭 시 상태가 변경됩니다",
+      saveText: "변경되었습니다.",
+      navi: null,
+
+      onConfirm: async () => {
+        try {
+          const data = await PUT_update_status(id, state);
+        } catch (error) {
+          // console.log(error);
+          if (error.response.status === 400) {
+            // 이후에 없애도 될듯
+            errorAlert({
+              title: "이전 상태로 돌아갈 수 없습니다",
+            });
+            // console.log("showQuestion2Alert 호출 후");
+          }
+          throw error; // 에러를 다시 던져서 외부 catch 블록에서 잡을 수 있게 한다
+        }
+      },
     });
   };
 
@@ -145,7 +157,11 @@ const Index = () => {
         },
       },
     },
-    { name: "refundRequestDate", label: "취소 요청일", options: { sort: false } },
+    {
+      name: "refundRequestDate",
+      label: "취소 요청일",
+      options: { sort: false },
+    },
     {
       name: "product",
       label: "상품 정보",
@@ -158,7 +174,7 @@ const Index = () => {
               style={{ display: "flex", height: "6rem", alignItems: "center" }}
             >
               <img style={{ width: "5rem" }} src={value.productInfoDto.image} />
-              <P style={{paddingLeft: "1rem"}}>{value.productInfoDto.name}</P>
+              <P style={{ paddingLeft: "1rem" }}>{value.productInfoDto.name}</P>
             </div>
           );
         },
@@ -179,7 +195,9 @@ const Index = () => {
 
             return (
               <div>
-                <p>{price.toLocaleString()} / {amt}</p>
+                <p>
+                  {price.toLocaleString()} / {amt}
+                </p>
               </div>
             );
           }
@@ -223,7 +241,11 @@ const Index = () => {
                       <MenuItem value="REFUND_COMPLETE">환불 완료</MenuItem>
                     </Select>
                   </FormControl>
-                ) : <div style={{margin: "10px"}}>{customRefundStatus(state)}</div>}
+                ) : (
+                  <div style={{ margin: "10px" }}>
+                    {customRefundStatus(state)}
+                  </div>
+                )}
               </ButtonContainer>
             );
           }
@@ -260,6 +282,10 @@ const Index = () => {
                 width: "25rem",
                 height: "3rem",
               }}
+              onSubmit={(e) => {
+                e.preventDefault(); // form의 기본 이벤트인 새로고침 방지
+                handleSearch();
+              }}
             >
               {/* 검색어 입력창 */}
               <InputBase
@@ -272,7 +298,7 @@ const Index = () => {
               />
               {/* 검색 버튼 (돋보기) */}
               <IconButton
-                type="button"
+                type="submit"
                 aria-label="search"
                 onClick={() => {
                   handleSearch();
@@ -340,7 +366,6 @@ const ListSection = styled.div`
   justify-content: center;
   align-items: flex-start;
 `;
-
 
 const ButtonContainer = styled.div`
   width: 5.2rem;

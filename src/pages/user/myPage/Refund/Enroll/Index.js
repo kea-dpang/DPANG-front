@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import ReviewBox from "./ReviewBox";
-
+import { useEffect } from "react";
 
 const Container = styled.div`
   min-height: 100vh;
@@ -20,10 +20,16 @@ const ReviewContainer = styled.div`
 `;
 
 function Index() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <Container>
       <ContentBox>
-        <ReviewContainer><ReviewBox /></ReviewContainer>
+        <ReviewContainer>
+          <ReviewBox />
+        </ReviewContainer>
       </ContentBox>
     </Container>
   );

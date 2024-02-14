@@ -82,13 +82,15 @@ const Index = (props) => {
     },
     { name: "name", label: "이름" },
     { name: "depositorName", label: "입금자명" },
-    { name: "requestedMileage", label: "충전 희망 금액", options: { 
-      customBodyRender: (value) =>{
-
-        return value.toLocaleString()
-
-      }
-    }},
+    {
+      name: "requestedMileage",
+      label: "충전 희망 금액",
+      options: {
+        customBodyRender: (value) => {
+          return value.toLocaleString();
+        },
+      },
+    },
     {
       name: "chargeRequestId",
       label: "충전 상태",
@@ -121,9 +123,10 @@ const Index = (props) => {
                   거절
                 </Button>
               </ButtonBox>
-            ) : customMileageStatusName(status);
+            ) : (
+              customMileageStatusName(status)
+            );
           } else {
-
           }
         },
       },
@@ -162,6 +165,10 @@ const Index = (props) => {
                 width: "25rem",
                 height: "3rem",
               }}
+              onSubmit={(e) => {
+                e.preventDefault(); // form의 기본 이벤트인 새로고침 방지
+                props.handleSearch(searchData);
+              }}
             >
               {/* 검색어 입력창 */}
               <InputBase
@@ -174,7 +181,7 @@ const Index = (props) => {
               />
               {/* 검색 버튼 (돋보기) */}
               <IconButton
-                type="button"
+                type="submit"
                 aria-label="search"
                 onClick={() => {
                   props.handleSearch(searchData);

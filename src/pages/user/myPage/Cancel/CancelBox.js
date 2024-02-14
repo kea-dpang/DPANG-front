@@ -51,8 +51,6 @@ const NaviBar = styled.div`
 `;
 
 function ReviewBox(props) {
-  const navi = useNavigate();
-
   const head = [
     { width: "10rem", text: "날짜/주문번호" },
     { width: "10rem", text: "취소신청 일자" },
@@ -72,16 +70,10 @@ function ReviewBox(props) {
         <PeriodSelector />
       </CalenderBox>
       <NavBox className="cm-SBold18">
-        <NaviBar
-          colour="var(--dark-grey)"
-          onClick={props.handleOrderClick}
-        >
+        <NaviBar colour="var(--dark-grey)" onClick={props.handleOrderClick}>
           주문/배송 조회
         </NaviBar>
-        <NaviBar
-          colour="var(--dark-grey)"
-          onClick={props.handleRefundClick}
-        >
+        <NaviBar colour="var(--dark-grey)" onClick={props.handleRefundClick}>
           반품 조회
         </NaviBar>
         <NaviBar colour="var(--navy)">취소 조회</NaviBar>
