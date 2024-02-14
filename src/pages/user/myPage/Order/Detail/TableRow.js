@@ -168,7 +168,7 @@ function TableRow(props) {
                 {customOrderStatus(b.orderStatus)}
               </Col>
               <Col width="22rem">
-                <ItemImg src={b.productInfoDto.image} /> &nbsp; &nbsp;
+                <ItemImg src={b.productInfoDto.image} />
                 <ItemName>{b.productInfoDto.name}</ItemName>
               </Col>
               <Col width="11rem">

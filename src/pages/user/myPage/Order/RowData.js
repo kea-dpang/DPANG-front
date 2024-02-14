@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { POST_cancel_order } from "@api/cancel";
 import { customOrderStatus } from "assets/CustomName";
 import ArrowImg from "assets/images/UpArrowVector.svg";
-import { idID } from "@mui/material/locale";
 import { useQuestionAlert, useErrorAlert } from "@components/SweetAlert";
 
 function RowData(props) {
@@ -44,6 +43,8 @@ function RowData(props) {
 
   useEffect(() => {
     setRowHeight(6);
+    setClick(false);
+    rotate % 360 === 0 ? setRotate(0) : setRotate(180);
   }, [data]);
 
   const handleConfirm = (orderId, orderDetailId) => {

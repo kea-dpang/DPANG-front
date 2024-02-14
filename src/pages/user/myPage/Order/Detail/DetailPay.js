@@ -16,7 +16,9 @@ function DetailPay(props) {
           </Col>
           <ColHeader>배송비</ColHeader>
           <Col width="26rem">
-            <DataBox width="24rem">{data.paymentInfo.deliveryFee.toLocaleString()} 마일</DataBox>
+            <DataBox width="24rem">
+              {data.paymentInfo.deliveryFee.toLocaleString()} 마일
+            </DataBox>
           </Col>
         </Row>
 
@@ -32,7 +34,7 @@ const Container = styled.div`
 const Border = styled.div`
   height: 1px;
   width: 72rem;
-  background-color: black;
+  border-bottom: 1px solid black;
 `;
 
 const TableBox = styled.div`
