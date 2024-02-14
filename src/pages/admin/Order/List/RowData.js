@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import ArrowImg from "assets/images/UpArrowVector.svg";
-import { useQuestionAlert } from "@components/SweetAlert";
+import { useQuestionAlert, useErrorAlert } from "@components/SweetAlert";
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { PUT_change_status } from "@api/order";
@@ -15,6 +15,8 @@ function RowData(props) {
 
   const data = props.data;
   const [click, setClick] = useState(false);
+
+  const showErrorAlert = useErrorAlert();
 
   const [rowHeight, setRowHeight] = useState(6);
 
@@ -80,10 +82,12 @@ function RowData(props) {
         window.location.reload();
       })
       .catch((error) => {
-        console.log("실패", error);
+        showErrorAlert({
+          title: "상태변경에 실패하였습니다.",
+          text: "해당 상태로 변경이 불가능합니다.",
+        });
         console.error("에러 상세정보:", error.response.data);
-        throw error;
-      });
+      }); 
   };
 
   // 이전 상태를 기억하는 변수 추가
@@ -187,7 +191,6 @@ function RowData(props) {
                         </MenuItem>
                         <MenuItem value="IN_DELIVERY">배송중</MenuItem>
                         <MenuItem value="DELIVERY_COMPLETED">배송완료</MenuItem>
-                        <MenuItem value="CANCELLED">취소/환불</MenuItem>
                       </Select>
                     </FormControl>
                   ) : null}

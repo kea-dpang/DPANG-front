@@ -12,6 +12,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import TableHeader from "@components/MypageTableHeader";
 import TableRow from "./TableRow";
 import { GET_order_list } from "@api/order";
+import UserPagination from "@components/UserPagination";
 
 const OrderBox = (props) => {
 
@@ -30,20 +31,14 @@ const OrderBox = (props) => {
       ];
       const [orderList, setOrderList] = useState([]);
       const [searchVal, setSearchVal] = useState();
+      const [numOfElement, setNumOfElement] = useState(0);
+
     
       const location = useLocation();
       const searchParams = new URLSearchParams(location.search);
       const page = searchParams.get("page") || 0;
       const [totalItems, setTotalItems] = useState(0);
-    
-      const handlePagination = (page) => {
-        console.log("지금 페이지네이션 페이지 : ", page);
-        navigate(`?page=${page}`);
-        setVal((prev) => ({
-          ...prev,
-          page: page,
-        }));
-      };
+
     
     
       const [selectedCategory, setSelectedCategory] = useState(dropdownValue[0]);
@@ -76,6 +71,12 @@ const OrderBox = (props) => {
         sort: "",
       });
     
+      const handleValChange = (page) => {
+        setVal((prevVal) => ({
+          ...prevVal,
+          page: page - 1,
+        }));
+      };
     
 
 
@@ -85,6 +86,7 @@ const OrderBox = (props) => {
           .then((data) => {
             console.log("주문목록조회 성공", data);
             setOrderList(data.data.content);
+            setNumOfElement(data.data.totalElements);
             setTotalItems(data.data.totalElements);
           })
           .catch((error) => {
@@ -173,12 +175,14 @@ const OrderBox = (props) => {
                 filterValue={selectedCategory}
                 index={"orderState"}
                 placeholder={dropdownValue[0]}
-                onChangePage={handlePagination}
                 count={totalItems}
                 selectedOrderStatus={selectedCategory} // 선택된 orderStatus를 전달합니다
                 handleSearch={handleSearch}
                 />
-            
+              <UserPagination
+                numOfElement={numOfElement}
+                handleValChange={handleValChange}
+              />
         </TableBox>
           {/* )} */}
         </ListSection>
