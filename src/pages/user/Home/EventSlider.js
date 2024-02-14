@@ -6,7 +6,7 @@ const EventSlide = ({ character, isActive }) => {
   return (
     // <Slide className={isActive ? "active" : null}>
     // {/* TODO: event id로 주소 바꾸기 */}
-    <Link to={`/user/event/product`}>
+    <Link to={`/user/event/brand`}>
       <Images $eventImg={character.imagePath} />
     </Link>
     // </Slide>

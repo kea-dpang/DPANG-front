@@ -1,30 +1,51 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const EventList = ({ data }) => {
-  console.log("impagePath: ", encodeURI(data.imagePath));
+const EventList = ({ data, isLink }) => {
+  console.log("data: ", data);
   return (
     <>
-      <Wrap>
-        <EventImg $imgUrl={encodeURI(data.imagePath)} />
-        <TestWrap>
-          <div className="cm-SBold18">{data.eventName}</div>
-          <div className="cm-SRegular16">
-            {data.startDate} ~ {data.endDate}
-          </div>
-        </TestWrap>
-      </Wrap>
+      {isLink ? (
+        <Wrap
+          to={`/user/collections/event/${data.id}`}
+          state={{
+            title: data.eventName,
+            sellerId: data.sellerId,
+            id: data.id,
+          }}
+        >
+          <EventImg $imgUrl={encodeURI(data.imagePath)} />
+          <TestWrap>
+            <div className="cm-SBold18">{data.eventName}</div>
+            <div className="cm-SRegular16">
+              {data.startDate} ~ {data.endDate}
+            </div>
+          </TestWrap>
+        </Wrap>
+      ) : (
+        <Wrap>
+          <EventImg $imgUrl={encodeURI(data.imagePath)} />
+          <TestWrap>
+            <div className="cm-SBold18">{data.eventName}</div>
+            <div className="cm-SRegular16">
+              {data.startDate} ~ {data.endDate}
+            </div>
+          </TestWrap>
+        </Wrap>
+      )}
     </>
   );
 };
 
 export default EventList;
 
-const Wrap = styled.div`
+const Wrap = styled(Link)`
   display: flex;
   padding: 1.4375rem 2.0625rem;
   flex-direction: column;
   align-items: flex-start;
+  color: inherit;
 `;
 const EventImg = styled.div`
   width: 28.8125rem;
