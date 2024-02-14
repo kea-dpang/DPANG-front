@@ -18,6 +18,7 @@ import {
 } from "recoil/user/CartAtom";
 import { useRecoilValue } from "recoil";
 import {
+  useErrorAlert,
   useQuestion2Alert,
   useQuestionConfirmAlert,
 } from "@components/SweetAlert";
@@ -31,6 +32,8 @@ const OrderPage = () => {
     watch,
   } = methods;
 
+  const watchAllFields = watch();
+
   const [FoldCheck, setFoldCheck] = useState([
     { id: 0, name: "배송지", check: true },
     { id: 1, name: "주문", check: true },
@@ -38,11 +41,12 @@ const OrderPage = () => {
 
   const isEditing = watch("edit"); // edit 버튼을 누르면 true (EnrollAddress 컴포넌트가 보여야 한다.)
 
-  const [addressInfo, setAddressInfo] = useState();
+  const [addressInfo, setAddressInfo] = useState({});
   let orderItemList = JSON.parse(localStorage.getItem("orderList"));
   const navigate = useNavigate();
 
   // alert
+  const showErrorAlert = useErrorAlert();
   const showQuestionConfirmAlert = useQuestionConfirmAlert();
   const showQuestion2Alert = useQuestion2Alert();
 
@@ -93,40 +97,52 @@ const OrderPage = () => {
 
   /* 주문하기 */
   const handleOrderBtn = () => {
-    showQuestionConfirmAlert({
-      title: `결제하시겠습니까?`,
-      text: "확인 클릭 시 마일이 소진됩니다.",
-      saveText: "결제되었습니다.",
-      navi: "/user/mainpage",
+    console.log("watchAllFields:", watchAllFields);
+    if (
+      watchAllFields.phoneNumber === "" ||
+      watchAllFields.zipcode === "" ||
+      watchAllFields.address === ""
+    ) {
+      showErrorAlert({
+        title: "배송지 정보를 입력해주세요.",
+        text: "입력 후 추가 버튼을 눌러야 저장됩니다.",
+      });
+    } else {
+      showQuestionConfirmAlert({
+        title: `결제하시겠습니까?`,
+        text: "확인 클릭 시 마일이 소진됩니다.",
+        saveText: "결제되었습니다.",
+        navi: "/user/mainpage",
 
-      onConfirm: async () => {
-        try {
-          const data = await POST_Order(addressInfo, checkedItems);
-          console.log(data);
-          const remainedMileage =
-            data.data.mileageInfo.mileage +
-            data.data.mileageInfo.personalChargedMileage;
-          localStorage.setItem("totalMileage", remainedMileage);
-        } catch (error) {
-          // console.log(error);
-          if (error.response.status === 400) {
-            // console.log(400);
-            const totalMileage = localStorage.getItem("totalMileage");
+        onConfirm: async () => {
+          try {
+            const data = await POST_Order(addressInfo, checkedItems);
+            console.log(data);
+            const remainedMileage =
+              data.data.mileageInfo.mileage +
+              data.data.mileageInfo.personalChargedMileage;
+            localStorage.setItem("totalMileage", remainedMileage);
+          } catch (error) {
+            // console.log(error);
+            if (error.response.status === 400) {
+              // console.log(400);
+              const totalMileage = localStorage.getItem("totalMileage");
 
-            // 이후에 없애도 될듯
-            showQuestion2Alert({
-              title: `${(totalAmount + 3000 - totalMileage).toLocaleString(
-                "ko-KR"
-              )} 마일이 부족합니다.`,
-              text: "마일리지 충전 페이지로 이동하시겠습니까?",
-              navi: "/user/mypage/mileage/req",
-            });
-            // console.log("showQuestion2Alert 호출 후");
+              // 이후에 없애도 될듯
+              showQuestion2Alert({
+                title: `${(totalAmount + 3000 - totalMileage).toLocaleString(
+                  "ko-KR"
+                )} 마일이 부족합니다.`,
+                text: "마일리지 충전 페이지로 이동하시겠습니까?",
+                navi: "/user/mypage/mileage/req",
+              });
+              // console.log("showQuestion2Alert 호출 후");
+            }
+            throw error; // 에러를 다시 던져서 외부 catch 블록에서 잡을 수 있게 한다
           }
-          throw error; // 에러를 다시 던져서 외부 catch 블록에서 잡을 수 있게 한다
-        }
-      },
-    });
+        },
+      });
+    }
   };
 
   return (
