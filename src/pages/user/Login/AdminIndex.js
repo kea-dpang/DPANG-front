@@ -37,8 +37,6 @@ const AdminLoginPage = () => {
           localStorage.setItem("email", userData.email);
           localStorage.setItem("role", "ADMIN");
 
-          navigate("/admin/user");
-
           // accessToken, refreshToken은 쿠키에 저장
           setCookie("accessToken", data.data.token.accessToken, {
             expires: 7,
@@ -48,6 +46,8 @@ const AdminLoginPage = () => {
             expires: 7,
             path: "/",
           });
+
+          navigate("/admin/user");
         } else {
           showErrorAlert({
             title: "관리자 권한이 없습니다.",
