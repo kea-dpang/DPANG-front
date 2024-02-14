@@ -8,6 +8,7 @@ import { customDate } from "assets/CustomName";
 import { useRecoilValue } from "recoil";
 import { periodAtom } from "recoil/user/PeriodSelectAtom";
 import UserPagination from "@components/UserPagination";
+import UserEmptyData from "@components/UserEmptyData";
 
 const Row = styled.div`
   width: 72rem;
@@ -92,29 +93,39 @@ function TableRow(props) {
     }));
   };
 
+  if(!reviewData){
+    <UserEmptyData text="리뷰 작성 내역이 없어요....." />
+  }
+
   return (
     <>
-      {reviewData.map((a, i) => {
-        return (
-          <Row className="cm-SRegular16" key={i} onClick={()=>{props.handleClick(a)}}>
-            <Col width="10rem">{customDate(a.createdTime)}</Col>
-            <Col width="22rem">
-              <ItemImg src={a.itemThumbnailImage} />
-              <ItemName>{a.itemName}</ItemName>
-            </Col>
-            <Col width="25rem">{trimContent(a.content)}</Col>
-            <Col width="15rem">
-              <Rating name="read-only" value={a.rating} readOnly />
-            </Col>
-          </Row>
-        );
-      })}
+      {reviewData.numberOfElements === 0 ? (
+        <UserEmptyData text="리뷰 작성 내역이 없어요....." />
+      ) : (
+        <>
 
-      {/* pagination component에 리스트에서 원소의 개수, 전달해줄 value값, 그리고 값이 변경되었을때, state를 업데이트 시켜줄 함수를 props로 보낸다 */}
-      <UserPagination
-        numOfElement={numOfElement}
-        handleValChange={handleValChange}
-      />
+          {reviewData.map((a, i) => {
+            return (
+              <Row className="cm-SRegular16" key={i} onClick={() => { props.handleClick(a) }}>
+                <Col width="10rem">{customDate(a.createdTime)}</Col>
+                <Col width="22rem">
+                  <ItemImg src={a.itemThumbnailImage} />
+                  <ItemName>{a.itemName}</ItemName>
+                </Col>
+                <Col width="25rem">{trimContent(a.content)}</Col>
+                <Col width="15rem">
+                  <Rating name="read-only" value={a.rating} readOnly />
+                </Col>
+              </Row>
+            );
+          })}
+
+          <UserPagination
+            numOfElement={numOfElement}
+            handleValChange={handleValChange}
+          />
+        </>
+      )}
     </>
   );
 }

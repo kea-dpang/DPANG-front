@@ -26,7 +26,7 @@ export const GET_review_list = async (inputValue) => {
 
   const res = await instance({
     method: "get",
-    url: `/api/${inputValue.reviewerId}/list`,
+    url: `${url}/${inputValue.reviewerId}/list`,
     params: {
       page: 0,
       size: 10,
