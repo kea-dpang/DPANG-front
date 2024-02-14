@@ -26,11 +26,13 @@ export const GET_review_list = async (inputValue) => {
 
   const res = await instance({
     method: "get",
-    url: `/api/reviewers/${inputValue.reviewerId}/reviews`,
+    url: `/api/${inputValue.reviewerId}/list`,
     params: {
       page: 0,
       size: 10,
       sort: "",
+      startDate: inputValue.startDate || undefined,
+      endDate: inputValue.endDate || undefined,
     },
   });
 
