@@ -67,6 +67,7 @@ const Button = styled.button`
   border-radius: 3px;
   ${(props) => setButton(props.status)};
   color: white;
+  cursor: pointer;
 `;
 const setButton = (s) => {
   switch (s) {
@@ -84,6 +85,7 @@ const Button1 = styled.button`
   border-radius: 3px;
   ${(props) => setButton1(props.status)};
   color: white;
+  cursor: pointer;
 `;
 const setButton1 = (s) => {
   switch (s) {
@@ -102,6 +104,7 @@ const Button2 = styled.button`
   ${(props) => setButton2(props.status)};
   color: var(--navy);
   border: 1px var(--navy) solid;
+  cursor: pointer;
 `;
 const setButton2 = (s) => {
   switch (s) {
@@ -125,21 +128,15 @@ function TableRow(props) {
   const showQuestionAlert = useQuestionAlert();
   const showErrorAlert = useErrorAlert();
   const handleCancel = (orderId, orderDetailId) => {
-
     showQuestionAlert({
       title: "취소하시겠습니까?",
       text: "확인시 즉시 취소 됩니다.",
       saveText: "신청 승인 되었습니다.",
       onConfirm: () => handleConfirm(orderId, orderDetailId),
     });
-
-
-
-  }
+  };
 
   const handleConfirm = (orderId, orderDetailId) => {
-
-
     POST_cancel_order(orderId, orderDetailId)
       .then((data) => {
         console.log("성공함", data);
@@ -148,16 +145,12 @@ function TableRow(props) {
       .catch((error) => {
         console.log("실패함", error);
         showErrorAlert({
-          title: "오류가 발생했습니다", 
-          text: "잠시후 다시 시도해주세요", 
-        })
+          title: "오류가 발생했습니다",
+          text: "잠시후 다시 시도해주세요",
+        });
         window.location.reload();
       });
-
-
-
-
-  }
+  };
 
   return (
     <Row className="cm-SRegular16">
@@ -170,11 +163,10 @@ function TableRow(props) {
       <ItemColBox>
         {data.productList.map((b, i) => {
           return (
-            <ItemCol
-              key={i}
-              i={i}
-            >
-              <Col width="11rem" status={b.orderStatus}>{customOrderStatus(b.orderStatus)}</Col>
+            <ItemCol key={i} i={i}>
+              <Col width="11rem" status={b.orderStatus}>
+                {customOrderStatus(b.orderStatus)}
+              </Col>
               <Col width="22rem">
                 <ItemImg src={b.productInfoDto.image} /> &nbsp; &nbsp;
                 <ItemName>{b.productInfoDto.name}</ItemName>
@@ -188,7 +180,10 @@ function TableRow(props) {
                 <ButtonBox>
                   <Button
                     status={customOrderStatus(b.orderStatus)}
-                    onClick={(e) => { e.stopPropagation(); handleCancel(data.orderId, b.orderDetailId); }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleCancel(data.orderId, b.orderDetailId);
+                    }}
                   >
                     취소
                   </Button>

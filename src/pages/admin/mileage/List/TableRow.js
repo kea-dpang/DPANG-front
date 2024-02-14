@@ -256,6 +256,7 @@ const Button = styled.div`
   color: white;
   border-radius: 3px;
   margin: 0.5rem;
+  cursor: pointer;
 `;
 
 const ButtonBox = styled.div`

@@ -214,6 +214,7 @@ const Button = styled.button`
   border-radius: 3px;
   ${(props) => setButton(props.status)};
   color: white;
+  cursor: pointer;
 `;
 const setButton = (s) => {
   switch (s) {
@@ -231,6 +232,7 @@ const Button1 = styled.button`
   border-radius: 3px;
   ${(props) => setButton1(props.status)};
   color: white;
+  cursor: pointer;
 `;
 const setButton1 = (s) => {
   switch (s) {
@@ -249,6 +251,7 @@ const Button2 = styled.button`
   ${(props) => setButton2(props.status)};
   color: var(--navy);
   border: 1px var(--navy) solid;
+  cursor: pointer;
 `;
 
 const Arrow = styled.img`

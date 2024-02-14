@@ -48,6 +48,7 @@ const NaviBar = styled.div`
   align-items: center;
   justify-content: center;
   color: white;
+  cursor: pointer;
 `;
 
 function ReviewBox(props) {
