@@ -94,6 +94,9 @@ const UserListPage = () => {
               />
               {/* 검색창 */}
               <Paper
+                onSubmit={(e) => {
+                  e.preventDefault(); // form의 기본 이벤트인 새로고침 방지
+                }}
                 component="form"
                 sx={{
                   p: "0rem 1rem",
@@ -112,7 +115,7 @@ const UserListPage = () => {
                 />
                 {/* 검색 버튼 (돋보기) */}
                 <IconButton
-                  type="button"
+                  type="submit"
                   aria-label="search"
                   onClick={handleSubmit(onSubmit)}
                 >
