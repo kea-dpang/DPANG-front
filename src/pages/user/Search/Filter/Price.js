@@ -27,7 +27,7 @@ const Price = ({ value, setValue }) => {
           onChange={handleChange}
           valueLabelDisplay="auto"
           step={1000}
-          max={2000000}
+          max={500000}
           sx={{
             "& .MuiSlider-thumb": {
               width: 20, // thumb(슬라이더 조절하는 원형 부분)의 크기

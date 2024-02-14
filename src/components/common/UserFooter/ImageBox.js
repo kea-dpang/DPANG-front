@@ -5,19 +5,30 @@ import InstaIcon from "assets/images/userFooterIcon/instagram.svg";
 import GithubIcon from "assets/images/userFooterIcon/github.svg";
 
 function ImageBox() {
-
-const handleIconClick = (url) =>{
-
-  window.location.href = url;
-
-}
+  const handleIconClick = (url) => {
+    window.location.href = url;
+  };
 
   return (
     <ImageContainer>
-      <Image src={FacebookIcon} onClick={()=>{handleIconClick("https://www.facebook.com/?locale=ko_KR")}}/>
-      <Image src={InstaIcon} onClick={()=>{handleIconClick("https://www.instagram.com/")}}/>
-      <Image src={GithubIcon} onClick={()=>{handleIconClick("https://github.com/kea-dpang")}}/>
-
+      <Image
+        src={FacebookIcon}
+        onClick={() => {
+          handleIconClick("https://www.facebook.com/?locale=ko_KR");
+        }}
+      />
+      <Image
+        src={InstaIcon}
+        onClick={() => {
+          handleIconClick("https://www.instagram.com/");
+        }}
+      />
+      <Image
+        src={GithubIcon}
+        onClick={() => {
+          handleIconClick("https://github.com/kea-dpang");
+        }}
+      />
     </ImageContainer>
   );
 }
