@@ -49,6 +49,7 @@ const NaviBar = styled.div`
   align-items: center;
   justify-content: center;
   color: white;
+  cursor: pointer;
 `;
 
 function ReviewBox(props) {
@@ -75,17 +76,11 @@ function ReviewBox(props) {
         <PeriodSelector />
       </CalenderBox>
       <NavBox className="cm-SBold18">
-        <NaviBar
-          colour="var(--dark-grey)"
-          onClick={props.handleOrderClick}
-        >
+        <NaviBar colour="var(--dark-grey)" onClick={props.handleOrderClick}>
           주문/배송 조회
         </NaviBar>
         <NaviBar colour="var(--navy)">반품 조회</NaviBar>
-        <NaviBar
-          colour="var(--dark-grey)"
-          onClick={props.handleCancelClick}
-        >
+        <NaviBar colour="var(--dark-grey)" onClick={props.handleCancelClick}>
           취소 조회
         </NaviBar>
       </NavBox>

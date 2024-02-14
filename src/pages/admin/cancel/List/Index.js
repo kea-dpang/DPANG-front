@@ -10,7 +10,6 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { GET_cancel_list } from "@api/cancel";
 
-
 const Index = () => {
   const navigate = useNavigate();
   //서버로부터 받아올 값을 저장해놓을 리스트
@@ -28,16 +27,12 @@ const Index = () => {
     navigate(`?page=${page}`);
   };
 
-
   const handleSearch = () => {
-
-  
     setVal((prev) => ({
       ...prev,
       userId: searchData,
-    }))
-
-  }
+    }));
+  };
 
   const [val, setVal] = useState({
     userId: "",
@@ -53,7 +48,7 @@ const Index = () => {
     GET_cancel_list(val)
       .then((data) => {
         console.log(data.data, "성공했다!!");
-        setTotalItems(data.data.totalElements)
+        setTotalItems(data.data.totalElements);
         setCancelList(data.data.content);
       })
       .catch((error) => {
@@ -81,18 +76,21 @@ const Index = () => {
           //ID를 기준으로 데이터 찾기
           const rowData = cancelList.find((row) => row.cancelId === value);
           if (rowData != null) {
-
             return (
               <div>
                 <p>{rowData.orderDate}</p>
                 <p>{rowData.orderId}</p>
               </div>
-            )
+            );
           }
         },
       },
     },
-    { name: "cancelRequestDate", label: "취소 요청일", options: { sort: false } },
+    {
+      name: "cancelRequestDate",
+      label: "취소 요청일",
+      options: { sort: false },
+    },
     // { name: "name", label: "이름" },
     {
       name: "cancelId",
@@ -109,7 +107,11 @@ const Index = () => {
             return (
               //이미지와 상품명 표시
               <div
-                style={{ display: "flex", height: "6rem", alignItems: "center" }}
+                style={{
+                  display: "flex",
+                  height: "6rem",
+                  alignItems: "center",
+                }}
               >
                 <img style={{ width: "5rem" }} src={img} />
                 <P>{name}</P>
@@ -128,7 +130,8 @@ const Index = () => {
           //ID를 기준으로 데이터 가져옴
           const rowData = cancelList.find((row) => row.cancelId === value);
           if (rowData != null) {
-            const quantity = rowData.product.productInfoDto.price.toLocaleString();
+            const quantity =
+              rowData.product.productInfoDto.price.toLocaleString();
             const name = rowData.product.productQuantity;
 
             return (
@@ -139,7 +142,6 @@ const Index = () => {
             );
           }
         },
-
       },
     },
   ];
@@ -147,8 +149,6 @@ const Index = () => {
     //ID값 전달 위해 url에 ID값 추가
     navigate(`/admin/cancel/${rowData[0]}`);
   };
-
- 
 
   //선택한 드롭 박스의 값을 저장하기 위한 state 변수
   const [selectedCategory, setSelectedCategory] = useState(dropdownValue[0]);
@@ -158,7 +158,7 @@ const Index = () => {
   };
 
   if (!cancelList) {
-    return <></>
+    return <></>;
   }
 
   return (
@@ -180,6 +180,10 @@ const Index = () => {
                 width: "25rem",
                 height: "3rem",
               }}
+              onSubmit={(e) => {
+                e.preventDefault(); // form의 기본 이벤트인 새로고침 방지
+                handleSearch();
+              }}
             >
               {/* 검색어 입력창 */}
               <InputBase
@@ -191,10 +195,13 @@ const Index = () => {
                 }}
               />
               {/* 검색 버튼 (돋보기) */}
-              <IconButton type="button" aria-label="search"
+              <IconButton
+                type="submit"
+                aria-label="search"
                 onClick={() => {
                   handleSearch();
-                }}>
+                }}
+              >
                 <SearchIcon />
               </IconButton>
             </Paper>

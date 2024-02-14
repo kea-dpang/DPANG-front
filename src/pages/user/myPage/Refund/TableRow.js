@@ -68,18 +68,15 @@ function TableRow({ data }) {
     sort: "",
   });
 
-    //하위 component에서 전달받은 새로운 val 값으로 업데이트 해준다
-    const handleValChange = (page) => {
-      setVal((prevVal) => ({
-        ...prevVal,
-        page: page - 1,
-      }));
-    };
-  
+  //하위 component에서 전달받은 새로운 val 값으로 업데이트 해준다
+  const handleValChange = (page) => {
+    setVal((prevVal) => ({
+      ...prevVal,
+      page: page - 1,
+    }));
+  };
 
   useEffect(() => {
-
-    window.scrollTo(0, 0);
     GET_refund_list(val)
       .then((data) => {
         console.log(" 조회성공!!", data.data.content);
@@ -145,7 +142,9 @@ function TableRow({ data }) {
         handleValChange={handleValChange}
       />
     </>
-  ): <UserEmptyData text="조회 내역이 없어요...."/>
+  ) : (
+    <UserEmptyData text="조회 내역이 없어요...." />
+  );
 }
 
 export default TableRow;

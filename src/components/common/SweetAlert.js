@@ -79,9 +79,10 @@ export const useConfirmAlert2 = () => {
 
 export const useQuestionAlert = () => {
   const navigate = useNavigate();
+  const errorAlert = useErrorAlert();
 
   const showQuestionAlert = useCallback(
-    ({ title, text, saveText, navi, onConfirm }) => {
+    ({ title, text, saveText, navi, onConfirm, errorText }) => {
       swal({
         title: title,
         text: text,
@@ -89,37 +90,48 @@ export const useQuestionAlert = () => {
         buttons: ["취소", "확인"],
         dangerMode: true,
         navi: navi,
-      }).then((isConfirmed) => {
-        if (isConfirmed) {
-          if (saveText !== "") {
-            swal(saveText, "", "success");
-          }
-          if (typeof onConfirm === "function") {
-            const result = onConfirm();
-            if (result instanceof Promise) {
-              result
-                .then(() => {
-                  if (navi !== "") {
-                    navigate(navi);
-                  } else {
-                    window.location.reload();
-                  }
-                })
-                .catch(() => {
-                  window.location.reload();
-                });
-            } else {
-              if (navi !== "") {
-                navigate(navi);
+        errorText: errorText,
+      })
+        .then((isConfirmed) => {
+          if (isConfirmed) {
+            if (saveText !== "") {
+              swal(saveText, "", "success");
+            }
+            if (typeof onConfirm === "function") {
+              const result = onConfirm();
+              if (result instanceof Promise) {
+                result
+                  .then(() => {
+                    if (navi !== "") {
+                      navigate(navi);
+                    } else {
+                      window.location.reload();
+                    }
+                  })
+                  .catch((error) => {
+                    // 오류 발생 시 errorAlert 호출
+                    errorAlert({
+                      title: errorText,
+                    });
+                  });
               } else {
-                window.location.reload();
+                if (navi !== "") {
+                  navigate(navi);
+                } else {
+                  window.location.reload();
+                }
               }
             }
           }
-        }
-      });
+        })
+        .catch((error) => {
+          // 오류 발생 시 errorAlert 호출
+          errorAlert({
+            title: errorText,
+          });
+        });
     },
-    [navigate]
+    [navigate, errorAlert]
   );
 
   // 외부에서 showQuestionAlert 함수를 사용할 수 있도록 반환
@@ -149,6 +161,8 @@ export const useQuestionConfirmAlert = () => {
                   if (isConfirmed) {
                     if (navi) {
                       navigate(navi);
+                    } else {
+                      window.location.reload();
                     }
                   }
                 });
