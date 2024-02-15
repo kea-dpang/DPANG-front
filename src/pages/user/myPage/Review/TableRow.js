@@ -66,7 +66,7 @@ function TableRow(props) {
     GET_review_list(val)
       .then((data) => {
         console.log(data);
-        setReviewData(data.data);
+        setReviewData(data.data.content);
       })
       .catch((error) => {
         console.log(error);
