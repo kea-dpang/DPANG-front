@@ -47,6 +47,38 @@
  ┗ 📜setupProxy.js
 ```
 
+
+
+
+## 🏃🏻‍♀️ 프로젝트 개발/실행
+1. 레포지토리 클론
+```
+git clone https://github.com/kea-dpang/DPANG-front.git
+```
+
+2. 필요한 패키지 설치
+```
+npm install
+```
+
+3. 프로젝트 실행
+```
+npm start
+```
+
+**참고) develop 브랜치로 진행해 주세요.**
+
+
+## 🤙🏻 커밋규칙
+- feat: 처음 만들 때
+- fix: 기능 개발, 기능 수정
+- chore : 자잘한 로직적 버그 수정
+- style : UI 측면 개발/수정 (퍼블리싱)
+- docs : 문서, 구조 관련 커밋
+- refactor: 코드 기능을 변경하지 않고, 가독성 개선, 중복 코드 제거, 명명법 변경 등
+
+## 🗂️ 프로젝트 상세 구조
+
 ```
 DPANG-front
 ├─ .dockerignore
@@ -481,32 +513,3 @@ DPANG-front
          └─ withAuth.js
 
 ```
-
-
-## 🏃🏻‍♀️ 프로젝트 개발/실행
-1. 레포지토리 클론
-```
-git clone https://github.com/kea-dpang/DPANG-front.git
-```
-
-2. 필요한 패키지 설치
-```
-npm install
-```
-
-3. 프로젝트 실행
-```
-npm start
-```
-
-**참고) develop 브랜치로 진행해 주세요.**
-
-
-## 🤙🏻 커밋규칙
-- feat: 처음 만들 때
-- fix: 기능 개발, 기능 수정
-- chore : 자잘한 로직적 버그 수정
-- style : UI 측면 개발/수정 (퍼블리싱)
-- docs : 문서, 구조 관련 커밋
-- refactor: 코드 기능을 변경하지 않고, 가독성 개선, 중복 코드 제거, 명명법 변경 등
-
