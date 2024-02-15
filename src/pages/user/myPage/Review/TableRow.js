@@ -51,7 +51,7 @@ function TableRow(props) {
   //기간 값 설정
   const period = useRecoilValue(periodAtom);
   const [val, setVal] = useState({
-    reviewerId: id,             //skwn
+    reviewerId: id, //skwn
     page: 0,
     size: 10,
     sort: "",
@@ -66,7 +66,7 @@ function TableRow(props) {
     GET_review_list(val)
       .then((data) => {
         console.log(data);
-        setReviewData(data.data);
+        setReviewData(data.data.content);
       })
       .catch((error) => {
         console.log(error);
@@ -82,9 +82,6 @@ function TableRow(props) {
     }));
   }, [period]);
 
-
-
-
   //하위 component에서 전달받은 새로운 val 값으로 업데이트 해준다
   const handleValChange = (page) => {
     setVal((prevVal) => ({
@@ -93,8 +90,8 @@ function TableRow(props) {
     }));
   };
 
-  if(!reviewData){
-    <UserEmptyData text="리뷰 작성 내역이 없어요....." />
+  if (!reviewData) {
+    <UserEmptyData text="리뷰 작성 내역이 없어요....." />;
   }
 
   return (
@@ -103,10 +100,15 @@ function TableRow(props) {
         <UserEmptyData text="리뷰 작성 내역이 없어요....." />
       ) : (
         <>
-
           {reviewData.map((a, i) => {
             return (
-              <Row className="cm-SRegular16" key={i} onClick={() => { props.handleClick(a) }}>
+              <Row
+                className="cm-SRegular16"
+                key={i}
+                onClick={() => {
+                  props.handleClick(a);
+                }}
+              >
                 <Col width="10rem">{customDate(a.createdTime)}</Col>
                 <Col width="22rem">
                   <ItemImg src={a.itemThumbnailImage} />

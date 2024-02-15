@@ -6,6 +6,7 @@ import AdminLoginPage from "@userPages/Login/AdminIndex";
 import SignPage from "@userPages/Sign/Index";
 import FindPasswordPage from "@userPages/Login/FindPassword";
 import withAuth from "@utils/hoc/withAuth";
+import NotFoundPage from "@components/NotFound/Index";
 
 function App() {
   const AuthenticatedUserRoute = withAuth(UserRoute);
@@ -23,6 +24,7 @@ function App() {
 
           <Route path="/user/*" element={<AuthenticatedUserRoute />} />
           <Route path="/admin/*" element={<AuthenticatedAdminRoute />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </div>
