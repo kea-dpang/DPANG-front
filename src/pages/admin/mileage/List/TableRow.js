@@ -236,6 +236,8 @@ const SearchWrap = styled.div`
   display: flex;
   gap: 0.875rem;
   align-items: center;
+  justify-content: space-between;
+  width: 88.9375rem;
 `;
 const ListSection = styled.div`
   display: flex;
